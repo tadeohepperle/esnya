@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "816048333127",
+    "project_id": "esnya-food-tracker-development",
+    "storage_bucket": "esnya-food-tracker-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816048333127:android:eb1c43f12c6a4c29edec62",
+        "android_client_info": {
+          "package_name": "com.thapps.esnya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816048333127-c1r2ehi721m4u292nkp7g6rq4864tvhu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thapps.esnya",
+            "certificate_hash": "3b94b96147036f16eaa3ff6aabc58b2d5e7050b7"
+          }
+        },
+        {
+          "client_id": "816048333127-st957fv1j45r5nc1oithlq9vkcuugve4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtrmgGkVbG897YdstlBpMvLjzb5iqzZhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "816048333127-st957fv1j45r5nc1oithlq9vkcuugve4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
