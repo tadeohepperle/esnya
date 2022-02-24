@@ -50,8 +50,9 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           forwardedCall,
       Emitter<SignInFormState> emit) async {
     Either<AuthFailure, Unit>? failureOrSuccess;
-    final isEmailValid = state.emailAddress.isValid;
     final isPasswordValid = state.password.isValid;
+    final isEmailValid = state.emailAddress.isValid;
+
     if (isEmailValid && isPasswordValid) {
       emit(state.copyWith(
         isSubmitting: true,

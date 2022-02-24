@@ -13,6 +13,5 @@ class EmailAddress extends ValueObject<String> {
       validateEmailAddress(input),
     );
   }
-
   const EmailAddress._(this.value);
 }

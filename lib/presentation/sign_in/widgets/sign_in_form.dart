@@ -1,134 +1,152 @@
-import 'package:flushbar/flushbar_helper.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:esnya/application/auth/auth_bloc.dart';
+import 'package:esnya/presentation/core/constants.dart';
+import 'package:esnya/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore: implementation_imports
+import 'package:auto_route/src/router/auto_router_x.dart';
+import '../../../application/auth/sign_in_form/sign_in_form_bloc.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 class SignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInFormBloc, SignInFormState>(
-      listener: (context, state) {
-        state.authFailureOrSuccessOption.fold(
-          () {},
-          (either) => either.fold(
-            (failure) {
-              FlushbarHelper.createError(
-                message: failure.map(
-                  cancelledByUser: (_) => 'Cancelled',
-                  serverError: (_) => 'Server error',
-                  emailAlreadyInUse: (_) => 'Email already in use',
-                  invalidEmailAndPasswordCombination: (_) =>
-                      'Invalid email and password combination',
-                ),
-              ).show(context);
-            },
-            (_) {
-              // TODO: Navigate
-            },
-          ),
-        );
+        listener: listenBloc, builder: buildBloc);
+  }
+
+  listenBloc(BuildContext context, SignInFormState state) {
+    state.authFailureOrSuccessOption.fold(
+      () {
+        // none
+        print("authFailureOrSuccessOption: none");
       },
-      builder: (context, state) {
-        return Form(
-          autovalidate: state.showErrorMessages,
-          child: ListView(
+      (either) => either.fold(
+        (failure) {
+          final failureMessage = failure.map(
+            cancelledByUser: (_) => 'Cancelled by User',
+            serverError: (_) => 'Server error',
+            emailAlreadyInUse: (_) => 'Email already in use',
+            invalidEmailAndPasswordCombination: (_) =>
+                'Invalid email and password combination',
+          );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(failureMessage),
+          ));
+        },
+        (_) {
+          context.router.replace(HomeScreenRoute());
+          context.read<AuthBloc>().add(const AuthEvent.authCheckRequested());
+        },
+      ),
+    );
+  }
+
+  Widget buildBloc(BuildContext context, SignInFormState state) {
+    final bloc = context.read<SignInFormBloc>();
+    final autovalidateMode = state.showErrorMessages
+        ? AutovalidateMode.always
+        : AutovalidateMode.disabled;
+    return Padding(
+      padding: EdgeInsetsX.allLarge,
+      child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '📝',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 130),
+              Center(
+                child: Text(
+                  '🍏',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 130),
+                ),
               ),
-              const SizedBox(height: 8),
+              SizedBoxX.hSmall,
               TextFormField(
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email',
+                  icon: Icon(Icons.email),
+                  hintText: "enter Email",
+                  labelText: "Email",
                 ),
+                onChanged: (value) {
+                  bloc.add(SignInFormEvent.emailChanged(value));
+                },
                 autocorrect: false,
-                onChanged: (value) => context
-                    .bloc<SignInFormBloc>()
-                    .add(SignInFormEvent.emailChanged(value)),
-                validator: (_) => context
-                    .bloc<SignInFormBloc>()
-                    .state
-                    .emailAddress
-                    .value
-                    .fold(
-                      (f) => f.maybeMap(
-                        invalidEmail: (_) => 'Invalid Email',
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+                autovalidateMode: autovalidateMode,
+                validator: (value) {
+                  return bloc.state.emailAddress.value.fold(
+                      (l) => l.maybeMap(
+                          invalidEmail: (_) => "Invalid Email",
+                          orElse: () => null),
+                      (_) => null);
+                },
               ),
-              const SizedBox(height: 8),
+              SizedBoxX.hSmall,
               TextFormField(
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
-                  labelText: 'Password',
+                  icon: Icon(Icons.password),
+                  hintText: "enter Password",
+                  labelText: "Password",
                 ),
+                onChanged: (value) {
+                  bloc.add(SignInFormEvent.passwordChanged(value));
+                },
                 autocorrect: false,
                 obscureText: true,
-                onChanged: (value) => context
-                    .bloc<SignInFormBloc>()
-                    .add(SignInFormEvent.passwordChanged(value)),
-                validator: (_) =>
-                    context.bloc<SignInFormBloc>().state.password.value.fold(
-                          (f) => f.maybeMap(
-                            shortPassword: (_) => 'Short Password',
-                            orElse: () => null,
-                          ),
-                          (_) => null,
-                        ),
+                autovalidateMode: autovalidateMode,
+                validator: (value) {
+                  return bloc.state.password.value.fold(
+                      (l) => l.maybeMap(
+                          invalidPassword: (_) => "Invalid Password",
+                          orElse: () => null),
+                      (r) => null);
+                },
               ),
-              const SizedBox(height: 8),
+              SizedBoxX.hSmall,
               Row(
                 children: [
                   Expanded(
-                    child: FlatButton(
+                    child: ElevatedButton(
+                      child: const Text("SIGN IN"),
                       onPressed: () {
-                        context.bloc<SignInFormBloc>().add(
-                              const SignInFormEvent
-                                  .signInWithEmailAndPasswordPressed(),
-                            );
+                        bloc.add(
+                          const SignInFormEvent
+                              .signInWithEmailAndPasswordPressed(),
+                        );
                       },
-                      child: const Text('SIGN IN'),
                     ),
                   ),
+                  SizedBoxX.wSmall,
                   Expanded(
-                    child: FlatButton(
+                    child: ElevatedButton(
+                      child: const Text("REGISTER"),
                       onPressed: () {
-                        context.bloc<SignInFormBloc>().add(
-                              const SignInFormEvent
-                                  .registerWithEmailAndPasswordPressed(),
-                            );
+                        bloc.add(
+                          const SignInFormEvent
+                              .registerWithEmailAndPasswordPressed(),
+                        );
                       },
-                      child: const Text('REGISTER'),
                     ),
                   ),
                 ],
               ),
-              RaisedButton(
-                onPressed: () {
-                  context
-                      .bloc<SignInFormBloc>()
-                      .add(const SignInFormEvent.signInWithGooglePressed());
-                },
-                color: Colors.lightBlue,
-                child: const Text(
-                  'SIGN IN WITH GOOGLE',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      child: const Text("SIGN IN WITH GOOGLE"),
+                      onPressed: () {
+                        bloc.add(
+                          const SignInFormEvent.signInWithGooglePressed(),
+                        );
+                      },
+                    ),
                   ),
-                ),
+                ],
               )
             ],
-          ),
-        );
-      },
+          )),
     );
   }
 }
-
-class SignInFormBloc {}
