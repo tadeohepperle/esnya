@@ -37,7 +37,17 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           await _performActionOnAuthRepositoryWithEmailAndPassword(
               _authRepository.signInWithEmailAndPassword, emit);
         },
-        signInWithGooglePressed: (e) async {},
+        signInWithGooglePressed: (e) async {
+          emit(state.copyWith(
+            isSubmitting: true,
+            authFailureOrSuccessOption: none(),
+          ));
+          final failureOrSuccess = await _authRepository.signInWithGoogle();
+          emit(state.copyWith(
+            isSubmitting: false,
+            authFailureOrSuccessOption: some(failureOrSuccess),
+          ));
+        },
       );
     });
   }

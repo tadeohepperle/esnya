@@ -5,7 +5,8 @@ import 'entities/entities.dart';
 import 'value_objects/value_objects.dart';
 
 abstract class AuthRepository {
-  Future<Option<User>> getSignedInUser();
+  bool isSignedIn();
+  Option<User> getSignedInUser();
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     required EmailAddress emailAddress,
     required Password password,

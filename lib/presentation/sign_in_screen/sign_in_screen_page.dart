@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/sign_in_form.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class SignInScreenPage extends StatelessWidget {
+  const SignInScreenPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

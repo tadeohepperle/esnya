@@ -17,8 +17,8 @@ class FirebaseAuthRepository implements AuthRepository {
   FirebaseAuthRepository(this._firebaseAuth, this._googleSignIn);
 
   @override
-  Future<Option<User>> getSignedInUser() =>
-      Future.value(optionOf(_firebaseAuth.currentUser?.toDomain()));
+  Option<User> getSignedInUser() =>
+      optionOf(_firebaseAuth.currentUser?.toDomain());
 
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword(
@@ -82,4 +82,9 @@ class FirebaseAuthRepository implements AuthRepository {
         _googleSignIn.signOut(),
         _firebaseAuth.signOut(),
       ]);
+
+  @override
+  bool isSignedIn() {
+    return getSignedInUser().isSome();
+  }
 }

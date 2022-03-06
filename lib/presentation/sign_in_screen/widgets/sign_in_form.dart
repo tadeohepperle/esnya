@@ -1,10 +1,9 @@
 import 'package:esnya/application/auth/auth_bloc.dart';
 import 'package:esnya/presentation/core/constants.dart';
-import 'package:esnya/presentation/routes/router.gr.dart';
+import 'package:esnya/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: implementation_imports
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:go_router/go_router.dart';
 import '../../../application/auth/sign_in_form/sign_in_form_bloc.dart';
 
 final _formKey = GlobalKey<FormState>();
@@ -19,7 +18,6 @@ class SignInForm extends StatelessWidget {
   listenBloc(BuildContext context, SignInFormState state) {
     state.authFailureOrSuccessOption.fold(
       () {
-        // none
         print("authFailureOrSuccessOption: none");
       },
       (either) => either.fold(
@@ -36,7 +34,7 @@ class SignInForm extends StatelessWidget {
           ));
         },
         (_) {
-          context.router.replace(HomeScreenRoute());
+          context.go(AppRoutes.home.path);
           context.read<AuthBloc>().add(const AuthEvent.authCheckRequested());
         },
       ),
@@ -143,6 +141,19 @@ class SignInForm extends StatelessWidget {
                       },
                     ),
                   ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (state.isSubmitting)
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: CircularProgressIndicator()),
+                    )
                 ],
               )
             ],

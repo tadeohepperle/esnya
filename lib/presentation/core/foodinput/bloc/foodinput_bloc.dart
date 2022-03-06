@@ -1,0 +1,15 @@
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kt_dart/collection.dart';
+
+part 'foodinput_event.dart';
+part 'foodinput_state.dart';
+part 'foodinput_bloc.freezed.dart';
+
+class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
+  FoodinputBloc() : super(FoodinputState.initial()) {
+    on<FoodinputEvent>((event, emit) {
+      // TODO: implement event handler
+    });
+  }
+}
