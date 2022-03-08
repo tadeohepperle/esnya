@@ -8,3 +8,8 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.invalidPassword({required String failedValue}) =
       InvalidPassword<T>;
 }
+
+@freezed
+abstract class TextFragmentizeFailure with _$TextFragmentizeFailure {
+  const factory TextFragmentizeFailure.unexpected() = _TextFragmentizeFailure;
+}

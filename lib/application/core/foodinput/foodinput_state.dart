@@ -6,8 +6,8 @@ class FoodinputState with _$FoodinputState {
     required String safeTextClosed,
     required String safeTextOpen,
     required String volatileText,
-    required KtList safeFoodItems,
-    required KtList volatileFoodItems,
+    required KtList<FoodItem> safeFoodItems,
+    required KtList<FoodItem> volatileFoodItems,
   }) = _FoodinputState;
   factory FoodinputState.initial() => const FoodinputState(
         safeTextClosed: '',

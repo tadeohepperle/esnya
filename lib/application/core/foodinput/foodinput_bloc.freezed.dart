@@ -31,6 +31,17 @@ class _$FoodinputEventTearOff {
   MakeVolatileTextSafe makeVolatileTextSafe() {
     return const MakeVolatileTextSafe();
   }
+
+  BuildFoodItemStrings buildFoodItemStrings() {
+    return const BuildFoodItemStrings();
+  }
+
+  ApplyFoodItemStrings applyFoodItemStrings(
+      KtList<Tuple2<IntRange, FoodItemString>> items) {
+    return ApplyFoodItemStrings(
+      items,
+    );
+  }
 }
 
 /// @nodoc
@@ -43,6 +54,9 @@ mixin _$FoodinputEvent {
     required TResult Function() reset,
     required TResult Function(String text) setVolatileText,
     required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +64,9 @@ mixin _$FoodinputEvent {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +74,9 @@ mixin _$FoodinputEvent {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -65,6 +85,8 @@ mixin _$FoodinputEvent {
     required TResult Function(Reset value) reset,
     required TResult Function(SetVolatileText value) setVolatileText,
     required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,6 +94,8 @@ mixin _$FoodinputEvent {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +103,8 @@ mixin _$FoodinputEvent {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +168,9 @@ class _$Reset implements Reset {
     required TResult Function() reset,
     required TResult Function(String text) setVolatileText,
     required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
   }) {
     return reset();
   }
@@ -152,6 +181,9 @@ class _$Reset implements Reset {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
   }) {
     return reset?.call();
   }
@@ -162,6 +194,9 @@ class _$Reset implements Reset {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -176,6 +211,8 @@ class _$Reset implements Reset {
     required TResult Function(Reset value) reset,
     required TResult Function(SetVolatileText value) setVolatileText,
     required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
   }) {
     return reset(this);
   }
@@ -186,6 +223,8 @@ class _$Reset implements Reset {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
   }) {
     return reset?.call(this);
   }
@@ -196,6 +235,8 @@ class _$Reset implements Reset {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (reset != null) {
@@ -277,6 +318,9 @@ class _$SetVolatileText implements SetVolatileText {
     required TResult Function() reset,
     required TResult Function(String text) setVolatileText,
     required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
   }) {
     return setVolatileText(text);
   }
@@ -287,6 +331,9 @@ class _$SetVolatileText implements SetVolatileText {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
   }) {
     return setVolatileText?.call(text);
   }
@@ -297,6 +344,9 @@ class _$SetVolatileText implements SetVolatileText {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -311,6 +361,8 @@ class _$SetVolatileText implements SetVolatileText {
     required TResult Function(Reset value) reset,
     required TResult Function(SetVolatileText value) setVolatileText,
     required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
   }) {
     return setVolatileText(this);
   }
@@ -321,6 +373,8 @@ class _$SetVolatileText implements SetVolatileText {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
   }) {
     return setVolatileText?.call(this);
   }
@@ -331,6 +385,8 @@ class _$SetVolatileText implements SetVolatileText {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -393,6 +449,9 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     required TResult Function() reset,
     required TResult Function(String text) setVolatileText,
     required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
   }) {
     return makeVolatileTextSafe();
   }
@@ -403,6 +462,9 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
   }) {
     return makeVolatileTextSafe?.call();
   }
@@ -413,6 +475,9 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     TResult Function()? reset,
     TResult Function(String text)? setVolatileText,
     TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (makeVolatileTextSafe != null) {
@@ -427,6 +492,8 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     required TResult Function(Reset value) reset,
     required TResult Function(SetVolatileText value) setVolatileText,
     required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
   }) {
     return makeVolatileTextSafe(this);
   }
@@ -437,6 +504,8 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
   }) {
     return makeVolatileTextSafe?.call(this);
   }
@@ -447,6 +516,8 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
     TResult Function(Reset value)? reset,
     TResult Function(SetVolatileText value)? setVolatileText,
     TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
     required TResult orElse(),
   }) {
     if (makeVolatileTextSafe != null) {
@@ -461,6 +532,289 @@ abstract class MakeVolatileTextSafe implements FoodinputEvent {
 }
 
 /// @nodoc
+abstract class $BuildFoodItemStringsCopyWith<$Res> {
+  factory $BuildFoodItemStringsCopyWith(BuildFoodItemStrings value,
+          $Res Function(BuildFoodItemStrings) then) =
+      _$BuildFoodItemStringsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$BuildFoodItemStringsCopyWithImpl<$Res>
+    extends _$FoodinputEventCopyWithImpl<$Res>
+    implements $BuildFoodItemStringsCopyWith<$Res> {
+  _$BuildFoodItemStringsCopyWithImpl(
+      BuildFoodItemStrings _value, $Res Function(BuildFoodItemStrings) _then)
+      : super(_value, (v) => _then(v as BuildFoodItemStrings));
+
+  @override
+  BuildFoodItemStrings get _value => super._value as BuildFoodItemStrings;
+}
+
+/// @nodoc
+
+class _$BuildFoodItemStrings implements BuildFoodItemStrings {
+  const _$BuildFoodItemStrings();
+
+  @override
+  String toString() {
+    return 'FoodinputEvent.buildFoodItemStrings()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is BuildFoodItemStrings);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() reset,
+    required TResult Function(String text) setVolatileText,
+    required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
+  }) {
+    return buildFoodItemStrings();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? reset,
+    TResult Function(String text)? setVolatileText,
+    TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
+  }) {
+    return buildFoodItemStrings?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? reset,
+    TResult Function(String text)? setVolatileText,
+    TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
+    required TResult orElse(),
+  }) {
+    if (buildFoodItemStrings != null) {
+      return buildFoodItemStrings();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Reset value) reset,
+    required TResult Function(SetVolatileText value) setVolatileText,
+    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
+  }) {
+    return buildFoodItemStrings(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Reset value)? reset,
+    TResult Function(SetVolatileText value)? setVolatileText,
+    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
+  }) {
+    return buildFoodItemStrings?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Reset value)? reset,
+    TResult Function(SetVolatileText value)? setVolatileText,
+    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
+    required TResult orElse(),
+  }) {
+    if (buildFoodItemStrings != null) {
+      return buildFoodItemStrings(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BuildFoodItemStrings implements FoodinputEvent {
+  const factory BuildFoodItemStrings() = _$BuildFoodItemStrings;
+}
+
+/// @nodoc
+abstract class $ApplyFoodItemStringsCopyWith<$Res> {
+  factory $ApplyFoodItemStringsCopyWith(ApplyFoodItemStrings value,
+          $Res Function(ApplyFoodItemStrings) then) =
+      _$ApplyFoodItemStringsCopyWithImpl<$Res>;
+  $Res call({KtList<Tuple2<IntRange, FoodItemString>> items});
+}
+
+/// @nodoc
+class _$ApplyFoodItemStringsCopyWithImpl<$Res>
+    extends _$FoodinputEventCopyWithImpl<$Res>
+    implements $ApplyFoodItemStringsCopyWith<$Res> {
+  _$ApplyFoodItemStringsCopyWithImpl(
+      ApplyFoodItemStrings _value, $Res Function(ApplyFoodItemStrings) _then)
+      : super(_value, (v) => _then(v as ApplyFoodItemStrings));
+
+  @override
+  ApplyFoodItemStrings get _value => super._value as ApplyFoodItemStrings;
+
+  @override
+  $Res call({
+    Object? items = freezed,
+  }) {
+    return _then(ApplyFoodItemStrings(
+      items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as KtList<Tuple2<IntRange, FoodItemString>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ApplyFoodItemStrings implements ApplyFoodItemStrings {
+  const _$ApplyFoodItemStrings(this.items);
+
+  @override
+  final KtList<Tuple2<IntRange, FoodItemString>> items;
+
+  @override
+  String toString() {
+    return 'FoodinputEvent.applyFoodItemStrings(items: $items)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ApplyFoodItemStrings &&
+            const DeepCollectionEquality().equals(other.items, items));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(items));
+
+  @JsonKey(ignore: true)
+  @override
+  $ApplyFoodItemStringsCopyWith<ApplyFoodItemStrings> get copyWith =>
+      _$ApplyFoodItemStringsCopyWithImpl<ApplyFoodItemStrings>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() reset,
+    required TResult Function(String text) setVolatileText,
+    required TResult Function() makeVolatileTextSafe,
+    required TResult Function() buildFoodItemStrings,
+    required TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)
+        applyFoodItemStrings,
+  }) {
+    return applyFoodItemStrings(items);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? reset,
+    TResult Function(String text)? setVolatileText,
+    TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
+  }) {
+    return applyFoodItemStrings?.call(items);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? reset,
+    TResult Function(String text)? setVolatileText,
+    TResult Function()? makeVolatileTextSafe,
+    TResult Function()? buildFoodItemStrings,
+    TResult Function(KtList<Tuple2<IntRange, FoodItemString>> items)?
+        applyFoodItemStrings,
+    required TResult orElse(),
+  }) {
+    if (applyFoodItemStrings != null) {
+      return applyFoodItemStrings(items);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Reset value) reset,
+    required TResult Function(SetVolatileText value) setVolatileText,
+    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
+    required TResult Function(BuildFoodItemStrings value) buildFoodItemStrings,
+    required TResult Function(ApplyFoodItemStrings value) applyFoodItemStrings,
+  }) {
+    return applyFoodItemStrings(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Reset value)? reset,
+    TResult Function(SetVolatileText value)? setVolatileText,
+    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
+  }) {
+    return applyFoodItemStrings?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Reset value)? reset,
+    TResult Function(SetVolatileText value)? setVolatileText,
+    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
+    TResult Function(BuildFoodItemStrings value)? buildFoodItemStrings,
+    TResult Function(ApplyFoodItemStrings value)? applyFoodItemStrings,
+    required TResult orElse(),
+  }) {
+    if (applyFoodItemStrings != null) {
+      return applyFoodItemStrings(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ApplyFoodItemStrings implements FoodinputEvent {
+  const factory ApplyFoodItemStrings(
+      KtList<Tuple2<IntRange, FoodItemString>> items) = _$ApplyFoodItemStrings;
+
+  KtList<Tuple2<IntRange, FoodItemString>> get items;
+  @JsonKey(ignore: true)
+  $ApplyFoodItemStringsCopyWith<ApplyFoodItemStrings> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$FoodinputStateTearOff {
   const _$FoodinputStateTearOff();
 
@@ -468,8 +822,8 @@ class _$FoodinputStateTearOff {
       {required String safeTextClosed,
       required String safeTextOpen,
       required String volatileText,
-      required KtList<dynamic> safeFoodItems,
-      required KtList<dynamic> volatileFoodItems}) {
+      required KtList<FoodItem> safeFoodItems,
+      required KtList<FoodItem> volatileFoodItems}) {
     return _FoodinputState(
       safeTextClosed: safeTextClosed,
       safeTextOpen: safeTextOpen,
@@ -488,8 +842,8 @@ mixin _$FoodinputState {
   String get safeTextClosed => throw _privateConstructorUsedError;
   String get safeTextOpen => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
-  KtList<dynamic> get safeFoodItems => throw _privateConstructorUsedError;
-  KtList<dynamic> get volatileFoodItems => throw _privateConstructorUsedError;
+  KtList<FoodItem> get safeFoodItems => throw _privateConstructorUsedError;
+  KtList<FoodItem> get volatileFoodItems => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodinputStateCopyWith<FoodinputState> get copyWith =>
@@ -505,8 +859,8 @@ abstract class $FoodinputStateCopyWith<$Res> {
       {String safeTextClosed,
       String safeTextOpen,
       String volatileText,
-      KtList<dynamic> safeFoodItems,
-      KtList<dynamic> volatileFoodItems});
+      KtList<FoodItem> safeFoodItems,
+      KtList<FoodItem> volatileFoodItems});
 }
 
 /// @nodoc
@@ -542,11 +896,11 @@ class _$FoodinputStateCopyWithImpl<$Res>
       safeFoodItems: safeFoodItems == freezed
           ? _value.safeFoodItems
           : safeFoodItems // ignore: cast_nullable_to_non_nullable
-              as KtList<dynamic>,
+              as KtList<FoodItem>,
       volatileFoodItems: volatileFoodItems == freezed
           ? _value.volatileFoodItems
           : volatileFoodItems // ignore: cast_nullable_to_non_nullable
-              as KtList<dynamic>,
+              as KtList<FoodItem>,
     ));
   }
 }
@@ -562,8 +916,8 @@ abstract class _$FoodinputStateCopyWith<$Res>
       {String safeTextClosed,
       String safeTextOpen,
       String volatileText,
-      KtList<dynamic> safeFoodItems,
-      KtList<dynamic> volatileFoodItems});
+      KtList<FoodItem> safeFoodItems,
+      KtList<FoodItem> volatileFoodItems});
 }
 
 /// @nodoc
@@ -601,11 +955,11 @@ class __$FoodinputStateCopyWithImpl<$Res>
       safeFoodItems: safeFoodItems == freezed
           ? _value.safeFoodItems
           : safeFoodItems // ignore: cast_nullable_to_non_nullable
-              as KtList<dynamic>,
+              as KtList<FoodItem>,
       volatileFoodItems: volatileFoodItems == freezed
           ? _value.volatileFoodItems
           : volatileFoodItems // ignore: cast_nullable_to_non_nullable
-              as KtList<dynamic>,
+              as KtList<FoodItem>,
     ));
   }
 }
@@ -627,9 +981,9 @@ class _$_FoodinputState implements _FoodinputState {
   @override
   final String volatileText;
   @override
-  final KtList<dynamic> safeFoodItems;
+  final KtList<FoodItem> safeFoodItems;
   @override
-  final KtList<dynamic> volatileFoodItems;
+  final KtList<FoodItem> volatileFoodItems;
 
   @override
   String toString() {
@@ -673,8 +1027,8 @@ abstract class _FoodinputState implements FoodinputState {
       {required String safeTextClosed,
       required String safeTextOpen,
       required String volatileText,
-      required KtList<dynamic> safeFoodItems,
-      required KtList<dynamic> volatileFoodItems}) = _$_FoodinputState;
+      required KtList<FoodItem> safeFoodItems,
+      required KtList<FoodItem> volatileFoodItems}) = _$_FoodinputState;
 
   @override
   String get safeTextClosed;
@@ -683,9 +1037,9 @@ abstract class _FoodinputState implements FoodinputState {
   @override
   String get volatileText;
   @override
-  KtList<dynamic> get safeFoodItems;
+  KtList<FoodItem> get safeFoodItems;
   @override
-  KtList<dynamic> get volatileFoodItems;
+  KtList<FoodItem> get volatileFoodItems;
   @override
   @JsonKey(ignore: true)
   _$FoodinputStateCopyWith<_FoodinputState> get copyWith =>

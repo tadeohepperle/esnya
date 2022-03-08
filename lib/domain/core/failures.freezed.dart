@@ -390,3 +390,167 @@ abstract class InvalidPassword<T> implements ValueFailure<T> {
   $InvalidPasswordCopyWith<T, InvalidPassword<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$TextFragmentizeFailureTearOff {
+  const _$TextFragmentizeFailureTearOff();
+
+  _TextFragmentizeFailure unexpected() {
+    return const _TextFragmentizeFailure();
+  }
+}
+
+/// @nodoc
+const $TextFragmentizeFailure = _$TextFragmentizeFailureTearOff();
+
+/// @nodoc
+mixin _$TextFragmentizeFailure {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TextFragmentizeFailure value) unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TextFragmentizeFailure value)? unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TextFragmentizeFailure value)? unexpected,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TextFragmentizeFailureCopyWith<$Res> {
+  factory $TextFragmentizeFailureCopyWith(TextFragmentizeFailure value,
+          $Res Function(TextFragmentizeFailure) then) =
+      _$TextFragmentizeFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$TextFragmentizeFailureCopyWithImpl<$Res>
+    implements $TextFragmentizeFailureCopyWith<$Res> {
+  _$TextFragmentizeFailureCopyWithImpl(this._value, this._then);
+
+  final TextFragmentizeFailure _value;
+  // ignore: unused_field
+  final $Res Function(TextFragmentizeFailure) _then;
+}
+
+/// @nodoc
+abstract class _$TextFragmentizeFailureCopyWith<$Res> {
+  factory _$TextFragmentizeFailureCopyWith(_TextFragmentizeFailure value,
+          $Res Function(_TextFragmentizeFailure) then) =
+      __$TextFragmentizeFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$TextFragmentizeFailureCopyWithImpl<$Res>
+    extends _$TextFragmentizeFailureCopyWithImpl<$Res>
+    implements _$TextFragmentizeFailureCopyWith<$Res> {
+  __$TextFragmentizeFailureCopyWithImpl(_TextFragmentizeFailure _value,
+      $Res Function(_TextFragmentizeFailure) _then)
+      : super(_value, (v) => _then(v as _TextFragmentizeFailure));
+
+  @override
+  _TextFragmentizeFailure get _value => super._value as _TextFragmentizeFailure;
+}
+
+/// @nodoc
+
+class _$_TextFragmentizeFailure implements _TextFragmentizeFailure {
+  const _$_TextFragmentizeFailure();
+
+  @override
+  String toString() {
+    return 'TextFragmentizeFailure.unexpected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _TextFragmentizeFailure);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+  }) {
+    return unexpected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+  }) {
+    return unexpected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_TextFragmentizeFailure value) unexpected,
+  }) {
+    return unexpected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_TextFragmentizeFailure value)? unexpected,
+  }) {
+    return unexpected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_TextFragmentizeFailure value)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _TextFragmentizeFailure implements TextFragmentizeFailure {
+  const factory _TextFragmentizeFailure() = _$_TextFragmentizeFailure;
+}
