@@ -1,0 +1,5 @@
+{
+  "login_button_text": "SIGN IN",
+  "register_button_text": "SIGN UP",
+  "googleauth_button_text": "SIGN IN WITH GOOGLE"
+}

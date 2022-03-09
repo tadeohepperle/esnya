@@ -1,3 +1,12 @@
 # commonly used:
 
 flutter pub run build_runner watch --delete-conflicting-outputs
+
+
+# localizations according to:
+
+https://www.youtube.com/watch?v=tI7u5yeW0VY
+https://roszkowski.dev/2021/i18n-in-flutter/
+
+to generate translations:
+ flutter packages get 

@@ -1,5 +1,6 @@
 import 'package:esnya/application/auth/auth_bloc.dart';
 import 'package:esnya/presentation/core/constants.dart';
+import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,7 @@ class SignInForm extends StatelessWidget {
   }
 
   Widget buildBloc(BuildContext context, SignInFormState state) {
+    final l10ns = AppLocalizations.of(context)!;
     final bloc = context.read<SignInFormBloc>();
     final autovalidateMode = state.showErrorMessages
         ? AutovalidateMode.always
@@ -106,7 +108,7 @@ class SignInForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      child: const Text("SIGN IN"),
+                      child: Text(l10ns.login_button_text),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent
@@ -118,7 +120,7 @@ class SignInForm extends StatelessWidget {
                   SizedBoxX.wSmall,
                   Expanded(
                     child: ElevatedButton(
-                      child: const Text("REGISTER"),
+                      child: Text(l10ns.register_button_text),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent
@@ -133,7 +135,7 @@ class SignInForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      child: const Text("SIGN IN WITH GOOGLE"),
+                      child: Text(l10ns.googleauth_button_text),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent.signInWithGooglePressed(),

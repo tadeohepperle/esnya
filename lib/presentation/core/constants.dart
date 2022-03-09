@@ -9,6 +9,12 @@ final ThemeData themeData = ThemeData.light().copyWith(
   ),
 );
 
+const kSupportedLocales = [
+  Locale('en', ''),
+  Locale('en', 'US'),
+  Locale('de', 'DE'),
+];
+
 const String kAppName = "Esnya Food Tracker";
 
 class SizeConstants {

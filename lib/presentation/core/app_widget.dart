@@ -1,9 +1,9 @@
-import 'package:esnya/presentation/core/constants.dart';
 import 'package:esnya/presentation/routes/app_router.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../injection.dart';
+import './core.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
@@ -19,6 +19,13 @@ class AppWidget extends StatelessWidget {
           )
         ],
         child: MaterialApp.router(
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            AppLocalizations.delegate
+          ],
+          supportedLocales: kSupportedLocales,
           theme: themeData,
           title: kAppName,
           debugShowCheckedModeBanner: false,
