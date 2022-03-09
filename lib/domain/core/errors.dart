@@ -1,3 +1,5 @@
+import 'package:esnya/domain/core/value_object.dart';
+
 import 'failures.dart';
 
 class UnexpectedValueError extends Error {

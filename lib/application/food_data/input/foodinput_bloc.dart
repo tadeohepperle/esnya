@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/core/data_structures.dart';
 import 'package:esnya/domain/food_data/entities/food_item.dart';
 import 'package:esnya/domain/food_data/entities/food_item_string.dart';
+import 'package:esnya/domain/food_data/food_analysis_repository.dart';
 import 'package:esnya/domain/food_data/food_data_repository.dart';
 import 'package:esnya/domain/text_processing/text_processing_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,16 +18,19 @@ part 'foodinput_bloc.freezed.dart';
 class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
   TextProcessingRepository textProcessingRepository;
   FoodDataRepository foodDataRepository;
+  FoodAnalysisRepository foodAnalysisRepository;
 
   BuildFoodItemStrings? buildFoodItemStringsCache;
   bool buildFoodItemStringsBusy = false;
 
   /// Flow of this Bloc:
   /// setVolatileText  -->  buildFoodItemStrings -->  applyFoodItemStrings
-  FoodinputBloc(
-      {required this.textProcessingRepository,
-      required this.foodDataRepository})
-      : super(FoodinputState.initial()) {
+  /// fooditems only remain in the inputbloc as long as they are volatile. safeFoodItems
+  FoodinputBloc({
+    required this.textProcessingRepository,
+    required this.foodDataRepository,
+    required this.foodAnalysisRepository,
+  }) : super(FoodinputState.initial()) {
     on<FoodinputEvent>((event, emit) async {
       await event.map(
           reset: (Reset e) {
@@ -35,21 +39,22 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
           setVolatileText: (SetVolatileText e) {
             if (e.text != state.volatileText) {
               emit(state.copyWith(volatileText: e.text));
-              add(BuildFoodItemStrings());
+              add(const BuildFoodItemStrings());
             }
           },
           makeVolatileTextSafe: (MakeVolatileTextSafe e) {
-            if (state.volatileText.isNotEmpty) {
-              emit(state.copyWith(
+            emit(state.copyWith(
                 safeTextOpen: state.safeTextOpen + state.volatileText,
                 volatileText: '',
-              ));
-              add(BuildFoodItemStrings()); // TODO: this is slightly inefficient because we actually do not need to build the FoodItemStrings again. We just need to shift some volatileFoodItems to safeFoodItems, thats all.
-            }
+                safeFoodItems: state.safeFoodItems + state.volatileFoodItems,
+                volatileFoodItems: const KtList<FoodItem>.empty()));
           },
           buildFoodItemStrings: buildFoodItemStrings,
           applyFoodItemStrings: (ApplyFoodItemStrings e) {
             applyFoodItemStrings(e, emit);
+          },
+          fetchAmountAndFood: (FetchAmountAndFood e) async {
+            await fetchAmountAndFood(e, emit);
           });
     });
   }
@@ -118,10 +123,10 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
         .substring(lastItemInSafeTextRangeEnd, state.safeTextOpen.length);
     final newSafeFoodItems = state.safeFoodItems +
         safeFoodItemStrings
-            .map((e) => FoodItem.created(e))
+            .map((e) => FoodItem.create(e))
             .toImmutableList(); // without fetching any data yet
     final volatileFoodItems = volatileFoodItemStrings
-        .map((e) => FoodItem.created(e))
+        .map((e) => FoodItem.create(e))
         .toImmutableList();
 
     emit(state.copyWith(
@@ -130,5 +135,31 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
       safeFoodItems: newSafeFoodItems,
       volatileFoodItems: volatileFoodItems,
     ));
+  }
+
+  fetchAmountAndFood(FetchAmountAndFood e, Emitter<FoodinputState> emit) async {
+    // when result is fetched:
+    //      foodItem is in safeFoodItems ==> remove foodItem and add it to open collection of foodDataRepository such that it is synced with firestore
+    //      foodItem is volatileFoodItems ==> update it in volatileFoodItems, not move to firestore yet.
+    //  	  foodItem does not exist anymore ==> nothing happens
+
+    final foodItem = e.foodItem;
+    final result =
+        await foodAnalysisRepository.fetchAmountAndFood(foodItem.string);
+
+    bool foodItemInsafeFoodItems =
+        state.safeFoodItems.any((fi) => fi.uniqueId == foodItem.uniqueId);
+    if (foodItemInsafeFoodItems) {
+      await foodDataRepository.addItem(foodItem.copyWith(value: some(result)));
+      final newSafeFoodItems =
+          state.safeFoodItems.filter((fi) => fi.uniqueId != foodItem.uniqueId);
+      emit(state.copyWith(safeFoodItems: newSafeFoodItems));
+    } else {
+      final newVolatileFoodItems = state.volatileFoodItems.map((fi) =>
+          fi.uniqueId == foodItem.uniqueId
+              ? fi.copyWith(value: some(result))
+              : fi);
+      emit(state.copyWith(volatileFoodItems: newVolatileFoodItems));
+    }
   }
 }

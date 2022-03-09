@@ -8,4 +8,6 @@ class FoodinputEvent with _$FoodinputEvent {
   const factory FoodinputEvent.buildFoodItemStrings() = BuildFoodItemStrings;
   const factory FoodinputEvent.applyFoodItemStrings(
       KtList<Tuple2<IntRange, FoodItemString>> items) = ApplyFoodItemStrings;
+  const factory FoodinputEvent.fetchAmountAndFood(FoodItem foodItem) =
+      FetchAmountAndFood;
 }
