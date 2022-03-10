@@ -1,15 +1,20 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'amount.freezed.dart';
+import 'package:equatable/equatable.dart';
+import 'package:esnya/domain/food_data/entities/food_metadata.dart';
+import 'package:esnya/domain/food_data/entities/measure_unit.dart';
+import 'package:esnya/presentation/core/core.dart';
 
-///
-/// represents food items saved in database.
-@freezed
-class Amount with _$Amount {
-  const factory Amount.numerical(num number) = AmountNumerical;
-  const factory Amount.mass(num number, AmountMassUnit unit) = AmountMass;
-  const factory Amount.volume(num number, AmountVolumeUnit unit) = AmountVolume;
+@immutable
+class Amount extends Equatable {
+  final MeasureUnit unit;
+  final num number; //
+
+  const Amount(this.number, [this.unit = MeasureUnit.g]);
+
+  @override
+  List<Object?> get props => [unit, number];
+
+  Amount convertTo(MeasureUnit otherUnit, FoodMetadata foodMetadata) {
+    // TODO: implement
+    throw UnimplementedError();
+  }
 }
-
-enum AmountMassUnit { kg, g, oz, lb }
-
-enum AmountVolumeUnit { tsp, tbsp, ml, l, cup }

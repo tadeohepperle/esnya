@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:esnya/application/food_data/input/foodinput_bloc.dart';
 import 'package:esnya/domain/core/data_structures.dart';
 import 'package:esnya/domain/core/unique_id.dart';
+import 'package:esnya/domain/food_data/entities/measure_unit.dart';
 import 'package:esnya/domain/food_data/food_analysis_repository.dart';
 import 'package:esnya/domain/food_data/food_data.dart';
 import 'package:esnya/domain/food_data/food_data_repository.dart';
@@ -26,17 +27,21 @@ class MockTextProcessingRepository extends Mock
     var c = 0;
     for (var i = 0; i < wordArr.length ~/ 3; i++) {
       final w = "${wordArr[i * 3]} ${wordArr[i * 3 + 1]} ${wordArr[i * 3 + 2]}";
-      final fis = FoodItemString(w,
-          number: IntRange(0, wordArr[i * 3].length + 1),
-          unit: IntRange(wordArr[i * 3].length + 1,
-              wordArr[i * 3].length + 1 + wordArr[i * 3 + 1].length + 1),
-          label: IntRange(
-              wordArr[i * 3].length + 1 + wordArr[i * 3 + 1].length + 1,
-              wordArr[i * 3].length +
-                  1 +
-                  wordArr[i * 3 + 1].length +
-                  1 +
-                  wordArr[i * 3 + 2].length));
+      final fis = FoodItemString(
+        w,
+        numberRange: IntRange(0, wordArr[i * 3].length + 1),
+        unitRange: IntRange(wordArr[i * 3].length + 1,
+            wordArr[i * 3].length + 1 + wordArr[i * 3 + 1].length + 1),
+        labelRange: IntRange(
+            wordArr[i * 3].length + 1 + wordArr[i * 3 + 1].length + 1,
+            wordArr[i * 3].length +
+                1 +
+                wordArr[i * 3 + 1].length +
+                1 +
+                wordArr[i * 3 + 2].length),
+        numberGuess: 1,
+        unitGuess: MeasureUnit.g,
+      );
       final r = IntRange(c, c + w.length);
       c += w.length + 1;
       l.add(Tuple2(r, fis));
@@ -101,9 +106,11 @@ void main() {
             FoodItem(
                 string: const FoodItemString(
                   "You are awesome",
-                  number: IntRange(0, 4),
-                  unit: IntRange(4, 8),
-                  label: IntRange(8, 15),
+                  numberRange: IntRange(0, 4),
+                  unitRange: IntRange(4, 8),
+                  labelRange: IntRange(8, 15),
+                  numberGuess: 1,
+                  unitGuess: MeasureUnit.g,
                 ),
                 value: none(),
                 uniqueId: uid)

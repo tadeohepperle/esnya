@@ -18,12 +18,18 @@ class _$FoodItemStringTearOff {
   const _$FoodItemStringTearOff();
 
   _FoodItemString call(String text,
-      {IntRange? number, IntRange? unit, IntRange? label}) {
+      {IntRange? numberRange,
+      IntRange? unitRange,
+      IntRange? labelRange,
+      required MeasureUnit unitGuess,
+      required num numberGuess}) {
     return _FoodItemString(
       text,
-      number: number,
-      unit: unit,
-      label: label,
+      numberRange: numberRange,
+      unitRange: unitRange,
+      labelRange: labelRange,
+      unitGuess: unitGuess,
+      numberGuess: numberGuess,
     );
   }
 }
@@ -34,9 +40,11 @@ const $FoodItemString = _$FoodItemStringTearOff();
 /// @nodoc
 mixin _$FoodItemString {
   String get text => throw _privateConstructorUsedError;
-  IntRange? get number => throw _privateConstructorUsedError;
-  IntRange? get unit => throw _privateConstructorUsedError;
-  IntRange? get label => throw _privateConstructorUsedError;
+  IntRange? get numberRange => throw _privateConstructorUsedError;
+  IntRange? get unitRange => throw _privateConstructorUsedError;
+  IntRange? get labelRange => throw _privateConstructorUsedError;
+  MeasureUnit get unitGuess => throw _privateConstructorUsedError;
+  num get numberGuess => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodItemStringCopyWith<FoodItemString> get copyWith =>
@@ -48,7 +56,13 @@ abstract class $FoodItemStringCopyWith<$Res> {
   factory $FoodItemStringCopyWith(
           FoodItemString value, $Res Function(FoodItemString) then) =
       _$FoodItemStringCopyWithImpl<$Res>;
-  $Res call({String text, IntRange? number, IntRange? unit, IntRange? label});
+  $Res call(
+      {String text,
+      IntRange? numberRange,
+      IntRange? unitRange,
+      IntRange? labelRange,
+      MeasureUnit unitGuess,
+      num numberGuess});
 }
 
 /// @nodoc
@@ -63,27 +77,37 @@ class _$FoodItemStringCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = freezed,
-    Object? number = freezed,
-    Object? unit = freezed,
-    Object? label = freezed,
+    Object? numberRange = freezed,
+    Object? unitRange = freezed,
+    Object? labelRange = freezed,
+    Object? unitGuess = freezed,
+    Object? numberGuess = freezed,
   }) {
     return _then(_value.copyWith(
       text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      number: number == freezed
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
+      numberRange: numberRange == freezed
+          ? _value.numberRange
+          : numberRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
-      unit: unit == freezed
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
+      unitRange: unitRange == freezed
+          ? _value.unitRange
+          : unitRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
-      label: label == freezed
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
+      labelRange: labelRange == freezed
+          ? _value.labelRange
+          : labelRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
+      unitGuess: unitGuess == freezed
+          ? _value.unitGuess
+          : unitGuess // ignore: cast_nullable_to_non_nullable
+              as MeasureUnit,
+      numberGuess: numberGuess == freezed
+          ? _value.numberGuess
+          : numberGuess // ignore: cast_nullable_to_non_nullable
+              as num,
     ));
   }
 }
@@ -95,7 +119,13 @@ abstract class _$FoodItemStringCopyWith<$Res>
           _FoodItemString value, $Res Function(_FoodItemString) then) =
       __$FoodItemStringCopyWithImpl<$Res>;
   @override
-  $Res call({String text, IntRange? number, IntRange? unit, IntRange? label});
+  $Res call(
+      {String text,
+      IntRange? numberRange,
+      IntRange? unitRange,
+      IntRange? labelRange,
+      MeasureUnit unitGuess,
+      num numberGuess});
 }
 
 /// @nodoc
@@ -112,27 +142,37 @@ class __$FoodItemStringCopyWithImpl<$Res>
   @override
   $Res call({
     Object? text = freezed,
-    Object? number = freezed,
-    Object? unit = freezed,
-    Object? label = freezed,
+    Object? numberRange = freezed,
+    Object? unitRange = freezed,
+    Object? labelRange = freezed,
+    Object? unitGuess = freezed,
+    Object? numberGuess = freezed,
   }) {
     return _then(_FoodItemString(
       text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      number: number == freezed
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
+      numberRange: numberRange == freezed
+          ? _value.numberRange
+          : numberRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
-      unit: unit == freezed
-          ? _value.unit
-          : unit // ignore: cast_nullable_to_non_nullable
+      unitRange: unitRange == freezed
+          ? _value.unitRange
+          : unitRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
-      label: label == freezed
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
+      labelRange: labelRange == freezed
+          ? _value.labelRange
+          : labelRange // ignore: cast_nullable_to_non_nullable
               as IntRange?,
+      unitGuess: unitGuess == freezed
+          ? _value.unitGuess
+          : unitGuess // ignore: cast_nullable_to_non_nullable
+              as MeasureUnit,
+      numberGuess: numberGuess == freezed
+          ? _value.numberGuess
+          : numberGuess // ignore: cast_nullable_to_non_nullable
+              as num,
     ));
   }
 }
@@ -140,20 +180,29 @@ class __$FoodItemStringCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FoodItemString implements _FoodItemString {
-  const _$_FoodItemString(this.text, {this.number, this.unit, this.label});
+  const _$_FoodItemString(this.text,
+      {this.numberRange,
+      this.unitRange,
+      this.labelRange,
+      required this.unitGuess,
+      required this.numberGuess});
 
   @override
   final String text;
   @override
-  final IntRange? number;
+  final IntRange? numberRange;
   @override
-  final IntRange? unit;
+  final IntRange? unitRange;
   @override
-  final IntRange? label;
+  final IntRange? labelRange;
+  @override
+  final MeasureUnit unitGuess;
+  @override
+  final num numberGuess;
 
   @override
   String toString() {
-    return 'FoodItemString(text: $text, number: $number, unit: $unit, label: $label)';
+    return 'FoodItemString(text: $text, numberRange: $numberRange, unitRange: $unitRange, labelRange: $labelRange, unitGuess: $unitGuess, numberGuess: $numberGuess)';
   }
 
   @override
@@ -162,18 +211,25 @@ class _$_FoodItemString implements _FoodItemString {
         (other.runtimeType == runtimeType &&
             other is _FoodItemString &&
             const DeepCollectionEquality().equals(other.text, text) &&
-            const DeepCollectionEquality().equals(other.number, number) &&
-            const DeepCollectionEquality().equals(other.unit, unit) &&
-            const DeepCollectionEquality().equals(other.label, label));
+            const DeepCollectionEquality()
+                .equals(other.numberRange, numberRange) &&
+            const DeepCollectionEquality().equals(other.unitRange, unitRange) &&
+            const DeepCollectionEquality()
+                .equals(other.labelRange, labelRange) &&
+            const DeepCollectionEquality().equals(other.unitGuess, unitGuess) &&
+            const DeepCollectionEquality()
+                .equals(other.numberGuess, numberGuess));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(number),
-      const DeepCollectionEquality().hash(unit),
-      const DeepCollectionEquality().hash(label));
+      const DeepCollectionEquality().hash(numberRange),
+      const DeepCollectionEquality().hash(unitRange),
+      const DeepCollectionEquality().hash(labelRange),
+      const DeepCollectionEquality().hash(unitGuess),
+      const DeepCollectionEquality().hash(numberGuess));
 
   @JsonKey(ignore: true)
   @override
@@ -183,16 +239,24 @@ class _$_FoodItemString implements _FoodItemString {
 
 abstract class _FoodItemString implements FoodItemString {
   const factory _FoodItemString(String text,
-      {IntRange? number, IntRange? unit, IntRange? label}) = _$_FoodItemString;
+      {IntRange? numberRange,
+      IntRange? unitRange,
+      IntRange? labelRange,
+      required MeasureUnit unitGuess,
+      required num numberGuess}) = _$_FoodItemString;
 
   @override
   String get text;
   @override
-  IntRange? get number;
+  IntRange? get numberRange;
   @override
-  IntRange? get unit;
+  IntRange? get unitRange;
   @override
-  IntRange? get label;
+  IntRange? get labelRange;
+  @override
+  MeasureUnit get unitGuess;
+  @override
+  num get numberGuess;
   @override
   @JsonKey(ignore: true)
   _$FoodItemStringCopyWith<_FoodItemString> get copyWith =>

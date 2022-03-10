@@ -21,14 +21,14 @@ class _$FoodTearOff {
       {required String id,
       required String name,
       required MacroNutrients nutrients,
-      num? kcal,
-      num? density}) {
+      required num kcalPer100g,
+      required FoodMetadata foodMetadata}) {
     return _Food(
       id: id,
       name: name,
       nutrients: nutrients,
-      kcal: kcal,
-      density: density,
+      kcalPer100g: kcalPer100g,
+      foodMetadata: foodMetadata,
     );
   }
 }
@@ -44,8 +44,8 @@ mixin _$Food {
       throw _privateConstructorUsedError; // TODO: replace with map for internationalization.
   MacroNutrients get nutrients =>
       throw _privateConstructorUsedError; // TODO: add micronutrients
-  num? get kcal => throw _privateConstructorUsedError;
-  num? get density => throw _privateConstructorUsedError;
+  num get kcalPer100g => throw _privateConstructorUsedError;
+  FoodMetadata get foodMetadata => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodCopyWith<Food> get copyWith => throw _privateConstructorUsedError;
@@ -59,8 +59,8 @@ abstract class $FoodCopyWith<$Res> {
       {String id,
       String name,
       MacroNutrients nutrients,
-      num? kcal,
-      num? density});
+      num kcalPer100g,
+      FoodMetadata foodMetadata});
 
   $MacroNutrientsCopyWith<$Res> get nutrients;
 }
@@ -78,8 +78,8 @@ class _$FoodCopyWithImpl<$Res> implements $FoodCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? nutrients = freezed,
-    Object? kcal = freezed,
-    Object? density = freezed,
+    Object? kcalPer100g = freezed,
+    Object? foodMetadata = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -94,14 +94,14 @@ class _$FoodCopyWithImpl<$Res> implements $FoodCopyWith<$Res> {
           ? _value.nutrients
           : nutrients // ignore: cast_nullable_to_non_nullable
               as MacroNutrients,
-      kcal: kcal == freezed
-          ? _value.kcal
-          : kcal // ignore: cast_nullable_to_non_nullable
-              as num?,
-      density: density == freezed
-          ? _value.density
-          : density // ignore: cast_nullable_to_non_nullable
-              as num?,
+      kcalPer100g: kcalPer100g == freezed
+          ? _value.kcalPer100g
+          : kcalPer100g // ignore: cast_nullable_to_non_nullable
+              as num,
+      foodMetadata: foodMetadata == freezed
+          ? _value.foodMetadata
+          : foodMetadata // ignore: cast_nullable_to_non_nullable
+              as FoodMetadata,
     ));
   }
 
@@ -122,8 +122,8 @@ abstract class _$FoodCopyWith<$Res> implements $FoodCopyWith<$Res> {
       {String id,
       String name,
       MacroNutrients nutrients,
-      num? kcal,
-      num? density});
+      num kcalPer100g,
+      FoodMetadata foodMetadata});
 
   @override
   $MacroNutrientsCopyWith<$Res> get nutrients;
@@ -143,8 +143,8 @@ class __$FoodCopyWithImpl<$Res> extends _$FoodCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? nutrients = freezed,
-    Object? kcal = freezed,
-    Object? density = freezed,
+    Object? kcalPer100g = freezed,
+    Object? foodMetadata = freezed,
   }) {
     return _then(_Food(
       id: id == freezed
@@ -159,14 +159,14 @@ class __$FoodCopyWithImpl<$Res> extends _$FoodCopyWithImpl<$Res>
           ? _value.nutrients
           : nutrients // ignore: cast_nullable_to_non_nullable
               as MacroNutrients,
-      kcal: kcal == freezed
-          ? _value.kcal
-          : kcal // ignore: cast_nullable_to_non_nullable
-              as num?,
-      density: density == freezed
-          ? _value.density
-          : density // ignore: cast_nullable_to_non_nullable
-              as num?,
+      kcalPer100g: kcalPer100g == freezed
+          ? _value.kcalPer100g
+          : kcalPer100g // ignore: cast_nullable_to_non_nullable
+              as num,
+      foodMetadata: foodMetadata == freezed
+          ? _value.foodMetadata
+          : foodMetadata // ignore: cast_nullable_to_non_nullable
+              as FoodMetadata,
     ));
   }
 }
@@ -178,8 +178,8 @@ class _$_Food implements _Food {
       {required this.id,
       required this.name,
       required this.nutrients,
-      this.kcal,
-      this.density});
+      required this.kcalPer100g,
+      required this.foodMetadata});
 
   @override
   final String id;
@@ -188,13 +188,13 @@ class _$_Food implements _Food {
   @override // TODO: replace with map for internationalization.
   final MacroNutrients nutrients;
   @override // TODO: add micronutrients
-  final num? kcal;
+  final num kcalPer100g;
   @override
-  final num? density;
+  final FoodMetadata foodMetadata;
 
   @override
   String toString() {
-    return 'Food(id: $id, name: $name, nutrients: $nutrients, kcal: $kcal, density: $density)';
+    return 'Food(id: $id, name: $name, nutrients: $nutrients, kcalPer100g: $kcalPer100g, foodMetadata: $foodMetadata)';
   }
 
   @override
@@ -205,8 +205,10 @@ class _$_Food implements _Food {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.nutrients, nutrients) &&
-            const DeepCollectionEquality().equals(other.kcal, kcal) &&
-            const DeepCollectionEquality().equals(other.density, density));
+            const DeepCollectionEquality()
+                .equals(other.kcalPer100g, kcalPer100g) &&
+            const DeepCollectionEquality()
+                .equals(other.foodMetadata, foodMetadata));
   }
 
   @override
@@ -215,8 +217,8 @@ class _$_Food implements _Food {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(nutrients),
-      const DeepCollectionEquality().hash(kcal),
-      const DeepCollectionEquality().hash(density));
+      const DeepCollectionEquality().hash(kcalPer100g),
+      const DeepCollectionEquality().hash(foodMetadata));
 
   @JsonKey(ignore: true)
   @override
@@ -229,8 +231,8 @@ abstract class _Food implements Food {
       {required String id,
       required String name,
       required MacroNutrients nutrients,
-      num? kcal,
-      num? density}) = _$_Food;
+      required num kcalPer100g,
+      required FoodMetadata foodMetadata}) = _$_Food;
 
   @override
   String get id;
@@ -239,9 +241,9 @@ abstract class _Food implements Food {
   @override // TODO: replace with map for internationalization.
   MacroNutrients get nutrients;
   @override // TODO: add micronutrients
-  num? get kcal;
+  num get kcalPer100g;
   @override
-  num? get density;
+  FoodMetadata get foodMetadata;
   @override
   @JsonKey(ignore: true)
   _$FoodCopyWith<_Food> get copyWith => throw _privateConstructorUsedError;

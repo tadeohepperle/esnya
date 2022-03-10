@@ -45,7 +45,6 @@ abstract class $FoodItemValueCopyWith<$Res> {
       _$FoodItemValueCopyWithImpl<$Res>;
   $Res call({Amount amount, Food food});
 
-  $AmountCopyWith<$Res> get amount;
   $FoodCopyWith<$Res> get food;
 }
 
@@ -76,13 +75,6 @@ class _$FoodItemValueCopyWithImpl<$Res>
   }
 
   @override
-  $AmountCopyWith<$Res> get amount {
-    return $AmountCopyWith<$Res>(_value.amount, (value) {
-      return _then(_value.copyWith(amount: value));
-    });
-  }
-
-  @override
   $FoodCopyWith<$Res> get food {
     return $FoodCopyWith<$Res>(_value.food, (value) {
       return _then(_value.copyWith(food: value));
@@ -99,8 +91,6 @@ abstract class _$FoodItemValueCopyWith<$Res>
   @override
   $Res call({Amount amount, Food food});
 
-  @override
-  $AmountCopyWith<$Res> get amount;
   @override
   $FoodCopyWith<$Res> get food;
 }
