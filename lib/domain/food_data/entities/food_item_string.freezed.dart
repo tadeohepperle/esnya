@@ -63,6 +63,10 @@ abstract class $FoodItemStringCopyWith<$Res> {
       IntRange? labelRange,
       MeasureUnit unitGuess,
       num numberGuess});
+
+  $IntRangeCopyWith<$Res>? get numberRange;
+  $IntRangeCopyWith<$Res>? get unitRange;
+  $IntRangeCopyWith<$Res>? get labelRange;
 }
 
 /// @nodoc
@@ -110,6 +114,39 @@ class _$FoodItemStringCopyWithImpl<$Res>
               as num,
     ));
   }
+
+  @override
+  $IntRangeCopyWith<$Res>? get numberRange {
+    if (_value.numberRange == null) {
+      return null;
+    }
+
+    return $IntRangeCopyWith<$Res>(_value.numberRange!, (value) {
+      return _then(_value.copyWith(numberRange: value));
+    });
+  }
+
+  @override
+  $IntRangeCopyWith<$Res>? get unitRange {
+    if (_value.unitRange == null) {
+      return null;
+    }
+
+    return $IntRangeCopyWith<$Res>(_value.unitRange!, (value) {
+      return _then(_value.copyWith(unitRange: value));
+    });
+  }
+
+  @override
+  $IntRangeCopyWith<$Res>? get labelRange {
+    if (_value.labelRange == null) {
+      return null;
+    }
+
+    return $IntRangeCopyWith<$Res>(_value.labelRange!, (value) {
+      return _then(_value.copyWith(labelRange: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -126,6 +163,13 @@ abstract class _$FoodItemStringCopyWith<$Res>
       IntRange? labelRange,
       MeasureUnit unitGuess,
       num numberGuess});
+
+  @override
+  $IntRangeCopyWith<$Res>? get numberRange;
+  @override
+  $IntRangeCopyWith<$Res>? get unitRange;
+  @override
+  $IntRangeCopyWith<$Res>? get labelRange;
 }
 
 /// @nodoc

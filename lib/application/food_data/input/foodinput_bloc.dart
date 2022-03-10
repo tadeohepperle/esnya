@@ -7,7 +7,7 @@ import 'package:esnya/domain/food_data/entities/food_item.dart';
 import 'package:esnya/domain/food_data/entities/food_item_string.dart';
 import 'package:esnya/domain/food_data/food_analysis_repository.dart';
 import 'package:esnya/domain/food_data/food_data_repository.dart';
-import 'package:esnya/domain/text_processing/text_processing_repository.dart';
+import 'package:esnya/domain/food_data/text_processing/text_processing_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
 

@@ -7,7 +7,7 @@ import 'package:esnya/domain/food_data/entities/measure_unit.dart';
 import 'package:esnya/domain/food_data/food_analysis_repository.dart';
 import 'package:esnya/domain/food_data/food_data.dart';
 import 'package:esnya/domain/food_data/food_data_repository.dart';
-import 'package:esnya/domain/text_processing/text_processing_repository.dart';
+import 'package:esnya/domain/food_data/text_processing/text_processing_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:mocktail/mocktail.dart';
@@ -20,7 +20,7 @@ class MockFoodAnalysisRepository extends Mock
 class MockTextProcessingRepository extends Mock
     implements TextProcessingRepository {
   @override
-  FragmentizeResult fragmentize(String text) {
+  Future<FragmentizeResult> fragmentize(String text) {
     final wordArr = text.split(" ");
     final List<Tuple2<IntRange, FoodItemString>> l = [];
     // return Future.value(right(l.toImmutableList()));

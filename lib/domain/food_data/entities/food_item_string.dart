@@ -1,6 +1,5 @@
 import 'package:esnya/domain/core/data_structures.dart';
 import 'package:esnya/domain/food_data/entities/measure_unit.dart';
-import 'package:esnya/domain/food_data/food_data.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'food_item_string.freezed.dart';

@@ -1,10 +1,9 @@
-import 'package:esnya/domain/text_processing/text_processing_repository.dart';
-
+import '../../../../domain/core/data_structures.dart';
 import 'fragmentizing_engine.dart';
 
 class FragmentizingEngineDE implements FragmentizingEngine {
   @override
-  FragmentizeResult fragmentize(String text) {
+  Future<FragmentizeResult> fragmentize(String text) {
     throw Exception("err");
   }
 }

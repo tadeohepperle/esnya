@@ -1,8 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../presentation/core/core.dart';
-
-@immutable
 class MeasureUnit extends Equatable {
   final MeasureUnitMode mode;
   final num baseUnitEquivalent; //
