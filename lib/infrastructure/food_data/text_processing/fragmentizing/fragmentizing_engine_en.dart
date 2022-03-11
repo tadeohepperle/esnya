@@ -146,7 +146,6 @@ class FragmentizingEngineEN implements FragmentizingEngine {
         tokenCollections.last.add(t);
       }
     }
-
     return tokenCollections
         .where((col) => col.category != TokenCategory.splitter)
         .toList();

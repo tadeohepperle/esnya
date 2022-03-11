@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class MeasureUnit extends Equatable {
   final MeasureUnitMode mode;
-  final double baseUnitEquivalent; //
+  final double baseUnitEquivalent;
   const MeasureUnit._(this.mode, this.baseUnitEquivalent);
 
   static const MeasureUnit noUnit = MeasureUnit._(MeasureUnitMode.noUnit, 1);
@@ -31,14 +31,6 @@ class MeasureUnit extends Equatable {
   String toString() {
     return unitNames[unitNames.keys.firstWhere((c) => c == this)] ??
         'unitError';
-    // String unitName =
-    //     unitNames[unitNames.keys.firstWhere((c) => c == this)] ?? 'noUnit';
-    // Map<MeasureUnitMode, String> unitModeNames = {
-    //   MeasureUnitMode.noUnit: 'NOUNIT',
-    //   MeasureUnitMode.mass: 'MASS',
-    //   MeasureUnitMode.volume: 'VOLUME'
-    // };
-    // return 'MeasureUnit($unitName, ${unitModeNames[mode]}, baseEquivalent: $baseUnitEquivalent)';
   }
 
   static final unitNames = {
