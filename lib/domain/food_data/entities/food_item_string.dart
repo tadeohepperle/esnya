@@ -15,3 +15,17 @@ abstract class FoodItemString with _$FoodItemString {
     required num numberGuess,
   }) = _FoodItemString;
 }
+
+extension FoodItemStringX on FoodItemString {
+  String get label => text.substring(labelRange.start, labelRange.end);
+
+  String shortString() {
+    return labelRange.toString();
+    var s = numberGuess.toString();
+    if (unitGuess.toString() != MeasureUnit.noUnit.toString()) {
+      s += '_' + unitGuess.toString();
+    }
+    s += '_' + label;
+    return s;
+  }
+}

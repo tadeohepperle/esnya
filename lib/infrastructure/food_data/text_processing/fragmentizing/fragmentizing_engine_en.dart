@@ -101,9 +101,6 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   Future<FragmentizeResult> fragmentize(String text) async {
     try {
       List<AnalysisToken> tokens = extractAnalysisTokens(text);
-      print("____TOKENS:");
-      print(tokens);
-      print("____");
       List<AnalysisTokenCollection> tokenCollections =
           extractAnalysisTokenCollections(tokens);
       List<AnalysisTokenCollectionTriplet> triplets =
@@ -319,10 +316,6 @@ class AnalysisTokenCollectionNumber extends AnalysisTokenCollection {
     Map<AnalysisToken, num?> valueMap = {
       for (var t in tokens) t: t.getNumericValue()
     };
-    print("valueMap");
-    print(valueMap);
-    print("tokens");
-    print(tokens);
     List<num> numList = [];
     for (var t in tokens) {
       num value = valueMap[t] ?? -1;

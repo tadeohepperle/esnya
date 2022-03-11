@@ -1,0 +1,14 @@
+name: text_to_items
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0-80.1.beta <3.0.0"
+
+dependencies:
+  esnya:
+    path: ./../
+
+dev_dependencies:
