@@ -194,7 +194,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     return triplets;
   }
 
-  KtList<Tuple2<IntRange, FoodItemString>> convertTripletsToFoodItems(
+  List<Tuple2<IntRange, FoodItemString>> convertTripletsToFoodItems(
       List<AnalysisTokenCollectionTriplet> triplets, String originText) {
     List<Tuple2<IntRange, FoodItemString>> results = [];
     for (var triplet in triplets) {
@@ -225,7 +225,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
         print(ex);
       }
     }
-    return results.toImmutableList();
+    return results;
   }
 
   TokenTag tagFromText(String text) {

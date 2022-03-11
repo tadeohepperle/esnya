@@ -74,7 +74,7 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
         // TODO: handle error somehow, but should actually be ignored. Maybe just logged.
       },
       (r) {
-        add(ApplyFoodItemStrings(r));
+        add(ApplyFoodItemStrings(r.toImmutableList()));
       },
     );
     // handle potential next element in cache:

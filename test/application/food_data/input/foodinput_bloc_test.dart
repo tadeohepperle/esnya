@@ -46,7 +46,7 @@ class MockTextProcessingRepository extends Mock
       c += w.length + 1;
       l.add(Tuple2(r, fis));
     }
-    return Future.value(right(l.toImmutableList()));
+    return Future.value(right(l));
   }
 }
 

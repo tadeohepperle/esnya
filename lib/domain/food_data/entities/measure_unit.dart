@@ -24,6 +24,34 @@ class MeasureUnit extends Equatable {
 
   @override
   List<Object?> get props => [mode, baseUnitEquivalent];
+
+  @override
+  String toString() {
+    String unitName =
+        unitNames[unitNames.keys.firstWhere((c) => c == this)] ?? 'noUnit';
+    Map<MeasureUnitMode, String> unitModeNames = {
+      MeasureUnitMode.noUnit: 'NOUNIT',
+      MeasureUnitMode.mass: 'MASS',
+      MeasureUnitMode.volume: 'VOLUME'
+    };
+    return 'MeasureUnit($unitName, ${unitModeNames[mode]},baseEquivalent: $baseUnitEquivalent)';
+  }
+
+  static final unitNames = {
+    noUnit: 'noUnit',
+    g: 'g',
+    kg: 'kg',
+    ton: 'ton',
+    mg: 'mg',
+    oz: 'oz',
+    lbs: 'lbs',
+    ml: 'm',
+    l: 'l',
+    tsp: 'tsp',
+    tbsp: 'tbsp',
+    cup: 'cup',
+    gallon: 'gallon'
+  };
 }
 
 enum MeasureUnitMode { noUnit, mass, volume }
