@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class MeasureUnit extends Equatable {
   final MeasureUnitMode mode;
-  final num baseUnitEquivalent; //
+  final double baseUnitEquivalent; //
   const MeasureUnit._(this.mode, this.baseUnitEquivalent);
 
   static const MeasureUnit noUnit = MeasureUnit._(MeasureUnitMode.noUnit, 1);

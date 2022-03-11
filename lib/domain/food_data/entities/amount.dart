@@ -6,7 +6,7 @@ import 'package:esnya/presentation/core/core.dart';
 @immutable
 class Amount extends Equatable {
   final MeasureUnit unit;
-  final num number; //
+  final double number; //
 
   const Amount(this.number, [this.unit = MeasureUnit.g]);
 

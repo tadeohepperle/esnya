@@ -12,7 +12,7 @@ abstract class FragmentizingEngine {
       text.toLowerCase().replaceAll(",", ".");
 
   static List<Token> tokenize(String text) {
-    var regex = RegExp(r"\d+\,\d+|\d+\.\d+|\d+|[^_ \.,!?\t\n]+");
+    var regex = RegExp(r"\d+\,\d+|\d+\.\d+|\d+|[^_ \.,!?\t-]+");
     var matches = regex.allMatches(text);
     return [
       for (var m in matches)

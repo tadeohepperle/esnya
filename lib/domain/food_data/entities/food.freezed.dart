@@ -21,7 +21,7 @@ class _$FoodTearOff {
       {required String id,
       required String name,
       required MacroNutrients nutrients,
-      required num kcalPer100g,
+      required double kcalPer100g,
       required FoodMetadata foodMetadata}) {
     return _Food(
       id: id,
@@ -44,7 +44,7 @@ mixin _$Food {
       throw _privateConstructorUsedError; // TODO: replace with map for internationalization.
   MacroNutrients get nutrients =>
       throw _privateConstructorUsedError; // TODO: add micronutrients
-  num get kcalPer100g => throw _privateConstructorUsedError;
+  double get kcalPer100g => throw _privateConstructorUsedError;
   FoodMetadata get foodMetadata => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -59,7 +59,7 @@ abstract class $FoodCopyWith<$Res> {
       {String id,
       String name,
       MacroNutrients nutrients,
-      num kcalPer100g,
+      double kcalPer100g,
       FoodMetadata foodMetadata});
 
   $MacroNutrientsCopyWith<$Res> get nutrients;
@@ -97,7 +97,7 @@ class _$FoodCopyWithImpl<$Res> implements $FoodCopyWith<$Res> {
       kcalPer100g: kcalPer100g == freezed
           ? _value.kcalPer100g
           : kcalPer100g // ignore: cast_nullable_to_non_nullable
-              as num,
+              as double,
       foodMetadata: foodMetadata == freezed
           ? _value.foodMetadata
           : foodMetadata // ignore: cast_nullable_to_non_nullable
@@ -122,7 +122,7 @@ abstract class _$FoodCopyWith<$Res> implements $FoodCopyWith<$Res> {
       {String id,
       String name,
       MacroNutrients nutrients,
-      num kcalPer100g,
+      double kcalPer100g,
       FoodMetadata foodMetadata});
 
   @override
@@ -162,7 +162,7 @@ class __$FoodCopyWithImpl<$Res> extends _$FoodCopyWithImpl<$Res>
       kcalPer100g: kcalPer100g == freezed
           ? _value.kcalPer100g
           : kcalPer100g // ignore: cast_nullable_to_non_nullable
-              as num,
+              as double,
       foodMetadata: foodMetadata == freezed
           ? _value.foodMetadata
           : foodMetadata // ignore: cast_nullable_to_non_nullable
@@ -188,7 +188,7 @@ class _$_Food implements _Food {
   @override // TODO: replace with map for internationalization.
   final MacroNutrients nutrients;
   @override // TODO: add micronutrients
-  final num kcalPer100g;
+  final double kcalPer100g;
   @override
   final FoodMetadata foodMetadata;
 
@@ -231,7 +231,7 @@ abstract class _Food implements Food {
       {required String id,
       required String name,
       required MacroNutrients nutrients,
-      required num kcalPer100g,
+      required double kcalPer100g,
       required FoodMetadata foodMetadata}) = _$_Food;
 
   @override
@@ -241,7 +241,7 @@ abstract class _Food implements Food {
   @override // TODO: replace with map for internationalization.
   MacroNutrients get nutrients;
   @override // TODO: add micronutrients
-  num get kcalPer100g;
+  double get kcalPer100g;
   @override
   FoodMetadata get foodMetadata;
   @override

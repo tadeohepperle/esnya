@@ -4,16 +4,18 @@ import 'package:esnya/domain/core/failures.dart';
 import 'package:esnya/domain/food_data/entities/food_item_string.dart';
 import 'package:esnya/domain/food_data/entities/measure_unit.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kt_dart/collection.dart';
 
 import 'fragmentizing_engine.dart';
 
 part 'fragmentizing_engine_en.freezed.dart';
 
 class FragmentizingEngineEN implements FragmentizingEngine {
-  static const numbersDigit = {
+  static const Map<String, double> numbersDigit = {
     'quarter': 0.25,
     'half': 0.5,
+    '½': 0.5,
+    '¼': 0.25,
+    '¾': 0.75,
     // TODO: maybe a and an with value 1?  "an apple, two bananas, a can of beer"?????
     'one': 1,
     'two': 2,
@@ -26,7 +28,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     'nine': 9,
   };
 
-  static const numbersTeen = {
+  static const Map<String, double> numbersTeen = {
     'ten': 10,
     'eleven': 11,
     'twelve': 12,
@@ -39,18 +41,18 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     'nineteen': 19
   };
 
-  static const numbersTy = {
-    'twenty': 12,
-    'thirty': 13,
-    'fourty': 14,
-    'fifty': 15,
-    'sixty': 16,
-    'seventy': 17,
-    'eighty': 18,
-    'ninety': 19
+  static const Map<String, double> numbersTy = {
+    'twenty': 20,
+    'thirty': 30,
+    'fourty': 40,
+    'fifty': 50,
+    'sixty': 60,
+    'seventy': 70,
+    'eighty': 80,
+    'ninety': 90
   };
 
-  static const numbersBig = {
+  static const Map<String, double> numbersBig = {
     'hundred': 100,
     'thousand': 1000,
     'million': 1000000,
@@ -92,10 +94,13 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     'gallon': MeasureUnit.gallon,
   };
 
-  static const noises = {
-    'of',
-    'and'
-  }; // plus any tokens only one character long will be filtered out.
+  static const noises = {'of', 'and', 'a'};
+
+  static const splitters = {
+    // TODO: add more splitters, like "   " for example
+    "\n",
+    "\r",
+  };
 
   @override
   Future<FragmentizeResult> fragmentize(String text) async {
@@ -115,7 +120,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   List<AnalysisToken> extractAnalysisTokens(String text) {
     var tokens = FragmentizingEngine.tokenize(text);
     tokens = FragmentizingEngine.grantSpecialStringsSeparateTokes(
-        tokens, {...numbersBig.keys, ...numbersTy.keys});
+        tokens, {...numbersBig.keys, ...numbersTy.keys, ...splitters});
 
     // filter out noise, that is elements of noises array or tokens that are too short:
     tokens = [
@@ -133,44 +138,18 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   List<AnalysisTokenCollection> extractAnalysisTokenCollections(
       List<AnalysisToken> tokens) {
     List<AnalysisTokenCollection> tokenCollections = [];
-    AnalysisTokenCollection? current;
-
-    void flush() {
-      if (current != null) {
-        tokenCollections.add(current);
-      }
-    }
-
-    for (var t in tokens) {
-      if (t.tag == TokenTag.numberDirectlyParsable) {
-        flush();
-        var col = AnalysisTokenCollectionNumber();
-        col.add(t);
-        tokenCollections.add(col);
-      } else if (t.tag == TokenTag.unknown) {
-        if (current is! AnalysisTokenCollectionUnknown) {
-          flush();
-          current = AnalysisTokenCollectionUnknown();
-        }
-        current.add(t);
-      } else if (t.tag == TokenTag.unit) {
-        if (current is! AnalysisTokenCollectionUnit) {
-          flush();
-          current = AnalysisTokenCollectionUnit();
-        }
-        current.add(t);
-      } else if (t.category == TokenCategory.number) {
-        if (current is! AnalysisTokenCollectionNumber) {
-          flush();
-          current = AnalysisTokenCollectionNumber();
-        }
-        current.add(t);
+    for (AnalysisToken t in tokens) {
+      if (tokenCollections.isEmpty ||
+          tokenCollections.last.category != t.category) {
+        tokenCollections.add(AnalysisTokenCollection.fromAnalysisToken(t));
       } else {
-        throw Exception("theoretically unreachable code was reached");
+        tokenCollections.last.add(t);
       }
     }
-    flush();
-    return tokenCollections;
+
+    return tokenCollections
+        .where((col) => col.category != TokenCategory.splitter)
+        .toList();
   }
 
   List<AnalysisTokenCollectionTriplet> extractTriplets(
@@ -184,7 +163,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
       if (col is AnalysisTokenCollectionNumber) {
         number = col;
         unit = null;
-      } else if (number != null) {
+      } else {
         if (col is AnalysisTokenCollectionUnit) {
           unit = col;
         } else if (col is AnalysisTokenCollectionUnknown) {
@@ -202,7 +181,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     List<Tuple2<IntRange, FoodItemString>> results = [];
     for (var triplet in triplets) {
       try {
-        num numberGuess = triplet.number?.guess() ??
+        double numberGuess = triplet.number?.guess() ??
             AnalysisTokenCollectionNumber.defaultGuess;
         MeasureUnit unitGuess =
             triplet.unit?.guess() ?? AnalysisTokenCollectionUnit.defaultGuess;
@@ -232,6 +211,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   }
 
   TokenTag tagFromText(String text) {
+    if (splitters.contains(text)) return TokenTag.splitter;
     if (units.keys.contains(text)) return TokenTag.unit;
     if (numbersDigit.keys.contains(text)) return TokenTag.numberDigit;
     if (numbersTeen.keys.contains(text)) return TokenTag.numberTeen;
@@ -255,7 +235,8 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     TokenTag.numberBig: TokenCategory.number,
     TokenTag.unit: TokenCategory.unit,
     TokenTag.noise: TokenCategory.unknown,
-    TokenTag.unknown: TokenCategory.unknown
+    TokenTag.unknown: TokenCategory.unknown,
+    TokenTag.splitter: TokenCategory.splitter,
   };
 
   @override
@@ -275,7 +256,7 @@ class AnalysisToken with _$AnalysisToken {
 
 extension AnalysisTokenX on AnalysisToken {
   String get flatText => token.flatText;
-  num? getNumericValue() {
+  double? getNumericValue() {
     switch (tag) {
       case TokenTag.numberDirectlyParsable:
         return double.tryParse(token.flatText);
@@ -293,7 +274,7 @@ extension AnalysisTokenX on AnalysisToken {
   }
 }
 
-class AnalysisTokenCollection<T> {
+class AnalysisTokenCollection {
   final List<AnalysisToken> tokens = [];
   add(AnalysisToken token) {
     tokens.add(token);
@@ -306,19 +287,32 @@ class AnalysisTokenCollection<T> {
       IntRange(tokens.first.token.range.start, tokens.last.token.range.end);
 
   String get flatText => tokens.map((t) => t.flatText).join(" ");
+
+  static AnalysisTokenCollection fromAnalysisToken(AnalysisToken token) {
+    if (token.category == TokenCategory.number) {
+      return AnalysisTokenCollectionNumber()..add(token);
+    }
+    if (token.category == TokenCategory.unit) {
+      return AnalysisTokenCollectionUnit()..add(token);
+    }
+    if (token.category == TokenCategory.splitter) {
+      return AnalysisTokenCollection(TokenCategory.splitter);
+    }
+    return AnalysisTokenCollectionUnknown()..add(token);
+  }
 }
 
 class AnalysisTokenCollectionNumber extends AnalysisTokenCollection {
   AnalysisTokenCollectionNumber() : super(TokenCategory.number);
 
-  static const num defaultGuess = 1;
-  num guess() {
-    Map<AnalysisToken, num?> valueMap = {
+  static const double defaultGuess = 1;
+  double guess() {
+    Map<AnalysisToken, double?> valueMap = {
       for (var t in tokens) t: t.getNumericValue()
     };
     List<num> numList = [];
     for (var t in tokens) {
-      num value = valueMap[t] ?? -1;
+      double value = valueMap[t] ?? -1;
       if (value == -1) continue;
       if (t.tag == TokenTag.numberBig) {
         // like 100, 1000, 1 mio
@@ -348,7 +342,7 @@ class AnalysisTokenCollectionNumber extends AnalysisTokenCollection {
       }
     }
     // add all up:
-    num sum = 0;
+    double sum = 0;
     for (var x in numList) {
       sum += x;
     }
@@ -389,12 +383,14 @@ enum TokenTag {
   // attribute, // TODO: add adjectives, for example cooked noodles vs dry noodles.
   noise, // e.g. "of", leave this out e.g. in "3 grams of fish", or "a" in half a cup of coffee  ==> half cup coffee
   unknown,
+  splitter
 }
 
 enum TokenCategory {
   number, // "one hundred" or "123" or "half"
   unit, // e.g "g", "kg" or "lbs"
   unknown, // label/title of food item e.g. "cheese pizza"
+  splitter
 }
 
 

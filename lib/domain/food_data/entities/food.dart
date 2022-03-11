@@ -12,7 +12,7 @@ abstract class Food with _$Food {
     required String id, // TODO: maybe UniqueID instead
     required String name, // TODO: replace with map for internationalization.
     required MacroNutrients nutrients, // TODO: add micronutrients
-    required num kcalPer100g,
+    required double kcalPer100g,
     required FoodMetadata foodMetadata,
   }) = _Food;
 }

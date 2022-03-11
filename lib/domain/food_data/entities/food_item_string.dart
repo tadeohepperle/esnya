@@ -12,7 +12,7 @@ abstract class FoodItemString with _$FoodItemString {
     IntRange? unitRange,
     required IntRange labelRange,
     required MeasureUnit unitGuess,
-    required num numberGuess,
+    required double numberGuess,
   }) = _FoodItemString;
 }
 
@@ -20,7 +20,6 @@ extension FoodItemStringX on FoodItemString {
   String get label => text.substring(labelRange.start, labelRange.end);
 
   String shortString() {
-    return labelRange.toString();
     var s = numberGuess.toString();
     if (unitGuess.toString() != MeasureUnit.noUnit.toString()) {
       s += '_' + unitGuess.toString();

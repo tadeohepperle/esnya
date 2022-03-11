@@ -22,7 +22,7 @@ class _$FoodItemStringTearOff {
       IntRange? unitRange,
       required IntRange labelRange,
       required MeasureUnit unitGuess,
-      required num numberGuess}) {
+      required double numberGuess}) {
     return _FoodItemString(
       text,
       numberRange: numberRange,
@@ -44,7 +44,7 @@ mixin _$FoodItemString {
   IntRange? get unitRange => throw _privateConstructorUsedError;
   IntRange get labelRange => throw _privateConstructorUsedError;
   MeasureUnit get unitGuess => throw _privateConstructorUsedError;
-  num get numberGuess => throw _privateConstructorUsedError;
+  double get numberGuess => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodItemStringCopyWith<FoodItemString> get copyWith =>
@@ -62,7 +62,7 @@ abstract class $FoodItemStringCopyWith<$Res> {
       IntRange? unitRange,
       IntRange labelRange,
       MeasureUnit unitGuess,
-      num numberGuess});
+      double numberGuess});
 
   $IntRangeCopyWith<$Res>? get numberRange;
   $IntRangeCopyWith<$Res>? get unitRange;
@@ -111,7 +111,7 @@ class _$FoodItemStringCopyWithImpl<$Res>
       numberGuess: numberGuess == freezed
           ? _value.numberGuess
           : numberGuess // ignore: cast_nullable_to_non_nullable
-              as num,
+              as double,
     ));
   }
 
@@ -158,7 +158,7 @@ abstract class _$FoodItemStringCopyWith<$Res>
       IntRange? unitRange,
       IntRange labelRange,
       MeasureUnit unitGuess,
-      num numberGuess});
+      double numberGuess});
 
   @override
   $IntRangeCopyWith<$Res>? get numberRange;
@@ -212,7 +212,7 @@ class __$FoodItemStringCopyWithImpl<$Res>
       numberGuess: numberGuess == freezed
           ? _value.numberGuess
           : numberGuess // ignore: cast_nullable_to_non_nullable
-              as num,
+              as double,
     ));
   }
 }
@@ -238,7 +238,7 @@ class _$_FoodItemString implements _FoodItemString {
   @override
   final MeasureUnit unitGuess;
   @override
-  final num numberGuess;
+  final double numberGuess;
 
   @override
   String toString() {
@@ -283,7 +283,7 @@ abstract class _FoodItemString implements FoodItemString {
       IntRange? unitRange,
       required IntRange labelRange,
       required MeasureUnit unitGuess,
-      required num numberGuess}) = _$_FoodItemString;
+      required double numberGuess}) = _$_FoodItemString;
 
   @override
   String get text;
@@ -296,7 +296,7 @@ abstract class _FoodItemString implements FoodItemString {
   @override
   MeasureUnit get unitGuess;
   @override
-  num get numberGuess;
+  double get numberGuess;
   @override
   @JsonKey(ignore: true)
   _$FoodItemStringCopyWith<_FoodItemString> get copyWith =>
