@@ -3,15 +3,25 @@ import 'package:esnya/infrastructure/food_data/text_processing/fragmentizing/fra
 
 void main() async {
   FragmentizingEngine engine = FragmentizingEngineEN();
-  var either = await engine.fragmentize("one gram of sugar two bananas");
+  var original = "two hundred ten cups of salt";
+  var either = await engine.fragmentize(original);
 
   either.fold((err) {
     print("ERROR");
+
     print(err);
   }, (result) {
     for (var r in result) {
-      print(r);
-      print("-----");
+      var rangeFromOriginal = r.value1;
+      var foodItem = r.value2;
+
+      print(foodItem.text);
+      print(foodItem.text
+          .substring(foodItem.labelRange.start, foodItem.labelRange.end));
+      print(foodItem);
+
+      // print(r);
+      // print("-----");
     }
   });
 }

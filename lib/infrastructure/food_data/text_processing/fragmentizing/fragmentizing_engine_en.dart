@@ -14,6 +14,7 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   static const numbersDigit = {
     'quarter': 0.25,
     'half': 0.5,
+    // TODO: maybe a and an with value 1?  "an apple, two bananas, a can of beer"?????
     'one': 1,
     'two': 2,
     'three': 3,
@@ -60,6 +61,8 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     'grams': MeasureUnit.g,
     'g': MeasureUnit.g,
     'kilogram': MeasureUnit.kg,
+    'kilo': MeasureUnit.kg,
+    'kilos': MeasureUnit.kg,
     'kilograms': MeasureUnit.kg,
     'kg': MeasureUnit.kg,
     'ton': MeasureUnit.ton,
@@ -90,14 +93,17 @@ class FragmentizingEngineEN implements FragmentizingEngine {
   };
 
   static const noises = {
-    'a',
-    'of'
+    'of',
+    'and'
   }; // plus any tokens only one character long will be filtered out.
 
   @override
   Future<FragmentizeResult> fragmentize(String text) async {
     try {
       List<AnalysisToken> tokens = extractAnalysisTokens(text);
+      print("____TOKENS:");
+      print(tokens);
+      print("____");
       List<AnalysisTokenCollection> tokenCollections =
           extractAnalysisTokenCollections(tokens);
       List<AnalysisTokenCollectionTriplet> triplets =
@@ -234,6 +240,8 @@ class FragmentizingEngineEN implements FragmentizingEngine {
     if (numbersTeen.keys.contains(text)) return TokenTag.numberTeen;
     if (numbersTy.keys.contains(text)) return TokenTag.numberTy;
     if (numbersBig.keys.contains(text)) return TokenTag.numberBig;
+    double? parsed = double.tryParse(text);
+    if (parsed != null) return TokenTag.numberDirectlyParsable;
 
     return TokenTag.unknown;
   }
@@ -311,6 +319,10 @@ class AnalysisTokenCollectionNumber extends AnalysisTokenCollection {
     Map<AnalysisToken, num?> valueMap = {
       for (var t in tokens) t: t.getNumericValue()
     };
+    print("valueMap");
+    print(valueMap);
+    print("tokens");
+    print(tokens);
     List<num> numList = [];
     for (var t in tokens) {
       num value = valueMap[t] ?? -1;
@@ -341,14 +353,13 @@ class AnalysisTokenCollectionNumber extends AnalysisTokenCollection {
           numList.last += value;
         }
       }
-      // add all up:
-      num sum = 0;
-      for (var x in numList) {
-        sum += x;
-      }
-      return sum;
     }
-    return 0;
+    // add all up:
+    num sum = 0;
+    for (var x in numList) {
+      sum += x;
+    }
+    return sum;
   }
 }
 

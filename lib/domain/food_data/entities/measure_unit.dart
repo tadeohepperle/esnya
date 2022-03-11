@@ -34,7 +34,7 @@ class MeasureUnit extends Equatable {
       MeasureUnitMode.mass: 'MASS',
       MeasureUnitMode.volume: 'VOLUME'
     };
-    return 'MeasureUnit($unitName, ${unitModeNames[mode]},baseEquivalent: $baseUnitEquivalent)';
+    return 'MeasureUnit($unitName, ${unitModeNames[mode]}, baseEquivalent: $baseUnitEquivalent)';
   }
 
   static final unitNames = {
