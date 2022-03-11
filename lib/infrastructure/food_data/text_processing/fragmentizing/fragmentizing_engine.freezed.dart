@@ -14,11 +14,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$_TokenTearOff {
-  const _$_TokenTearOff();
+class _$TokenTearOff {
+  const _$TokenTearOff();
 
-  __Token call(IntRange range, String flatText) {
-    return __Token(
+  _Token call(IntRange range, String flatText) {
+    return _Token(
       range,
       flatText,
     );
@@ -26,29 +26,29 @@ class _$_TokenTearOff {
 }
 
 /// @nodoc
-const _$Token = _$_TokenTearOff();
+const $Token = _$TokenTearOff();
 
 /// @nodoc
-mixin _$_Token {
+mixin _$Token {
   IntRange get range => throw _privateConstructorUsedError;
   String get flatText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  _$TokenCopyWith<Token> get copyWith => throw _privateConstructorUsedError;
+  $TokenCopyWith<Token> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$TokenCopyWith<$Res> {
-  factory _$TokenCopyWith(Token value, $Res Function(Token) then) =
-      __$TokenCopyWithImpl<$Res>;
+abstract class $TokenCopyWith<$Res> {
+  factory $TokenCopyWith(Token value, $Res Function(Token) then) =
+      _$TokenCopyWithImpl<$Res>;
   $Res call({IntRange range, String flatText});
 
   $IntRangeCopyWith<$Res> get range;
 }
 
 /// @nodoc
-class __$TokenCopyWithImpl<$Res> implements _$TokenCopyWith<$Res> {
-  __$TokenCopyWithImpl(this._value, this._then);
+class _$TokenCopyWithImpl<$Res> implements $TokenCopyWith<$Res> {
+  _$TokenCopyWithImpl(this._value, this._then);
 
   final Token _value;
   // ignore: unused_field
@@ -80,9 +80,9 @@ class __$TokenCopyWithImpl<$Res> implements _$TokenCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$_TokenCopyWith<$Res> implements _$TokenCopyWith<$Res> {
-  factory _$_TokenCopyWith(__Token value, $Res Function(__Token) then) =
-      __$_TokenCopyWithImpl<$Res>;
+abstract class _$TokenCopyWith<$Res> implements $TokenCopyWith<$Res> {
+  factory _$TokenCopyWith(_Token value, $Res Function(_Token) then) =
+      __$TokenCopyWithImpl<$Res>;
   @override
   $Res call({IntRange range, String flatText});
 
@@ -91,20 +91,20 @@ abstract class _$_TokenCopyWith<$Res> implements _$TokenCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$_TokenCopyWithImpl<$Res> extends __$TokenCopyWithImpl<$Res>
-    implements _$_TokenCopyWith<$Res> {
-  __$_TokenCopyWithImpl(__Token _value, $Res Function(__Token) _then)
-      : super(_value, (v) => _then(v as __Token));
+class __$TokenCopyWithImpl<$Res> extends _$TokenCopyWithImpl<$Res>
+    implements _$TokenCopyWith<$Res> {
+  __$TokenCopyWithImpl(_Token _value, $Res Function(_Token) _then)
+      : super(_value, (v) => _then(v as _Token));
 
   @override
-  __Token get _value => super._value as __Token;
+  _Token get _value => super._value as _Token;
 
   @override
   $Res call({
     Object? range = freezed,
     Object? flatText = freezed,
   }) {
-    return _then(__Token(
+    return _then(_Token(
       range == freezed
           ? _value.range
           : range // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$_TokenCopyWithImpl<$Res> extends __$TokenCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$__Token implements __Token {
-  const _$__Token(this.range, this.flatText);
+class _$_Token implements _Token {
+  const _$_Token(this.range, this.flatText);
 
   @override
   final IntRange range;
@@ -129,14 +129,14 @@ class _$__Token implements __Token {
 
   @override
   String toString() {
-    return '_Token(range: $range, flatText: $flatText)';
+    return 'Token(range: $range, flatText: $flatText)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is __Token &&
+            other is _Token &&
             const DeepCollectionEquality().equals(other.range, range) &&
             const DeepCollectionEquality().equals(other.flatText, flatText));
   }
@@ -149,12 +149,12 @@ class _$__Token implements __Token {
 
   @JsonKey(ignore: true)
   @override
-  _$_TokenCopyWith<__Token> get copyWith =>
-      __$_TokenCopyWithImpl<__Token>(this, _$identity);
+  _$TokenCopyWith<_Token> get copyWith =>
+      __$TokenCopyWithImpl<_Token>(this, _$identity);
 }
 
-abstract class __Token implements Token {
-  const factory __Token(IntRange range, String flatText) = _$__Token;
+abstract class _Token implements Token {
+  const factory _Token(IntRange range, String flatText) = _$_Token;
 
   @override
   IntRange get range;
@@ -162,5 +162,5 @@ abstract class __Token implements Token {
   String get flatText;
   @override
   @JsonKey(ignore: true)
-  _$_TokenCopyWith<__Token> get copyWith => throw _privateConstructorUsedError;
+  _$TokenCopyWith<_Token> get copyWith => throw _privateConstructorUsedError;
 }

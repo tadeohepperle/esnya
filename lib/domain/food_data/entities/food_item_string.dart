@@ -10,7 +10,7 @@ abstract class FoodItemString with _$FoodItemString {
     String text, {
     IntRange? numberRange,
     IntRange? unitRange,
-    IntRange? labelRange,
+    required IntRange labelRange,
     required MeasureUnit unitGuess,
     required num numberGuess,
   }) = _FoodItemString;

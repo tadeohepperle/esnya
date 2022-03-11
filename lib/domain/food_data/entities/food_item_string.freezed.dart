@@ -20,7 +20,7 @@ class _$FoodItemStringTearOff {
   _FoodItemString call(String text,
       {IntRange? numberRange,
       IntRange? unitRange,
-      IntRange? labelRange,
+      required IntRange labelRange,
       required MeasureUnit unitGuess,
       required num numberGuess}) {
     return _FoodItemString(
@@ -42,7 +42,7 @@ mixin _$FoodItemString {
   String get text => throw _privateConstructorUsedError;
   IntRange? get numberRange => throw _privateConstructorUsedError;
   IntRange? get unitRange => throw _privateConstructorUsedError;
-  IntRange? get labelRange => throw _privateConstructorUsedError;
+  IntRange get labelRange => throw _privateConstructorUsedError;
   MeasureUnit get unitGuess => throw _privateConstructorUsedError;
   num get numberGuess => throw _privateConstructorUsedError;
 
@@ -60,13 +60,13 @@ abstract class $FoodItemStringCopyWith<$Res> {
       {String text,
       IntRange? numberRange,
       IntRange? unitRange,
-      IntRange? labelRange,
+      IntRange labelRange,
       MeasureUnit unitGuess,
       num numberGuess});
 
   $IntRangeCopyWith<$Res>? get numberRange;
   $IntRangeCopyWith<$Res>? get unitRange;
-  $IntRangeCopyWith<$Res>? get labelRange;
+  $IntRangeCopyWith<$Res> get labelRange;
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class _$FoodItemStringCopyWithImpl<$Res>
       labelRange: labelRange == freezed
           ? _value.labelRange
           : labelRange // ignore: cast_nullable_to_non_nullable
-              as IntRange?,
+              as IntRange,
       unitGuess: unitGuess == freezed
           ? _value.unitGuess
           : unitGuess // ignore: cast_nullable_to_non_nullable
@@ -138,12 +138,8 @@ class _$FoodItemStringCopyWithImpl<$Res>
   }
 
   @override
-  $IntRangeCopyWith<$Res>? get labelRange {
-    if (_value.labelRange == null) {
-      return null;
-    }
-
-    return $IntRangeCopyWith<$Res>(_value.labelRange!, (value) {
+  $IntRangeCopyWith<$Res> get labelRange {
+    return $IntRangeCopyWith<$Res>(_value.labelRange, (value) {
       return _then(_value.copyWith(labelRange: value));
     });
   }
@@ -160,7 +156,7 @@ abstract class _$FoodItemStringCopyWith<$Res>
       {String text,
       IntRange? numberRange,
       IntRange? unitRange,
-      IntRange? labelRange,
+      IntRange labelRange,
       MeasureUnit unitGuess,
       num numberGuess});
 
@@ -169,7 +165,7 @@ abstract class _$FoodItemStringCopyWith<$Res>
   @override
   $IntRangeCopyWith<$Res>? get unitRange;
   @override
-  $IntRangeCopyWith<$Res>? get labelRange;
+  $IntRangeCopyWith<$Res> get labelRange;
 }
 
 /// @nodoc
@@ -208,7 +204,7 @@ class __$FoodItemStringCopyWithImpl<$Res>
       labelRange: labelRange == freezed
           ? _value.labelRange
           : labelRange // ignore: cast_nullable_to_non_nullable
-              as IntRange?,
+              as IntRange,
       unitGuess: unitGuess == freezed
           ? _value.unitGuess
           : unitGuess // ignore: cast_nullable_to_non_nullable
@@ -227,7 +223,7 @@ class _$_FoodItemString implements _FoodItemString {
   const _$_FoodItemString(this.text,
       {this.numberRange,
       this.unitRange,
-      this.labelRange,
+      required this.labelRange,
       required this.unitGuess,
       required this.numberGuess});
 
@@ -238,7 +234,7 @@ class _$_FoodItemString implements _FoodItemString {
   @override
   final IntRange? unitRange;
   @override
-  final IntRange? labelRange;
+  final IntRange labelRange;
   @override
   final MeasureUnit unitGuess;
   @override
@@ -285,7 +281,7 @@ abstract class _FoodItemString implements FoodItemString {
   const factory _FoodItemString(String text,
       {IntRange? numberRange,
       IntRange? unitRange,
-      IntRange? labelRange,
+      required IntRange labelRange,
       required MeasureUnit unitGuess,
       required num numberGuess}) = _$_FoodItemString;
 
@@ -296,7 +292,7 @@ abstract class _FoodItemString implements FoodItemString {
   @override
   IntRange? get unitRange;
   @override
-  IntRange? get labelRange;
+  IntRange get labelRange;
   @override
   MeasureUnit get unitGuess;
   @override

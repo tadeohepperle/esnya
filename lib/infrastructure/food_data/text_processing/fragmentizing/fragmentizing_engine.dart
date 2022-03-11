@@ -6,11 +6,13 @@ part 'fragmentizing_engine.freezed.dart';
 
 abstract class FragmentizingEngine {
   Future<FragmentizeResult> fragmentize(String text);
+  Future<num> numberStringToText(String numberString);
 
-  static String flattenText(String text) => text.toLowerCase();
+  static String flattenText(String text) =>
+      text.toLowerCase().replaceAll(",", ".");
 
   static List<Token> tokenize(String text) {
-    var regex = RegExp(r"[^_ \.,!?]+");
+    var regex = RegExp(r"\d+\,\d+|\d+\.\d+|\d+|[^_ \.,!?]+");
     var matches = regex.allMatches(text);
     return [
       for (var m in matches)
@@ -53,6 +55,9 @@ abstract class FragmentizingEngine {
 }
 
 @freezed
-abstract class Token with _$_Token {
-  const factory Token(IntRange range, String flatText) = __Token;
+abstract class Token with _$Token {
+  const factory Token(IntRange range, String flatText) = _Token;
 }
+
+
+// TODO: edgecases like 1 one-pot-pasta

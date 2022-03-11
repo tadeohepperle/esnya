@@ -14,4 +14,11 @@ typedef FragmentizeResult
 @freezed
 abstract class IntRange with _$IntRange {
   const factory IntRange(int start, int end) = _IntRange;
+
+  factory IntRange.zero() => const IntRange(0, 0);
+}
+
+extension IntRangeX on IntRange {
+  IntRange operator +(int n) => IntRange(start + n, end + n);
+  IntRange operator -(int n) => IntRange(start - n, end - n);
 }
