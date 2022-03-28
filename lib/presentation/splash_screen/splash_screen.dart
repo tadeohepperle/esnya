@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../application/auth/auth_bloc.dart';
 
-class SplashScreenPage extends StatelessWidget {
-  const SplashScreenPage({Key? key}) : super(key: key);
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

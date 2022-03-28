@@ -108,7 +108,7 @@ class SignInForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      child: Text(l10ns.login_button_text),
+                      child: Text(l10ns.loginButtonText),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent
@@ -120,7 +120,7 @@ class SignInForm extends StatelessWidget {
                   SizedBoxX.wSmall,
                   Expanded(
                     child: ElevatedButton(
-                      child: Text(l10ns.register_button_text),
+                      child: Text(l10ns.registerButtonText),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent
@@ -135,7 +135,7 @@ class SignInForm extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      child: Text(l10ns.googleauth_button_text),
+                      child: Text(l10ns.googleAuthButtonText),
                       onPressed: () {
                         bloc.add(
                           const SignInFormEvent.signInWithGooglePressed(),

@@ -13,18 +13,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this._authRepository) : super(const Initial()) {
     on<AuthEvent>((event, emit) async {
-      await event.map(authCheckRequested: (e) async {
-        final userOption = await _authRepository.getSignedInUser();
-        emit(
-          userOption.fold(
-            () => const AuthState.unauthenticated(),
-            (_) => const AuthState.authenticated(),
-          ),
-        );
-      }, signedOut: (e) async {
-        await _authRepository.signOut();
-        emit(const AuthState.unauthenticated());
-      });
+      await event.map(
+        authCheckRequested: (e) async {
+          final userOption = await _authRepository.getSignedInUser();
+          emit(
+            userOption.fold(
+              () => const AuthState.unauthenticated(),
+              (_) => const AuthState.authenticated(),
+            ),
+          );
+        },
+        signedOut: (e) async {
+          await _authRepository.signOut();
+          emit(const AuthState.unauthenticated());
+        },
+      );
     });
   }
 }
