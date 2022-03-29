@@ -1,6 +1,7 @@
 import 'package:esnya/domain/isolate2/entities/isolate_request.dart';
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
 import 'package:esnya/injection.dart';
+import 'package:esnya_shared_resources/food_data/repositories/food_data_repository.dart';
 import 'package:flutter/material.dart';
 
 class DashboardTabView extends StatefulWidget {
@@ -26,14 +27,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
         ),
         ElevatedButton(
             onPressed: () async {
-              final isolateRepo = getIt<Isolate2Repository>();
               print(
                   'makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"))');
               // final res = await isolateRepo
               //     .makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"));
-
-              final res = await isolateRepo.makeRequest(
-                  IsolateRequest.foodDataRepositoryGetFoodFromID("292"));
+              final res =
+                  await getIt<FoodDataRepository>().getFoodFromID("xsd7");
               print(res);
             },
             child: Text("press")),

@@ -15,9 +15,9 @@ class FoodDataRepositoryRemoteImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<DataFailure, Food>> getFoodFromID(String id) async {
-    // TODO: implement
+    // TODO: implement data source
     return right(Food(
-        id: "3282823892309322093",
+        id: id,
         title: "blalblalblalblal",
         category: FoodCategory.beverage,
         nutrients: {},
