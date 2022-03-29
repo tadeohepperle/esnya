@@ -23,6 +23,20 @@ class _$IsolateRequestTearOff {
       message,
     );
   }
+
+  IsolateRequestFoodMappingRepositoryMapInput foodMappingRepositoryMapInput(
+      String input) {
+    return IsolateRequestFoodMappingRepositoryMapInput(
+      input,
+    );
+  }
+
+  IsolateRequestFoodDataRepositoryGetFoodFromID foodDataRepositoryGetFoodFromID(
+      String id) {
+    return IsolateRequestFoodDataRepositoryGetFoodFromID(
+      id,
+    );
+  }
 }
 
 /// @nodoc
@@ -30,43 +44,56 @@ const $IsolateRequest = _$IsolateRequestTearOff();
 
 /// @nodoc
 mixin _$IsolateRequest {
-  String get message => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) helloWorld,
+    required TResult Function(String input) foodMappingRepositoryMapInput,
+    required TResult Function(String id) foodDataRepositoryGetFoodFromID,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)
+        foodMappingRepositoryMapInput,
+    required TResult Function(
+            IsolateRequestFoodDataRepositoryGetFoodFromID value)
+        foodDataRepositoryGetFoodFromID,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $IsolateRequestCopyWith<IsolateRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -75,7 +102,6 @@ abstract class $IsolateRequestCopyWith<$Res> {
   factory $IsolateRequestCopyWith(
           IsolateRequest value, $Res Function(IsolateRequest) then) =
       _$IsolateRequestCopyWithImpl<$Res>;
-  $Res call({String message});
 }
 
 /// @nodoc
@@ -86,27 +112,13 @@ class _$IsolateRequestCopyWithImpl<$Res>
   final IsolateRequest _value;
   // ignore: unused_field
   final $Res Function(IsolateRequest) _then;
-
-  @override
-  $Res call({
-    Object? message = freezed,
-  }) {
-    return _then(_value.copyWith(
-      message: message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class $IsolateRequestHelloWorldCopyWith<$Res>
-    implements $IsolateRequestCopyWith<$Res> {
+abstract class $IsolateRequestHelloWorldCopyWith<$Res> {
   factory $IsolateRequestHelloWorldCopyWith(IsolateRequestHelloWorld value,
           $Res Function(IsolateRequestHelloWorld) then) =
       _$IsolateRequestHelloWorldCopyWithImpl<$Res>;
-  @override
   $Res call({String message});
 }
 
@@ -170,6 +182,8 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) helloWorld,
+    required TResult Function(String input) foodMappingRepositoryMapInput,
+    required TResult Function(String id) foodDataRepositoryGetFoodFromID,
   }) {
     return helloWorld(message);
   }
@@ -178,6 +192,8 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
   }) {
     return helloWorld?.call(message);
   }
@@ -186,6 +202,8 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
     required TResult orElse(),
   }) {
     if (helloWorld != null) {
@@ -198,6 +216,11 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)
+        foodMappingRepositoryMapInput,
+    required TResult Function(
+            IsolateRequestFoodDataRepositoryGetFoodFromID value)
+        foodDataRepositoryGetFoodFromID,
   }) {
     return helloWorld(this);
   }
@@ -206,6 +229,10 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
   }) {
     return helloWorld?.call(this);
   }
@@ -214,6 +241,10 @@ class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
     required TResult orElse(),
   }) {
     if (helloWorld != null) {
@@ -227,10 +258,323 @@ abstract class IsolateRequestHelloWorld implements IsolateRequest {
   const factory IsolateRequestHelloWorld(String message) =
       _$IsolateRequestHelloWorld;
 
-  @override
   String get message;
-  @override
   @JsonKey(ignore: true)
   $IsolateRequestHelloWorldCopyWith<IsolateRequestHelloWorld> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IsolateRequestFoodMappingRepositoryMapInputCopyWith<$Res> {
+  factory $IsolateRequestFoodMappingRepositoryMapInputCopyWith(
+          IsolateRequestFoodMappingRepositoryMapInput value,
+          $Res Function(IsolateRequestFoodMappingRepositoryMapInput) then) =
+      _$IsolateRequestFoodMappingRepositoryMapInputCopyWithImpl<$Res>;
+  $Res call({String input});
+}
+
+/// @nodoc
+class _$IsolateRequestFoodMappingRepositoryMapInputCopyWithImpl<$Res>
+    extends _$IsolateRequestCopyWithImpl<$Res>
+    implements $IsolateRequestFoodMappingRepositoryMapInputCopyWith<$Res> {
+  _$IsolateRequestFoodMappingRepositoryMapInputCopyWithImpl(
+      IsolateRequestFoodMappingRepositoryMapInput _value,
+      $Res Function(IsolateRequestFoodMappingRepositoryMapInput) _then)
+      : super(_value,
+            (v) => _then(v as IsolateRequestFoodMappingRepositoryMapInput));
+
+  @override
+  IsolateRequestFoodMappingRepositoryMapInput get _value =>
+      super._value as IsolateRequestFoodMappingRepositoryMapInput;
+
+  @override
+  $Res call({
+    Object? input = freezed,
+  }) {
+    return _then(IsolateRequestFoodMappingRepositoryMapInput(
+      input == freezed
+          ? _value.input
+          : input // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsolateRequestFoodMappingRepositoryMapInput
+    implements IsolateRequestFoodMappingRepositoryMapInput {
+  const _$IsolateRequestFoodMappingRepositoryMapInput(this.input);
+
+  @override
+  final String input;
+
+  @override
+  String toString() {
+    return 'IsolateRequest.foodMappingRepositoryMapInput(input: $input)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is IsolateRequestFoodMappingRepositoryMapInput &&
+            const DeepCollectionEquality().equals(other.input, input));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(input));
+
+  @JsonKey(ignore: true)
+  @override
+  $IsolateRequestFoodMappingRepositoryMapInputCopyWith<
+          IsolateRequestFoodMappingRepositoryMapInput>
+      get copyWith => _$IsolateRequestFoodMappingRepositoryMapInputCopyWithImpl<
+          IsolateRequestFoodMappingRepositoryMapInput>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) helloWorld,
+    required TResult Function(String input) foodMappingRepositoryMapInput,
+    required TResult Function(String id) foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodMappingRepositoryMapInput(input);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodMappingRepositoryMapInput?.call(input);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
+    required TResult orElse(),
+  }) {
+    if (foodMappingRepositoryMapInput != null) {
+      return foodMappingRepositoryMapInput(input);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)
+        foodMappingRepositoryMapInput,
+    required TResult Function(
+            IsolateRequestFoodDataRepositoryGetFoodFromID value)
+        foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodMappingRepositoryMapInput(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodMappingRepositoryMapInput?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
+    required TResult orElse(),
+  }) {
+    if (foodMappingRepositoryMapInput != null) {
+      return foodMappingRepositoryMapInput(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IsolateRequestFoodMappingRepositoryMapInput
+    implements IsolateRequest {
+  const factory IsolateRequestFoodMappingRepositoryMapInput(String input) =
+      _$IsolateRequestFoodMappingRepositoryMapInput;
+
+  String get input;
+  @JsonKey(ignore: true)
+  $IsolateRequestFoodMappingRepositoryMapInputCopyWith<
+          IsolateRequestFoodMappingRepositoryMapInput>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWith<$Res> {
+  factory $IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWith(
+          IsolateRequestFoodDataRepositoryGetFoodFromID value,
+          $Res Function(IsolateRequestFoodDataRepositoryGetFoodFromID) then) =
+      _$IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWithImpl<$Res>;
+  $Res call({String id});
+}
+
+/// @nodoc
+class _$IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWithImpl<$Res>
+    extends _$IsolateRequestCopyWithImpl<$Res>
+    implements $IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWith<$Res> {
+  _$IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWithImpl(
+      IsolateRequestFoodDataRepositoryGetFoodFromID _value,
+      $Res Function(IsolateRequestFoodDataRepositoryGetFoodFromID) _then)
+      : super(_value,
+            (v) => _then(v as IsolateRequestFoodDataRepositoryGetFoodFromID));
+
+  @override
+  IsolateRequestFoodDataRepositoryGetFoodFromID get _value =>
+      super._value as IsolateRequestFoodDataRepositoryGetFoodFromID;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(IsolateRequestFoodDataRepositoryGetFoodFromID(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsolateRequestFoodDataRepositoryGetFoodFromID
+    implements IsolateRequestFoodDataRepositoryGetFoodFromID {
+  const _$IsolateRequestFoodDataRepositoryGetFoodFromID(this.id);
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'IsolateRequest.foodDataRepositoryGetFoodFromID(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is IsolateRequestFoodDataRepositoryGetFoodFromID &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  $IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWith<
+          IsolateRequestFoodDataRepositoryGetFoodFromID>
+      get copyWith =>
+          _$IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWithImpl<
+              IsolateRequestFoodDataRepositoryGetFoodFromID>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) helloWorld,
+    required TResult Function(String input) foodMappingRepositoryMapInput,
+    required TResult Function(String id) foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodDataRepositoryGetFoodFromID(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodDataRepositoryGetFoodFromID?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? helloWorld,
+    TResult Function(String input)? foodMappingRepositoryMapInput,
+    TResult Function(String id)? foodDataRepositoryGetFoodFromID,
+    required TResult orElse(),
+  }) {
+    if (foodDataRepositoryGetFoodFromID != null) {
+      return foodDataRepositoryGetFoodFromID(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)
+        foodMappingRepositoryMapInput,
+    required TResult Function(
+            IsolateRequestFoodDataRepositoryGetFoodFromID value)
+        foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodDataRepositoryGetFoodFromID(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
+  }) {
+    return foodDataRepositoryGetFoodFromID?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestFoodMappingRepositoryMapInput value)?
+        foodMappingRepositoryMapInput,
+    TResult Function(IsolateRequestFoodDataRepositoryGetFoodFromID value)?
+        foodDataRepositoryGetFoodFromID,
+    required TResult orElse(),
+  }) {
+    if (foodDataRepositoryGetFoodFromID != null) {
+      return foodDataRepositoryGetFoodFromID(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class IsolateRequestFoodDataRepositoryGetFoodFromID
+    implements IsolateRequest {
+  const factory IsolateRequestFoodDataRepositoryGetFoodFromID(String id) =
+      _$IsolateRequestFoodDataRepositoryGetFoodFromID;
+
+  String get id;
+  @JsonKey(ignore: true)
+  $IsolateRequestFoodDataRepositoryGetFoodFromIDCopyWith<
+          IsolateRequestFoodDataRepositoryGetFoodFromID>
+      get copyWith => throw _privateConstructorUsedError;
 }

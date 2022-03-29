@@ -5,4 +5,8 @@ part 'isolate_request.freezed.dart';
 abstract class IsolateRequest with _$IsolateRequest {
   const factory IsolateRequest.helloWorld(String message) =
       IsolateRequestHelloWorld;
+  const factory IsolateRequest.foodMappingRepositoryMapInput(String input) =
+      IsolateRequestFoodMappingRepositoryMapInput;
+  const factory IsolateRequest.foodDataRepositoryGetFoodFromID(String id) =
+      IsolateRequestFoodDataRepositoryGetFoodFromID;
 }
