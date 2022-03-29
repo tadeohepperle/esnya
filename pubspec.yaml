@@ -48,16 +48,20 @@ dependencies:
   kt_dart: ^0.10.0
   equatable: ^2.0.3
   intl: ^0.17.0
+  esnya_shared_resources:
+    git:
+      url: https://github.com/tadeohepperle/esnya_shared_resources.git
+      ref: master
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  freezed: ">=1.0.0 <1.1.1"
+  freezed: ^1.1.1
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
-  bloc_test: ^9.0.3
+  # bloc_test: ^9.0.3
   injectable_generator: ^1.5.2
-  mocktail: ^0.3.0
+  # mocktail: ^0.3.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

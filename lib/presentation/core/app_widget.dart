@@ -1,5 +1,5 @@
-import 'package:esnya/domain/core/language.dart';
 import 'package:esnya/presentation/routes/app_router.dart';
+import 'package:esnya_shared_resources/language/models/language.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../application/auth/auth_bloc.dart';
@@ -26,7 +26,9 @@ class AppWidget extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
             AppLocalizations.delegate
           ],
-          supportedLocales: [for (var l in Language.languages) l.locale],
+          supportedLocales: [
+            for (var l in Language.languages) Locale(l.languageCode)
+          ],
           theme: themeData,
           title: kAppName,
           debugShowCheckedModeBanner: false,

@@ -1,5 +1,8 @@
 {
-  "login_button_text": "SIGN IN",
-  "register_button_text": "SIGN UP",
-  "googleauth_button_text": "SIGN IN WITH GOOGLE"
+  "loginButtonText": "Sign in",
+  "registerButtonText": "Sign up",
+  "googleAuthButtonText": "Sign in with Google",
+  "homeScreenTabDashboardTitle": "Dashboard",
+  "homeScreenTabCalculatorTitle": "Calculator",
+  "homeScreenTabProfileTitle": "Profile"
 }

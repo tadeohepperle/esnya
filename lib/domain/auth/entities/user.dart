@@ -1,4 +1,4 @@
-import 'package:esnya/domain/core/unique_id.dart';
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user.freezed.dart';
 

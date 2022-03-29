@@ -1,8 +1,9 @@
+import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
 import 'package:esnya/domain/auth/auth_repository.dart';
 import 'package:esnya/presentation/error_screen.dart/error_screen_page.dart';
-import 'package:esnya/presentation/home_screen/home_screen_page.dart';
-import 'package:esnya/presentation/sign_in_screen/sign_in_screen_page.dart';
-import 'package:esnya/presentation/splash_screen/splash_screen_page.dart';
+import 'package:esnya/presentation/home_screen/home_screen.dart';
+import 'package:esnya/presentation/sign_in_screen/sign_in_screen.dart';
+import 'package:esnya/presentation/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +14,7 @@ part 'app_router.freezed.dart';
 @LazySingleton()
 class AppRouter {
   AuthRepository authRepository;
-  GoRouter _router;
+  final GoRouter _router;
   @override
   RouteInformationParser<Object> get routeInformationParser =>
       _router.routeInformationParser;
@@ -35,18 +36,27 @@ class AppRouter {
             GoRoute(
               name: AppRoutes.splash.name,
               path: AppRoutes.splash.path,
-              builder: (context, state) => SplashScreenPage(),
+              builder: (context, state) => SplashScreen(),
             ),
             GoRoute(
               name: AppRoutes.signIn.name,
               path: AppRoutes.signIn.path,
-              builder: (context, state) => SignInScreenPage(),
+              builder: (context, state) => SignInScreen(),
             ),
             GoRoute(
-              name: AppRoutes.home.name,
               path: AppRoutes.home.path,
-              builder: (context, state) => HomeScreenPage(),
-            )
+              redirect: (_) => AppRoutes.homeDashboard.path,
+            ),
+            GoRoute(
+              path: '/home/:hometabslug',
+              builder: (context, state) {
+                final hometabslug = state.params['hometabslug']!;
+                return HomeScreen(
+                  key: state.pageKey,
+                  tab: HomeScreenTabType.fromSlug(hometabslug),
+                );
+              },
+            ),
           ],
           errorBuilder: (context, state) => ErrorScreenPage(),
         );
@@ -54,8 +64,14 @@ class AppRouter {
 
 class AppRoutes {
   static const NameAndPath splash = NameAndPath('splash', '/splash');
-  static const NameAndPath signIn = NameAndPath('sign-in', '/sign-in');
-  static const NameAndPath home = NameAndPath('home', '/');
+  static const NameAndPath signIn = NameAndPath('signIn', '/sign-in');
+  static const NameAndPath home = NameAndPath('home', '/home');
+  static const NameAndPath homeDashboard =
+      NameAndPath('homeDashboard', '/home/dashboard');
+  static const NameAndPath homeCalulator =
+      NameAndPath('homeCalulator', '/home/calculator');
+  static const NameAndPath homeProfile =
+      NameAndPath('homeProfile', '/home/profile');
 }
 
 @freezed
