@@ -10,9 +10,3 @@ abstract class ValueFailure<T> extends Failure with _$ValueFailure<T> {
   const factory ValueFailure.invalidPassword({required String failedValue}) =
       InvalidPassword<T>;
 }
-
-@freezed
-abstract class SetupFailue extends Failure with _$SetupFailue {
-  const SetupFailue._();
-  const factory SetupFailue.isolateSpawnFailed() = _IsolateSpawnFailed;
-}

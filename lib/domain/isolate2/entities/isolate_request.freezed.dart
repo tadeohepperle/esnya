@@ -18,8 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$IsolateRequestTearOff {
   const _$IsolateRequestTearOff();
 
-  _IsolateRequestHelloWorld helloWorld(String message) {
-    return _IsolateRequestHelloWorld(
+  IsolateRequestHelloWorld helloWorld(String message) {
+    return IsolateRequestHelloWorld(
       message,
     );
   }
@@ -50,17 +50,17 @@ mixin _$IsolateRequest {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestHelloWorld value) helloWorld,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -101,32 +101,32 @@ class _$IsolateRequestCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$IsolateRequestHelloWorldCopyWith<$Res>
+abstract class $IsolateRequestHelloWorldCopyWith<$Res>
     implements $IsolateRequestCopyWith<$Res> {
-  factory _$IsolateRequestHelloWorldCopyWith(_IsolateRequestHelloWorld value,
-          $Res Function(_IsolateRequestHelloWorld) then) =
-      __$IsolateRequestHelloWorldCopyWithImpl<$Res>;
+  factory $IsolateRequestHelloWorldCopyWith(IsolateRequestHelloWorld value,
+          $Res Function(IsolateRequestHelloWorld) then) =
+      _$IsolateRequestHelloWorldCopyWithImpl<$Res>;
   @override
   $Res call({String message});
 }
 
 /// @nodoc
-class __$IsolateRequestHelloWorldCopyWithImpl<$Res>
+class _$IsolateRequestHelloWorldCopyWithImpl<$Res>
     extends _$IsolateRequestCopyWithImpl<$Res>
-    implements _$IsolateRequestHelloWorldCopyWith<$Res> {
-  __$IsolateRequestHelloWorldCopyWithImpl(_IsolateRequestHelloWorld _value,
-      $Res Function(_IsolateRequestHelloWorld) _then)
-      : super(_value, (v) => _then(v as _IsolateRequestHelloWorld));
+    implements $IsolateRequestHelloWorldCopyWith<$Res> {
+  _$IsolateRequestHelloWorldCopyWithImpl(IsolateRequestHelloWorld _value,
+      $Res Function(IsolateRequestHelloWorld) _then)
+      : super(_value, (v) => _then(v as IsolateRequestHelloWorld));
 
   @override
-  _IsolateRequestHelloWorld get _value =>
-      super._value as _IsolateRequestHelloWorld;
+  IsolateRequestHelloWorld get _value =>
+      super._value as IsolateRequestHelloWorld;
 
   @override
   $Res call({
     Object? message = freezed,
   }) {
-    return _then(_IsolateRequestHelloWorld(
+    return _then(IsolateRequestHelloWorld(
       message == freezed
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -137,8 +137,8 @@ class __$IsolateRequestHelloWorldCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
-  const _$_IsolateRequestHelloWorld(this.message);
+class _$IsolateRequestHelloWorld implements IsolateRequestHelloWorld {
+  const _$IsolateRequestHelloWorld(this.message);
 
   @override
   final String message;
@@ -152,7 +152,7 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _IsolateRequestHelloWorld &&
+            other is IsolateRequestHelloWorld &&
             const DeepCollectionEquality().equals(other.message, message));
   }
 
@@ -162,8 +162,8 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
 
   @JsonKey(ignore: true)
   @override
-  _$IsolateRequestHelloWorldCopyWith<_IsolateRequestHelloWorld> get copyWith =>
-      __$IsolateRequestHelloWorldCopyWithImpl<_IsolateRequestHelloWorld>(
+  $IsolateRequestHelloWorldCopyWith<IsolateRequestHelloWorld> get copyWith =>
+      _$IsolateRequestHelloWorldCopyWithImpl<IsolateRequestHelloWorld>(
           this, _$identity);
 
   @override
@@ -197,7 +197,7 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_IsolateRequestHelloWorld value) helloWorld,
+    required TResult Function(IsolateRequestHelloWorld value) helloWorld,
   }) {
     return helloWorld(this);
   }
@@ -205,7 +205,7 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
   }) {
     return helloWorld?.call(this);
   }
@@ -213,7 +213,7 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_IsolateRequestHelloWorld value)? helloWorld,
+    TResult Function(IsolateRequestHelloWorld value)? helloWorld,
     required TResult orElse(),
   }) {
     if (helloWorld != null) {
@@ -223,14 +223,14 @@ class _$_IsolateRequestHelloWorld implements _IsolateRequestHelloWorld {
   }
 }
 
-abstract class _IsolateRequestHelloWorld implements IsolateRequest {
-  const factory _IsolateRequestHelloWorld(String message) =
-      _$_IsolateRequestHelloWorld;
+abstract class IsolateRequestHelloWorld implements IsolateRequest {
+  const factory IsolateRequestHelloWorld(String message) =
+      _$IsolateRequestHelloWorld;
 
   @override
   String get message;
   @override
   @JsonKey(ignore: true)
-  _$IsolateRequestHelloWorldCopyWith<_IsolateRequestHelloWorld> get copyWith =>
+  $IsolateRequestHelloWorldCopyWith<IsolateRequestHelloWorld> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -9,14 +9,15 @@ abstract class HomeScreenTabType with _$HomeScreenTabType {
   const factory HomeScreenTabType(NameAndPath nameAndPath) = _HomeScreenTabType;
 
   static const List<HomeScreenTabType> values = [
-    dashboard,
     calculator,
+    dashboard,
     profile
   ];
-  static const HomeScreenTabType dashboard =
-      HomeScreenTabType(AppRoutes.homeDashboard);
+
   static const HomeScreenTabType calculator =
       HomeScreenTabType(AppRoutes.homeCalulator);
+  static const HomeScreenTabType dashboard =
+      HomeScreenTabType(AppRoutes.homeDashboard);
   static const HomeScreenTabType profile =
       HomeScreenTabType(AppRoutes.homeProfile);
 

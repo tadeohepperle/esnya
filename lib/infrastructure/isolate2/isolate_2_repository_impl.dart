@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/failures.dart';
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
 
 import 'package:esnya/infrastructure/isolate2/run_isolate_2.dart';
@@ -41,11 +40,12 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
       return right(unit);
     } catch (ex) {
       print(ex);
-      return left(const SetupFailue.isolateSpawnFailed());
+      return left(SetupFailure.unexpected(runtimeType.toString()));
     }
   }
 
   _onReceiveOnChannel(IsolateResponse response) {
+    print("isolate 1 receive" + response.toString());
     if (openRequests[response.request] != null) {
       openRequests[response.request]!.complete(response.payload);
     }
