@@ -44,12 +44,8 @@ class AppRouter {
               builder: (context, state) => SignInScreen(),
             ),
             GoRoute(
-              name: AppRoutes.home.name,
               path: AppRoutes.home.path,
-              builder: (context, state) => HomeScreen(
-                key: state.pageKey,
-                tab: HomeScreenTabType.dashboard,
-              ),
+              redirect: (_) => AppRoutes.homeDashboard.path,
             ),
             GoRoute(
               path: '/home/:hometabslug',

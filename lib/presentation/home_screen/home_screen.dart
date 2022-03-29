@@ -75,19 +75,44 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           body: TabBarView(
             controller: _controller,
             children: [
-              for (final tab in HomeScreenTabType.values)
-                ListView(
-                  children: [
-                    ...List.generate(
-                      30,
-                      (index) => ListTile(title: Text(tab.nameAndPath.name)),
-                    )
-                  ],
-                )
+              for (final tab in HomeScreenTabType.values) HomeTabView(tab: tab)
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class HomeTabView extends StatefulWidget {
+  const HomeTabView({Key? key, required this.tab}) : super(key: key);
+  final HomeScreenTabType tab;
+
+  @override
+  State<HomeTabView> createState() => _HomeTabViewState();
+}
+
+class _HomeTabViewState extends State<HomeTabView>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        ...List.generate(
+          30,
+          (index) => ListTile(
+            title: Text(widget.tab.nameAndPath.name),
+            textColor: [
+              Colors.red,
+              Colors.black,
+              Colors.amber,
+              Colors.green
+            ][index % 4],
+          ),
+        )
+      ],
     );
   }
 }
