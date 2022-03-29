@@ -29,8 +29,11 @@ class _DashboardTabViewState extends State<DashboardTabView>
               final isolateRepo = getIt<Isolate2Repository>();
               print(
                   'makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"))');
-              final res = await isolateRepo
-                  .makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"));
+              // final res = await isolateRepo
+              //     .makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"));
+
+              final res = await isolateRepo.makeRequest(
+                  IsolateRequest.foodDataRepositoryGetFoodFromID("292"));
               print(res);
             },
             child: Text("press")),

@@ -48,6 +48,7 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
     print("isolate 1 receive" + response.toString());
     if (openRequests[response.request] != null) {
       openRequests[response.request]!.complete(response.payload);
+      openRequests.remove([response.request]);
     }
   }
 
