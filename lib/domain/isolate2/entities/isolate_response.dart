@@ -1,11 +1,13 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
 import 'isolate_request.dart';
-part 'isolate_response.freezed.dart';
 
-@freezed
-abstract class IsolateResponse with _$IsolateResponse {
-  const factory IsolateResponse(
-      {required IsolateRequest request,
-      required Object payload}) = _IsolateResponse;
+class IsolateResponse {
+  final IsolateRequest request;
+  final Object payload;
+
+  IsolateResponse({required this.request, required this.payload});
+
+  @override
+  String toString() {
+    return 'IsolateResponse(request: $request, payload: $payload)';
+  }
 }
