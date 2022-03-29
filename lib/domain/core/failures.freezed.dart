@@ -392,3 +392,167 @@ abstract class InvalidPassword<T> extends ValueFailure<T> {
   $InvalidPasswordCopyWith<T, InvalidPassword<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$SetupFailueTearOff {
+  const _$SetupFailueTearOff();
+
+  _IsolateSpawnFailed isolateSpawnFailed() {
+    return const _IsolateSpawnFailed();
+  }
+}
+
+/// @nodoc
+const $SetupFailue = _$SetupFailueTearOff();
+
+/// @nodoc
+mixin _$SetupFailue {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() isolateSpawnFailed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? isolateSpawnFailed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? isolateSpawnFailed,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_IsolateSpawnFailed value) isolateSpawnFailed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_IsolateSpawnFailed value)? isolateSpawnFailed,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_IsolateSpawnFailed value)? isolateSpawnFailed,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $SetupFailueCopyWith<$Res> {
+  factory $SetupFailueCopyWith(
+          SetupFailue value, $Res Function(SetupFailue) then) =
+      _$SetupFailueCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$SetupFailueCopyWithImpl<$Res> implements $SetupFailueCopyWith<$Res> {
+  _$SetupFailueCopyWithImpl(this._value, this._then);
+
+  final SetupFailue _value;
+  // ignore: unused_field
+  final $Res Function(SetupFailue) _then;
+}
+
+/// @nodoc
+abstract class _$IsolateSpawnFailedCopyWith<$Res> {
+  factory _$IsolateSpawnFailedCopyWith(
+          _IsolateSpawnFailed value, $Res Function(_IsolateSpawnFailed) then) =
+      __$IsolateSpawnFailedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$IsolateSpawnFailedCopyWithImpl<$Res>
+    extends _$SetupFailueCopyWithImpl<$Res>
+    implements _$IsolateSpawnFailedCopyWith<$Res> {
+  __$IsolateSpawnFailedCopyWithImpl(
+      _IsolateSpawnFailed _value, $Res Function(_IsolateSpawnFailed) _then)
+      : super(_value, (v) => _then(v as _IsolateSpawnFailed));
+
+  @override
+  _IsolateSpawnFailed get _value => super._value as _IsolateSpawnFailed;
+}
+
+/// @nodoc
+
+class _$_IsolateSpawnFailed extends _IsolateSpawnFailed {
+  const _$_IsolateSpawnFailed() : super._();
+
+  @override
+  String toString() {
+    return 'SetupFailue.isolateSpawnFailed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _IsolateSpawnFailed);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() isolateSpawnFailed,
+  }) {
+    return isolateSpawnFailed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? isolateSpawnFailed,
+  }) {
+    return isolateSpawnFailed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? isolateSpawnFailed,
+    required TResult orElse(),
+  }) {
+    if (isolateSpawnFailed != null) {
+      return isolateSpawnFailed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_IsolateSpawnFailed value) isolateSpawnFailed,
+  }) {
+    return isolateSpawnFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_IsolateSpawnFailed value)? isolateSpawnFailed,
+  }) {
+    return isolateSpawnFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_IsolateSpawnFailed value)? isolateSpawnFailed,
+    required TResult orElse(),
+  }) {
+    if (isolateSpawnFailed != null) {
+      return isolateSpawnFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _IsolateSpawnFailed extends SetupFailue {
+  const factory _IsolateSpawnFailed() = _$_IsolateSpawnFailed;
+  const _IsolateSpawnFailed._() : super._();
+}

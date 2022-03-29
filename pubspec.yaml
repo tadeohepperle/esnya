@@ -52,6 +52,7 @@ dependencies:
     git:
       url: https://github.com/tadeohepperle/esnya_shared_resources.git
       ref: master
+  stream_channel: ^2.1.0
 
 dev_dependencies:
   flutter_test:
