@@ -48,10 +48,13 @@ dependencies:
   kt_dart: ^0.10.0
   equatable: ^2.0.3
   intl: ^0.17.0
+  retrofit: ^3.0.1+1
   esnya_shared_resources:
     git:
       url: https://github.com/tadeohepperle/esnya_shared_resources.git
       ref: master
+  stream_channel: ^2.1.0
+  # logger: any
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +64,8 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   # bloc_test: ^9.0.3
   injectable_generator: ^1.5.2
+  retrofit_generator: ">=4.0.0 <5.0.0"
+  json_serializable:
   # mocktail: ^0.3.0
 
 # For information on the generic Dart part of this file, see the

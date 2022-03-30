@@ -44,6 +44,10 @@ class AppRouter {
               builder: (context, state) => SignInScreen(),
             ),
             GoRoute(
+              path: AppRoutes.index.path,
+              redirect: (_) => AppRoutes.homeDashboard.path,
+            ),
+            GoRoute(
               path: AppRoutes.home.path,
               redirect: (_) => AppRoutes.homeDashboard.path,
             ),
@@ -58,13 +62,17 @@ class AppRouter {
               },
             ),
           ],
-          errorBuilder: (context, state) => ErrorScreenPage(),
+          errorBuilder: (context, state) {
+            return ErrorScreenPage();
+          },
         );
 }
 
 class AppRoutes {
   static const NameAndPath splash = NameAndPath('splash', '/splash');
   static const NameAndPath signIn = NameAndPath('signIn', '/sign-in');
+  static const NameAndPath index =
+      NameAndPath('index', '/'); // redirects to home
   static const NameAndPath home = NameAndPath('home', '/home');
   static const NameAndPath homeDashboard =
       NameAndPath('homeDashboard', '/home/dashboard');

@@ -392,3 +392,166 @@ abstract class InvalidPassword<T> extends ValueFailure<T> {
   $InvalidPasswordCopyWith<T, InvalidPassword<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$ApiFailureTearOff {
+  const _$ApiFailureTearOff();
+
+  _ApiFailureUnexpected unexpected() {
+    return const _ApiFailureUnexpected();
+  }
+}
+
+/// @nodoc
+const $ApiFailure = _$ApiFailureTearOff();
+
+/// @nodoc
+mixin _$ApiFailure {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiFailureUnexpected value) unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_ApiFailureUnexpected value)? unexpected,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiFailureUnexpected value)? unexpected,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ApiFailureCopyWith<$Res> {
+  factory $ApiFailureCopyWith(
+          ApiFailure value, $Res Function(ApiFailure) then) =
+      _$ApiFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ApiFailureCopyWithImpl<$Res> implements $ApiFailureCopyWith<$Res> {
+  _$ApiFailureCopyWithImpl(this._value, this._then);
+
+  final ApiFailure _value;
+  // ignore: unused_field
+  final $Res Function(ApiFailure) _then;
+}
+
+/// @nodoc
+abstract class _$ApiFailureUnexpectedCopyWith<$Res> {
+  factory _$ApiFailureUnexpectedCopyWith(_ApiFailureUnexpected value,
+          $Res Function(_ApiFailureUnexpected) then) =
+      __$ApiFailureUnexpectedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ApiFailureUnexpectedCopyWithImpl<$Res>
+    extends _$ApiFailureCopyWithImpl<$Res>
+    implements _$ApiFailureUnexpectedCopyWith<$Res> {
+  __$ApiFailureUnexpectedCopyWithImpl(
+      _ApiFailureUnexpected _value, $Res Function(_ApiFailureUnexpected) _then)
+      : super(_value, (v) => _then(v as _ApiFailureUnexpected));
+
+  @override
+  _ApiFailureUnexpected get _value => super._value as _ApiFailureUnexpected;
+}
+
+/// @nodoc
+
+class _$_ApiFailureUnexpected implements _ApiFailureUnexpected {
+  const _$_ApiFailureUnexpected();
+
+  @override
+  String toString() {
+    return 'ApiFailure.unexpected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ApiFailureUnexpected);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() unexpected,
+  }) {
+    return unexpected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? unexpected,
+  }) {
+    return unexpected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ApiFailureUnexpected value) unexpected,
+  }) {
+    return unexpected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_ApiFailureUnexpected value)? unexpected,
+  }) {
+    return unexpected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ApiFailureUnexpected value)? unexpected,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ApiFailureUnexpected implements ApiFailure {
+  const factory _ApiFailureUnexpected() = _$_ApiFailureUnexpected;
+}
