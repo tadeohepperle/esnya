@@ -1,7 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'dart:math';
+
+final rng = Random();
 
 abstract class IsolateRequest {
-  const IsolateRequest();
+  final int _hashCode;
+  IsolateRequest() : _hashCode = rng.nextInt(1 << 32);
   factory IsolateRequest.helloWord(String message) =>
       IsolateRequestHelloWorld(message);
 
@@ -10,19 +14,26 @@ abstract class IsolateRequest {
 
   factory IsolateRequest.foodDataRepositoryGetFoodFromID(String input) =>
       IsolateRequestFoodDataRepositoryGetFoodFromID(input);
+
+  @override
+  int get hashCode => _hashCode;
+
+  @override
+  operator ==(dynamic other) =>
+      other is IsolateRequest && other.hashCode == _hashCode;
 }
 
 class IsolateRequestHelloWorld extends IsolateRequest {
   final String message;
-  const IsolateRequestHelloWorld(this.message);
+  IsolateRequestHelloWorld(this.message) : super();
 }
 
 class IsolateRequestFoodMappingRepositoryMapInput extends IsolateRequest {
   final String input;
-  const IsolateRequestFoodMappingRepositoryMapInput(this.input);
+  IsolateRequestFoodMappingRepositoryMapInput(this.input);
 }
 
 class IsolateRequestFoodDataRepositoryGetFoodFromID extends IsolateRequest {
   final String id;
-  const IsolateRequestFoodDataRepositoryGetFoodFromID(this.id);
+  IsolateRequestFoodDataRepositoryGetFoodFromID(this.id);
 }

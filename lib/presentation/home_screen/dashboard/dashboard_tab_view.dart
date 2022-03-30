@@ -1,5 +1,3 @@
-import 'package:esnya/domain/isolate2/entities/isolate_request.dart';
-import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya_shared_resources/food_data/repositories/food_data_repository.dart';
 import 'package:flutter/material.dart';
@@ -27,16 +25,34 @@ class _DashboardTabViewState extends State<DashboardTabView>
         ),
         ElevatedButton(
             onPressed: () async {
-              print(
-                  'makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"))');
-              // final res = await isolateRepo
-              //     .makeRequest(IsolateRequest.helloWorld("Tadeo sagt hallo"));
-              final res =
-                  await getIt<FoodDataRepository>().getFoodFromID("xsd7");
-              print(res);
+              print('make FoodData Repository request');
+              await timeTest(() async {
+                final res =
+                    await getIt<FoodDataRepository>().getFoodFromID("173818");
+                print(res);
+              },
+                  debug: true,
+                  title: 'FoodDataRepository.getFoodFromID("173818")');
             },
-            child: Text("press")),
+            child: Text("make FoodData Repository request")),
       ],
     );
   }
+}
+
+Future<double> timeTest(Function f,
+    {bool debug = false, String title = "timeTest"}) async {
+  if (debug) {
+    print("---------------------------------");
+    print("START WATCH: $title ");
+  }
+  var s = Stopwatch();
+  s.start();
+  await f();
+  s.stop();
+  if (debug) {
+    print("STOP WATCH: elapsed time: ${s.elapsedMicroseconds / 1000} ms \n");
+  }
+
+  return s.elapsedMicroseconds / 1000;
 }

@@ -26,7 +26,6 @@ void runIsolate2(SendPort sPort) {
   /////////////////////////////////
   IsolateChannel channel = IsolateChannel.connectSend(sPort);
   channel.stream.listen((data) async {
-    print("request comes in");
     final request = data as IsolateRequest;
     final response = await makeRequest(request);
     channel.sink.add(response);
@@ -42,13 +41,13 @@ Future<IsolateResponse> makeRequest(IsolateRequest request) async {
   // map the request to the respective repository handling it.
   IsolateResponse response(dynamic payload) =>
       IsolateResponse(request: request, payload: payload);
-  await Future.delayed(const Duration(seconds: 3));
   if (request is IsolateRequestHelloWorld) {
     await Future.delayed(const Duration(seconds: 1));
     return response("Hello World " + request.message);
   } else if (request is IsolateRequestFoodDataRepositoryGetFoodFromID) {
     Either<DataFailure, Food> foodOrFailure =
         await getIt<FoodDataRepository>().getFoodFromID(request.id);
+
     return response(foodOrFailure);
   } else if (request is IsolateRequestFoodMappingRepositoryMapInput) {
     Either<Failure, FoodMappingResult> resultOrFailure =

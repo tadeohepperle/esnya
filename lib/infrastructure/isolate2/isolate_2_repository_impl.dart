@@ -45,10 +45,9 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
   }
 
   _onReceiveOnChannel(IsolateResponse response) {
-    print("isolate 1 receive" + response.toString());
     if (openRequests[response.request] != null) {
       openRequests[response.request]!.complete(response.payload);
-      openRequests.remove([response.request]);
+      openRequests.remove(response.request);
     }
   }
 

@@ -10,3 +10,8 @@ abstract class ValueFailure<T> extends Failure with _$ValueFailure<T> {
   const factory ValueFailure.invalidPassword({required String failedValue}) =
       InvalidPassword<T>;
 }
+
+@freezed
+abstract class ApiFailure with _$ApiFailure {
+  const factory ApiFailure.unexpected() = _ApiFailureUnexpected;
+}
