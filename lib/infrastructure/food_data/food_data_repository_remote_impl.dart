@@ -24,7 +24,7 @@ class FoodDataRepositoryRemoteImpl extends SetupRepositoryImpl
       return right(food);
     } catch (ex) {
       print(ex);
-      return left(DataFailure.apiFailure("/food/data/$id"));
+      return left(DataFailure.apiFailure("GET /data/food/$id"));
     }
   }
 }

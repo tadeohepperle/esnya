@@ -54,7 +54,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i8.FoodDataRepositoryRemoteImpl(get<_i5.FoodBackendClient>()),
       registerFor: {_isolate2});
   gh.lazySingleton<_i9.FoodMappingRepository>(
-      () => _i10.FoodMappingRepositoryRemoteImpl(),
+      () => _i10.FoodMappingRepositoryRemoteImpl(get<_i5.FoodBackendClient>()),
       registerFor: {_isolate2});
   gh.lazySingleton<_i11.GoogleSignIn>(
       () => firebaseInjectibleModule.googleSignIn);
