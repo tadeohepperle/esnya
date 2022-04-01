@@ -1,16 +1,16 @@
-part of 'foodinput_bloc.dart';
+part of 'food_input_bloc.dart';
 
 @freezed
-class FoodinputState with _$FoodinputState {
-  const FoodinputState._();
-  const factory FoodinputState({
+class FoodInputState with _$FoodInputState {
+  const FoodInputState._();
+  const factory FoodInputState({
     required String safeTextClosed,
     required String safeTextOpen,
     required String volatileText,
     required KtList<FoodItemEntry> safeFoodItemEntries,
     required KtList<FoodItemEntry> volatileFoodItemEntries,
-  }) = _FoodinputState;
-  factory FoodinputState.initial() => const FoodinputState(
+  }) = _FoodInputState;
+  factory FoodInputState.initial() => const FoodInputState(
         safeTextClosed: '',
         safeTextOpen: '',
         volatileText: '',

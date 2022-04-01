@@ -1,3 +1,4 @@
+import 'package:esnya/injection.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:injectable/injectable.dart';
 
@@ -19,4 +20,8 @@ abstract class SharedResourcesInjectibleModule {
   //     );
   @singleton
   SimilarityCalculator similarityCalculator() => SimilarityCalculatorImpl();
+
+  @singleton
+  TextProcessingRepository textProcessingRepository() =>
+      TextProcessingRepositoryImpl(getIt<LanguageRepository>());
 }

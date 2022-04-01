@@ -2,27 +2,31 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 
-part 'foodinput_event.dart';
-part 'foodinput_state.dart';
-part 'foodinput_bloc.freezed.dart';
+part 'food_input_event.dart';
+part 'food_input_state.dart';
+part 'food_input_bloc.freezed.dart';
 
-class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
+@isolate1
+@injectable
+class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   TextProcessingRepository textProcessingRepository;
   FoodMappingRepository foodMappingRepository;
 
-  FoodinputBloc({
+  FoodInputBloc({
     required this.textProcessingRepository,
     required this.foodMappingRepository,
-  }) : super(FoodinputState.initial()) {
-    on<FoodinputEvent>((event, emit) async {
+  }) : super(FoodInputState.initial()) {
+    on<FoodInputEvent>((event, emit) async {
       await event.map(
           reset: (Reset e) {
-            emit(FoodinputState.initial());
+            emit(FoodInputState.initial());
           },
           setVolatileText: (SetVolatileText e) {
             if (e.text != state.volatileText) {
@@ -81,7 +85,7 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
     }
   }
 
-  applyFragments(ApplyFragments event, Emitter<FoodinputState> emit) {
+  applyFragments(ApplyFragments event, Emitter<FoodInputState> emit) {
     final fragmentizationResult = event.fragmentizationResult;
     int lastItemInSafeTextRangeEnd = 0;
     final matchText = state.safeTextOpenAndVolatileText;
@@ -134,7 +138,7 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
     ));
   }
 
-  // applyFoodItemStrings(ApplyFragments event, Emitter<FoodinputState> emit) {
+  // applyFoodItemStrings(ApplyFragments event, Emitter<FoodInputState> emit) {
   //   final fragmentizationResult = event.fragmentizationResult;
 
   //   for (var i = 0; i < fragmentizationResult.fragments.length; i++) {
@@ -195,7 +199,7 @@ class FoodinputBloc extends Bloc<FoodinputEvent, FoodinputState> {
   //   ));
   // }
 
-  // fetchAmountAndFood(FetchAmountAndFood e, Emitter<FoodinputState> emit) async {
+  // fetchAmountAndFood(FetchAmountAndFood e, Emitter<FoodInputState> emit) async {
   //   // when result is fetched:
   //   //      foodItem is in safeFoodItems ==> remove foodItem and add it to open collection of foodDataRepository such that it is synced with firestore
   //   //      foodItem is volatileFoodItems ==> update it in volatileFoodItems, not move to firestore yet.

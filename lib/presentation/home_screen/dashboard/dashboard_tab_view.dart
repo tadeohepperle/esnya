@@ -1,9 +1,12 @@
+import 'package:esnya/application/core/bloc/food_entries_bloc.dart';
+import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
-import 'package:esnya_shared_resources/food_data/repositories/food_data_repository.dart';
-import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
+import 'package:esnya_shared_resources/core/core.dart';
+import 'package:esnya_shared_resources/core/models/user_data/user_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kt_dart/collection.dart';
 
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
@@ -16,101 +19,90 @@ class _DashboardTabViewState extends State<DashboardTabView>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  late FocusNode focusNode;
 
-  var foodId = "";
-  var foodResult = "";
+  @override
+  void initState() {
+    super.initState();
 
-  var foodName = "";
-  var foodMappingResult = "";
+    focusNode = FocusNode();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsX.allMedium,
-      child: ListView(
-        children: [
-          Text(
-            "Dashboard - Home",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30),
-          ),
-          SizedBoxX.hMedium,
-          Text("input food id, for example 167616 for salmon"),
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                foodId = value;
-              });
+    final bg = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        new Expanded(
+            child: ListView(
+          children: [
+            ...List.generate(20,
+                (index) => (ListTile(title: Text(index.toString() + "title "))))
+          ],
+        )),
+        Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(10.0),
+          child: Row(children: [
+            Expanded(
+              child: TextField(
+                focusNode: focusNode,
+                textInputAction: TextInputAction.newline,
+                onChanged: (value) {},
+              ),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text("check"))
+          ]),
+        )
+      ],
+    );
+
+    var foc = false;
+    final fg = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        ElevatedButton(
+            onPressed: () {
+              foc = !foc;
+              if (foc) {
+                focusNode.requestFocus();
+              } else {
+                focusNode.unfocus();
+              }
             },
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await timeTest(() async {
-                  setState(() {
-                    foodResult = "loading...";
-                  });
-                  final res =
-                      await getIt<FoodDataRepository>().getFoodFromID(foodId);
-                  print(res);
-                  setState(() {
-                    foodResult = res.toString();
-                  });
-                },
-                    debug: true,
-                    title: 'FoodDataRepository.getFoodFromID("$foodId")');
-              },
-              child: Text("FoodDataRepository request")),
-          Text("Result:"),
-          Text(foodResult),
-          Divider(
-            height: 20,
-          ),
-          Text("input any food name a user could input:"),
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                foodName = value;
-              });
-            },
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await timeTest(() async {
-                  setState(() {
-                    foodMappingResult = "loading...";
-                  });
-                  final res =
-                      await getIt<FoodMappingRepository>().mapInput(foodName);
-                  print(res);
-                  setState(() {
-                    foodMappingResult = res.toString();
-                  });
-                },
-                    debug: true,
-                    title: 'FoodMappingRepository.mapInput("$foodName")');
-              },
-              child: Text("FoodMappingRepository request")),
-          Text("Result:"),
-          Text(foodMappingResult),
-        ],
-      ),
+            child: Text("toggle")),
+        Expanded(
+            child: Container(
+          color: Colors.yellow,
+        )),
+        Container(
+            color: Color.fromARGB(100, 255, 0, 0),
+            child: SizedBox(height: 300, width: 300))
+      ],
+    );
+
+    return BlocProvider<FoodInputBloc>(
+      create: (context) => getIt<FoodInputBloc>(),
+      child: BlocBuilder<FoodInputBloc, FoodInputState>(
+          builder: (context, foodInputState) {
+        return BlocBuilder<FoodEntriesBloc, FoodEntriesState>(
+            builder: (context, foodEntriesState) {
+          var els = foodEntriesState.entries.map((e) => Text(e.title));
+          return Stack(
+            children: [
+              bg,
+
+              //  fg,
+            ],
+          );
+        });
+      }),
     );
   }
-}
 
-Future<double> timeTest(Function f,
-    {bool debug = false, String title = "timeTest"}) async {
-  if (debug) {
-    print("---------------------------------");
-    print("START WATCH: $title ");
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
-  var s = Stopwatch();
-  s.start();
-  await f();
-  s.stop();
-  if (debug) {
-    print("STOP WATCH: elapsed time: ${s.elapsedMicroseconds / 1000} ms \n");
-  }
-
-  return s.elapsedMicroseconds / 1000;
 }

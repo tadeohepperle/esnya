@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'foodinput_bloc.dart';
+part of 'food_input_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,8 +15,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FoodinputEventTearOff {
-  const _$FoodinputEventTearOff();
+class _$FoodInputEventTearOff {
+  const _$FoodInputEventTearOff();
 
   Reset reset() {
     return const Reset();
@@ -51,10 +51,10 @@ class _$FoodinputEventTearOff {
 }
 
 /// @nodoc
-const $FoodinputEvent = _$FoodinputEventTearOff();
+const $FoodInputEvent = _$FoodInputEventTearOff();
 
 /// @nodoc
-mixin _$FoodinputEvent {
+mixin _$FoodInputEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() reset,
@@ -129,20 +129,20 @@ mixin _$FoodinputEvent {
 }
 
 /// @nodoc
-abstract class $FoodinputEventCopyWith<$Res> {
-  factory $FoodinputEventCopyWith(
-          FoodinputEvent value, $Res Function(FoodinputEvent) then) =
-      _$FoodinputEventCopyWithImpl<$Res>;
+abstract class $FoodInputEventCopyWith<$Res> {
+  factory $FoodInputEventCopyWith(
+          FoodInputEvent value, $Res Function(FoodInputEvent) then) =
+      _$FoodInputEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FoodinputEventCopyWithImpl<$Res>
-    implements $FoodinputEventCopyWith<$Res> {
-  _$FoodinputEventCopyWithImpl(this._value, this._then);
+class _$FoodInputEventCopyWithImpl<$Res>
+    implements $FoodInputEventCopyWith<$Res> {
+  _$FoodInputEventCopyWithImpl(this._value, this._then);
 
-  final FoodinputEvent _value;
+  final FoodInputEvent _value;
   // ignore: unused_field
-  final $Res Function(FoodinputEvent) _then;
+  final $Res Function(FoodInputEvent) _then;
 }
 
 /// @nodoc
@@ -152,7 +152,7 @@ abstract class $ResetCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResetCopyWithImpl<$Res> extends _$FoodinputEventCopyWithImpl<$Res>
+class _$ResetCopyWithImpl<$Res> extends _$FoodInputEventCopyWithImpl<$Res>
     implements $ResetCopyWith<$Res> {
   _$ResetCopyWithImpl(Reset _value, $Res Function(Reset) _then)
       : super(_value, (v) => _then(v as Reset));
@@ -168,7 +168,7 @@ class _$Reset implements Reset {
 
   @override
   String toString() {
-    return 'FoodinputEvent.reset()';
+    return 'FoodInputEvent.reset()';
   }
 
   @override
@@ -276,7 +276,7 @@ class _$Reset implements Reset {
   }
 }
 
-abstract class Reset implements FoodinputEvent {
+abstract class Reset implements FoodInputEvent {
   const factory Reset() = _$Reset;
 }
 
@@ -290,7 +290,7 @@ abstract class $SetVolatileTextCopyWith<$Res> {
 
 /// @nodoc
 class _$SetVolatileTextCopyWithImpl<$Res>
-    extends _$FoodinputEventCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
     implements $SetVolatileTextCopyWith<$Res> {
   _$SetVolatileTextCopyWithImpl(
       SetVolatileText _value, $Res Function(SetVolatileText) _then)
@@ -322,7 +322,7 @@ class _$SetVolatileText implements SetVolatileText {
 
   @override
   String toString() {
-    return 'FoodinputEvent.setVolatileText(text: $text)';
+    return 'FoodInputEvent.setVolatileText(text: $text)';
   }
 
   @override
@@ -438,7 +438,7 @@ class _$SetVolatileText implements SetVolatileText {
   }
 }
 
-abstract class SetVolatileText implements FoodinputEvent {
+abstract class SetVolatileText implements FoodInputEvent {
   const factory SetVolatileText(String text) = _$SetVolatileText;
 
   String get text;
@@ -456,7 +456,7 @@ abstract class $MakeVolatileTextSafeCopyWith<$Res> {
 
 /// @nodoc
 class _$MakeVolatileTextSafeCopyWithImpl<$Res>
-    extends _$FoodinputEventCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
     implements $MakeVolatileTextSafeCopyWith<$Res> {
   _$MakeVolatileTextSafeCopyWithImpl(
       MakeVolatileTextSafe _value, $Res Function(MakeVolatileTextSafe) _then)
@@ -473,7 +473,7 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
 
   @override
   String toString() {
-    return 'FoodinputEvent.makeVolatileTextSafe()';
+    return 'FoodInputEvent.makeVolatileTextSafe()';
   }
 
   @override
@@ -581,7 +581,7 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
   }
 }
 
-abstract class MakeVolatileTextSafe implements FoodinputEvent {
+abstract class MakeVolatileTextSafe implements FoodInputEvent {
   const factory MakeVolatileTextSafe() = _$MakeVolatileTextSafe;
 }
 
@@ -594,7 +594,7 @@ abstract class $BuildFragmentsCopyWith<$Res> {
 
 /// @nodoc
 class _$BuildFragmentsCopyWithImpl<$Res>
-    extends _$FoodinputEventCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
     implements $BuildFragmentsCopyWith<$Res> {
   _$BuildFragmentsCopyWithImpl(
       BuildFragments _value, $Res Function(BuildFragments) _then)
@@ -611,7 +611,7 @@ class _$BuildFragments implements BuildFragments {
 
   @override
   String toString() {
-    return 'FoodinputEvent.buildFragments()';
+    return 'FoodInputEvent.buildFragments()';
   }
 
   @override
@@ -719,7 +719,7 @@ class _$BuildFragments implements BuildFragments {
   }
 }
 
-abstract class BuildFragments implements FoodinputEvent {
+abstract class BuildFragments implements FoodInputEvent {
   const factory BuildFragments() = _$BuildFragments;
 }
 
@@ -735,7 +735,7 @@ abstract class $ApplyFragmentsCopyWith<$Res> {
 
 /// @nodoc
 class _$ApplyFragmentsCopyWithImpl<$Res>
-    extends _$FoodinputEventCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
     implements $ApplyFragmentsCopyWith<$Res> {
   _$ApplyFragmentsCopyWithImpl(
       ApplyFragments _value, $Res Function(ApplyFragments) _then)
@@ -775,7 +775,7 @@ class _$ApplyFragments implements ApplyFragments {
 
   @override
   String toString() {
-    return 'FoodinputEvent.applyFragments(fragmentizationResult: $fragmentizationResult)';
+    return 'FoodInputEvent.applyFragments(fragmentizationResult: $fragmentizationResult)';
   }
 
   @override
@@ -892,7 +892,7 @@ class _$ApplyFragments implements ApplyFragments {
   }
 }
 
-abstract class ApplyFragments implements FoodinputEvent {
+abstract class ApplyFragments implements FoodInputEvent {
   const factory ApplyFragments(FragmentizationResult fragmentizationResult) =
       _$ApplyFragments;
 
@@ -912,7 +912,7 @@ abstract class $FetchFoodForFoodItemEntryCopyWith<$Res> {
 
 /// @nodoc
 class _$FetchFoodForFoodItemEntryCopyWithImpl<$Res>
-    extends _$FoodinputEventCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
     implements $FetchFoodForFoodItemEntryCopyWith<$Res> {
   _$FetchFoodForFoodItemEntryCopyWithImpl(FetchFoodForFoodItemEntry _value,
       $Res Function(FetchFoodForFoodItemEntry) _then)
@@ -945,7 +945,7 @@ class _$FetchFoodForFoodItemEntry implements FetchFoodForFoodItemEntry {
 
   @override
   String toString() {
-    return 'FoodinputEvent.fetchFoodForFoodItemEntry(foodItemEntryPreSuccess: $foodItemEntryPreSuccess)';
+    return 'FoodInputEvent.fetchFoodForFoodItemEntry(foodItemEntryPreSuccess: $foodItemEntryPreSuccess)';
   }
 
   @override
@@ -1063,7 +1063,7 @@ class _$FetchFoodForFoodItemEntry implements FetchFoodForFoodItemEntry {
   }
 }
 
-abstract class FetchFoodForFoodItemEntry implements FoodinputEvent {
+abstract class FetchFoodForFoodItemEntry implements FoodInputEvent {
   const factory FetchFoodForFoodItemEntry(
           FoodItemEntryPreSuccess foodItemEntryPreSuccess) =
       _$FetchFoodForFoodItemEntry;
@@ -1075,16 +1075,16 @@ abstract class FetchFoodForFoodItemEntry implements FoodinputEvent {
 }
 
 /// @nodoc
-class _$FoodinputStateTearOff {
-  const _$FoodinputStateTearOff();
+class _$FoodInputStateTearOff {
+  const _$FoodInputStateTearOff();
 
-  _FoodinputState call(
+  _FoodInputState call(
       {required String safeTextClosed,
       required String safeTextOpen,
       required String volatileText,
       required KtList<FoodItemEntry> safeFoodItemEntries,
       required KtList<FoodItemEntry> volatileFoodItemEntries}) {
-    return _FoodinputState(
+    return _FoodInputState(
       safeTextClosed: safeTextClosed,
       safeTextOpen: safeTextOpen,
       volatileText: volatileText,
@@ -1095,10 +1095,10 @@ class _$FoodinputStateTearOff {
 }
 
 /// @nodoc
-const $FoodinputState = _$FoodinputStateTearOff();
+const $FoodInputState = _$FoodInputStateTearOff();
 
 /// @nodoc
-mixin _$FoodinputState {
+mixin _$FoodInputState {
   String get safeTextClosed => throw _privateConstructorUsedError;
   String get safeTextOpen => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
@@ -1108,15 +1108,15 @@ mixin _$FoodinputState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FoodinputStateCopyWith<FoodinputState> get copyWith =>
+  $FoodInputStateCopyWith<FoodInputState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FoodinputStateCopyWith<$Res> {
-  factory $FoodinputStateCopyWith(
-          FoodinputState value, $Res Function(FoodinputState) then) =
-      _$FoodinputStateCopyWithImpl<$Res>;
+abstract class $FoodInputStateCopyWith<$Res> {
+  factory $FoodInputStateCopyWith(
+          FoodInputState value, $Res Function(FoodInputState) then) =
+      _$FoodInputStateCopyWithImpl<$Res>;
   $Res call(
       {String safeTextClosed,
       String safeTextOpen,
@@ -1126,13 +1126,13 @@ abstract class $FoodinputStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FoodinputStateCopyWithImpl<$Res>
-    implements $FoodinputStateCopyWith<$Res> {
-  _$FoodinputStateCopyWithImpl(this._value, this._then);
+class _$FoodInputStateCopyWithImpl<$Res>
+    implements $FoodInputStateCopyWith<$Res> {
+  _$FoodInputStateCopyWithImpl(this._value, this._then);
 
-  final FoodinputState _value;
+  final FoodInputState _value;
   // ignore: unused_field
-  final $Res Function(FoodinputState) _then;
+  final $Res Function(FoodInputState) _then;
 
   @override
   $Res call({
@@ -1168,11 +1168,11 @@ class _$FoodinputStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FoodinputStateCopyWith<$Res>
-    implements $FoodinputStateCopyWith<$Res> {
-  factory _$FoodinputStateCopyWith(
-          _FoodinputState value, $Res Function(_FoodinputState) then) =
-      __$FoodinputStateCopyWithImpl<$Res>;
+abstract class _$FoodInputStateCopyWith<$Res>
+    implements $FoodInputStateCopyWith<$Res> {
+  factory _$FoodInputStateCopyWith(
+          _FoodInputState value, $Res Function(_FoodInputState) then) =
+      __$FoodInputStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {String safeTextClosed,
@@ -1183,15 +1183,15 @@ abstract class _$FoodinputStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FoodinputStateCopyWithImpl<$Res>
-    extends _$FoodinputStateCopyWithImpl<$Res>
-    implements _$FoodinputStateCopyWith<$Res> {
-  __$FoodinputStateCopyWithImpl(
-      _FoodinputState _value, $Res Function(_FoodinputState) _then)
-      : super(_value, (v) => _then(v as _FoodinputState));
+class __$FoodInputStateCopyWithImpl<$Res>
+    extends _$FoodInputStateCopyWithImpl<$Res>
+    implements _$FoodInputStateCopyWith<$Res> {
+  __$FoodInputStateCopyWithImpl(
+      _FoodInputState _value, $Res Function(_FoodInputState) _then)
+      : super(_value, (v) => _then(v as _FoodInputState));
 
   @override
-  _FoodinputState get _value => super._value as _FoodinputState;
+  _FoodInputState get _value => super._value as _FoodInputState;
 
   @override
   $Res call({
@@ -1201,7 +1201,7 @@ class __$FoodinputStateCopyWithImpl<$Res>
     Object? safeFoodItemEntries = freezed,
     Object? volatileFoodItemEntries = freezed,
   }) {
-    return _then(_FoodinputState(
+    return _then(_FoodInputState(
       safeTextClosed: safeTextClosed == freezed
           ? _value.safeTextClosed
           : safeTextClosed // ignore: cast_nullable_to_non_nullable
@@ -1228,8 +1228,8 @@ class __$FoodinputStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FoodinputState extends _FoodinputState {
-  const _$_FoodinputState(
+class _$_FoodInputState extends _FoodInputState {
+  const _$_FoodInputState(
       {required this.safeTextClosed,
       required this.safeTextOpen,
       required this.volatileText,
@@ -1250,14 +1250,14 @@ class _$_FoodinputState extends _FoodinputState {
 
   @override
   String toString() {
-    return 'FoodinputState(safeTextClosed: $safeTextClosed, safeTextOpen: $safeTextOpen, volatileText: $volatileText, safeFoodItemEntries: $safeFoodItemEntries, volatileFoodItemEntries: $volatileFoodItemEntries)';
+    return 'FoodInputState(safeTextClosed: $safeTextClosed, safeTextOpen: $safeTextOpen, volatileText: $volatileText, safeFoodItemEntries: $safeFoodItemEntries, volatileFoodItemEntries: $volatileFoodItemEntries)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FoodinputState &&
+            other is _FoodInputState &&
             const DeepCollectionEquality()
                 .equals(other.safeTextClosed, safeTextClosed) &&
             const DeepCollectionEquality()
@@ -1281,19 +1281,19 @@ class _$_FoodinputState extends _FoodinputState {
 
   @JsonKey(ignore: true)
   @override
-  _$FoodinputStateCopyWith<_FoodinputState> get copyWith =>
-      __$FoodinputStateCopyWithImpl<_FoodinputState>(this, _$identity);
+  _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>
+      __$FoodInputStateCopyWithImpl<_FoodInputState>(this, _$identity);
 }
 
-abstract class _FoodinputState extends FoodinputState {
-  const factory _FoodinputState(
+abstract class _FoodInputState extends FoodInputState {
+  const factory _FoodInputState(
           {required String safeTextClosed,
           required String safeTextOpen,
           required String volatileText,
           required KtList<FoodItemEntry> safeFoodItemEntries,
           required KtList<FoodItemEntry> volatileFoodItemEntries}) =
-      _$_FoodinputState;
-  const _FoodinputState._() : super._();
+      _$_FoodInputState;
+  const _FoodInputState._() : super._();
 
   @override
   String get safeTextClosed;
@@ -1307,6 +1307,6 @@ abstract class _FoodinputState extends FoodinputState {
   KtList<FoodItemEntry> get volatileFoodItemEntries;
   @override
   @JsonKey(ignore: true)
-  _$FoodinputStateCopyWith<_FoodinputState> get copyWith =>
+  _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>
       throw _privateConstructorUsedError;
 }
