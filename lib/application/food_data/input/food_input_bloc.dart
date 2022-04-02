@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:esnya/domain/user_data/food_entries_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
@@ -18,10 +19,12 @@ part 'food_input_bloc.freezed.dart';
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   TextProcessingRepository textProcessingRepository;
   FoodMappingRepository foodMappingRepository;
+  FoodEntriesRepository foodEntriesRepository;
 
   FoodInputBloc({
     required this.textProcessingRepository,
     required this.foodMappingRepository,
+    required this.foodEntriesRepository,
   }) : super(FoodInputState.initial()) {
     on<FoodInputEvent>((event, emit) async {
       await event.map(
@@ -46,15 +49,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
             applyFragments(event, emit);
           },
           fetchFoodForFoodItemEntry: (FetchFoodForFoodItemEntry event) {
-            // TODO:
-          }
-          // applyFoodItemStrings: (ApplyFoodItemStrings e) {
-          //   applyFoodItemStrings(e, emit);
-          // },
-          // fetchAmountAndFood: (FetchAmountAndFood e) async {
-          //   await fetchAmountAndFood(e, emit);
-          // },
-          );
+            // fetchFoodForFoodItemEntry(event, emit);
+          });
     });
   }
 
@@ -121,113 +117,43 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         state.safeTextOpen.substring(0, lastItemInSafeTextRangeEnd);
     final newSafeTextOpen = state.safeTextOpen
         .substring(lastItemInSafeTextRangeEnd, state.safeTextOpen.length);
-    final newSafeFoodItemEntries = state.safeFoodItemEntries +
-        safeFoodItemStrings
-            .map(FoodItemEntry.fromFoodItemString)
-            .toImmutableList();
+    final addedSafeFoodItemEntries = safeFoodItemStrings
+        .map(FoodItemEntry.fromFoodItemString)
+        .toImmutableList();
     final newVolatileFoodItemEntries = volatileFoodItemStrings
         .map(FoodItemEntry.fromFoodItemString)
         .toImmutableList();
-    if (newSafeFoodItemEntries.size > 0) {
-      print("help");
-    }
-    final safeTextClosed = state.safeTextClosed;
-    final safeTextOpen = state.safeTextOpen;
-    final volatileText = state.volatileText;
-    final safeFoodItemEntries = state.safeFoodItemEntries;
-    final volatileFoodItemEntries = state.volatileFoodItemEntries;
+    // TODO: DEBUGREMOVE
+    // if (newSafeFoodItemEntries.size > 0) {
+    //   print("help");
+    // }
+    // final safeTextClosed = state.safeTextClosed;
+    // final safeTextOpen = state.safeTextOpen;
+    // final volatileText = state.volatileText;
+    // final safeFoodItemEntries = state.safeFoodItemEntries;
+    // final volatileFoodItemEntries = state.volatileFoodItemEntries;
+    foodEntriesRepository.addAll(addedSafeFoodItemEntries.asList());
     emit(state.copyWith(
       safeTextClosed: newSafeTextClosed,
       safeTextOpen: newSafeTextOpen,
-      safeFoodItemEntries: newSafeFoodItemEntries,
       volatileFoodItemEntries: newVolatileFoodItemEntries,
     ));
   }
 
-  // applyFoodItemStrings(ApplyFragments event, Emitter<FoodInputState> emit) {
-  //   final fragmentizationResult = event.fragmentizationResult;
+  // fetchFoodForFoodItemEntry(
+  //     FetchFoodForFoodItemEntry event, Emitter<FoodInputState> emit) async {
+  //       final foodItemEntry = event.foodItemEntry;
+  //   final inputTitle = foodItemEntry.title;
+  //   final resultOrFailure = await foodMappingRepository.mapInput(inputTitle);
+  //   if(state.safeFoodItemEntries.contains(foodItemEntry) || state.volatileFoodItemEntries.contains(foodItemEntry)) return;
+  //   if(.id)
+  //   resultOrFailure.fold((l)  {
 
-  //   for (var i = 0; i < fragmentizationResult.fragments.length; i++) {
-  //     final frag = fragmentizationResult.fragments[i];
-  //     final range = frag.value1;
-  //     final foodItemString = frag.value2;
-  //   }
+  //   }, (r){
 
-  //   //// REDO
-
-  //   List<FoodItemString> safeFoodItemStrings = [];
-  //   List<FoodItemString> volatileFoodItemStrings = [];
-
-  //   int lastItemInSafeTextRangeEnd = 0;
-  //   final matchText = state.safeTextOpenAndVolatileText;
-
-  //   for (var i = 0; i < e.items.size; i++) {
-  //     final r = e.items[i].value1;
-  //     final foodItemString = e.items[i].value2;
-  //     assert(r.end >= lastItemInSafeTextRangeEnd);
-  //     assert(r.start >= 0);
-  //     // check if still matches with actual safeTextOpen + " " + volatileText of state:
-  //     if (r.end > matchText.length) {
-  //       break;
-  //     }
-  //     final isMatching =
-  //         matchText.substring(r.start, r.end) == foodItemString.text;
-  //     if (isMatching) {
-  //       final isInSafeText = r.end <= state.safeTextOpen.length;
-  //       if (isInSafeText) {
-  //         lastItemInSafeTextRangeEnd = r.end;
-  //         safeFoodItemStrings.add(foodItemString);
-  //       } else {
-  //         volatileFoodItemStrings.add(foodItemString);
-  //       }
-  //     } else {
-  //       break;
-  //     }
-  //   }
-
-  //   final newSafeTextClosed = state.safeTextClosed +
-  //       state.safeTextOpen.substring(0, lastItemInSafeTextRangeEnd);
-  //   final newSafeTextOpen = state.safeTextOpen
-  //       .substring(lastItemInSafeTextRangeEnd, state.safeTextOpen.length);
-  //   final newSafeFoodItems = state.safeFoodItems +
-  //       safeFoodItemStrings
-  //           .map((e) => FoodItem.create(e))
-  //           .toImmutableList(); // without fetching any data yet
-  //   final volatileFoodItems = volatileFoodItemStrings
-  //       .map((e) => FoodItem.create(e))
-  //       .toImmutableList();
-
-  //   emit(state.copyWith(
-  //     safeTextClosed: newSafeTextClosed,
-  //     safeTextOpen: newSafeTextOpen,
-  //     safeFoodItems: newSafeFoodItems,
-  //     volatileFoodItems: volatileFoodItems,
-  //   ));
-  // }
-
-  // fetchAmountAndFood(FetchAmountAndFood e, Emitter<FoodInputState> emit) async {
-  //   // when result is fetched:
-  //   //      foodItem is in safeFoodItems ==> remove foodItem and add it to open collection of foodDataRepository such that it is synced with firestore
-  //   //      foodItem is volatileFoodItems ==> update it in volatileFoodItems, not move to firestore yet.
-  //   //  	  foodItem does not exist anymore ==> nothing happens
-
-  //   final foodItem = e.foodItem;
-  //   final result =
-  //       await foodAnalysisRepository.fetchAmountAndFood(foodItem.string);
-
-  //   bool foodItemInsafeFoodItems =
-  //       state.safeFoodItems.any((fi) => fi.uniqueId == foodItem.uniqueId);
-  //   if (foodItemInsafeFoodItems) {
-  //     await foodDataRepository.addItem(foodItem.copyWith(value: some(result)));
-  //     final newSafeFoodItems =
-  //         state.safeFoodItems.filter((fi) => fi.uniqueId != foodItem.uniqueId);
-  //     emit(state.copyWith(safeFoodItems: newSafeFoodItems));
-  //   } else {
-  //     final newVolatileFoodItems = state.volatileFoodItems.map((fi) =>
-  //         fi.uniqueId == foodItem.uniqueId
-  //             ? fi.copyWith(value: some(result))
-  //             : fi);
-  //     emit(state.copyWith(volatileFoodItems: newVolatileFoodItems));
-  //   }
+  //   });
+  //   //map(
+  //   // preSuccess: (FoodItemEntryPreSuccess preSuccess) => preSuccess.title,
+  //   // success: (FoodItemEntrySuccess success) => success.title);
   // }
 }

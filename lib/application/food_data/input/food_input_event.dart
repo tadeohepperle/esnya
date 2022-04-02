@@ -16,6 +16,5 @@ class FoodInputEvent with _$FoodInputEvent {
   const factory FoodInputEvent.applyFragments(
       FragmentizationResult fragmentizationResult) = ApplyFragments;
   const factory FoodInputEvent.fetchFoodForFoodItemEntry(
-          FoodItemEntryPreSuccess foodItemEntryPreSuccess) =
-      FetchFoodForFoodItemEntry;
+      FoodItemEntry foodItemEntry) = FetchFoodForFoodItemEntry;
 }
