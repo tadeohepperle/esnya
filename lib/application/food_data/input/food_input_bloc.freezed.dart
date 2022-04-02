@@ -1076,12 +1076,12 @@ class _$FoodInputStateTearOff {
       {required String safeTextClosed,
       required String safeTextOpen,
       required String volatileText,
-      required KtList<FoodItemEntry> volatileFoodItemEntries}) {
+      required KtList<FoodItemEntry> volatileEntries}) {
     return _FoodInputState(
       safeTextClosed: safeTextClosed,
       safeTextOpen: safeTextOpen,
       volatileText: volatileText,
-      volatileFoodItemEntries: volatileFoodItemEntries,
+      volatileEntries: volatileEntries,
     );
   }
 }
@@ -1094,7 +1094,7 @@ mixin _$FoodInputState {
   String get safeTextClosed => throw _privateConstructorUsedError;
   String get safeTextOpen => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
-  KtList<FoodItemEntry> get volatileFoodItemEntries =>
+  KtList<FoodItemEntry> get volatileEntries =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1111,7 +1111,7 @@ abstract class $FoodInputStateCopyWith<$Res> {
       {String safeTextClosed,
       String safeTextOpen,
       String volatileText,
-      KtList<FoodItemEntry> volatileFoodItemEntries});
+      KtList<FoodItemEntry> volatileEntries});
 }
 
 /// @nodoc
@@ -1128,7 +1128,7 @@ class _$FoodInputStateCopyWithImpl<$Res>
     Object? safeTextClosed = freezed,
     Object? safeTextOpen = freezed,
     Object? volatileText = freezed,
-    Object? volatileFoodItemEntries = freezed,
+    Object? volatileEntries = freezed,
   }) {
     return _then(_value.copyWith(
       safeTextClosed: safeTextClosed == freezed
@@ -1143,9 +1143,9 @@ class _$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      volatileFoodItemEntries: volatileFoodItemEntries == freezed
-          ? _value.volatileFoodItemEntries
-          : volatileFoodItemEntries // ignore: cast_nullable_to_non_nullable
+      volatileEntries: volatileEntries == freezed
+          ? _value.volatileEntries
+          : volatileEntries // ignore: cast_nullable_to_non_nullable
               as KtList<FoodItemEntry>,
     ));
   }
@@ -1162,7 +1162,7 @@ abstract class _$FoodInputStateCopyWith<$Res>
       {String safeTextClosed,
       String safeTextOpen,
       String volatileText,
-      KtList<FoodItemEntry> volatileFoodItemEntries});
+      KtList<FoodItemEntry> volatileEntries});
 }
 
 /// @nodoc
@@ -1181,7 +1181,7 @@ class __$FoodInputStateCopyWithImpl<$Res>
     Object? safeTextClosed = freezed,
     Object? safeTextOpen = freezed,
     Object? volatileText = freezed,
-    Object? volatileFoodItemEntries = freezed,
+    Object? volatileEntries = freezed,
   }) {
     return _then(_FoodInputState(
       safeTextClosed: safeTextClosed == freezed
@@ -1196,9 +1196,9 @@ class __$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      volatileFoodItemEntries: volatileFoodItemEntries == freezed
-          ? _value.volatileFoodItemEntries
-          : volatileFoodItemEntries // ignore: cast_nullable_to_non_nullable
+      volatileEntries: volatileEntries == freezed
+          ? _value.volatileEntries
+          : volatileEntries // ignore: cast_nullable_to_non_nullable
               as KtList<FoodItemEntry>,
     ));
   }
@@ -1211,7 +1211,7 @@ class _$_FoodInputState extends _FoodInputState {
       {required this.safeTextClosed,
       required this.safeTextOpen,
       required this.volatileText,
-      required this.volatileFoodItemEntries})
+      required this.volatileEntries})
       : super._();
 
   @override
@@ -1221,11 +1221,11 @@ class _$_FoodInputState extends _FoodInputState {
   @override
   final String volatileText;
   @override
-  final KtList<FoodItemEntry> volatileFoodItemEntries;
+  final KtList<FoodItemEntry> volatileEntries;
 
   @override
   String toString() {
-    return 'FoodInputState(safeTextClosed: $safeTextClosed, safeTextOpen: $safeTextOpen, volatileText: $volatileText, volatileFoodItemEntries: $volatileFoodItemEntries)';
+    return 'FoodInputState(safeTextClosed: $safeTextClosed, safeTextOpen: $safeTextOpen, volatileText: $volatileText, volatileEntries: $volatileEntries)';
   }
 
   @override
@@ -1239,8 +1239,8 @@ class _$_FoodInputState extends _FoodInputState {
                 .equals(other.safeTextOpen, safeTextOpen) &&
             const DeepCollectionEquality()
                 .equals(other.volatileText, volatileText) &&
-            const DeepCollectionEquality().equals(
-                other.volatileFoodItemEntries, volatileFoodItemEntries));
+            const DeepCollectionEquality()
+                .equals(other.volatileEntries, volatileEntries));
   }
 
   @override
@@ -1249,7 +1249,7 @@ class _$_FoodInputState extends _FoodInputState {
       const DeepCollectionEquality().hash(safeTextClosed),
       const DeepCollectionEquality().hash(safeTextOpen),
       const DeepCollectionEquality().hash(volatileText),
-      const DeepCollectionEquality().hash(volatileFoodItemEntries));
+      const DeepCollectionEquality().hash(volatileEntries));
 
   @JsonKey(ignore: true)
   @override
@@ -1259,11 +1259,10 @@ class _$_FoodInputState extends _FoodInputState {
 
 abstract class _FoodInputState extends FoodInputState {
   const factory _FoodInputState(
-          {required String safeTextClosed,
-          required String safeTextOpen,
-          required String volatileText,
-          required KtList<FoodItemEntry> volatileFoodItemEntries}) =
-      _$_FoodInputState;
+      {required String safeTextClosed,
+      required String safeTextOpen,
+      required String volatileText,
+      required KtList<FoodItemEntry> volatileEntries}) = _$_FoodInputState;
   const _FoodInputState._() : super._();
 
   @override
@@ -1273,7 +1272,7 @@ abstract class _FoodInputState extends FoodInputState {
   @override
   String get volatileText;
   @override
-  KtList<FoodItemEntry> get volatileFoodItemEntries;
+  KtList<FoodItemEntry> get volatileEntries;
   @override
   @JsonKey(ignore: true)
   _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>

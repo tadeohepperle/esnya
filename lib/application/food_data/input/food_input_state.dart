@@ -7,13 +7,13 @@ class FoodInputState with _$FoodInputState {
     required String safeTextClosed,
     required String safeTextOpen,
     required String volatileText,
-    required KtList<FoodItemEntry> volatileFoodItemEntries,
+    required KtList<FoodItemEntry> volatileEntries,
   }) = _FoodInputState;
   factory FoodInputState.initial() => const FoodInputState(
         safeTextClosed: '',
         safeTextOpen: '',
         volatileText: '',
-        volatileFoodItemEntries: KtList.empty(),
+        volatileEntries: KtList.empty(),
       );
   String get safeTextOpenAndVolatileText =>
       safeTextOpen + ' ' + volatileText; // TODO: is space necessary?

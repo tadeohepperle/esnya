@@ -9,6 +9,7 @@ import 'package:esnya_shared_resources/text_processing/models/food_item_string.d
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:collection/collection.dart';
 
 part 'food_input_event.dart';
 part 'food_input_state.dart';
@@ -45,11 +46,11 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
             add(const BuildFragments());
           },
           buildFragments: buildFragments,
-          applyFragments: (ApplyFragments event) {
-            applyFragments(event, emit);
+          applyFragments: (ApplyFragments event) async {
+            await applyFragments(event, emit);
           },
-          fetchFoodForFoodItemEntry: (FetchFoodForFoodItemEntry event) {
-            // fetchFoodForFoodItemEntry(event, emit);
+          fetchFoodForFoodItemEntry: (FetchFoodForFoodItemEntry event) async {
+            await fetchFoodForFoodItemEntry(event, emit);
           });
     });
   }
@@ -79,7 +80,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     }
   }
 
-  applyFragments(ApplyFragments event, Emitter<FoodInputState> emit) {
+  applyFragments(ApplyFragments event, Emitter<FoodInputState> emit) async {
     final fragmentizationResult = event.fragmentizationResult;
     int lastItemInSafeTextRangeEnd = 0;
     final matchText = state.safeTextOpenAndVolatileText;
@@ -132,28 +133,58 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     // final volatileText = state.volatileText;
     // final safeFoodItemEntries = state.safeFoodItemEntries;
     // final volatileFoodItemEntries = state.volatileFoodItemEntries;
-    foodEntriesRepository.addAll(addedSafeFoodItemEntries.asList());
+    await foodEntriesRepository.addAll(addedSafeFoodItemEntries.asList());
     emit(state.copyWith(
       safeTextClosed: newSafeTextClosed,
       safeTextOpen: newSafeTextOpen,
-      volatileFoodItemEntries: newVolatileFoodItemEntries,
+      volatileEntries: newVolatileFoodItemEntries,
     ));
   }
 
-  // fetchFoodForFoodItemEntry(
-  //     FetchFoodForFoodItemEntry event, Emitter<FoodInputState> emit) async {
-  //       final foodItemEntry = event.foodItemEntry;
-  //   final inputTitle = foodItemEntry.title;
-  //   final resultOrFailure = await foodMappingRepository.mapInput(inputTitle);
-  //   if(state.safeFoodItemEntries.contains(foodItemEntry) || state.volatileFoodItemEntries.contains(foodItemEntry)) return;
-  //   if(.id)
-  //   resultOrFailure.fold((l)  {
+  fetchFoodForFoodItemEntry(
+      FetchFoodForFoodItemEntry event, Emitter<FoodInputState> emit) async {
+    final foodItemEntry = event.foodItemEntry;
+    final inputTitle = foodItemEntry.title;
+    final resultOrFailure = await foodMappingRepository.mapInput(inputTitle);
 
-  //   }, (r){
+    FoodItemEntry applyResultOrFailure(FoodItemEntry before) {
+      return resultOrFailure.fold(
+        // do nothing if we get a failure back. FoodItemEntry.toMappingFailed() is reserved for when everything went fine we just did not find a matching food;
+        (l) => before,
+        (r) => r.map(
+          preSuccess: (e) => before, // should acutally never happen.
+          success: (e) => before.map(
+            preSuccess: (preSuccess) => preSuccess.toSuccess(e),
+            success: (success) => success.copyWith(
+              foodItem: success.foodItem.copyWith(food: e.food),
+            ),
+          ),
+          noMatchFound: (e) => before.toMappingFailed(),
+        ),
+      );
+    }
 
-  //   });
-  //   //map(
-  //   // preSuccess: (FoodItemEntryPreSuccess preSuccess) => preSuccess.title,
-  //   // success: (FoodItemEntrySuccess success) => success.title);
-  // }
+    // Case 1: update in the list of volatile items kept in bloc state:
+    if (_idInVolatileEntries(foodItemEntry.id)) {
+      KtList<FoodItemEntry> updatedEntries =
+          _updateVolatileEntries(foodItemEntry.id, applyResultOrFailure);
+      emit(state.copyWith(volatileEntries: updatedEntries));
+    }
+    // Case 2: update in FoodEntriesRepository
+    else {
+      await foodEntriesRepository.updateById(
+        foodItemEntry.id,
+        applyResultOrFailure,
+      );
+    }
+  }
+
+  _idInVolatileEntries(UniqueId id) {
+    return state.volatileEntries.firstOrNull((e) => e.id == id) != null;
+  }
+
+  KtList<FoodItemEntry> _updateVolatileEntries(
+      UniqueId id, FoodItemEntry Function(FoodItemEntry e) update) {
+    return state.volatileEntries.map((e) => e.id == id ? update(e) : e);
+  }
 }

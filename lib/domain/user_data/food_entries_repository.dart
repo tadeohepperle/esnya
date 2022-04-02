@@ -8,5 +8,7 @@ abstract class FoodEntriesRepository extends SetupRepository {
   Future<Either<Failure, Unit>> add(FoodItemEntry entry);
   Future<Either<Failure, Unit>> addAll(Iterable<FoodItemEntry> entries);
   Future<Either<Failure, Unit>> update(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> updateById(
+      UniqueId id, FoodItemEntry Function(FoodItemEntry before) applyUpdate);
   Future<Either<Failure, Unit>> delete(FoodItemEntry entry);
 }

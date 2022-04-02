@@ -45,6 +45,13 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
+  Future<Either<Failure, Unit>> updateById(UniqueId id,
+      FoodItemEntry Function(FoodItemEntry before) applyUpdate) async {
+    _entries = _entries.map((e) => e.id == id ? applyUpdate(e) : e).toList();
+    return right(unit);
+  }
+
+  @override
   Stream<Either<Failure, List<FoodItemEntry>>> watchAll() => _controller.stream;
 
   @override
