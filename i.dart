@@ -1,18 +1,11 @@
 import 'dart:async';
 
-void main() async {
-  StreamController<int> sc = StreamController<int>.broadcast();
-  sc.onListen = () {
-    print("onlisten");
-    sc.add(42);
-  };
-  await Future.delayed(Duration(seconds: 1));
-  final sub = sc.stream.listen((event) {
-    print("got : $event");
-  });
+import 'package:esnya_shared_resources/core/data_structures/data_structures.dart';
 
-  for (var i = 0; i < 10; i++) {
-    await Future.delayed(Duration(microseconds: 500000));
-    sc.add(i);
-  }
+void main() async {
+  var i = UniqueId();
+  print(i);
+  print(i);
+  print(i);
+  print(i);
 }

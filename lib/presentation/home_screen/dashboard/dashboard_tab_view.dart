@@ -73,7 +73,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
           ...foodEntriesWatcherState.foodItemEntries
               .map((e) => FoodItemEntryDisplayTile(
                     entry: e,
-                  )),
+                  ))
+              .asList(),
 
         // Text("safe entries: "),
         // ...foodEntriesWatcherState

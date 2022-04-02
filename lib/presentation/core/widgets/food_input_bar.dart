@@ -23,7 +23,6 @@ class _FoodInputBarState extends State<FoodInputBar> {
   String _content = "";
 
   void _handleChange() {
-    print(_controller.text.contains("\n"));
     setState(() {
       _content = _controller.text;
     });

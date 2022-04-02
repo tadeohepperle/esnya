@@ -8,22 +8,21 @@ class FoodItemEntryDisplayTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (entry is FoodItemEntryPreSuccess) {
-      final e = entry as FoodItemEntryPreSuccess;
-      return Container(
-        decoration: BoxDecoration(border: Border.all(width: 3)),
-        padding: EdgeInsets.all(5),
-        child: Text(e.amount.number.toString() +
-            " x  " +
-            e.amount.unit.baseUnitEquivalent.toString() +
-            "   " +
-            e.title),
-      );
-    }
-    return Container(
-      decoration: BoxDecoration(border: Border.all(width: 3)),
-      padding: EdgeInsets.all(5),
-      child: Text(entry.title),
+    return entry.map(
+      preSuccess: (FoodItemEntryPreSuccess preSuccess) {
+        return Container(
+          decoration: BoxDecoration(border: Border.all(width: 3)),
+          padding: EdgeInsets.all(5),
+          child: Text(preSuccess.amount.number.toString() +
+              " x  " +
+              preSuccess.amount.unit.baseUnitEquivalent.toString() +
+              "   " +
+              preSuccess.title),
+        );
+      },
+      success: (FoodItemEntrySuccess success) {
+        return Text("success " + success.title);
+      },
     );
   }
 }

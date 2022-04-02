@@ -7,7 +7,8 @@ class FoodEntriesWatcherState with _$FoodEntriesWatcherState {
   const factory FoodEntriesWatcherState.loadInProgress() =
       FoodEntriesWatcherStateLoadInProgress;
   const factory FoodEntriesWatcherState.loadSuccess(
-      List<FoodItemEntry> foodItemEntries) = FoodEntriesWatcherStateLoadSuccess;
+          KtList<FoodItemEntry> foodItemEntries) =
+      FoodEntriesWatcherStateLoadSuccess;
   const factory FoodEntriesWatcherState.loadFailure(Failure noteFailure) =
       FoodEntriesWatcherStateLoadFailure;
 }

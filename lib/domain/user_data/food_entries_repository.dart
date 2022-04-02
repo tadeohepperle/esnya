@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:esnya_shared_resources/core/core.dart';
+import 'package:kt_dart/collection.dart';
 
 abstract class FoodEntriesRepository extends SetupRepository {
-  Stream<Either<Failure, List<FoodItemEntry>>>
+  Stream<Either<Failure, KtList<FoodItemEntry>>>
       watchAll(); // TODO: watch special time only
 
   Future<Either<Failure, Unit>> add(FoodItemEntry entry);

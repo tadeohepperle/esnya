@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -112,33 +113,35 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         volatileFoodItemStrings.add(foodItemString);
       }
     }
-    print(lastItemInSafeTextRangeEnd);
 
     final newSafeTextClosed = state.safeTextClosed +
         state.safeTextOpen.substring(0, lastItemInSafeTextRangeEnd);
     final newSafeTextOpen = state.safeTextOpen
         .substring(lastItemInSafeTextRangeEnd, state.safeTextOpen.length);
-    final addedSafeFoodItemEntries = safeFoodItemStrings
-        .map(FoodItemEntry.fromFoodItemString)
-        .toImmutableList();
+
     final newVolatileFoodItemEntries = volatileFoodItemStrings
         .map(FoodItemEntry.fromFoodItemString)
         .toImmutableList();
-    // TODO: DEBUGREMOVE
-    // if (newSafeFoodItemEntries.size > 0) {
-    //   print("help");
-    // }
-    // final safeTextClosed = state.safeTextClosed;
-    // final safeTextOpen = state.safeTextOpen;
-    // final volatileText = state.volatileText;
-    // final safeFoodItemEntries = state.safeFoodItemEntries;
-    // final volatileFoodItemEntries = state.volatileFoodItemEntries;
-    await foodEntriesRepository.addAll(addedSafeFoodItemEntries.asList());
+
+    final addedSafeFoodItemEntries =
+        safeFoodItemStrings.map(FoodItemEntry.fromFoodItemString).toList();
+
+    // volatile entries and text:
     emit(state.copyWith(
       safeTextClosed: newSafeTextClosed,
       safeTextOpen: newSafeTextOpen,
       volatileEntries: newVolatileFoodItemEntries,
     ));
+    // TODO: figure out if timing is correct here:
+    // safe entries:
+    await foodEntriesRepository.addAll(addedSafeFoodItemEntries);
+    for (var entry in addedSafeFoodItemEntries) {
+      add(FoodInputEvent.fetchFoodForFoodItemEntry(entry));
+    }
+
+    newVolatileFoodItemEntries.forEach((element) {
+      add(FoodInputEvent.fetchFoodForFoodItemEntry(element));
+    });
   }
 
   fetchFoodForFoodItemEntry(
@@ -148,7 +151,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     final resultOrFailure = await foodMappingRepository.mapInput(inputTitle);
 
     FoodItemEntry applyResultOrFailure(FoodItemEntry before) {
-      return resultOrFailure.fold(
+      final res = resultOrFailure.fold(
         // do nothing if we get a failure back. FoodItemEntry.toMappingFailed() is reserved for when everything went fine we just did not find a matching food;
         (l) => before,
         (r) => r.map(
@@ -162,16 +165,20 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
           noMatchFound: (e) => before.toMappingFailed(),
         ),
       );
+      return res;
     }
 
     // Case 1: update in the list of volatile items kept in bloc state:
     if (_idInVolatileEntries(foodItemEntry.id)) {
+      print("case 1");
       KtList<FoodItemEntry> updatedEntries =
           _updateVolatileEntries(foodItemEntry.id, applyResultOrFailure);
       emit(state.copyWith(volatileEntries: updatedEntries));
     }
     // Case 2: update in FoodEntriesRepository
     else {
+      print("case 2");
+
       await foodEntriesRepository.updateById(
         foodItemEntry.id,
         applyResultOrFailure,
