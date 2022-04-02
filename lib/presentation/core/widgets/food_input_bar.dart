@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 
 class FoodInputBar extends StatefulWidget {
   final void Function(String) onChanged;
-  final void Function(String) onSubmit;
-
+  final void Function(String) onSubmitted;
+  final void Function(String) onClosed;
   const FoodInputBar({
     Key? key,
     required this.onChanged,
-    required this.onSubmit,
+    required this.onSubmitted,
+    required this.onClosed,
   }) : super(key: key);
 
   @override
   State<FoodInputBar> createState() => _FoodInputBarState();
+
+  void focus() {}
 }
 
 class _FoodInputBarState extends State<FoodInputBar> {
   final _controller = TextEditingController();
+  late FocusNode _focusNode;
   String _content = "";
 
   void _handleChange() {
@@ -28,31 +32,31 @@ class _FoodInputBarState extends State<FoodInputBar> {
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
+    _focusNode.requestFocus();
     _controller.addListener(_handleChange);
   }
 
   @override
   void dispose() {
+    // _focusNode.unfocus();
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.lightGreenAccent,
       padding: const EdgeInsets.all(10.0),
       child: Row(children: [
         Expanded(
           child: TextField(
-            // onEditingComplete: () {
-            //   print("editing compete");
-            // },
-            // onSubmitted: (value) {
-            //   print("submitteddddddd");
-            // },
-            textInputAction: TextInputAction.newline,
             onChanged: widget.onChanged,
+            onSubmitted: widget.onClosed,
+            focusNode: _focusNode,
+            textInputAction: TextInputAction.done,
             controller: _controller,
             decoration: const InputDecoration(
               // contentPadding: EdgeInsets.all(0),
@@ -62,10 +66,10 @@ class _FoodInputBarState extends State<FoodInputBar> {
         ),
         ElevatedButton(
             onPressed: () {
-              widget.onSubmit(_content);
+              widget.onSubmitted(_content);
               _controller.clear();
             },
-            child: Text("check"))
+            child: Icon(Icons.add))
       ]),
     );
   }

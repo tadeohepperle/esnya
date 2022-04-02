@@ -8,6 +8,8 @@ import 'package:esnya_shared_resources/core/models/user_data/user_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 
+import '../../core/widgets/food_item_entry_display_tile.dart';
+
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
 
@@ -19,90 +21,143 @@ class _DashboardTabViewState extends State<DashboardTabView>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  late FocusNode focusNode;
+  late DashboardInputState dashboardInputState;
 
   @override
   void initState() {
     super.initState();
-
-    focusNode = FocusNode();
+    dashboardInputState = DashboardInputState.closed;
   }
 
   @override
   Widget build(BuildContext context) {
-    final bg = Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        new Expanded(
-            child: ListView(
-          children: [
-            ...List.generate(20,
-                (index) => (ListTile(title: Text(index.toString() + "title "))))
-          ],
-        )),
-        Container(
-          color: Colors.white,
-          padding: const EdgeInsets.all(10.0),
-          child: Row(children: [
-            Expanded(
-              child: TextField(
-                focusNode: focusNode,
-                textInputAction: TextInputAction.newline,
-                onChanged: (value) {},
-              ),
-            ),
-            ElevatedButton(onPressed: () {}, child: Text("check"))
-          ]),
-        )
-      ],
-    );
-
-    var foc = false;
-    final fg = Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        ElevatedButton(
-            onPressed: () {
-              foc = !foc;
-              if (foc) {
-                focusNode.requestFocus();
-              } else {
-                focusNode.unfocus();
-              }
-            },
-            child: Text("toggle")),
-        Expanded(
-            child: Container(
-          color: Colors.yellow,
-        )),
-        Container(
-            color: Color.fromARGB(100, 255, 0, 0),
-            child: SizedBox(height: 300, width: 300))
-      ],
-    );
-
     return BlocProvider<FoodInputBloc>(
       create: (context) => getIt<FoodInputBloc>(),
       child: BlocBuilder<FoodInputBloc, FoodInputState>(
           builder: (context, foodInputState) {
         return BlocBuilder<FoodEntriesBloc, FoodEntriesState>(
             builder: (context, foodEntriesState) {
-          var els = foodEntriesState.entries.map((e) => Text(e.title));
-          return Stack(
-            children: [
-              bg,
-
-              //  fg,
-            ],
+          // var els = foodEntriesState.entries.map((e) => Text(e.title));
+          return _buildInputFrame(
+            context: context,
+            child: _buildPageContent(
+                context: context, foodInputState: foodInputState),
           );
         });
       }),
     );
   }
 
+  Widget _buildPageContent(
+      {required BuildContext context, required FoodInputState foodInputState}) {
+    return ListView(
+      children: [
+        Text("safeTextClosed: ${foodInputState.safeTextClosed}"),
+        Text("safeTextOpen: ${foodInputState.safeTextOpen}"),
+        Text("volatileText: ${foodInputState.volatileText}"),
+        Divider(
+          height: 30,
+        ),
+        Text("safe entries: "),
+        ...foodInputState.safeFoodItemEntries
+            .map((e) => FoodItemEntryDisplayTile(
+                  entry: e,
+                ))
+            .asList(),
+        Text("volatile entries: "),
+        ...foodInputState.volatileFoodItemEntries
+            .map((e) => FoodItemEntryDisplayTile(
+                  entry: e,
+                ))
+            .asList()
+      ],
+    );
+  }
+
+  Widget _buildInputFrame(
+      {required BuildContext context, required Widget child}) {
+    final bottomWidget = dashboardInputState == DashboardInputState.closed
+        ? _buildBottomMenu(context)
+        : _buildFoodInputBar(context);
+
+    return Stack(
+      children: [
+        child,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            dashboardInputState == DashboardInputState.closed
+                ? Expanded(child: SizedBox.shrink())
+                : Expanded(
+                    // while GestureDetector is shown we cannot click anything on the screen back.
+                    child: GestureDetector(
+                        onTap: () {
+                          _closeTextInput(context);
+                        },
+                        child: Container(color: Colors.transparent))),
+            bottomWidget
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _buildFoodInputBar(BuildContext context) {
+    return FoodInputBar(
+      onChanged: (v) {
+        context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(v));
+      },
+      onSubmitted: (v) {
+        context
+            .read<FoodInputBloc>()
+            .add(const FoodInputEvent.makeVolatileTextSafe());
+      },
+      onClosed: (v) {
+        _closeTextInput(context);
+      },
+    );
+  }
+
+  _openTextInput(BuildContext context) {
+    if (dashboardInputState == DashboardInputState.closed) {
+      context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(''));
+      setState(() {
+        dashboardInputState = DashboardInputState.text;
+      });
+    }
+  }
+
+  _closeTextInput(BuildContext context) {
+    context
+        .read<FoodInputBloc>()
+        .add(const FoodInputEvent.makeVolatileTextSafe());
+    FocusManager.instance.primaryFocus?.unfocus();
+    if (dashboardInputState == DashboardInputState.text) {
+      setState(() {
+        dashboardInputState = DashboardInputState.closed;
+      });
+    }
+  }
+
+  Widget _buildBottomMenu(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        // button for text input to open
+        child: FloatingActionButton(
+          onPressed: () {
+            _openTextInput(context);
+          },
+          child: Icon(Icons.food_bank),
+        ),
+      ),
+    );
+  }
+
   @override
   void dispose() {
-    focusNode.dispose();
     super.dispose();
   }
 }
+
+enum DashboardInputState { closed, text }

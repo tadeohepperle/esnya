@@ -38,10 +38,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
             emit(state.copyWith(
               safeTextOpen: state.safeTextOpenAndVolatileText,
               volatileText: '',
-              safeFoodItemEntries:
-                  state.safeFoodItemEntries + state.volatileFoodItemEntries,
-              volatileFoodItemEntries: const KtList<FoodItemEntry>.empty(),
             ));
+            add(const BuildFragments());
           },
           buildFragments: buildFragments,
           applyFragments: (ApplyFragments event) {
@@ -117,6 +115,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         volatileFoodItemStrings.add(foodItemString);
       }
     }
+    print(lastItemInSafeTextRangeEnd);
 
     final newSafeTextClosed = state.safeTextClosed +
         state.safeTextOpen.substring(0, lastItemInSafeTextRangeEnd);
@@ -129,7 +128,14 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     final newVolatileFoodItemEntries = volatileFoodItemStrings
         .map(FoodItemEntry.fromFoodItemString)
         .toImmutableList();
-
+    if (newSafeFoodItemEntries.size > 0) {
+      print("help");
+    }
+    final safeTextClosed = state.safeTextClosed;
+    final safeTextOpen = state.safeTextOpen;
+    final volatileText = state.volatileText;
+    final safeFoodItemEntries = state.safeFoodItemEntries;
+    final volatileFoodItemEntries = state.volatileFoodItemEntries;
     emit(state.copyWith(
       safeTextClosed: newSafeTextClosed,
       safeTextOpen: newSafeTextOpen,
