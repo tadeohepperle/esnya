@@ -82,7 +82,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
         //         ))
         //     .asList(),
         Text("volatile entries: "),
-        ...foodInputState.volatileFoodItemEntries
+        ...foodInputState.volatileEntries
             .map((e) => FoodItemEntryDisplayTile(
                   entry: e,
                 ))
