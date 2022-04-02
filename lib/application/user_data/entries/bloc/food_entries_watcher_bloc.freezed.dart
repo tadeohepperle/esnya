@@ -348,22 +348,23 @@ abstract class _EntriesReceived implements FoodEntriesWatcherEvent {
 class _$FoodEntriesWatcherStateTearOff {
   const _$FoodEntriesWatcherStateTearOff();
 
-  _Initial initial() {
-    return const _Initial();
+  FoodEntriesWatcherStateInitial initial() {
+    return const FoodEntriesWatcherStateInitial();
   }
 
-  _LoadInProgress loadInProgress() {
-    return const _LoadInProgress();
+  FoodEntriesWatcherStateLoadInProgress loadInProgress() {
+    return const FoodEntriesWatcherStateLoadInProgress();
   }
 
-  _LoadSuccess loadSuccess(List<FoodItemEntry> notes) {
-    return _LoadSuccess(
-      notes,
+  FoodEntriesWatcherStateLoadSuccess loadSuccess(
+      List<FoodItemEntry> foodItemEntries) {
+    return FoodEntriesWatcherStateLoadSuccess(
+      foodItemEntries,
     );
   }
 
-  _LoadFailure loadFailure(Failure noteFailure) {
-    return _LoadFailure(
+  FoodEntriesWatcherStateLoadFailure loadFailure(Failure noteFailure) {
+    return FoodEntriesWatcherStateLoadFailure(
       noteFailure,
     );
   }
@@ -378,7 +379,7 @@ mixin _$FoodEntriesWatcherState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<FoodItemEntry> notes) loadSuccess,
+    required TResult Function(List<FoodItemEntry> foodItemEntries) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -386,7 +387,7 @@ mixin _$FoodEntriesWatcherState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -394,33 +395,38 @@ mixin _$FoodEntriesWatcherState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
+    required TResult Function(FoodEntriesWatcherStateInitial value) initial,
+    required TResult Function(FoodEntriesWatcherStateLoadInProgress value)
+        loadInProgress,
+    required TResult Function(FoodEntriesWatcherStateLoadSuccess value)
+        loadSuccess,
+    required TResult Function(FoodEntriesWatcherStateLoadFailure value)
+        loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -444,26 +450,32 @@ class _$FoodEntriesWatcherStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$InitialCopyWith<$Res> {
-  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
-      __$InitialCopyWithImpl<$Res>;
+abstract class $FoodEntriesWatcherStateInitialCopyWith<$Res> {
+  factory $FoodEntriesWatcherStateInitialCopyWith(
+          FoodEntriesWatcherStateInitial value,
+          $Res Function(FoodEntriesWatcherStateInitial) then) =
+      _$FoodEntriesWatcherStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$InitialCopyWithImpl<$Res>
+class _$FoodEntriesWatcherStateInitialCopyWithImpl<$Res>
     extends _$FoodEntriesWatcherStateCopyWithImpl<$Res>
-    implements _$InitialCopyWith<$Res> {
-  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
-      : super(_value, (v) => _then(v as _Initial));
+    implements $FoodEntriesWatcherStateInitialCopyWith<$Res> {
+  _$FoodEntriesWatcherStateInitialCopyWithImpl(
+      FoodEntriesWatcherStateInitial _value,
+      $Res Function(FoodEntriesWatcherStateInitial) _then)
+      : super(_value, (v) => _then(v as FoodEntriesWatcherStateInitial));
 
   @override
-  _Initial get _value => super._value as _Initial;
+  FoodEntriesWatcherStateInitial get _value =>
+      super._value as FoodEntriesWatcherStateInitial;
 }
 
 /// @nodoc
 
-class _$_Initial implements _Initial {
-  const _$_Initial();
+class _$FoodEntriesWatcherStateInitial
+    implements FoodEntriesWatcherStateInitial {
+  const _$FoodEntriesWatcherStateInitial();
 
   @override
   String toString() {
@@ -473,7 +485,8 @@ class _$_Initial implements _Initial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Initial);
+        (other.runtimeType == runtimeType &&
+            other is FoodEntriesWatcherStateInitial);
   }
 
   @override
@@ -484,7 +497,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<FoodItemEntry> notes) loadSuccess,
+    required TResult Function(List<FoodItemEntry> foodItemEntries) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return initial();
@@ -495,7 +508,7 @@ class _$_Initial implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return initial?.call();
@@ -506,7 +519,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
@@ -519,10 +532,13 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
+    required TResult Function(FoodEntriesWatcherStateInitial value) initial,
+    required TResult Function(FoodEntriesWatcherStateLoadInProgress value)
+        loadInProgress,
+    required TResult Function(FoodEntriesWatcherStateLoadSuccess value)
+        loadSuccess,
+    required TResult Function(FoodEntriesWatcherStateLoadFailure value)
+        loadFailure,
   }) {
     return initial(this);
   }
@@ -530,10 +546,11 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
   }) {
     return initial?.call(this);
   }
@@ -541,10 +558,11 @@ class _$_Initial implements _Initial {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -554,33 +572,39 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements FoodEntriesWatcherState {
-  const factory _Initial() = _$_Initial;
+abstract class FoodEntriesWatcherStateInitial
+    implements FoodEntriesWatcherState {
+  const factory FoodEntriesWatcherStateInitial() =
+      _$FoodEntriesWatcherStateInitial;
 }
 
 /// @nodoc
-abstract class _$LoadInProgressCopyWith<$Res> {
-  factory _$LoadInProgressCopyWith(
-          _LoadInProgress value, $Res Function(_LoadInProgress) then) =
-      __$LoadInProgressCopyWithImpl<$Res>;
+abstract class $FoodEntriesWatcherStateLoadInProgressCopyWith<$Res> {
+  factory $FoodEntriesWatcherStateLoadInProgressCopyWith(
+          FoodEntriesWatcherStateLoadInProgress value,
+          $Res Function(FoodEntriesWatcherStateLoadInProgress) then) =
+      _$FoodEntriesWatcherStateLoadInProgressCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$LoadInProgressCopyWithImpl<$Res>
+class _$FoodEntriesWatcherStateLoadInProgressCopyWithImpl<$Res>
     extends _$FoodEntriesWatcherStateCopyWithImpl<$Res>
-    implements _$LoadInProgressCopyWith<$Res> {
-  __$LoadInProgressCopyWithImpl(
-      _LoadInProgress _value, $Res Function(_LoadInProgress) _then)
-      : super(_value, (v) => _then(v as _LoadInProgress));
+    implements $FoodEntriesWatcherStateLoadInProgressCopyWith<$Res> {
+  _$FoodEntriesWatcherStateLoadInProgressCopyWithImpl(
+      FoodEntriesWatcherStateLoadInProgress _value,
+      $Res Function(FoodEntriesWatcherStateLoadInProgress) _then)
+      : super(_value, (v) => _then(v as FoodEntriesWatcherStateLoadInProgress));
 
   @override
-  _LoadInProgress get _value => super._value as _LoadInProgress;
+  FoodEntriesWatcherStateLoadInProgress get _value =>
+      super._value as FoodEntriesWatcherStateLoadInProgress;
 }
 
 /// @nodoc
 
-class _$_LoadInProgress implements _LoadInProgress {
-  const _$_LoadInProgress();
+class _$FoodEntriesWatcherStateLoadInProgress
+    implements FoodEntriesWatcherStateLoadInProgress {
+  const _$FoodEntriesWatcherStateLoadInProgress();
 
   @override
   String toString() {
@@ -590,7 +614,8 @@ class _$_LoadInProgress implements _LoadInProgress {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _LoadInProgress);
+        (other.runtimeType == runtimeType &&
+            other is FoodEntriesWatcherStateLoadInProgress);
   }
 
   @override
@@ -601,7 +626,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<FoodItemEntry> notes) loadSuccess,
+    required TResult Function(List<FoodItemEntry> foodItemEntries) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return loadInProgress();
@@ -612,7 +637,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return loadInProgress?.call();
@@ -623,7 +648,7 @@ class _$_LoadInProgress implements _LoadInProgress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
@@ -636,10 +661,13 @@ class _$_LoadInProgress implements _LoadInProgress {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
+    required TResult Function(FoodEntriesWatcherStateInitial value) initial,
+    required TResult Function(FoodEntriesWatcherStateLoadInProgress value)
+        loadInProgress,
+    required TResult Function(FoodEntriesWatcherStateLoadSuccess value)
+        loadSuccess,
+    required TResult Function(FoodEntriesWatcherStateLoadFailure value)
+        loadFailure,
   }) {
     return loadInProgress(this);
   }
@@ -647,10 +675,11 @@ class _$_LoadInProgress implements _LoadInProgress {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
   }) {
     return loadInProgress?.call(this);
   }
@@ -658,10 +687,11 @@ class _$_LoadInProgress implements _LoadInProgress {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadInProgress != null) {
@@ -671,37 +701,42 @@ class _$_LoadInProgress implements _LoadInProgress {
   }
 }
 
-abstract class _LoadInProgress implements FoodEntriesWatcherState {
-  const factory _LoadInProgress() = _$_LoadInProgress;
+abstract class FoodEntriesWatcherStateLoadInProgress
+    implements FoodEntriesWatcherState {
+  const factory FoodEntriesWatcherStateLoadInProgress() =
+      _$FoodEntriesWatcherStateLoadInProgress;
 }
 
 /// @nodoc
-abstract class _$LoadSuccessCopyWith<$Res> {
-  factory _$LoadSuccessCopyWith(
-          _LoadSuccess value, $Res Function(_LoadSuccess) then) =
-      __$LoadSuccessCopyWithImpl<$Res>;
-  $Res call({List<FoodItemEntry> notes});
+abstract class $FoodEntriesWatcherStateLoadSuccessCopyWith<$Res> {
+  factory $FoodEntriesWatcherStateLoadSuccessCopyWith(
+          FoodEntriesWatcherStateLoadSuccess value,
+          $Res Function(FoodEntriesWatcherStateLoadSuccess) then) =
+      _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<$Res>;
+  $Res call({List<FoodItemEntry> foodItemEntries});
 }
 
 /// @nodoc
-class __$LoadSuccessCopyWithImpl<$Res>
+class _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<$Res>
     extends _$FoodEntriesWatcherStateCopyWithImpl<$Res>
-    implements _$LoadSuccessCopyWith<$Res> {
-  __$LoadSuccessCopyWithImpl(
-      _LoadSuccess _value, $Res Function(_LoadSuccess) _then)
-      : super(_value, (v) => _then(v as _LoadSuccess));
+    implements $FoodEntriesWatcherStateLoadSuccessCopyWith<$Res> {
+  _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl(
+      FoodEntriesWatcherStateLoadSuccess _value,
+      $Res Function(FoodEntriesWatcherStateLoadSuccess) _then)
+      : super(_value, (v) => _then(v as FoodEntriesWatcherStateLoadSuccess));
 
   @override
-  _LoadSuccess get _value => super._value as _LoadSuccess;
+  FoodEntriesWatcherStateLoadSuccess get _value =>
+      super._value as FoodEntriesWatcherStateLoadSuccess;
 
   @override
   $Res call({
-    Object? notes = freezed,
+    Object? foodItemEntries = freezed,
   }) {
-    return _then(_LoadSuccess(
-      notes == freezed
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
+    return _then(FoodEntriesWatcherStateLoadSuccess(
+      foodItemEntries == freezed
+          ? _value.foodItemEntries
+          : foodItemEntries // ignore: cast_nullable_to_non_nullable
               as List<FoodItemEntry>,
     ));
   }
@@ -709,43 +744,47 @@ class __$LoadSuccessCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadSuccess implements _LoadSuccess {
-  const _$_LoadSuccess(this.notes);
+class _$FoodEntriesWatcherStateLoadSuccess
+    implements FoodEntriesWatcherStateLoadSuccess {
+  const _$FoodEntriesWatcherStateLoadSuccess(this.foodItemEntries);
 
   @override
-  final List<FoodItemEntry> notes;
+  final List<FoodItemEntry> foodItemEntries;
 
   @override
   String toString() {
-    return 'FoodEntriesWatcherState.loadSuccess(notes: $notes)';
+    return 'FoodEntriesWatcherState.loadSuccess(foodItemEntries: $foodItemEntries)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoadSuccess &&
-            const DeepCollectionEquality().equals(other.notes, notes));
+            other is FoodEntriesWatcherStateLoadSuccess &&
+            const DeepCollectionEquality()
+                .equals(other.foodItemEntries, foodItemEntries));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(notes));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(foodItemEntries));
 
   @JsonKey(ignore: true)
   @override
-  _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
-      __$LoadSuccessCopyWithImpl<_LoadSuccess>(this, _$identity);
+  $FoodEntriesWatcherStateLoadSuccessCopyWith<
+          FoodEntriesWatcherStateLoadSuccess>
+      get copyWith => _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<
+          FoodEntriesWatcherStateLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<FoodItemEntry> notes) loadSuccess,
+    required TResult Function(List<FoodItemEntry> foodItemEntries) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
-    return loadSuccess(notes);
+    return loadSuccess(foodItemEntries);
   }
 
   @override
@@ -753,10 +792,10 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
-    return loadSuccess?.call(notes);
+    return loadSuccess?.call(foodItemEntries);
   }
 
   @override
@@ -764,12 +803,12 @@ class _$_LoadSuccess implements _LoadSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess(notes);
+      return loadSuccess(foodItemEntries);
     }
     return orElse();
   }
@@ -777,10 +816,13 @@ class _$_LoadSuccess implements _LoadSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
+    required TResult Function(FoodEntriesWatcherStateInitial value) initial,
+    required TResult Function(FoodEntriesWatcherStateLoadInProgress value)
+        loadInProgress,
+    required TResult Function(FoodEntriesWatcherStateLoadSuccess value)
+        loadSuccess,
+    required TResult Function(FoodEntriesWatcherStateLoadFailure value)
+        loadFailure,
   }) {
     return loadSuccess(this);
   }
@@ -788,10 +830,11 @@ class _$_LoadSuccess implements _LoadSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
   }) {
     return loadSuccess?.call(this);
   }
@@ -799,10 +842,11 @@ class _$_LoadSuccess implements _LoadSuccess {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
@@ -812,39 +856,46 @@ class _$_LoadSuccess implements _LoadSuccess {
   }
 }
 
-abstract class _LoadSuccess implements FoodEntriesWatcherState {
-  const factory _LoadSuccess(List<FoodItemEntry> notes) = _$_LoadSuccess;
+abstract class FoodEntriesWatcherStateLoadSuccess
+    implements FoodEntriesWatcherState {
+  const factory FoodEntriesWatcherStateLoadSuccess(
+          List<FoodItemEntry> foodItemEntries) =
+      _$FoodEntriesWatcherStateLoadSuccess;
 
-  List<FoodItemEntry> get notes;
+  List<FoodItemEntry> get foodItemEntries;
   @JsonKey(ignore: true)
-  _$LoadSuccessCopyWith<_LoadSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  $FoodEntriesWatcherStateLoadSuccessCopyWith<
+          FoodEntriesWatcherStateLoadSuccess>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$LoadFailureCopyWith<$Res> {
-  factory _$LoadFailureCopyWith(
-          _LoadFailure value, $Res Function(_LoadFailure) then) =
-      __$LoadFailureCopyWithImpl<$Res>;
+abstract class $FoodEntriesWatcherStateLoadFailureCopyWith<$Res> {
+  factory $FoodEntriesWatcherStateLoadFailureCopyWith(
+          FoodEntriesWatcherStateLoadFailure value,
+          $Res Function(FoodEntriesWatcherStateLoadFailure) then) =
+      _$FoodEntriesWatcherStateLoadFailureCopyWithImpl<$Res>;
   $Res call({Failure noteFailure});
 }
 
 /// @nodoc
-class __$LoadFailureCopyWithImpl<$Res>
+class _$FoodEntriesWatcherStateLoadFailureCopyWithImpl<$Res>
     extends _$FoodEntriesWatcherStateCopyWithImpl<$Res>
-    implements _$LoadFailureCopyWith<$Res> {
-  __$LoadFailureCopyWithImpl(
-      _LoadFailure _value, $Res Function(_LoadFailure) _then)
-      : super(_value, (v) => _then(v as _LoadFailure));
+    implements $FoodEntriesWatcherStateLoadFailureCopyWith<$Res> {
+  _$FoodEntriesWatcherStateLoadFailureCopyWithImpl(
+      FoodEntriesWatcherStateLoadFailure _value,
+      $Res Function(FoodEntriesWatcherStateLoadFailure) _then)
+      : super(_value, (v) => _then(v as FoodEntriesWatcherStateLoadFailure));
 
   @override
-  _LoadFailure get _value => super._value as _LoadFailure;
+  FoodEntriesWatcherStateLoadFailure get _value =>
+      super._value as FoodEntriesWatcherStateLoadFailure;
 
   @override
   $Res call({
     Object? noteFailure = freezed,
   }) {
-    return _then(_LoadFailure(
+    return _then(FoodEntriesWatcherStateLoadFailure(
       noteFailure == freezed
           ? _value.noteFailure
           : noteFailure // ignore: cast_nullable_to_non_nullable
@@ -855,8 +906,9 @@ class __$LoadFailureCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoadFailure implements _LoadFailure {
-  const _$_LoadFailure(this.noteFailure);
+class _$FoodEntriesWatcherStateLoadFailure
+    implements FoodEntriesWatcherStateLoadFailure {
+  const _$FoodEntriesWatcherStateLoadFailure(this.noteFailure);
 
   @override
   final Failure noteFailure;
@@ -870,7 +922,7 @@ class _$_LoadFailure implements _LoadFailure {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoadFailure &&
+            other is FoodEntriesWatcherStateLoadFailure &&
             const DeepCollectionEquality()
                 .equals(other.noteFailure, noteFailure));
   }
@@ -881,15 +933,17 @@ class _$_LoadFailure implements _LoadFailure {
 
   @JsonKey(ignore: true)
   @override
-  _$LoadFailureCopyWith<_LoadFailure> get copyWith =>
-      __$LoadFailureCopyWithImpl<_LoadFailure>(this, _$identity);
+  $FoodEntriesWatcherStateLoadFailureCopyWith<
+          FoodEntriesWatcherStateLoadFailure>
+      get copyWith => _$FoodEntriesWatcherStateLoadFailureCopyWithImpl<
+          FoodEntriesWatcherStateLoadFailure>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<FoodItemEntry> notes) loadSuccess,
+    required TResult Function(List<FoodItemEntry> foodItemEntries) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return loadFailure(noteFailure);
@@ -900,7 +954,7 @@ class _$_LoadFailure implements _LoadFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return loadFailure?.call(noteFailure);
@@ -911,7 +965,7 @@ class _$_LoadFailure implements _LoadFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<FoodItemEntry> notes)? loadSuccess,
+    TResult Function(List<FoodItemEntry> foodItemEntries)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
@@ -924,10 +978,13 @@ class _$_LoadFailure implements _LoadFailure {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_LoadInProgress value) loadInProgress,
-    required TResult Function(_LoadSuccess value) loadSuccess,
-    required TResult Function(_LoadFailure value) loadFailure,
+    required TResult Function(FoodEntriesWatcherStateInitial value) initial,
+    required TResult Function(FoodEntriesWatcherStateLoadInProgress value)
+        loadInProgress,
+    required TResult Function(FoodEntriesWatcherStateLoadSuccess value)
+        loadSuccess,
+    required TResult Function(FoodEntriesWatcherStateLoadFailure value)
+        loadFailure,
   }) {
     return loadFailure(this);
   }
@@ -935,10 +992,11 @@ class _$_LoadFailure implements _LoadFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
   }) {
     return loadFailure?.call(this);
   }
@@ -946,10 +1004,11 @@ class _$_LoadFailure implements _LoadFailure {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_LoadInProgress value)? loadInProgress,
-    TResult Function(_LoadSuccess value)? loadSuccess,
-    TResult Function(_LoadFailure value)? loadFailure,
+    TResult Function(FoodEntriesWatcherStateInitial value)? initial,
+    TResult Function(FoodEntriesWatcherStateLoadInProgress value)?
+        loadInProgress,
+    TResult Function(FoodEntriesWatcherStateLoadSuccess value)? loadSuccess,
+    TResult Function(FoodEntriesWatcherStateLoadFailure value)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadFailure != null) {
@@ -959,11 +1018,14 @@ class _$_LoadFailure implements _LoadFailure {
   }
 }
 
-abstract class _LoadFailure implements FoodEntriesWatcherState {
-  const factory _LoadFailure(Failure noteFailure) = _$_LoadFailure;
+abstract class FoodEntriesWatcherStateLoadFailure
+    implements FoodEntriesWatcherState {
+  const factory FoodEntriesWatcherStateLoadFailure(Failure noteFailure) =
+      _$FoodEntriesWatcherStateLoadFailure;
 
   Failure get noteFailure;
   @JsonKey(ignore: true)
-  _$LoadFailureCopyWith<_LoadFailure> get copyWith =>
-      throw _privateConstructorUsedError;
+  $FoodEntriesWatcherStateLoadFailureCopyWith<
+          FoodEntriesWatcherStateLoadFailure>
+      get copyWith => throw _privateConstructorUsedError;
 }

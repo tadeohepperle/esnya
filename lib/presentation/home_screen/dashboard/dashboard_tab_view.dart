@@ -1,5 +1,5 @@
-import 'package:esnya/application/core/bloc/food_entries_bloc.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
+import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bloc.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
@@ -35,21 +35,27 @@ class _DashboardTabViewState extends State<DashboardTabView>
       create: (context) => getIt<FoodInputBloc>(),
       child: BlocBuilder<FoodInputBloc, FoodInputState>(
           builder: (context, foodInputState) {
-        return BlocBuilder<FoodEntriesBloc, FoodEntriesState>(
-            builder: (context, foodEntriesState) {
+        return BlocBuilder<FoodEntriesWatcherBloc, FoodEntriesWatcherState>(
+            builder: (context, foodEntriesWatcherState) {
           // var els = foodEntriesState.entries.map((e) => Text(e.title));
           return _buildInputFrame(
             context: context,
             child: _buildPageContent(
-                context: context, foodInputState: foodInputState),
+              context: context,
+              foodInputState: foodInputState,
+              foodEntriesWatcherState: foodEntriesWatcherState,
+            ),
           );
         });
       }),
     );
   }
 
-  Widget _buildPageContent(
-      {required BuildContext context, required FoodInputState foodInputState}) {
+  Widget _buildPageContent({
+    required BuildContext context,
+    required FoodInputState foodInputState,
+    required FoodEntriesWatcherState foodEntriesWatcherState,
+  }) {
     return ListView(
       children: [
         Text("safeTextClosed: ${foodInputState.safeTextClosed}"),
@@ -58,12 +64,23 @@ class _DashboardTabViewState extends State<DashboardTabView>
         Divider(
           height: 30,
         ),
-        Text("safe entries: "),
-        ...foodInputState.safeFoodItemEntries
-            .map((e) => FoodItemEntryDisplayTile(
-                  entry: e,
-                ))
-            .asList(),
+        if (foodEntriesWatcherState is FoodEntriesWatcherStateLoadFailure)
+          Text("Loadfailure")
+        else if (foodEntriesWatcherState
+            is FoodEntriesWatcherStateLoadInProgress)
+          CircularProgressIndicator()
+        else if (foodEntriesWatcherState is FoodEntriesWatcherStateLoadSuccess)
+          ...foodEntriesWatcherState.foodItemEntries
+              .map((e) => FoodItemEntryDisplayTile(
+                    entry: e,
+                  )),
+
+        // Text("safe entries: "),
+        // ...foodEntriesWatcherState
+        //     .map((e) => FoodItemEntryDisplayTile(
+        //           entry: e,
+        //         ))
+        //     .asList(),
         Text("volatile entries: "),
         ...foodInputState.volatileFoodItemEntries
             .map((e) => FoodItemEntryDisplayTile(

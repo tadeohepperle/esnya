@@ -16,6 +16,15 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       StreamController<Either<Failure, List<FoodItemEntry>>>.broadcast();
 
   @override
+  Future<Either<Failure, Unit>> doSetupWork() async {
+    _controller.onListen = () {
+      print("onlisten");
+      _controller.add(right(_entries));
+    };
+    return right(unit);
+  }
+
+  @override
   Future<Either<Failure, Unit>> add(FoodItemEntry entry) async {
     _entries.add(entry);
     _controller.sink.add(right(_entries));
@@ -25,20 +34,13 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   @override
   Future<Either<Failure, Unit>> delete(FoodItemEntry entry) async {
     _entries.remove(entry);
-    _controller.sink.add(right(_entries));
-    return right(unit);
-  }
-
-  @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    _controller.sink.add(right([]));
+    _controller.add(right(_entries));
     return right(unit);
   }
 
   @override
   Future<Either<Failure, Unit>> update(FoodItemEntry entry) async {
     _entries = _entries.map((e) => e.id == entry.id ? entry : e).toList();
-    _controller.sink.add(right(_entries));
     return right(unit);
   }
 
@@ -48,7 +50,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   @override
   Future<Either<Failure, Unit>> addAll(Iterable<FoodItemEntry> entries) async {
     _entries.addAll(entries);
-    _controller.sink.add(right(_entries));
+    _controller.add(right(_entries));
     return right(unit);
   }
 }

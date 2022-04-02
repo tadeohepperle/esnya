@@ -25,10 +25,12 @@ class FoodEntriesWatcherBloc
       : super(FoodEntriesWatcherState.initial()) {
     on<FoodEntriesWatcherEvent>((event, emit) async {
       await event.map(watchStarted: (_Started watchStarted) async {
+        print("watch started");
         emit(FoodEntriesWatcherState.loadInProgress());
         await _foodEntriesStreamSubscription?.cancel();
         _foodEntriesStreamSubscription =
             _foodEntriesRepository.watchAll().listen((failureOrEntries) {
+          print("get a new event");
           add(FoodEntriesWatcherEvent.entriesReceived(failureOrEntries));
         });
       }, entriesReceived: (_EntriesReceived entriesReceived) {
