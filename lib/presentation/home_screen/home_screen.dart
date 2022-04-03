@@ -64,8 +64,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           final loc = AppLocalizations.of(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text(kAppName),
-              bottom: TabBar(
+              title: TabBar(
                 controller: _controller,
                 tabs: [
                   for (final tab in HomeScreenTabType.values)

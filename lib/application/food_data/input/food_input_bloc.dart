@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/user_data/food_entries_repository.dart';
@@ -59,7 +57,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       oldList = oldList.sublist(0, newList.length);
     }
     // step 2: update all elements in old where foodItemString is not the same anymore.
-    for (var i = 0; i < newList.length; i++) {
+    for (var i = 0; i < oldList.length; i++) {
       if (oldList[i].value1 != newList[i].value1) {
         oldList[i] = newList[i];
       }
@@ -70,7 +68,6 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     }
     _fragmentsAndEntries = oldList;
     emit(state.copyWith(entries: _entries));
-    await _sendSafeEntriesToFoodEntriesRepository(emit);
   }
 
   Future<void> _sendSafeEntriesToFoodEntriesRepository(
@@ -107,7 +104,10 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         return Tuple2(Tuple2(newRange, e.value1.value2), e.value2);
       },
     ).toList();
-    final updatedSafeText = state.safeText.substring(0, lastSafeRangeEnd);
+    final updatedSafeText = state.safeText.substring(lastSafeRangeEnd);
+    print(lastSafeRangeEnd);
+    print(state.safeText);
+    print(updatedSafeText);
     // alter bloc state:
     _fragmentsAndEntries = blocEntries;
     emit(state.copyWith(
