@@ -58,12 +58,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
   }) {
     return ListView(
       children: [
-        Text("safeTextClosed: ${foodInputState.safeTextClosed}"),
-        Text("safeTextOpen: ${foodInputState.safeTextOpen}"),
-        Text("volatileText: ${foodInputState.volatileText}"),
+        Text("safeText: ${foodInputState.safeText}"),
+        Text("volatile: ${foodInputState.volatileText}"),
         Divider(
           height: 30,
         ),
+        Text("repo entries: "),
         if (foodEntriesWatcherState is FoodEntriesWatcherStateLoadFailure)
           Text("Loadfailure")
         else if (foodEntriesWatcherState
@@ -75,19 +75,10 @@ class _DashboardTabViewState extends State<DashboardTabView>
                     entry: e,
                   ))
               .asList(),
-
-        // Text("safe entries: "),
-        // ...foodEntriesWatcherState
-        //     .map((e) => FoodItemEntryDisplayTile(
-        //           entry: e,
-        //         ))
-        //     .asList(),
-        Text("volatile entries: "),
-        ...foodInputState.volatileEntries
-            .map((e) => FoodItemEntryDisplayTile(
-                  entry: e,
-                ))
-            .asList()
+        Text("food input bloc entries: "),
+        ...foodInputState.entries.map((e) => FoodItemEntryDisplayTile(
+              entry: e,
+            )),
       ],
     );
   }
@@ -128,7 +119,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
       onSubmitted: (v) {
         context
             .read<FoodInputBloc>()
-            .add(const FoodInputEvent.makeVolatileTextSafe());
+            .add(const FoodInputEvent.saveVolatileText());
       },
       onClosed: (v) {
         _closeTextInput(context);
@@ -146,9 +137,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
   }
 
   _closeTextInput(BuildContext context) {
-    context
-        .read<FoodInputBloc>()
-        .add(const FoodInputEvent.makeVolatileTextSafe());
+    context.read<FoodInputBloc>().add(const FoodInputEvent.saveVolatileText());
     FocusManager.instance.primaryFocus?.unfocus();
     if (dashboardInputState == DashboardInputState.text) {
       setState(() {

@@ -202,7 +202,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "3bf2138909dfd48ea0c3a8b4d8010f9f5e6a5414"
+      resolved-ref: "413e29f720d9f8396c3a5597d1e5dd2953043d34"
       url: "https://github.com/tadeohepperle/esnya_shared_resources.git"
     source: git
     version: "1.0.0"

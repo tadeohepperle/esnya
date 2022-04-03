@@ -4,20 +4,12 @@ part of 'food_input_bloc.dart';
 class FoodInputState with _$FoodInputState {
   const FoodInputState._();
   const factory FoodInputState({
-    required String safeTextClosed,
-    required String safeTextOpen,
+    required String safeText,
     required String volatileText,
-    required KtList<FoodItemEntry> volatileEntries,
+    required List<FoodItemEntry> entries,
   }) = _FoodInputState;
-  factory FoodInputState.initial() => const FoodInputState(
-        safeTextClosed: '',
-        safeTextOpen: '',
-        volatileText: '',
-        volatileEntries: KtList.empty(),
-      );
-  String get safeTextOpenAndVolatileText =>
-      safeTextOpen + ' ' + volatileText; // TODO: is space necessary?
-  // EXPLANATION OF STATE:
-  // text = safeTextClosed + safeTextOpen + volatileText
-  // safeFoodItems and volatileFoodItem map to different ranges on this text, where safeFoodItems are fully covered by the safeTextClosed.
+  factory FoodInputState.initial() =>
+      FoodInputState(safeText: '', volatileText: '', entries: []);
+
+  String get totalText => safeText + ' ' + volatileText;
 }

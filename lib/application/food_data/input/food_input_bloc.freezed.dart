@@ -18,34 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FoodInputEventTearOff {
   const _$FoodInputEventTearOff();
 
-  Reset reset() {
-    return const Reset();
-  }
-
-  SetVolatileText setVolatileText(String text) {
-    return SetVolatileText(
-      text,
+  _SetVolatileText setVolatileText(String value) {
+    return _SetVolatileText(
+      value,
     );
   }
 
-  MakeVolatileTextSafe makeVolatileTextSafe() {
-    return const MakeVolatileTextSafe();
+  _SaveVolatileText saveVolatileText() {
+    return const _SaveVolatileText();
   }
 
-  BuildFragments buildFragments() {
-    return const BuildFragments();
-  }
-
-  ApplyFragments applyFragments(FragmentizationResult fragmentizationResult) {
-    return ApplyFragments(
-      fragmentizationResult,
-    );
-  }
-
-  FetchFoodForFoodItemEntry fetchFoodForFoodItemEntry(
-      FoodItemEntry foodItemEntry) {
-    return FetchFoodForFoodItemEntry(
-      foodItemEntry,
+  _FetchFood fetchFood(FoodItemEntry entry) {
+    return _FetchFood(
+      entry,
     );
   }
 }
@@ -57,70 +42,45 @@ const $FoodInputEvent = _$FoodInputEventTearOff();
 mixin _$FoodInputEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(String value) setVolatileText,
+    required TResult Function() saveVolatileText,
+    required TResult Function(FoodItemEntry entry) fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(_SetVolatileText value) setVolatileText,
+    required TResult Function(_SaveVolatileText value) saveVolatileText,
+    required TResult Function(_FetchFood value) fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -144,165 +104,32 @@ class _$FoodInputEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $ResetCopyWith<$Res> {
-  factory $ResetCopyWith(Reset value, $Res Function(Reset) then) =
-      _$ResetCopyWithImpl<$Res>;
+abstract class _$SetVolatileTextCopyWith<$Res> {
+  factory _$SetVolatileTextCopyWith(
+          _SetVolatileText value, $Res Function(_SetVolatileText) then) =
+      __$SetVolatileTextCopyWithImpl<$Res>;
+  $Res call({String value});
 }
 
 /// @nodoc
-class _$ResetCopyWithImpl<$Res> extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $ResetCopyWith<$Res> {
-  _$ResetCopyWithImpl(Reset _value, $Res Function(Reset) _then)
-      : super(_value, (v) => _then(v as Reset));
-
-  @override
-  Reset get _value => super._value as Reset;
-}
-
-/// @nodoc
-
-class _$Reset implements Reset {
-  const _$Reset();
-
-  @override
-  String toString() {
-    return 'FoodInputEvent.reset()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Reset);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return reset();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-  }) {
-    return reset?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return reset(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-  }) {
-    return reset?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (reset != null) {
-      return reset(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Reset implements FoodInputEvent {
-  const factory Reset() = _$Reset;
-}
-
-/// @nodoc
-abstract class $SetVolatileTextCopyWith<$Res> {
-  factory $SetVolatileTextCopyWith(
-          SetVolatileText value, $Res Function(SetVolatileText) then) =
-      _$SetVolatileTextCopyWithImpl<$Res>;
-  $Res call({String text});
-}
-
-/// @nodoc
-class _$SetVolatileTextCopyWithImpl<$Res>
+class __$SetVolatileTextCopyWithImpl<$Res>
     extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $SetVolatileTextCopyWith<$Res> {
-  _$SetVolatileTextCopyWithImpl(
-      SetVolatileText _value, $Res Function(SetVolatileText) _then)
-      : super(_value, (v) => _then(v as SetVolatileText));
+    implements _$SetVolatileTextCopyWith<$Res> {
+  __$SetVolatileTextCopyWithImpl(
+      _SetVolatileText _value, $Res Function(_SetVolatileText) _then)
+      : super(_value, (v) => _then(v as _SetVolatileText));
 
   @override
-  SetVolatileText get _value => super._value as SetVolatileText;
+  _SetVolatileText get _value => super._value as _SetVolatileText;
 
   @override
   $Res call({
-    Object? text = freezed,
+    Object? value = freezed,
   }) {
-    return _then(SetVolatileText(
-      text == freezed
-          ? _value.text
-          : text // ignore: cast_nullable_to_non_nullable
+    return _then(_SetVolatileText(
+      value == freezed
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -310,77 +137,64 @@ class _$SetVolatileTextCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SetVolatileText implements SetVolatileText {
-  const _$SetVolatileText(this.text);
+class _$_SetVolatileText implements _SetVolatileText {
+  const _$_SetVolatileText(this.value);
 
   @override
-  final String text;
+  final String value;
 
   @override
   String toString() {
-    return 'FoodInputEvent.setVolatileText(text: $text)';
+    return 'FoodInputEvent.setVolatileText(value: $value)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SetVolatileText &&
-            const DeepCollectionEquality().equals(other.text, text));
+            other is _SetVolatileText &&
+            const DeepCollectionEquality().equals(other.value, value));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(text));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(value));
 
   @JsonKey(ignore: true)
   @override
-  $SetVolatileTextCopyWith<SetVolatileText> get copyWith =>
-      _$SetVolatileTextCopyWithImpl<SetVolatileText>(this, _$identity);
+  _$SetVolatileTextCopyWith<_SetVolatileText> get copyWith =>
+      __$SetVolatileTextCopyWithImpl<_SetVolatileText>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(String value) setVolatileText,
+    required TResult Function() saveVolatileText,
+    required TResult Function(FoodItemEntry entry) fetchFood,
   }) {
-    return setVolatileText(text);
+    return setVolatileText(value);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
   }) {
-    return setVolatileText?.call(text);
+    return setVolatileText?.call(value);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
-      return setVolatileText(text);
+      return setVolatileText(value);
     }
     return orElse();
   }
@@ -388,13 +202,9 @@ class _$SetVolatileText implements SetVolatileText {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(_SetVolatileText value) setVolatileText,
+    required TResult Function(_SaveVolatileText value) saveVolatileText,
+    required TResult Function(_FetchFood value) fetchFood,
   }) {
     return setVolatileText(this);
   }
@@ -402,13 +212,9 @@ class _$SetVolatileText implements SetVolatileText {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
   }) {
     return setVolatileText?.call(this);
   }
@@ -416,13 +222,9 @@ class _$SetVolatileText implements SetVolatileText {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -432,48 +234,48 @@ class _$SetVolatileText implements SetVolatileText {
   }
 }
 
-abstract class SetVolatileText implements FoodInputEvent {
-  const factory SetVolatileText(String text) = _$SetVolatileText;
+abstract class _SetVolatileText implements FoodInputEvent {
+  const factory _SetVolatileText(String value) = _$_SetVolatileText;
 
-  String get text;
+  String get value;
   @JsonKey(ignore: true)
-  $SetVolatileTextCopyWith<SetVolatileText> get copyWith =>
+  _$SetVolatileTextCopyWith<_SetVolatileText> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MakeVolatileTextSafeCopyWith<$Res> {
-  factory $MakeVolatileTextSafeCopyWith(MakeVolatileTextSafe value,
-          $Res Function(MakeVolatileTextSafe) then) =
-      _$MakeVolatileTextSafeCopyWithImpl<$Res>;
+abstract class _$SaveVolatileTextCopyWith<$Res> {
+  factory _$SaveVolatileTextCopyWith(
+          _SaveVolatileText value, $Res Function(_SaveVolatileText) then) =
+      __$SaveVolatileTextCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$MakeVolatileTextSafeCopyWithImpl<$Res>
+class __$SaveVolatileTextCopyWithImpl<$Res>
     extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $MakeVolatileTextSafeCopyWith<$Res> {
-  _$MakeVolatileTextSafeCopyWithImpl(
-      MakeVolatileTextSafe _value, $Res Function(MakeVolatileTextSafe) _then)
-      : super(_value, (v) => _then(v as MakeVolatileTextSafe));
+    implements _$SaveVolatileTextCopyWith<$Res> {
+  __$SaveVolatileTextCopyWithImpl(
+      _SaveVolatileText _value, $Res Function(_SaveVolatileText) _then)
+      : super(_value, (v) => _then(v as _SaveVolatileText));
 
   @override
-  MakeVolatileTextSafe get _value => super._value as MakeVolatileTextSafe;
+  _SaveVolatileText get _value => super._value as _SaveVolatileText;
 }
 
 /// @nodoc
 
-class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
-  const _$MakeVolatileTextSafe();
+class _$_SaveVolatileText implements _SaveVolatileText {
+  const _$_SaveVolatileText();
 
   @override
   String toString() {
-    return 'FoodInputEvent.makeVolatileTextSafe()';
+    return 'FoodInputEvent.saveVolatileText()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is MakeVolatileTextSafe);
+        (other.runtimeType == runtimeType && other is _SaveVolatileText);
   }
 
   @override
@@ -482,46 +284,33 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(String value) setVolatileText,
+    required TResult Function() saveVolatileText,
+    required TResult Function(FoodItemEntry entry) fetchFood,
   }) {
-    return makeVolatileTextSafe();
+    return saveVolatileText();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
   }) {
-    return makeVolatileTextSafe?.call();
+    return saveVolatileText?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
     required TResult orElse(),
   }) {
-    if (makeVolatileTextSafe != null) {
-      return makeVolatileTextSafe();
+    if (saveVolatileText != null) {
+      return saveVolatileText();
     }
     return orElse();
   }
@@ -529,484 +318,141 @@ class _$MakeVolatileTextSafe implements MakeVolatileTextSafe {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(_SetVolatileText value) setVolatileText,
+    required TResult Function(_SaveVolatileText value) saveVolatileText,
+    required TResult Function(_FetchFood value) fetchFood,
   }) {
-    return makeVolatileTextSafe(this);
+    return saveVolatileText(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
   }) {
-    return makeVolatileTextSafe?.call(this);
+    return saveVolatileText?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
     required TResult orElse(),
   }) {
-    if (makeVolatileTextSafe != null) {
-      return makeVolatileTextSafe(this);
+    if (saveVolatileText != null) {
+      return saveVolatileText(this);
     }
     return orElse();
   }
 }
 
-abstract class MakeVolatileTextSafe implements FoodInputEvent {
-  const factory MakeVolatileTextSafe() = _$MakeVolatileTextSafe;
+abstract class _SaveVolatileText implements FoodInputEvent {
+  const factory _SaveVolatileText() = _$_SaveVolatileText;
 }
 
 /// @nodoc
-abstract class $BuildFragmentsCopyWith<$Res> {
-  factory $BuildFragmentsCopyWith(
-          BuildFragments value, $Res Function(BuildFragments) then) =
-      _$BuildFragmentsCopyWithImpl<$Res>;
+abstract class _$FetchFoodCopyWith<$Res> {
+  factory _$FetchFoodCopyWith(
+          _FetchFood value, $Res Function(_FetchFood) then) =
+      __$FetchFoodCopyWithImpl<$Res>;
+  $Res call({FoodItemEntry entry});
+
+  $FoodItemEntryCopyWith<$Res> get entry;
 }
 
 /// @nodoc
-class _$BuildFragmentsCopyWithImpl<$Res>
-    extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $BuildFragmentsCopyWith<$Res> {
-  _$BuildFragmentsCopyWithImpl(
-      BuildFragments _value, $Res Function(BuildFragments) _then)
-      : super(_value, (v) => _then(v as BuildFragments));
+class __$FetchFoodCopyWithImpl<$Res> extends _$FoodInputEventCopyWithImpl<$Res>
+    implements _$FetchFoodCopyWith<$Res> {
+  __$FetchFoodCopyWithImpl(_FetchFood _value, $Res Function(_FetchFood) _then)
+      : super(_value, (v) => _then(v as _FetchFood));
 
   @override
-  BuildFragments get _value => super._value as BuildFragments;
-}
-
-/// @nodoc
-
-class _$BuildFragments implements BuildFragments {
-  const _$BuildFragments();
-
-  @override
-  String toString() {
-    return 'FoodInputEvent.buildFragments()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is BuildFragments);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return buildFragments();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-  }) {
-    return buildFragments?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (buildFragments != null) {
-      return buildFragments();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return buildFragments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-  }) {
-    return buildFragments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (buildFragments != null) {
-      return buildFragments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class BuildFragments implements FoodInputEvent {
-  const factory BuildFragments() = _$BuildFragments;
-}
-
-/// @nodoc
-abstract class $ApplyFragmentsCopyWith<$Res> {
-  factory $ApplyFragmentsCopyWith(
-          ApplyFragments value, $Res Function(ApplyFragments) then) =
-      _$ApplyFragmentsCopyWithImpl<$Res>;
-  $Res call({FragmentizationResult fragmentizationResult});
-
-  $FragmentizationResultCopyWith<$Res> get fragmentizationResult;
-}
-
-/// @nodoc
-class _$ApplyFragmentsCopyWithImpl<$Res>
-    extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $ApplyFragmentsCopyWith<$Res> {
-  _$ApplyFragmentsCopyWithImpl(
-      ApplyFragments _value, $Res Function(ApplyFragments) _then)
-      : super(_value, (v) => _then(v as ApplyFragments));
-
-  @override
-  ApplyFragments get _value => super._value as ApplyFragments;
+  _FetchFood get _value => super._value as _FetchFood;
 
   @override
   $Res call({
-    Object? fragmentizationResult = freezed,
+    Object? entry = freezed,
   }) {
-    return _then(ApplyFragments(
-      fragmentizationResult == freezed
-          ? _value.fragmentizationResult
-          : fragmentizationResult // ignore: cast_nullable_to_non_nullable
-              as FragmentizationResult,
-    ));
-  }
-
-  @override
-  $FragmentizationResultCopyWith<$Res> get fragmentizationResult {
-    return $FragmentizationResultCopyWith<$Res>(_value.fragmentizationResult,
-        (value) {
-      return _then(_value.copyWith(fragmentizationResult: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$ApplyFragments implements ApplyFragments {
-  const _$ApplyFragments(this.fragmentizationResult);
-
-  @override
-  final FragmentizationResult fragmentizationResult;
-
-  @override
-  String toString() {
-    return 'FoodInputEvent.applyFragments(fragmentizationResult: $fragmentizationResult)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ApplyFragments &&
-            const DeepCollectionEquality()
-                .equals(other.fragmentizationResult, fragmentizationResult));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(fragmentizationResult));
-
-  @JsonKey(ignore: true)
-  @override
-  $ApplyFragmentsCopyWith<ApplyFragments> get copyWith =>
-      _$ApplyFragmentsCopyWithImpl<ApplyFragments>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return applyFragments(fragmentizationResult);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-  }) {
-    return applyFragments?.call(fragmentizationResult);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (applyFragments != null) {
-      return applyFragments(fragmentizationResult);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
-  }) {
-    return applyFragments(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-  }) {
-    return applyFragments?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
-    required TResult orElse(),
-  }) {
-    if (applyFragments != null) {
-      return applyFragments(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ApplyFragments implements FoodInputEvent {
-  const factory ApplyFragments(FragmentizationResult fragmentizationResult) =
-      _$ApplyFragments;
-
-  FragmentizationResult get fragmentizationResult;
-  @JsonKey(ignore: true)
-  $ApplyFragmentsCopyWith<ApplyFragments> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $FetchFoodForFoodItemEntryCopyWith<$Res> {
-  factory $FetchFoodForFoodItemEntryCopyWith(FetchFoodForFoodItemEntry value,
-          $Res Function(FetchFoodForFoodItemEntry) then) =
-      _$FetchFoodForFoodItemEntryCopyWithImpl<$Res>;
-  $Res call({FoodItemEntry foodItemEntry});
-
-  $FoodItemEntryCopyWith<$Res> get foodItemEntry;
-}
-
-/// @nodoc
-class _$FetchFoodForFoodItemEntryCopyWithImpl<$Res>
-    extends _$FoodInputEventCopyWithImpl<$Res>
-    implements $FetchFoodForFoodItemEntryCopyWith<$Res> {
-  _$FetchFoodForFoodItemEntryCopyWithImpl(FetchFoodForFoodItemEntry _value,
-      $Res Function(FetchFoodForFoodItemEntry) _then)
-      : super(_value, (v) => _then(v as FetchFoodForFoodItemEntry));
-
-  @override
-  FetchFoodForFoodItemEntry get _value =>
-      super._value as FetchFoodForFoodItemEntry;
-
-  @override
-  $Res call({
-    Object? foodItemEntry = freezed,
-  }) {
-    return _then(FetchFoodForFoodItemEntry(
-      foodItemEntry == freezed
-          ? _value.foodItemEntry
-          : foodItemEntry // ignore: cast_nullable_to_non_nullable
+    return _then(_FetchFood(
+      entry == freezed
+          ? _value.entry
+          : entry // ignore: cast_nullable_to_non_nullable
               as FoodItemEntry,
     ));
   }
 
   @override
-  $FoodItemEntryCopyWith<$Res> get foodItemEntry {
-    return $FoodItemEntryCopyWith<$Res>(_value.foodItemEntry, (value) {
-      return _then(_value.copyWith(foodItemEntry: value));
+  $FoodItemEntryCopyWith<$Res> get entry {
+    return $FoodItemEntryCopyWith<$Res>(_value.entry, (value) {
+      return _then(_value.copyWith(entry: value));
     });
   }
 }
 
 /// @nodoc
 
-class _$FetchFoodForFoodItemEntry implements FetchFoodForFoodItemEntry {
-  const _$FetchFoodForFoodItemEntry(this.foodItemEntry);
+class _$_FetchFood implements _FetchFood {
+  const _$_FetchFood(this.entry);
 
   @override
-  final FoodItemEntry foodItemEntry;
+  final FoodItemEntry entry;
 
   @override
   String toString() {
-    return 'FoodInputEvent.fetchFoodForFoodItemEntry(foodItemEntry: $foodItemEntry)';
+    return 'FoodInputEvent.fetchFood(entry: $entry)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FetchFoodForFoodItemEntry &&
-            const DeepCollectionEquality()
-                .equals(other.foodItemEntry, foodItemEntry));
+            other is _FetchFood &&
+            const DeepCollectionEquality().equals(other.entry, entry));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(foodItemEntry));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(entry));
 
   @JsonKey(ignore: true)
   @override
-  $FetchFoodForFoodItemEntryCopyWith<FetchFoodForFoodItemEntry> get copyWith =>
-      _$FetchFoodForFoodItemEntryCopyWithImpl<FetchFoodForFoodItemEntry>(
-          this, _$identity);
+  _$FetchFoodCopyWith<_FetchFood> get copyWith =>
+      __$FetchFoodCopyWithImpl<_FetchFood>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() reset,
-    required TResult Function(String text) setVolatileText,
-    required TResult Function() makeVolatileTextSafe,
-    required TResult Function() buildFragments,
-    required TResult Function(FragmentizationResult fragmentizationResult)
-        applyFragments,
-    required TResult Function(FoodItemEntry foodItemEntry)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(String value) setVolatileText,
+    required TResult Function() saveVolatileText,
+    required TResult Function(FoodItemEntry entry) fetchFood,
   }) {
-    return fetchFoodForFoodItemEntry(foodItemEntry);
+    return fetchFood(entry);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
   }) {
-    return fetchFoodForFoodItemEntry?.call(foodItemEntry);
+    return fetchFood?.call(entry);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? reset,
-    TResult Function(String text)? setVolatileText,
-    TResult Function()? makeVolatileTextSafe,
-    TResult Function()? buildFragments,
-    TResult Function(FragmentizationResult fragmentizationResult)?
-        applyFragments,
-    TResult Function(FoodItemEntry foodItemEntry)? fetchFoodForFoodItemEntry,
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntry entry)? fetchFood,
     required TResult orElse(),
   }) {
-    if (fetchFoodForFoodItemEntry != null) {
-      return fetchFoodForFoodItemEntry(foodItemEntry);
+    if (fetchFood != null) {
+      return fetchFood(entry);
     }
     return orElse();
   }
@@ -1014,57 +460,44 @@ class _$FetchFoodForFoodItemEntry implements FetchFoodForFoodItemEntry {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Reset value) reset,
-    required TResult Function(SetVolatileText value) setVolatileText,
-    required TResult Function(MakeVolatileTextSafe value) makeVolatileTextSafe,
-    required TResult Function(BuildFragments value) buildFragments,
-    required TResult Function(ApplyFragments value) applyFragments,
-    required TResult Function(FetchFoodForFoodItemEntry value)
-        fetchFoodForFoodItemEntry,
+    required TResult Function(_SetVolatileText value) setVolatileText,
+    required TResult Function(_SaveVolatileText value) saveVolatileText,
+    required TResult Function(_FetchFood value) fetchFood,
   }) {
-    return fetchFoodForFoodItemEntry(this);
+    return fetchFood(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
   }) {
-    return fetchFoodForFoodItemEntry?.call(this);
+    return fetchFood?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Reset value)? reset,
-    TResult Function(SetVolatileText value)? setVolatileText,
-    TResult Function(MakeVolatileTextSafe value)? makeVolatileTextSafe,
-    TResult Function(BuildFragments value)? buildFragments,
-    TResult Function(ApplyFragments value)? applyFragments,
-    TResult Function(FetchFoodForFoodItemEntry value)?
-        fetchFoodForFoodItemEntry,
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
     required TResult orElse(),
   }) {
-    if (fetchFoodForFoodItemEntry != null) {
-      return fetchFoodForFoodItemEntry(this);
+    if (fetchFood != null) {
+      return fetchFood(this);
     }
     return orElse();
   }
 }
 
-abstract class FetchFoodForFoodItemEntry implements FoodInputEvent {
-  const factory FetchFoodForFoodItemEntry(FoodItemEntry foodItemEntry) =
-      _$FetchFoodForFoodItemEntry;
+abstract class _FetchFood implements FoodInputEvent {
+  const factory _FetchFood(FoodItemEntry entry) = _$_FetchFood;
 
-  FoodItemEntry get foodItemEntry;
+  FoodItemEntry get entry;
   @JsonKey(ignore: true)
-  $FetchFoodForFoodItemEntryCopyWith<FetchFoodForFoodItemEntry> get copyWith =>
+  _$FetchFoodCopyWith<_FetchFood> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1073,15 +506,13 @@ class _$FoodInputStateTearOff {
   const _$FoodInputStateTearOff();
 
   _FoodInputState call(
-      {required String safeTextClosed,
-      required String safeTextOpen,
+      {required String safeText,
       required String volatileText,
-      required KtList<FoodItemEntry> volatileEntries}) {
+      required List<FoodItemEntry> entries}) {
     return _FoodInputState(
-      safeTextClosed: safeTextClosed,
-      safeTextOpen: safeTextOpen,
+      safeText: safeText,
       volatileText: volatileText,
-      volatileEntries: volatileEntries,
+      entries: entries,
     );
   }
 }
@@ -1091,11 +522,9 @@ const $FoodInputState = _$FoodInputStateTearOff();
 
 /// @nodoc
 mixin _$FoodInputState {
-  String get safeTextClosed => throw _privateConstructorUsedError;
-  String get safeTextOpen => throw _privateConstructorUsedError;
+  String get safeText => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
-  KtList<FoodItemEntry> get volatileEntries =>
-      throw _privateConstructorUsedError;
+  List<FoodItemEntry> get entries => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodInputStateCopyWith<FoodInputState> get copyWith =>
@@ -1108,10 +537,7 @@ abstract class $FoodInputStateCopyWith<$Res> {
           FoodInputState value, $Res Function(FoodInputState) then) =
       _$FoodInputStateCopyWithImpl<$Res>;
   $Res call(
-      {String safeTextClosed,
-      String safeTextOpen,
-      String volatileText,
-      KtList<FoodItemEntry> volatileEntries});
+      {String safeText, String volatileText, List<FoodItemEntry> entries});
 }
 
 /// @nodoc
@@ -1125,28 +551,23 @@ class _$FoodInputStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? safeTextClosed = freezed,
-    Object? safeTextOpen = freezed,
+    Object? safeText = freezed,
     Object? volatileText = freezed,
-    Object? volatileEntries = freezed,
+    Object? entries = freezed,
   }) {
     return _then(_value.copyWith(
-      safeTextClosed: safeTextClosed == freezed
-          ? _value.safeTextClosed
-          : safeTextClosed // ignore: cast_nullable_to_non_nullable
-              as String,
-      safeTextOpen: safeTextOpen == freezed
-          ? _value.safeTextOpen
-          : safeTextOpen // ignore: cast_nullable_to_non_nullable
+      safeText: safeText == freezed
+          ? _value.safeText
+          : safeText // ignore: cast_nullable_to_non_nullable
               as String,
       volatileText: volatileText == freezed
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      volatileEntries: volatileEntries == freezed
-          ? _value.volatileEntries
-          : volatileEntries // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntry>,
+      entries: entries == freezed
+          ? _value.entries
+          : entries // ignore: cast_nullable_to_non_nullable
+              as List<FoodItemEntry>,
     ));
   }
 }
@@ -1159,10 +580,7 @@ abstract class _$FoodInputStateCopyWith<$Res>
       __$FoodInputStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String safeTextClosed,
-      String safeTextOpen,
-      String volatileText,
-      KtList<FoodItemEntry> volatileEntries});
+      {String safeText, String volatileText, List<FoodItemEntry> entries});
 }
 
 /// @nodoc
@@ -1178,28 +596,23 @@ class __$FoodInputStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? safeTextClosed = freezed,
-    Object? safeTextOpen = freezed,
+    Object? safeText = freezed,
     Object? volatileText = freezed,
-    Object? volatileEntries = freezed,
+    Object? entries = freezed,
   }) {
     return _then(_FoodInputState(
-      safeTextClosed: safeTextClosed == freezed
-          ? _value.safeTextClosed
-          : safeTextClosed // ignore: cast_nullable_to_non_nullable
-              as String,
-      safeTextOpen: safeTextOpen == freezed
-          ? _value.safeTextOpen
-          : safeTextOpen // ignore: cast_nullable_to_non_nullable
+      safeText: safeText == freezed
+          ? _value.safeText
+          : safeText // ignore: cast_nullable_to_non_nullable
               as String,
       volatileText: volatileText == freezed
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      volatileEntries: volatileEntries == freezed
-          ? _value.volatileEntries
-          : volatileEntries // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntry>,
+      entries: entries == freezed
+          ? _value.entries
+          : entries // ignore: cast_nullable_to_non_nullable
+              as List<FoodItemEntry>,
     ));
   }
 }
@@ -1208,24 +621,21 @@ class __$FoodInputStateCopyWithImpl<$Res>
 
 class _$_FoodInputState extends _FoodInputState {
   const _$_FoodInputState(
-      {required this.safeTextClosed,
-      required this.safeTextOpen,
+      {required this.safeText,
       required this.volatileText,
-      required this.volatileEntries})
+      required this.entries})
       : super._();
 
   @override
-  final String safeTextClosed;
-  @override
-  final String safeTextOpen;
+  final String safeText;
   @override
   final String volatileText;
   @override
-  final KtList<FoodItemEntry> volatileEntries;
+  final List<FoodItemEntry> entries;
 
   @override
   String toString() {
-    return 'FoodInputState(safeTextClosed: $safeTextClosed, safeTextOpen: $safeTextOpen, volatileText: $volatileText, volatileEntries: $volatileEntries)';
+    return 'FoodInputState(safeText: $safeText, volatileText: $volatileText, entries: $entries)';
   }
 
   @override
@@ -1233,23 +643,18 @@ class _$_FoodInputState extends _FoodInputState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _FoodInputState &&
-            const DeepCollectionEquality()
-                .equals(other.safeTextClosed, safeTextClosed) &&
-            const DeepCollectionEquality()
-                .equals(other.safeTextOpen, safeTextOpen) &&
+            const DeepCollectionEquality().equals(other.safeText, safeText) &&
             const DeepCollectionEquality()
                 .equals(other.volatileText, volatileText) &&
-            const DeepCollectionEquality()
-                .equals(other.volatileEntries, volatileEntries));
+            const DeepCollectionEquality().equals(other.entries, entries));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(safeTextClosed),
-      const DeepCollectionEquality().hash(safeTextOpen),
+      const DeepCollectionEquality().hash(safeText),
       const DeepCollectionEquality().hash(volatileText),
-      const DeepCollectionEquality().hash(volatileEntries));
+      const DeepCollectionEquality().hash(entries));
 
   @JsonKey(ignore: true)
   @override
@@ -1259,20 +664,17 @@ class _$_FoodInputState extends _FoodInputState {
 
 abstract class _FoodInputState extends FoodInputState {
   const factory _FoodInputState(
-      {required String safeTextClosed,
-      required String safeTextOpen,
+      {required String safeText,
       required String volatileText,
-      required KtList<FoodItemEntry> volatileEntries}) = _$_FoodInputState;
+      required List<FoodItemEntry> entries}) = _$_FoodInputState;
   const _FoodInputState._() : super._();
 
   @override
-  String get safeTextClosed;
-  @override
-  String get safeTextOpen;
+  String get safeText;
   @override
   String get volatileText;
   @override
-  KtList<FoodItemEntry> get volatileEntries;
+  List<FoodItemEntry> get entries;
   @override
   @JsonKey(ignore: true)
   _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>

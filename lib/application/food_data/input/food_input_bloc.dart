@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:math';
+import 'dart:html';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
@@ -9,8 +8,6 @@ import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kt_dart/collection.dart';
-import 'package:collection/collection.dart';
 
 part 'food_input_event.dart';
 part 'food_input_state.dart';
@@ -19,179 +16,108 @@ part 'food_input_bloc.freezed.dart';
 @isolate1
 @injectable
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
-  TextProcessingRepository textProcessingRepository;
-  FoodMappingRepository foodMappingRepository;
-  FoodEntriesRepository foodEntriesRepository;
+  TextProcessingRepository _textProcessingRepository;
+  FoodMappingRepository _foodMappingRepository;
+  FoodEntriesRepository _foodEntriesRepository;
 
-  FoodInputBloc({
-    required this.textProcessingRepository,
-    required this.foodMappingRepository,
-    required this.foodEntriesRepository,
-  }) : super(FoodInputState.initial()) {
+  FoodInputBloc(this._textProcessingRepository, this._foodEntriesRepository,
+      this._foodMappingRepository)
+      : _fragmentsAndEntries = [],
+        super(FoodInputState.initial()) {
     on<FoodInputEvent>((event, emit) async {
       await event.map(
-          reset: (Reset e) {
-            emit(FoodInputState.initial());
-          },
-          setVolatileText: (SetVolatileText e) {
-            if (e.text != state.volatileText) {
-              emit(state.copyWith(volatileText: e.text));
-              add(const BuildFragments());
-            }
-          },
-          makeVolatileTextSafe: (MakeVolatileTextSafe e) {
-            emit(state.copyWith(
-              safeTextOpen: state.safeTextOpenAndVolatileText,
-              volatileText: '',
-            ));
-            add(const BuildFragments());
-          },
-          buildFragments: buildFragments,
-          applyFragments: (ApplyFragments event) async {
-            await applyFragments(event, emit);
-          },
-          fetchFoodForFoodItemEntry: (FetchFoodForFoodItemEntry event) async {
-            await fetchFoodForFoodItemEntry(event, emit);
-          });
+        setVolatileText: (setVolatileText) async {
+          emit(state.copyWith(volatileText: setVolatileText.value));
+          await _recalculateFragmentsAndEntries(emit);
+        },
+        saveVolatileText: (saveVolatileText) async {
+          emit(state.copyWith(safeText: state.totalText, volatileText: ''));
+          await _sendSafeEntriesToFoodEntriesRepository(emit);
+        },
+        fetchFood: (fetchFood) async {
+          print("fetch food for ${fetchFood.entry.title}");
+        },
+      );
     });
   }
 
-  // the caching ensures that at any time only one buildFragments is running.
-  // If during this time another BuildFragments event comes in, the cache
-  // is overriden with it and it will be processed after the buildFragments() function is done.
-  BuildFragments? buildFragmentsEventCache;
-  bool buildFragmentsBusy = false;
-  Future<void> buildFragments(BuildFragments e) async {
-    // check cache:
-    if (buildFragmentsBusy) {
-      buildFragmentsEventCache = e;
-      return;
+  List<Tuple2<Tuple2<IntRange, FoodItemString>, FoodItemEntry>>
+      _fragmentsAndEntries; // not part of state because no need to expose
+
+  Future<void> _recalculateFragmentsAndEntries(
+      Emitter<FoodInputState> emit) async {
+    FragmentizationResult result =
+        await _textProcessingRepository.fragmentize(state.totalText);
+    final newList = result.fragments
+        .map((fragment) =>
+            Tuple2(fragment, FoodItemEntry.fromFoodItemString(fragment.value2)))
+        .toList();
+    var oldList = [..._fragmentsAndEntries];
+    // now combine the old _fragmentsAndEntries with the new fragmentsAndEntries: When we already have a fetched food for an entry from the past that is the same we clearly do not want to change it to a simple presuccess again:
+    // step 1: old can max be as long as new:
+    if (oldList.length > newList.length) {
+      oldList = oldList.sublist(0, newList.length);
     }
-    buildFragmentsBusy = true;
-    // execution:
-    final text = state.safeTextOpenAndVolatileText; // TODO: space necessary?
-    final result = await textProcessingRepository.fragmentize(text);
-    add(ApplyFragments(result));
-    // handle potential next element in cache:
-    buildFragmentsBusy = false;
-    if (buildFragmentsEventCache != null) {
-      BuildFragments next = buildFragmentsEventCache!;
-      buildFragmentsEventCache = null;
-      add(next);
+    // step 2: update all elements in old where foodItemString is not the same anymore.
+    for (var i = 0; i < newList.length; i++) {
+      if (oldList[i].value1 != newList[i].value1) {
+        oldList[i] = newList[i];
+      }
     }
+    // step 3: add any items newList has more than oldList to oldList
+    for (var i = oldList.length; i < newList.length; i++) {
+      oldList.add(newList[i]);
+    }
+    _fragmentsAndEntries = oldList;
+    emit(state.copyWith(entries: _entries));
+    await _sendSafeEntriesToFoodEntriesRepository(emit);
   }
 
-  applyFragments(ApplyFragments event, Emitter<FoodInputState> emit) async {
-    final fragmentizationResult = event.fragmentizationResult;
-    int lastItemInSafeTextRangeEnd = 0;
-    final matchText = state.safeTextOpenAndVolatileText;
-    List<FoodItemString> safeFoodItemStrings = [];
-    List<FoodItemString> volatileFoodItemStrings = [];
-
-    for (var i = 0; i < fragmentizationResult.fragments.length; i++) {
-      final frag = fragmentizationResult.fragments[i];
-      final range = frag.value1;
-      final foodItemString = frag.value2;
-      assert(range.end >= lastItemInSafeTextRangeEnd);
-      assert(range.start >= 0);
-
-      if (range.end > matchText.length) {
-        // can happen when inbetween a part from volatile text has been deleted:
-        break;
-      }
-      final isMatching =
-          matchText.substring(range.start, range.end) == foodItemString.text;
-      if (!isMatching) {
-        // can happen when volatiletext has changed since, so foodItemString is not relevant anymore.
-        break;
-      }
-      final isInSafeText = range.end <= state.safeTextOpen.length;
-      if (isInSafeText) {
-        lastItemInSafeTextRangeEnd = range.end;
-        safeFoodItemStrings.add(foodItemString);
+  Future<void> _sendSafeEntriesToFoodEntriesRepository(
+      Emitter<FoodInputState> emit) async {
+    final safeLength = state.safeText.length;
+    final sendToRepoMask =
+        List.generate(_fragmentsAndEntries.length, (index) => false);
+    int lastSafeRangeEnd = 0;
+    // filter for safe and volatile entries:
+    for (var i = 0; i < _fragmentsAndEntries.length; i++) {
+      final range = _fragmentsAndEntries[i].value1.value1;
+      if (range.end <= safeLength) {
+        sendToRepoMask[i] = true;
+        lastSafeRangeEnd = range.end;
       } else {
-        volatileFoodItemStrings.add(foodItemString);
+        break;
       }
     }
-
-    final newSafeTextClosed = state.safeTextClosed +
-        state.safeTextOpen.substring(0, lastItemInSafeTextRangeEnd);
-    final newSafeTextOpen = state.safeTextOpen
-        .substring(lastItemInSafeTextRangeEnd, state.safeTextOpen.length);
-
-    final newVolatileFoodItemEntries = volatileFoodItemStrings
-        .map(FoodItemEntry.fromFoodItemString)
-        .toImmutableList();
-
-    final addedSafeFoodItemEntries =
-        safeFoodItemStrings.map(FoodItemEntry.fromFoodItemString).toList();
-
-    // volatile entries and text:
+    // create new lists:
+    final repoEntries = _entries
+        .asMap()
+        .entries
+        .where((e) => sendToRepoMask[e.key])
+        .map((e) => e.value)
+        .toList();
+    final blocEntries = _fragmentsAndEntries
+        .asMap()
+        .entries
+        .where((e) => !sendToRepoMask[e.key])
+        .map((e) => e.value)
+        .map(
+      (e) {
+        final newRange = e.value1.value1 - lastSafeRangeEnd;
+        return Tuple2(Tuple2(newRange, e.value1.value2), e.value2);
+      },
+    ).toList();
+    final updatedSafeText = state.safeText.substring(0, lastSafeRangeEnd);
+    // alter bloc state:
+    _fragmentsAndEntries = blocEntries;
     emit(state.copyWith(
-      safeTextClosed: newSafeTextClosed,
-      safeTextOpen: newSafeTextOpen,
-      volatileEntries: newVolatileFoodItemEntries,
+      entries: _entries,
+      safeText: updatedSafeText,
     ));
-    // TODO: figure out if timing is correct here:
-    // safe entries:
-    await foodEntriesRepository.addAll(addedSafeFoodItemEntries);
-    for (var entry in addedSafeFoodItemEntries) {
-      add(FoodInputEvent.fetchFoodForFoodItemEntry(entry));
-    }
-
-    newVolatileFoodItemEntries.forEach((element) {
-      add(FoodInputEvent.fetchFoodForFoodItemEntry(element));
-    });
+    // send to repo:
+    _foodEntriesRepository.addAll(repoEntries);
   }
 
-  fetchFoodForFoodItemEntry(
-      FetchFoodForFoodItemEntry event, Emitter<FoodInputState> emit) async {
-    final foodItemEntry = event.foodItemEntry;
-    final inputTitle = foodItemEntry.title;
-    final resultOrFailure = await foodMappingRepository.mapInput(inputTitle);
-
-    FoodItemEntry applyResultOrFailure(FoodItemEntry before) {
-      final res = resultOrFailure.fold(
-        // do nothing if we get a failure back. FoodItemEntry.toMappingFailed() is reserved for when everything went fine we just did not find a matching food;
-        (l) => before,
-        (r) => r.map(
-          preSuccess: (e) => before, // should acutally never happen.
-          success: (e) => before.map(
-            preSuccess: (preSuccess) => preSuccess.toSuccess(e),
-            success: (success) => success.copyWith(
-              foodItem: success.foodItem.copyWith(food: e.food),
-            ),
-          ),
-          noMatchFound: (e) => before.toMappingFailed(),
-        ),
-      );
-      return res;
-    }
-
-    // Case 1: update in the list of volatile items kept in bloc state:
-    if (_idInVolatileEntries(foodItemEntry.id)) {
-      print("case 1");
-      KtList<FoodItemEntry> updatedEntries =
-          _updateVolatileEntries(foodItemEntry.id, applyResultOrFailure);
-      emit(state.copyWith(volatileEntries: updatedEntries));
-    }
-    // Case 2: update in FoodEntriesRepository
-    else {
-      print("case 2");
-
-      await foodEntriesRepository.updateById(
-        foodItemEntry.id,
-        applyResultOrFailure,
-      );
-    }
-  }
-
-  _idInVolatileEntries(UniqueId id) {
-    return state.volatileEntries.firstOrNull((e) => e.id == id) != null;
-  }
-
-  KtList<FoodItemEntry> _updateVolatileEntries(
-      UniqueId id, FoodItemEntry Function(FoodItemEntry e) update) {
-    return state.volatileEntries.map((e) => e.id == id ? update(e) : e);
-  }
+  List<FoodItemEntry> get _entries =>
+      _fragmentsAndEntries.map((e) => e.value2).toList();
 }

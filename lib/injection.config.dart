@@ -88,10 +88,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
           _i21.FoodDataRepositoryIsolateBridge(get<_i15.Isolate2Repository>()),
       registerFor: {_isolate1});
   gh.factory<_i22.FoodInputBloc>(
-      () => _i22.FoodInputBloc(
-          textProcessingRepository: get<_i7.TextProcessingRepository>(),
-          foodMappingRepository: get<_i7.FoodMappingRepository>(),
-          foodEntriesRepository: get<_i9.FoodEntriesRepository>()),
+      () => _i22.FoodInputBloc(get<_i7.TextProcessingRepository>(),
+          get<_i9.FoodEntriesRepository>(), get<_i7.FoodMappingRepository>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i12.FoodMappingRepository>(
       () => _i23.FoodMappingRepositoryIsolateBridge(
