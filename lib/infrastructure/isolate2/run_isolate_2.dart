@@ -52,7 +52,6 @@ Future<IsolateResponse> makeRequest(IsolateRequest request) async {
   } else if (request is IsolateRequestFoodMappingRepositoryMapInput) {
     Either<Failure, FoodMappingResult> resultOrFailure =
         await getIt<FoodMappingRepository>().mapInput(request.input);
-    await Future.delayed(const Duration(seconds: 1));
     return response(resultOrFailure);
   }
   return response(null);
