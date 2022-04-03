@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bloc.dart';
 import 'package:esnya/injection.dart';
@@ -19,15 +21,28 @@ class DashboardTabView extends StatefulWidget {
 
 class _DashboardTabViewState extends State<DashboardTabView>
     with AutomaticKeepAliveClientMixin {
+  late DashboardInputState _dashboardInputState;
+  late ScrollController _scrollController;
+
   @override
   bool get wantKeepAlive => true;
-  late DashboardInputState dashboardInputState;
 
   @override
   void initState() {
     super.initState();
-    dashboardInputState = DashboardInputState.closed;
+    _dashboardInputState = DashboardInputState.closed;
+    _scrollController = ScrollController();
   }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  static const kHeaderHeight = 150;
+  static const kBottomPaddingHeight = 150.0;
+  // static const
 
   @override
   Widget build(BuildContext context) {
@@ -37,78 +52,74 @@ class _DashboardTabViewState extends State<DashboardTabView>
           builder: (context, foodInputState) {
         return BlocBuilder<FoodEntriesWatcherBloc, FoodEntriesWatcherState>(
             builder: (context, foodEntriesWatcherState) {
-          // var els = foodEntriesState.entries.map((e) => Text(e.title));
-          return _buildInputFrame(
-            context: context,
-            child: _buildPageContent(
-              context: context,
-              foodInputState: foodInputState,
-              foodEntriesWatcherState: foodEntriesWatcherState,
-            ),
+          double bottomPadding = max(
+              MediaQuery.of(context).viewInsets.bottom, kBottomPaddingHeight);
+          return Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildHeader(context),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      reverse: true,
+                      child: Column(children: [
+                        ..._buildListElements(context),
+                      ]),
+                    ),
+                  ),
+                  if (_dashboardInputState == DashboardInputState.text)
+                    _buildFoodInputBar(context),
+                  Container(
+                    height: bottomPadding,
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Expanded(child: SizedBox.shrink()),
+                  if (_dashboardInputState == DashboardInputState.closed)
+                    _buildBottomMenu(context)
+                ],
+              )
+            ],
           );
         });
       }),
     );
   }
 
-  Widget _buildPageContent({
-    required BuildContext context,
-    required FoodInputState foodInputState,
-    required FoodEntriesWatcherState foodEntriesWatcherState,
-  }) {
-    return ListView(
-      children: [
-        Text("safeText: ${foodInputState.safeText}"),
-        Text("volatile: ${foodInputState.volatileText}"),
-        Divider(
-          height: 30,
-        ),
-        Text("repo entries: "),
-        if (foodEntriesWatcherState is FoodEntriesWatcherStateLoadFailure)
-          Text("Loadfailure")
-        else if (foodEntriesWatcherState
-            is FoodEntriesWatcherStateLoadInProgress)
-          CircularProgressIndicator()
-        else if (foodEntriesWatcherState is FoodEntriesWatcherStateLoadSuccess)
-          ...foodEntriesWatcherState.foodItemEntries
-              .map((e) => FoodItemEntryDisplayTile(
-                    entry: e,
-                  ))
-              .asList(),
-        Text("food input bloc entries: "),
-        ...foodInputState.entries.map((e) => FoodItemEntryDisplayTile(
-              entry: e,
-            )),
-      ],
+  Widget _buildHeader(context) {
+    return Container(
+      color: Colors.amber,
+      child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 50),
+          child: Text(
+            "welcome to app",
+            style: TextStyle(fontSize: 50),
+          )),
     );
   }
 
-  Widget _buildInputFrame(
-      {required BuildContext context, required Widget child}) {
-    final bottomWidget = dashboardInputState == DashboardInputState.closed
-        ? _buildBottomMenu(context)
-        : _buildFoodInputBar(context);
+  List<Widget> _buildListElements(BuildContext context) {
+    final foodInputState = context.read<FoodInputBloc>().state;
+    final foodEntriesState = context.read<FoodEntriesWatcherBloc>().state;
 
-    return Stack(
-      children: [
-        child,
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            dashboardInputState == DashboardInputState.closed
-                ? Expanded(child: SizedBox.shrink())
-                : Expanded(
-                    // while GestureDetector is shown we cannot click anything on the screen back.
-                    child: GestureDetector(
-                        onTap: () {
-                          _closeTextInput(context);
-                        },
-                        child: Container(color: Colors.transparent))),
-            bottomWidget
-          ],
-        )
-      ],
-    );
+    return [
+      if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
+        ...foodEntriesState.foodItemEntries
+            .map(
+              (e) => FoodItemEntryDisplayTile(entry: e),
+            )
+            .asList(),
+      ...foodInputState.entries.map(
+        (e) => FoodItemEntryDisplayTile(entry: e),
+      )
+    ];
+  }
+
+  void _scrollDownInEntryList() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
   }
 
   Widget _buildFoodInputBar(BuildContext context) {
@@ -128,10 +139,10 @@ class _DashboardTabViewState extends State<DashboardTabView>
   }
 
   _openTextInput(BuildContext context) {
-    if (dashboardInputState == DashboardInputState.closed) {
+    if (_dashboardInputState == DashboardInputState.closed) {
       context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(''));
       setState(() {
-        dashboardInputState = DashboardInputState.text;
+        _dashboardInputState = DashboardInputState.text;
       });
     }
   }
@@ -139,9 +150,9 @@ class _DashboardTabViewState extends State<DashboardTabView>
   _closeTextInput(BuildContext context) {
     context.read<FoodInputBloc>().add(const FoodInputEvent.saveVolatileText());
     FocusManager.instance.primaryFocus?.unfocus();
-    if (dashboardInputState == DashboardInputState.text) {
+    if (_dashboardInputState == DashboardInputState.text) {
       setState(() {
-        dashboardInputState = DashboardInputState.closed;
+        _dashboardInputState = DashboardInputState.closed;
       });
     }
   }
@@ -159,11 +170,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
 

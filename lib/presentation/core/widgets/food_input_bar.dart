@@ -11,6 +11,8 @@ class FoodInputBar extends StatefulWidget {
     required this.onClosed,
   }) : super(key: key);
 
+  static const kFoodInputBarHeight = 60.0;
+
   @override
   State<FoodInputBar> createState() => _FoodInputBarState();
 
@@ -48,7 +50,7 @@ class _FoodInputBarState extends State<FoodInputBar> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.lightGreenAccent,
-      padding: const EdgeInsets.all(10.0),
+      height: FoodInputBar.kFoodInputBarHeight,
       child: Row(children: [
         Expanded(
           child: TextField(
