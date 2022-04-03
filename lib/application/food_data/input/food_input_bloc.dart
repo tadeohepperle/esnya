@@ -156,7 +156,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
                         FoodItem(entrySuccess.foodItem.amount, success.food))),
             noMatchFound: (noMatchFound) => entry.map(
                 preSuccess: (entryPreSuccess) =>
-                    entryPreSuccess.toMappingFailed(),
+                    entryPreSuccess.copyWith(mappingFailed: true),
                 success: (entrySuccess) => entrySuccess)),
       );
     }

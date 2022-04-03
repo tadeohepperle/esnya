@@ -21,7 +21,17 @@ class FoodItemEntryDisplayTile extends StatelessWidget {
         );
       },
       success: (FoodItemEntrySuccess success) {
-        return Text("success " + success.title);
+        return ListTile(
+          title: Text(success.foodItem.food.title +
+              "    " +
+              success.foodItem.food.nutrients[NutrientType.energy].toString() +
+              " kcal"),
+          subtitle: Text(
+            success.title,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+          ),
+          textColor: Colors.blueGrey,
+        );
       },
     );
   }
