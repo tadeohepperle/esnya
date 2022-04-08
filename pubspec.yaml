@@ -52,7 +52,7 @@ dependencies:
   esnya_shared_resources:
     git:
       url: https://github.com/tadeohepperle/esnya_shared_resources.git
-      ref: master
+      ref: 2022-04-08-break-1
   stream_channel: ^2.1.0
   # logger: any
 
