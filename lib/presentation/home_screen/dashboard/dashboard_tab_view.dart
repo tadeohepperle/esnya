@@ -1,9 +1,16 @@
+import 'dart:math';
+
+import 'package:esnya/application/food_data/input/food_input_bloc.dart';
+import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bloc.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
-import 'package:esnya_shared_resources/food_data/repositories/food_data_repository.dart';
-import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
+import 'package:esnya_shared_resources/core/core.dart';
+import 'package:esnya_shared_resources/core/models/user_data/user_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kt_dart/collection.dart';
+
+import '../../core/widgets/food_item_entry_display_tile.dart';
 
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
@@ -14,103 +21,156 @@ class DashboardTabView extends StatefulWidget {
 
 class _DashboardTabViewState extends State<DashboardTabView>
     with AutomaticKeepAliveClientMixin {
+  late DashboardInputState _dashboardInputState;
+  late ScrollController _scrollController;
+
   @override
   bool get wantKeepAlive => true;
 
-  var foodId = "";
-  var foodResult = "";
+  @override
+  void initState() {
+    super.initState();
+    _dashboardInputState = DashboardInputState.closed;
+    _scrollController = ScrollController();
+  }
 
-  var foodName = "";
-  var foodMappingResult = "";
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  static const kHeaderHeight = 150;
+  static const kBottomPaddingHeight = 150.0;
+  // static const
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider<FoodInputBloc>(
+      create: (context) => getIt<FoodInputBloc>(),
+      child: BlocBuilder<FoodInputBloc, FoodInputState>(
+          builder: (context, foodInputState) {
+        return BlocBuilder<FoodEntriesWatcherBloc, FoodEntriesWatcherState>(
+            builder: (context, foodEntriesWatcherState) {
+          double bottomPadding = max(
+              MediaQuery.of(context).viewInsets.bottom, kBottomPaddingHeight);
+          return Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _buildHeader(context),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      reverse: true,
+                      child: Column(children: [
+                        ..._buildListElements(context),
+                      ]),
+                    ),
+                  ),
+                  if (_dashboardInputState == DashboardInputState.text)
+                    _buildFoodInputBar(context),
+                  Container(
+                    height: bottomPadding,
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Expanded(child: SizedBox.shrink()),
+                  if (_dashboardInputState == DashboardInputState.closed)
+                    _buildBottomMenu(context)
+                ],
+              )
+            ],
+          );
+        });
+      }),
+    );
+  }
+
+  Widget _buildHeader(context) {
+    return Container(
+      color: Colors.amber,
+      child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 50),
+          child: Text(
+            "welcome to app",
+            style: TextStyle(fontSize: 50),
+          )),
+    );
+  }
+
+  List<Widget> _buildListElements(BuildContext context) {
+    final foodInputState = context.read<FoodInputBloc>().state;
+    final foodEntriesState = context.read<FoodEntriesWatcherBloc>().state;
+
+    return [
+      if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
+        ...foodEntriesState.foodItemEntries
+            .map(
+              (e) => FoodItemEntryDisplayTile(entry: e),
+            )
+            .asList(),
+      ...foodInputState.entries.map(
+        (e) => FoodItemEntryDisplayTile(entry: e),
+      )
+    ];
+  }
+
+  void _scrollDownInEntryList() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
+
+  Widget _buildFoodInputBar(BuildContext context) {
+    return FoodInputBar(
+      onChanged: (v) {
+        context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(v));
+      },
+      onSubmitted: (v) {
+        context
+            .read<FoodInputBloc>()
+            .add(const FoodInputEvent.saveVolatileText());
+      },
+      onClosed: (v) {
+        _closeTextInput(context);
+      },
+    );
+  }
+
+  _openTextInput(BuildContext context) {
+    if (_dashboardInputState == DashboardInputState.closed) {
+      context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(''));
+      setState(() {
+        _dashboardInputState = DashboardInputState.text;
+      });
+    }
+  }
+
+  _closeTextInput(BuildContext context) {
+    context.read<FoodInputBloc>().add(const FoodInputEvent.saveVolatileText());
+    FocusManager.instance.primaryFocus?.unfocus();
+    if (_dashboardInputState == DashboardInputState.text) {
+      setState(() {
+        _dashboardInputState = DashboardInputState.closed;
+      });
+    }
+  }
+
+  Widget _buildBottomMenu(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsX.allMedium,
-      child: ListView(
-        children: [
-          Text(
-            "Dashboard - Home",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30),
-          ),
-          SizedBoxX.hMedium,
-          Text("input food id, for example 167616 for salmon"),
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                foodId = value;
-              });
-            },
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await timeTest(() async {
-                  setState(() {
-                    foodResult = "loading...";
-                  });
-                  final res =
-                      await getIt<FoodDataRepository>().getFoodFromID(foodId);
-                  print(res);
-                  setState(() {
-                    foodResult = res.toString();
-                  });
-                },
-                    debug: true,
-                    title: 'FoodDataRepository.getFoodFromID("$foodId")');
-              },
-              child: Text("FoodDataRepository request")),
-          Text("Result:"),
-          Text(foodResult),
-          Divider(
-            height: 20,
-          ),
-          Text("input any food name a user could input:"),
-          TextField(
-            onChanged: (value) {
-              setState(() {
-                foodName = value;
-              });
-            },
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await timeTest(() async {
-                  setState(() {
-                    foodMappingResult = "loading...";
-                  });
-                  final res =
-                      await getIt<FoodMappingRepository>().mapInput(foodName);
-                  print(res);
-                  setState(() {
-                    foodMappingResult = res.toString();
-                  });
-                },
-                    debug: true,
-                    title: 'FoodMappingRepository.mapInput("$foodName")');
-              },
-              child: Text("FoodMappingRepository request")),
-          Text("Result:"),
-          Text(foodMappingResult),
-        ],
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        // button for text input to open
+        child: FloatingActionButton(
+          onPressed: () {
+            _openTextInput(context);
+          },
+          child: Icon(Icons.food_bank),
+        ),
       ),
     );
   }
 }
 
-Future<double> timeTest(Function f,
-    {bool debug = false, String title = "timeTest"}) async {
-  if (debug) {
-    print("---------------------------------");
-    print("START WATCH: $title ");
-  }
-  var s = Stopwatch();
-  s.start();
-  await f();
-  s.stop();
-  if (debug) {
-    print("STOP WATCH: elapsed time: ${s.elapsedMicroseconds / 1000} ms \n");
-  }
-
-  return s.elapsedMicroseconds / 1000;
-}
+enum DashboardInputState { closed, text }
