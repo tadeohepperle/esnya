@@ -8,25 +8,36 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
   Stream<Either<Failure, KtList<FoodItemEntryBucket>>>
       watchLoggedBuckets(); // TODO: watch special time only
 
-  FEFU addEntry(UniqueId bucketId, FoodItemEntry entry);
-  FEFU addEntries(UniqueId bucketId, Iterable<FoodItemEntry> entries);
-  FEFU updateEntry(UniqueId bucketId, FoodItemEntry entry);
-  FEFU updateEntryFunctional(UniqueId bucketId, UniqueId entryId,
-      FoodItemEntry Function(FoodItemEntry before) applyUpdate);
-  FEFU deleteEntry(UniqueId bucketId, FoodItemEntry entry);
+  Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket);
+  Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket);
+  Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket);
 
-  FEFU addEntryToToday(FoodItemEntry entry);
-  FEFU addEntriesToToday(Iterable<FoodItemEntry> entries);
-  FEFU updateEntryInToday(FoodItemEntry entry);
-  FEFU updateEntryFunctionalInToday(UniqueId entryId,
+  Future<Either<Failure, Unit>> createEntry(
+      UniqueId bucketId, FoodItemEntry entry);
+  Future<Either<Failure, Unit>> createEntries(
+      UniqueId bucketId, Iterable<FoodItemEntry> entries);
+  Future<Either<Failure, Unit>> updateEntry(
+      UniqueId bucketId, FoodItemEntry entry);
+  Future<Either<Failure, Unit>> updateEntryFunctional(
+      UniqueId bucketId,
+      UniqueId entryId,
       FoodItemEntry Function(FoodItemEntry before) applyUpdate);
-  FEFU deleteEntryFromToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> deleteEntry(
+      UniqueId bucketId, FoodItemEntry entry);
+
+  Future<Either<Failure, Unit>> createEntryToToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> createEntriesToToday(
+      Iterable<FoodItemEntry> entries);
+  Future<Either<Failure, Unit>> updateEntryInToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> updateEntryFunctionalInToday(UniqueId entryId,
+      FoodItemEntry Function(FoodItemEntry before) applyUpdate);
+  Future<Either<Failure, Unit>> deleteEntryFromToday(FoodItemEntry entry);
 }
 
 
 /*
 
-Data Model in Firestore:
+Data Model in Firebase:
 
 UserDocument:
   subcollection EntryBuckets:
