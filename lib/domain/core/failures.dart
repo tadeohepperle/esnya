@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:esnya_shared_resources/core/error_handling/failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'failures.freezed.dart';
@@ -15,3 +16,5 @@ abstract class ValueFailure<T> extends Failure with _$ValueFailure<T> {
 abstract class ApiFailure with _$ApiFailure {
   const factory ApiFailure.unexpected() = _ApiFailureUnexpected;
 }
+
+typedef FEFU = Future<Either<Failure, Unit>>;

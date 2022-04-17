@@ -23,7 +23,7 @@ class _$FoodEntriesWatcherEventTearOff {
   }
 
   _EntriesReceived entriesReceived(
-      Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries) {
+      Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries) {
     return _EntriesReceived(
       failureOrFoodEntries,
     );
@@ -39,7 +39,7 @@ mixin _$FoodEntriesWatcherEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() watchStarted,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)
         entriesReceived,
   }) =>
       throw _privateConstructorUsedError;
@@ -47,7 +47,7 @@ mixin _$FoodEntriesWatcherEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ mixin _$FoodEntriesWatcherEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
     required TResult orElse(),
   }) =>
@@ -139,7 +139,7 @@ class _$_Started implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() watchStarted,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)
         entriesReceived,
   }) {
     return watchStarted();
@@ -150,7 +150,7 @@ class _$_Started implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
   }) {
     return watchStarted?.call();
@@ -161,7 +161,7 @@ class _$_Started implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
     required TResult orElse(),
   }) {
@@ -212,7 +212,8 @@ abstract class _$EntriesReceivedCopyWith<$Res> {
   factory _$EntriesReceivedCopyWith(
           _EntriesReceived value, $Res Function(_EntriesReceived) then) =
       __$EntriesReceivedCopyWithImpl<$Res>;
-  $Res call({Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries});
+  $Res call(
+      {Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries});
 }
 
 /// @nodoc
@@ -234,7 +235,7 @@ class __$EntriesReceivedCopyWithImpl<$Res>
       failureOrFoodEntries == freezed
           ? _value.failureOrFoodEntries
           : failureOrFoodEntries // ignore: cast_nullable_to_non_nullable
-              as Either<Failure, KtList<FoodItemEntry>>,
+              as Either<Failure, KtList<FoodItemEntryBucket>>,
     ));
   }
 }
@@ -245,7 +246,7 @@ class _$_EntriesReceived implements _EntriesReceived {
   const _$_EntriesReceived(this.failureOrFoodEntries);
 
   @override
-  final Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries;
+  final Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries;
 
   @override
   String toString() {
@@ -275,7 +276,7 @@ class _$_EntriesReceived implements _EntriesReceived {
   TResult when<TResult extends Object?>({
     required TResult Function() watchStarted,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)
         entriesReceived,
   }) {
     return entriesReceived(failureOrFoodEntries);
@@ -286,7 +287,7 @@ class _$_EntriesReceived implements _EntriesReceived {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
   }) {
     return entriesReceived?.call(failureOrFoodEntries);
@@ -297,7 +298,7 @@ class _$_EntriesReceived implements _EntriesReceived {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? watchStarted,
     TResult Function(
-            Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries)?
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries)?
         entriesReceived,
     required TResult orElse(),
   }) {
@@ -341,10 +342,10 @@ class _$_EntriesReceived implements _EntriesReceived {
 
 abstract class _EntriesReceived implements FoodEntriesWatcherEvent {
   const factory _EntriesReceived(
-          Either<Failure, KtList<FoodItemEntry>> failureOrFoodEntries) =
+          Either<Failure, KtList<FoodItemEntryBucket>> failureOrFoodEntries) =
       _$_EntriesReceived;
 
-  Either<Failure, KtList<FoodItemEntry>> get failureOrFoodEntries;
+  Either<Failure, KtList<FoodItemEntryBucket>> get failureOrFoodEntries;
   @JsonKey(ignore: true)
   _$EntriesReceivedCopyWith<_EntriesReceived> get copyWith =>
       throw _privateConstructorUsedError;
@@ -363,9 +364,9 @@ class _$FoodEntriesWatcherStateTearOff {
   }
 
   FoodEntriesWatcherStateLoadSuccess loadSuccess(
-      KtList<FoodItemEntry> foodItemEntries) {
+      KtList<FoodItemEntryBucket> buckets) {
     return FoodEntriesWatcherStateLoadSuccess(
-      foodItemEntries,
+      buckets,
     );
   }
 
@@ -385,8 +386,7 @@ mixin _$FoodEntriesWatcherState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(KtList<FoodItemEntry> foodItemEntries)
-        loadSuccess,
+    required TResult Function(KtList<FoodItemEntryBucket> buckets) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -394,7 +394,7 @@ mixin _$FoodEntriesWatcherState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -402,7 +402,7 @@ mixin _$FoodEntriesWatcherState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) =>
@@ -504,8 +504,7 @@ class _$FoodEntriesWatcherStateInitial
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(KtList<FoodItemEntry> foodItemEntries)
-        loadSuccess,
+    required TResult Function(KtList<FoodItemEntryBucket> buckets) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return initial();
@@ -516,7 +515,7 @@ class _$FoodEntriesWatcherStateInitial
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return initial?.call();
@@ -527,7 +526,7 @@ class _$FoodEntriesWatcherStateInitial
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
@@ -634,8 +633,7 @@ class _$FoodEntriesWatcherStateLoadInProgress
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(KtList<FoodItemEntry> foodItemEntries)
-        loadSuccess,
+    required TResult Function(KtList<FoodItemEntryBucket> buckets) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return loadInProgress();
@@ -646,7 +644,7 @@ class _$FoodEntriesWatcherStateLoadInProgress
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return loadInProgress?.call();
@@ -657,7 +655,7 @@ class _$FoodEntriesWatcherStateLoadInProgress
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
@@ -722,7 +720,7 @@ abstract class $FoodEntriesWatcherStateLoadSuccessCopyWith<$Res> {
           FoodEntriesWatcherStateLoadSuccess value,
           $Res Function(FoodEntriesWatcherStateLoadSuccess) then) =
       _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<$Res>;
-  $Res call({KtList<FoodItemEntry> foodItemEntries});
+  $Res call({KtList<FoodItemEntryBucket> buckets});
 }
 
 /// @nodoc
@@ -740,13 +738,13 @@ class _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? foodItemEntries = freezed,
+    Object? buckets = freezed,
   }) {
     return _then(FoodEntriesWatcherStateLoadSuccess(
-      foodItemEntries == freezed
-          ? _value.foodItemEntries
-          : foodItemEntries // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntry>,
+      buckets == freezed
+          ? _value.buckets
+          : buckets // ignore: cast_nullable_to_non_nullable
+              as KtList<FoodItemEntryBucket>,
     ));
   }
 }
@@ -755,14 +753,14 @@ class _$FoodEntriesWatcherStateLoadSuccessCopyWithImpl<$Res>
 
 class _$FoodEntriesWatcherStateLoadSuccess
     implements FoodEntriesWatcherStateLoadSuccess {
-  const _$FoodEntriesWatcherStateLoadSuccess(this.foodItemEntries);
+  const _$FoodEntriesWatcherStateLoadSuccess(this.buckets);
 
   @override
-  final KtList<FoodItemEntry> foodItemEntries;
+  final KtList<FoodItemEntryBucket> buckets;
 
   @override
   String toString() {
-    return 'FoodEntriesWatcherState.loadSuccess(foodItemEntries: $foodItemEntries)';
+    return 'FoodEntriesWatcherState.loadSuccess(buckets: $buckets)';
   }
 
   @override
@@ -770,13 +768,12 @@ class _$FoodEntriesWatcherStateLoadSuccess
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is FoodEntriesWatcherStateLoadSuccess &&
-            const DeepCollectionEquality()
-                .equals(other.foodItemEntries, foodItemEntries));
+            const DeepCollectionEquality().equals(other.buckets, buckets));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(foodItemEntries));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(buckets));
 
   @JsonKey(ignore: true)
   @override
@@ -790,11 +787,10 @@ class _$FoodEntriesWatcherStateLoadSuccess
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(KtList<FoodItemEntry> foodItemEntries)
-        loadSuccess,
+    required TResult Function(KtList<FoodItemEntryBucket> buckets) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
-    return loadSuccess(foodItemEntries);
+    return loadSuccess(buckets);
   }
 
   @override
@@ -802,10 +798,10 @@ class _$FoodEntriesWatcherStateLoadSuccess
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
-    return loadSuccess?.call(foodItemEntries);
+    return loadSuccess?.call(buckets);
   }
 
   @override
@@ -813,12 +809,12 @@ class _$FoodEntriesWatcherStateLoadSuccess
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
-      return loadSuccess(foodItemEntries);
+      return loadSuccess(buckets);
     }
     return orElse();
   }
@@ -869,10 +865,10 @@ class _$FoodEntriesWatcherStateLoadSuccess
 abstract class FoodEntriesWatcherStateLoadSuccess
     implements FoodEntriesWatcherState {
   const factory FoodEntriesWatcherStateLoadSuccess(
-          KtList<FoodItemEntry> foodItemEntries) =
+          KtList<FoodItemEntryBucket> buckets) =
       _$FoodEntriesWatcherStateLoadSuccess;
 
-  KtList<FoodItemEntry> get foodItemEntries;
+  KtList<FoodItemEntryBucket> get buckets;
   @JsonKey(ignore: true)
   $FoodEntriesWatcherStateLoadSuccessCopyWith<
           FoodEntriesWatcherStateLoadSuccess>
@@ -953,8 +949,7 @@ class _$FoodEntriesWatcherStateLoadFailure
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(KtList<FoodItemEntry> foodItemEntries)
-        loadSuccess,
+    required TResult Function(KtList<FoodItemEntryBucket> buckets) loadSuccess,
     required TResult Function(Failure noteFailure) loadFailure,
   }) {
     return loadFailure(noteFailure);
@@ -965,7 +960,7 @@ class _$FoodEntriesWatcherStateLoadFailure
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
   }) {
     return loadFailure?.call(noteFailure);
@@ -976,7 +971,7 @@ class _$FoodEntriesWatcherStateLoadFailure
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(KtList<FoodItemEntry> foodItemEntries)? loadSuccess,
+    TResult Function(KtList<FoodItemEntryBucket> buckets)? loadSuccess,
     TResult Function(Failure noteFailure)? loadFailure,
     required TResult orElse(),
   }) {

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/user_data/food_entries_repository.dart';
+import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -17,9 +17,9 @@ part 'food_entries_watcher_bloc.freezed.dart';
 @injectable
 class FoodEntriesWatcherBloc
     extends Bloc<FoodEntriesWatcherEvent, FoodEntriesWatcherState> {
-  final FoodEntriesRepository _foodEntriesRepository;
+  final FoodItemEntryBucketRepository _foodEntriesRepository;
 
-  StreamSubscription<Either<Failure, KtList<FoodItemEntry>>>?
+  StreamSubscription<Either<Failure, KtList<FoodItemEntryBucket>>>?
       _foodEntriesStreamSubscription;
 
   FoodEntriesWatcherBloc(this._foodEntriesRepository)
@@ -28,9 +28,10 @@ class FoodEntriesWatcherBloc
       await event.map(watchStarted: (_Started watchStarted) async {
         emit(FoodEntriesWatcherState.loadInProgress());
         await _foodEntriesStreamSubscription?.cancel();
-        _foodEntriesStreamSubscription =
-            _foodEntriesRepository.watchAll().listen((failureOrEntries) {
-          add(FoodEntriesWatcherEvent.entriesReceived(failureOrEntries));
+        _foodEntriesStreamSubscription = _foodEntriesRepository
+            .watchLoggedBuckets()
+            .listen((failureOrBuckets) {
+          add(FoodEntriesWatcherEvent.entriesReceived(failureOrBuckets));
         });
       }, entriesReceived: (_EntriesReceived entriesReceived) {
         emit(

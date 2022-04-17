@@ -91,7 +91,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return Container(
       color: Colors.amber,
       child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 50),
+          padding: EdgeInsets.symmetric(vertical: 30),
           child: Text(
             "welcome to app",
             style: TextStyle(fontSize: 50),
@@ -105,10 +105,11 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
     return [
       if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
-        ...foodEntriesState.foodItemEntries
-            .map(
-              (e) => FoodItemEntryDisplayTile(entry: e),
-            )
+        ...foodEntriesState.buckets
+            .map((b) => Column(
+                children: b.entries
+                    .map((e) => FoodItemEntryDisplayTile(entry: e))
+                    .asList()))
             .asList(),
       ...foodInputState.entries.map(
         (e) => FoodItemEntryDisplayTile(entry: e),

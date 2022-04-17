@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/user_data/food_entries_repository.dart';
+import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
@@ -16,10 +16,10 @@ part 'food_input_bloc.freezed.dart';
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   final TextProcessingRepository _textProcessingRepository;
   final FoodMappingRepository _foodMappingRepository;
-  final FoodEntriesRepository _foodEntriesRepository;
+  final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
 
-  FoodInputBloc(this._textProcessingRepository, this._foodEntriesRepository,
-      this._foodMappingRepository)
+  FoodInputBloc(this._textProcessingRepository,
+      this._foodItemEntryBucketRepository, this._foodMappingRepository)
       : _fragmentsAndEntries = [],
         super(FoodInputState.initial()) {
     on<FoodInputEvent>((event, emit) async {
@@ -120,7 +120,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       safeText: updatedSafeText,
     ));
     // send to repo:
-    _foodEntriesRepository.addAll(repoEntries);
+    _foodItemEntryBucketRepository.addEntriesToToday(repoEntries);
   }
 
   Future<void> _fetchFood(
@@ -175,7 +175,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       emit(state.copyWith(entries: _entries));
     } else {
       // 2. assume entry is alread saved in repo, so update in repo:
-      _foodEntriesRepository.updateById(entry.id, updateEntry);
+      _foodItemEntryBucketRepository.updateEntryFunctionalInToday(
+          entry.id, updateEntry);
     }
   }
 
