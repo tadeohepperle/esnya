@@ -5,8 +5,6 @@ import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bl
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
-import 'package:esnya_shared_resources/core/core.dart';
-import 'package:esnya_shared_resources/core/models/user_data/user_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 

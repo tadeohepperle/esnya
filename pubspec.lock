@@ -190,6 +190,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.5"
+  enum_bit_vector:
+    dependency: transitive
+    description:
+      name: enum_bit_vector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   equatable:
     dependency: "direct main"
     description:
@@ -201,8 +208,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "2022-04-08-break-1"
-      resolved-ref: "2a105aad6cbe091159f3714826d2aad0c3175fad"
+      ref: master
+      resolved-ref: c1966665440f67aa42eab02fcfe9f6ca75f51b36
       url: "https://github.com/tadeohepperle/esnya_shared_resources.git"
     source: git
     version: "1.0.0"

@@ -6,7 +6,6 @@ import 'package:esnya/domain/isolate2/entities/isolate_response.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
-import 'package:injectable/injectable.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';

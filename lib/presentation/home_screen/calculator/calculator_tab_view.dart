@@ -14,6 +14,7 @@ class _CalculatorTabViewState extends State<CalculatorTabView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView(
       children: [
         ...List.generate(
