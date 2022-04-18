@@ -1,4 +1,4 @@
-import 'package:esnya/injection_environments.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -10,4 +10,7 @@ abstract class FirebaseInjectibleModule {
 
   @lazySingleton
   FirebaseAuth get fireBaseAuth => FirebaseAuth.instance;
+
+  @lazySingleton
+  FirebaseFirestore get firestore => FirebaseFirestore.instance;
 }

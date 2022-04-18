@@ -10,11 +10,11 @@ import 'package:injectable/injectable.dart';
 import 'firebase_user_mapper.dart';
 
 @LazySingleton(as: AuthRepository)
-class FirebaseAuthRepository implements AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
-  FirebaseAuthRepository(this._firebaseAuth, this._googleSignIn);
+  AuthRepositoryImpl(this._firebaseAuth, this._googleSignIn);
 
   @override
   Option<User> getSignedInUser() =>

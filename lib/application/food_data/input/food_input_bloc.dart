@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/user_data/food_entries_repository.dart';
+import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
@@ -14,12 +14,12 @@ part 'food_input_bloc.freezed.dart';
 @isolate1
 @injectable
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
-  TextProcessingRepository _textProcessingRepository;
-  FoodMappingRepository _foodMappingRepository;
-  FoodEntriesRepository _foodEntriesRepository;
+  final TextProcessingRepository _textProcessingRepository;
+  final FoodMappingRepository _foodMappingRepository;
+  final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
 
-  FoodInputBloc(this._textProcessingRepository, this._foodEntriesRepository,
-      this._foodMappingRepository)
+  FoodInputBloc(this._textProcessingRepository,
+      this._foodItemEntryBucketRepository, this._foodMappingRepository)
       : _fragmentsAndEntries = [],
         super(FoodInputState.initial()) {
     on<FoodInputEvent>((event, emit) async {
@@ -120,13 +120,12 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       safeText: updatedSafeText,
     ));
     // send to repo:
-    _foodEntriesRepository.addAll(repoEntries);
+    _foodItemEntryBucketRepository.createEntriesForToday(repoEntries);
   }
 
   Future<void> _fetchFood(
       Emitter<FoodInputState> emit, FoodItemEntry entry) async {
-    final foodMappingResult =
-        await _foodMappingRepository.mapInput(entry.title);
+    final resultOrFailure = await _foodMappingRepository.mapInput(entry.title);
 
     /// cases to consider:
     /// entry is in bloc vs. in repository  => same behavior
@@ -144,20 +143,21 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     ///              if entry already is success: no nothing, keep the old result, where a match was found.
 
     FoodItemEntry updateEntry(FoodItemEntry entry) {
-      return foodMappingResult.fold(
-        (l) => entry,
-        (r) => r.map(
-            preSuccess: (preSuccess) => entry,
-            success: (success) => entry.map(
-                preSuccess: (entryPreSuccess) =>
-                    entryPreSuccess.toSuccess(success),
-                success: (entrySuccess) => entrySuccess.copyWith(
-                    foodItem:
-                        FoodItem(entrySuccess.foodItem.amount, success.food))),
-            noMatchFound: (noMatchFound) => entry.map(
-                preSuccess: (entryPreSuccess) =>
-                    entryPreSuccess.copyWith(mappingFailed: true),
-                success: (entrySuccess) => entrySuccess)),
+      return resultOrFailure.fold(
+        (failure) {
+          if (failure is FoodMappingFailureNoMatchFound) {
+            return entry.toMappingFailed();
+          }
+          return entry;
+        },
+        (foodMappingResult) => entry.map(
+          semanticSuccess: (semanticSuccess) =>
+              semanticSuccess.toSuccess(foodMappingResult),
+          success: (entrySuccess) => entrySuccess.copyWith(
+            foodItem:
+                FoodItem(entrySuccess.foodItem.amount, foodMappingResult.food),
+          ),
+        ),
       );
     }
 
@@ -175,7 +175,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       emit(state.copyWith(entries: _entries));
     } else {
       // 2. assume entry is alread saved in repo, so update in repo:
-      _foodEntriesRepository.updateById(entry.id, updateEntry);
+      _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
+          entry.id, updateEntry);
     }
   }
 

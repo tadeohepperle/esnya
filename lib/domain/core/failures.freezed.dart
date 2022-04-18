@@ -478,8 +478,8 @@ class __$ApiFailureUnexpectedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ApiFailureUnexpected implements _ApiFailureUnexpected {
-  const _$_ApiFailureUnexpected();
+class _$_ApiFailureUnexpected extends _ApiFailureUnexpected {
+  const _$_ApiFailureUnexpected() : super._();
 
   @override
   String toString() {
@@ -552,6 +552,450 @@ class _$_ApiFailureUnexpected implements _ApiFailureUnexpected {
   }
 }
 
-abstract class _ApiFailureUnexpected implements ApiFailure {
+abstract class _ApiFailureUnexpected extends ApiFailure {
   const factory _ApiFailureUnexpected() = _$_ApiFailureUnexpected;
+  const _ApiFailureUnexpected._() : super._();
+}
+
+/// @nodoc
+class _$FireStoreFailureTearOff {
+  const _$FireStoreFailureTearOff();
+
+  FireStoreFailureNotFound notFound() {
+    return const FireStoreFailureNotFound();
+  }
+
+  FireStoreFailureUnexpected unexpected() {
+    return const FireStoreFailureUnexpected();
+  }
+
+  FireStoreFailureInsufficientPermission insufficientPermission() {
+    return const FireStoreFailureInsufficientPermission();
+  }
+}
+
+/// @nodoc
+const $FireStoreFailure = _$FireStoreFailureTearOff();
+
+/// @nodoc
+mixin _$FireStoreFailure {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFound,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermission,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FireStoreFailureNotFound value) notFound,
+    required TResult Function(FireStoreFailureUnexpected value) unexpected,
+    required TResult Function(FireStoreFailureInsufficientPermission value)
+        insufficientPermission,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FireStoreFailureCopyWith<$Res> {
+  factory $FireStoreFailureCopyWith(
+          FireStoreFailure value, $Res Function(FireStoreFailure) then) =
+      _$FireStoreFailureCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$FireStoreFailureCopyWithImpl<$Res>
+    implements $FireStoreFailureCopyWith<$Res> {
+  _$FireStoreFailureCopyWithImpl(this._value, this._then);
+
+  final FireStoreFailure _value;
+  // ignore: unused_field
+  final $Res Function(FireStoreFailure) _then;
+}
+
+/// @nodoc
+abstract class $FireStoreFailureNotFoundCopyWith<$Res> {
+  factory $FireStoreFailureNotFoundCopyWith(FireStoreFailureNotFound value,
+          $Res Function(FireStoreFailureNotFound) then) =
+      _$FireStoreFailureNotFoundCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$FireStoreFailureNotFoundCopyWithImpl<$Res>
+    extends _$FireStoreFailureCopyWithImpl<$Res>
+    implements $FireStoreFailureNotFoundCopyWith<$Res> {
+  _$FireStoreFailureNotFoundCopyWithImpl(FireStoreFailureNotFound _value,
+      $Res Function(FireStoreFailureNotFound) _then)
+      : super(_value, (v) => _then(v as FireStoreFailureNotFound));
+
+  @override
+  FireStoreFailureNotFound get _value =>
+      super._value as FireStoreFailureNotFound;
+}
+
+/// @nodoc
+
+class _$FireStoreFailureNotFound extends FireStoreFailureNotFound {
+  const _$FireStoreFailureNotFound() : super._();
+
+  @override
+  String toString() {
+    return 'FireStoreFailure.notFound()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FireStoreFailureNotFound);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFound,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermission,
+  }) {
+    return notFound();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+  }) {
+    return notFound?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (notFound != null) {
+      return notFound();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FireStoreFailureNotFound value) notFound,
+    required TResult Function(FireStoreFailureUnexpected value) unexpected,
+    required TResult Function(FireStoreFailureInsufficientPermission value)
+        insufficientPermission,
+  }) {
+    return notFound(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+  }) {
+    return notFound?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (notFound != null) {
+      return notFound(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FireStoreFailureNotFound extends FireStoreFailure {
+  const factory FireStoreFailureNotFound() = _$FireStoreFailureNotFound;
+  const FireStoreFailureNotFound._() : super._();
+}
+
+/// @nodoc
+abstract class $FireStoreFailureUnexpectedCopyWith<$Res> {
+  factory $FireStoreFailureUnexpectedCopyWith(FireStoreFailureUnexpected value,
+          $Res Function(FireStoreFailureUnexpected) then) =
+      _$FireStoreFailureUnexpectedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$FireStoreFailureUnexpectedCopyWithImpl<$Res>
+    extends _$FireStoreFailureCopyWithImpl<$Res>
+    implements $FireStoreFailureUnexpectedCopyWith<$Res> {
+  _$FireStoreFailureUnexpectedCopyWithImpl(FireStoreFailureUnexpected _value,
+      $Res Function(FireStoreFailureUnexpected) _then)
+      : super(_value, (v) => _then(v as FireStoreFailureUnexpected));
+
+  @override
+  FireStoreFailureUnexpected get _value =>
+      super._value as FireStoreFailureUnexpected;
+}
+
+/// @nodoc
+
+class _$FireStoreFailureUnexpected extends FireStoreFailureUnexpected {
+  const _$FireStoreFailureUnexpected() : super._();
+
+  @override
+  String toString() {
+    return 'FireStoreFailure.unexpected()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FireStoreFailureUnexpected);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFound,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermission,
+  }) {
+    return unexpected();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+  }) {
+    return unexpected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FireStoreFailureNotFound value) notFound,
+    required TResult Function(FireStoreFailureUnexpected value) unexpected,
+    required TResult Function(FireStoreFailureInsufficientPermission value)
+        insufficientPermission,
+  }) {
+    return unexpected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+  }) {
+    return unexpected?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (unexpected != null) {
+      return unexpected(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FireStoreFailureUnexpected extends FireStoreFailure {
+  const factory FireStoreFailureUnexpected() = _$FireStoreFailureUnexpected;
+  const FireStoreFailureUnexpected._() : super._();
+}
+
+/// @nodoc
+abstract class $FireStoreFailureInsufficientPermissionCopyWith<$Res> {
+  factory $FireStoreFailureInsufficientPermissionCopyWith(
+          FireStoreFailureInsufficientPermission value,
+          $Res Function(FireStoreFailureInsufficientPermission) then) =
+      _$FireStoreFailureInsufficientPermissionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$FireStoreFailureInsufficientPermissionCopyWithImpl<$Res>
+    extends _$FireStoreFailureCopyWithImpl<$Res>
+    implements $FireStoreFailureInsufficientPermissionCopyWith<$Res> {
+  _$FireStoreFailureInsufficientPermissionCopyWithImpl(
+      FireStoreFailureInsufficientPermission _value,
+      $Res Function(FireStoreFailureInsufficientPermission) _then)
+      : super(
+            _value, (v) => _then(v as FireStoreFailureInsufficientPermission));
+
+  @override
+  FireStoreFailureInsufficientPermission get _value =>
+      super._value as FireStoreFailureInsufficientPermission;
+}
+
+/// @nodoc
+
+class _$FireStoreFailureInsufficientPermission
+    extends FireStoreFailureInsufficientPermission {
+  const _$FireStoreFailureInsufficientPermission() : super._();
+
+  @override
+  String toString() {
+    return 'FireStoreFailure.insufficientPermission()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FireStoreFailureInsufficientPermission);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notFound,
+    required TResult Function() unexpected,
+    required TResult Function() insufficientPermission,
+  }) {
+    return insufficientPermission();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+  }) {
+    return insufficientPermission?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notFound,
+    TResult Function()? unexpected,
+    TResult Function()? insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (insufficientPermission != null) {
+      return insufficientPermission();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FireStoreFailureNotFound value) notFound,
+    required TResult Function(FireStoreFailureUnexpected value) unexpected,
+    required TResult Function(FireStoreFailureInsufficientPermission value)
+        insufficientPermission,
+  }) {
+    return insufficientPermission(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+  }) {
+    return insufficientPermission?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FireStoreFailureNotFound value)? notFound,
+    TResult Function(FireStoreFailureUnexpected value)? unexpected,
+    TResult Function(FireStoreFailureInsufficientPermission value)?
+        insufficientPermission,
+    required TResult orElse(),
+  }) {
+    if (insufficientPermission != null) {
+      return insufficientPermission(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class FireStoreFailureInsufficientPermission extends FireStoreFailure {
+  const factory FireStoreFailureInsufficientPermission() =
+      _$FireStoreFailureInsufficientPermission;
+  const FireStoreFailureInsufficientPermission._() : super._();
 }

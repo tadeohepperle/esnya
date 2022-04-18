@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:esnya_shared_resources/core/error_handling/failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'failures.freezed.dart';
@@ -12,6 +13,16 @@ abstract class ValueFailure<T> extends Failure with _$ValueFailure<T> {
 }
 
 @freezed
-abstract class ApiFailure with _$ApiFailure {
+abstract class ApiFailure extends Failure with _$ApiFailure {
+  const ApiFailure._();
   const factory ApiFailure.unexpected() = _ApiFailureUnexpected;
+}
+
+@freezed
+abstract class FireStoreFailure extends Failure with _$FireStoreFailure {
+  const FireStoreFailure._();
+  const factory FireStoreFailure.notFound() = FireStoreFailureNotFound;
+  const factory FireStoreFailure.unexpected() = FireStoreFailureUnexpected;
+  const factory FireStoreFailure.insufficientPermission() =
+      FireStoreFailureInsufficientPermission;
 }

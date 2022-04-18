@@ -54,6 +54,7 @@ dependencies:
       url: https://github.com/tadeohepperle/esnya_shared_resources.git
       ref: master
   stream_channel: ^2.1.0
+  cloud_firestore: ^3.1.12
   # logger: any
 
 dev_dependencies:

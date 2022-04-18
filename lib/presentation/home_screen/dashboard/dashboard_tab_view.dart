@@ -5,8 +5,6 @@ import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bl
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
-import 'package:esnya_shared_resources/core/core.dart';
-import 'package:esnya_shared_resources/core/models/user_data/user_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -93,7 +91,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return Container(
       color: Colors.amber,
       child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 50),
+          padding: EdgeInsets.symmetric(vertical: 30),
           child: Text(
             "welcome to app",
             style: TextStyle(fontSize: 50),
@@ -107,10 +105,13 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
     return [
       if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
-        ...foodEntriesState.foodItemEntries
-            .map(
-              (e) => FoodItemEntryDisplayTile(entry: e),
-            )
+        ...foodEntriesState.buckets
+            .map((b) => Column(children: [
+                  Text('Bucket value: ${b.id.value}'),
+                  ...b.entries
+                      .map((e) => FoodItemEntryDisplayTile(entry: e))
+                      .iter
+                ]))
             .asList(),
       ...foodInputState.entries.map(
         (e) => FoodItemEntryDisplayTile(entry: e),

@@ -9,7 +9,7 @@ class FoodItemEntryDisplayTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return entry.map(
-      preSuccess: (FoodItemEntryPreSuccess preSuccess) {
+      semanticSuccess: (FoodItemEntrySemanticSuccess preSuccess) {
         return Container(
           decoration: BoxDecoration(border: Border.all(width: 3)),
           padding: EdgeInsets.all(5),
