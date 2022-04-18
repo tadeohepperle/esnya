@@ -126,7 +126,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLoggedBuckets() {
+  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets() {
     return _controller.stream;
   }
 
@@ -169,6 +169,12 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   @override
   Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId) {
     // TODO: implement watchBucket
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLoggedBuckets() {
+    // TODO: implement watchLoggedBuckets
     throw UnimplementedError();
   }
 }

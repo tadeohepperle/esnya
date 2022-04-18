@@ -66,7 +66,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i9.FoodDataRepositoryRemoteImpl(get<_i6.FoodBackendClient>()),
       registerFor: {_isolate2});
   gh.lazySingleton<_i10.FoodItemEntryBucketRepository>(
-      () => _i11.FoodEntriesRepositorySimpleImpl(get<_i5.FirebaseFirestore>()),
+      () =>
+          _i11.FoodEntriesRepositoryImplFirestore(get<_i5.FirebaseFirestore>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i12.FoodMappingRepository>(
       () => _i13.FoodMappingRepositoryRemoteImpl(get<_i6.FoodBackendClient>()),

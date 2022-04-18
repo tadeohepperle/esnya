@@ -5,14 +5,12 @@ import 'package:kt_dart/collection.dart';
 
 /// responsible for storing and serving buckets of food item entries. For example each day has its own bucket with logged foods.
 abstract class FoodItemEntryBucketRepository extends SetupRepository {
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>>
-      watchLoggedBuckets(); // TODO: watch special time only
-
   Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket);
   Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket);
   Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket);
 
   Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId);
+  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets();
 
   Future<Either<Failure, Unit>> createEntry(
       UniqueId bucketId, FoodItemEntry entry);

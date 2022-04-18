@@ -15,18 +15,14 @@ import 'package:rxdart/rxdart.dart';
 import 'utils/food_item_entry_bucket_utils.dart';
 
 /// buckets are saved under collection: user/useridxyz/buckets
-const kBucketsCollectionName = 'buckets';
-
-/// entries are saved under collection: user/useridxyz/buckets/bucketidxyz/entries
-const kFoodItemEntriesSubCollectionName = 'entries';
 
 @isolate1
 @LazySingleton(as: FoodItemEntryBucketRepository)
-class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
+class FoodEntriesRepositoryImplFirestore extends SetupRepositoryImpl
     implements FoodItemEntryBucketRepository {
   final FirebaseFirestore _firestore;
 
-  FoodEntriesRepositorySimpleImpl(this._firestore);
+  FoodEntriesRepositoryImplFirestore(this._firestore);
 
   ///////////////////////////////////
   /// Bucket operations:
@@ -34,66 +30,27 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
 
   /// create bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-
-      var bucketDocRef =
-          userDoc.collection(kBucketsCollectionName).doc(bucket.id.value);
-      await bucketDocRef.set(bucket.toFireStore());
-      for (var entry in bucket.entries.asList()) {
-        bucketDocRef
-            .collection(kFoodItemEntriesSubCollectionName)
-            .doc(entry.id.value)
-            .set(entry.toJson());
-      }
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+  Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket) =>
+      _operationOnBucketDocRef(
+        bucket.id,
+        (bucketDocRef) => bucketDocRef.set(bucket.toFireStore()),
+      );
 
   /// delete bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      final bucketDocRef =
-          userDoc.collection(kBucketsCollectionName).doc(bucket.id.value);
-      var entryDocs = (await bucketDocRef
-              .collection(kFoodItemEntriesSubCollectionName)
-              .get())
-          .docs;
-      for (var d in entryDocs) {
-        d.reference.delete();
-      }
-      await bucketDocRef.delete();
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+  Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket) =>
+      _operationOnBucketDocRef(
+        bucket.id,
+        (bucketDocRef) => bucketDocRef.delete(),
+      );
 
   /// update bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      var bucketDocRef =
-          userDoc.collection(kBucketsCollectionName).doc(bucket.id.value);
-      await bucketDocRef.update(bucket.toFireStore());
-      for (var entry in bucket.entries.asList()) {
-        bucketDocRef
-            .collection(kFoodItemEntriesSubCollectionName)
-            .doc(entry.id.value)
-            .set(entry
-                .toJson()); // TODO: in case an entry was deleted from the bucket this is not reflected here!!!
-      }
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+  Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket) =>
+      _operationOnBucketDocRef(
+        bucket.id,
+        (bucketDocRef) => bucketDocRef.update(bucket.toFireStore()),
+      );
 
   ///////////////////////////////////
   /// Entry operations:
@@ -101,38 +58,19 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> createEntry(
-      UniqueId bucketId, FoodItemEntry entry) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      await userDoc
-          .collection(kBucketsCollectionName)
-          .doc(bucketId.value)
-          .collection(kFoodItemEntriesSubCollectionName)
-          .doc(entry.id.value)
-          .set(entry.toJson());
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+          UniqueId bucketId, FoodItemEntry entry) =>
+      _operationOnBucketDocRef(
+        bucketId,
+        (bucketDocRef) => bucketDocRef.update(updateObjectForEntry(entry)),
+      );
 
   @override
   Future<Either<Failure, Unit>> createEntries(
-      UniqueId bucketId, Iterable<FoodItemEntry> entries) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      final entriesCollection = userDoc
-          .collection(kBucketsCollectionName)
-          .doc(bucketId.value)
-          .collection(kFoodItemEntriesSubCollectionName);
-      for (var entry in entries) {
-        entriesCollection.doc(entry.id.value).set(entry.toJson());
-      }
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+          UniqueId bucketId, Iterable<FoodItemEntry> entries) =>
+      _operationOnBucketDocRef(
+        bucketId,
+        (bucketDocRef) => bucketDocRef.update(updateObjectForEntries(entries)),
+      );
 
   @override
   Future<Either<Failure, Unit>> createEntryForToday(FoodItemEntry entry) =>
@@ -145,20 +83,11 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> deleteEntry(
-      UniqueId bucketId, FoodItemEntry entry) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      await userDoc
-          .collection(kBucketsCollectionName)
-          .doc(bucketId.value)
-          .collection(kFoodItemEntriesSubCollectionName)
-          .doc(entry.id.value)
-          .delete();
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+          UniqueId bucketId, FoodItemEntry entry) =>
+      _operationOnBucketDocRef(
+        bucketId,
+        (bucketDocRef) => bucketDocRef.update(deleteObjectForEntry(entry)),
+      );
 
   @override
   Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry) =>
@@ -171,42 +100,25 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> updateEntry(
-      UniqueId bucketId, FoodItemEntry entry) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      await userDoc
-          .collection(kBucketsCollectionName)
-          .doc(bucketId.value)
-          .collection(kFoodItemEntriesSubCollectionName)
-          .doc(entry.id.value)
-          .update(entry.toJson());
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+          UniqueId bucketId, FoodItemEntry entry) =>
+      createEntry(bucketId, entry);
 
   @override
   Future<Either<Failure, Unit>> updateEntryFunctional(
-      UniqueId bucketId,
-      UniqueId entryId,
-      FoodItemEntry Function(FoodItemEntry before) applyUpdate) async {
-    try {
-      final userDoc = await _firestore.userDocument();
-      final docRef = userDoc
-          .collection(kBucketsCollectionName)
-          .doc(bucketId.value)
-          .collection(kFoodItemEntriesSubCollectionName)
-          .doc(entryId.value);
-      var entryJson = await docRef.get();
-      var before = FoodItemEntry.fromJson(entryJson.data()!);
-      FoodItemEntry after = applyUpdate(before);
-      docRef.update(after.toJson());
-      return right(unit);
-    } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFailure(e));
-    }
-  }
+          UniqueId bucketId,
+          UniqueId entryId,
+          FoodItemEntry Function(FoodItemEntry before) applyUpdate) =>
+      _operationOnBucketDocRef(
+        bucketId,
+        (bucketDocRef) async {
+          // TODO: THINK: the entire updateEntryFunctional might be a bit inefficient, because the pull and put are two operations.
+          // We dont know what happens if something happens to the document in between.
+          final json = await bucketDocRef.get();
+          final before = FoodItemEntry.fromJson(json["entries"][entryId]);
+          final after = applyUpdate(before);
+          await bucketDocRef.update(updateObjectForEntry(after));
+        },
+      );
 
   @override
   Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry) =>
@@ -219,24 +131,38 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
           (bucketId) => updateEntryFunctionalForToday(bucketId, applyUpdate));
 
   @override
+  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(
+      UniqueId bucketId) async* {
+    final bucketDocRef = await _firestore.bucketDocument(bucketId);
+    yield* bucketDocRef
+        .snapshots()
+        .map((docSnapshot) => FoodItemEntryBucketDTO.fromFireStore(docSnapshot))
+        .map((e) => right<Failure, FoodItemEntryBucket>(e))
+        .onErrorReturn(left<Failure, FoodItemEntryBucket>(
+            const FireStoreFailure.unexpected()));
+  }
+
+  @override
   Stream<Either<Failure, KtList<FoodItemEntryBucket>>>
-      watchLoggedBuckets() async* {
+      watchLogBuckets() async* {
     final userDoc = await _firestore.userDocument();
     yield* userDoc
         .collection(kBucketsCollectionName)
-        .orderBy('tag', descending: true)
+        .where("type", isEqualTo: 'log')
+        .orderBy(FieldPath.documentId, descending: true)
+        .limit(20)
         .snapshots()
-        .map((snapshot) => snapshot.docs.map(
-              (e) => FoodItemEntryBucketDTO.fromFireStore(e),
-            ))
-        .map(
-          (buckets) => right<Failure, KtList<FoodItemEntryBucket>>(buckets
-              .where((b) => b.type == FoodItemEntryBucketType.log)
-              .toImmutableList()),
-        )
+        .map((colSnapshot) => colSnapshot.docs
+            .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
+            .toImmutableList())
+        .map((list) => right<Failure, KtList<FoodItemEntryBucket>>(list))
         .onErrorReturn(left<Failure, KtList<FoodItemEntryBucket>>(
             const FireStoreFailure.unexpected()));
   }
+
+  ///////////////////////////////////
+  /// private functions:
+  ///////////////////////////////////
 
   Future<Either<Failure, Unit>> _operationOnTodaysBucket(
       Future<Either<Failure, Unit>> Function(UniqueId bucketId)
@@ -246,6 +172,19 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       (l) => left(const FireStoreFailure.unexpected()),
       operation,
     );
+  }
+
+  Future<Either<Failure, Unit>> _operationOnBucketDocRef(
+      bucketId,
+      Future<void> Function(DocumentReference<Object?> bucketDocRef)
+          operation) async {
+    try {
+      final bucketDocRef = await _firestore.bucketDocument(bucketId);
+      await operation(bucketDocRef);
+      return right(unit);
+    } on FirebaseException catch (e) {
+      return left(_fireBaseExceptionToFailure(e));
+    }
   }
 
   Future<Either<Failure, UniqueId>> _getOrCreateBucketForToday() async {
@@ -269,28 +208,14 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
     }
   }
 
-  @override
-  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(
-      UniqueId bucketId) async* {
-    final userDoc = await _firestore.userDocument();
-    {
-      DocumentReference bucketRef =
-          userDoc.collection(kBucketsCollectionName).doc(bucketId.value);
-      // bucketRef.snapshots((sn) {
-
-      // });
+  _fireBaseExceptionToFailure(FirebaseException e) {
+    if (e.message == null) return const FireStoreFailure.unexpected();
+    if (e.message!.contains('PERMISSION_DENIED')) {
+      return const FireStoreFailure.insufficientPermission();
+    } else if (e.message!.contains('NOT_FOUND')) {
+      return const FireStoreFailure.notFound();
+    } else {
+      return const FireStoreFailure.unexpected();
     }
-    yield left(Failure());
-  }
-}
-
-_fireBaseExceptionToFailure(FirebaseException e) {
-  if (e.message == null) return const FireStoreFailure.unexpected();
-  if (e.message!.contains('PERMISSION_DENIED')) {
-    return const FireStoreFailure.insufficientPermission();
-  } else if (e.message!.contains('NOT_FOUND')) {
-    return const FireStoreFailure.notFound();
-  } else {
-    return const FireStoreFailure.unexpected();
   }
 }
