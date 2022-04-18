@@ -1,6 +1,6 @@
 import 'package:esnya/application/auth/auth_bloc.dart';
+import 'package:esnya/application/home_screen/bloc/dashboard_bloc.dart';
 import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
-import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bloc.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/domain/core/app_localizations_x.dart';
@@ -52,8 +52,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (contet) => getIt<FoodEntriesWatcherBloc>(),
+    return BlocProvider<DashboardBloc>(
+      create: (contet) => getIt<DashboardBloc>(),
       child: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Unauthenticated) {
@@ -98,5 +98,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     } else if (tab == HomeScreenTabType.profile) {
       return ProfileTabView();
     }
+    return null;
   }
 }

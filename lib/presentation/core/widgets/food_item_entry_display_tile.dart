@@ -7,7 +7,9 @@ import '../../../domain/user_data/food_item_entry_bucket_repository.dart';
 class FoodItemEntryDisplayTile extends StatelessWidget {
   final FoodItemEntry entry;
   final UniqueId? bucketId;
-  const FoodItemEntryDisplayTile({Key? key, required this.entry, this.bucketId})
+  final Color? color;
+  const FoodItemEntryDisplayTile(
+      {Key? key, required this.entry, this.bucketId, this.color})
       : super(key: key);
 
   @override
@@ -15,9 +17,7 @@ class FoodItemEntryDisplayTile extends StatelessWidget {
     return entry.map(
       semanticSuccess: (FoodItemEntrySemanticSuccess semanticSuccess) {
         return ListTile(
-          tileColor: bucketId == null
-              ? Color.fromARGB(255, 253, 200, 115)
-              : Colors.white,
+          tileColor: color ?? Colors.white,
           title: Text(semanticSuccess.title + "    unknown kcal"),
           subtitle: Text(
             semanticSuccess.title,
@@ -37,9 +37,7 @@ class FoodItemEntryDisplayTile extends StatelessWidget {
       },
       success: (FoodItemEntrySuccess success) {
         return ListTile(
-          tileColor: bucketId == null
-              ? Color.fromARGB(255, 253, 200, 115)
-              : Colors.white,
+          tileColor: color ?? Colors.white,
           title: Text(success.foodItem.food.title +
               "    " +
               success.foodItem.food.nutrients[NutrientType.energy].toString() +

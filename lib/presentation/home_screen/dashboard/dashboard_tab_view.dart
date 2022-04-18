@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
-import 'package:esnya/application/user_data/entries/bloc/food_entries_watcher_bloc.dart';
+import 'package:esnya/application/home_screen/bloc/dashboard_bloc.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
@@ -48,8 +48,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
       create: (context) => getIt<FoodInputBloc>(),
       child: BlocBuilder<FoodInputBloc, FoodInputState>(
           builder: (context, foodInputState) {
-        return BlocBuilder<FoodEntriesWatcherBloc, FoodEntriesWatcherState>(
-            builder: (context, foodEntriesWatcherState) {
+        return BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, dashboardState) {
           double bottomPadding = max(
               MediaQuery.of(context).viewInsets.bottom, kBottomPaddingHeight);
           return Stack(
@@ -91,34 +91,41 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return Container(
       color: Colors.amber,
       child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 30),
+          padding: EdgeInsets.symmetric(vertical: 5),
           child: Text(
             "welcome to app",
-            style: TextStyle(fontSize: 50),
+            style: TextStyle(fontSize: 10),
           )),
     );
   }
 
   List<Widget> _buildListElements(BuildContext context) {
     final foodInputState = context.read<FoodInputBloc>().state;
-    final foodEntriesState = context.read<FoodEntriesWatcherBloc>().state;
+    final dashboardState = context.read<DashboardBloc>().state;
 
     return [
-      if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
-        ...foodEntriesState.buckets
-            .reversed()
-            .map((b) => Column(children: [
-                  Text('Bucket value: ${b.id.value}'),
-                  ...b.entries
-                      .map((e) => FoodItemEntryDisplayTile(
-                            entry: e,
-                            bucketId: b.id,
-                          ))
-                      .iter
-                ]))
-            .asList(),
-      ...foodInputState.entries.map(
-        (e) => FoodItemEntryDisplayTile(entry: e),
+      ...dashboardState.buckets.reversed().iter.map((b) => Column(children: [
+            Text('Bucket value: ${b.id.value}'),
+            ...b.entries.iter.map((e) => FoodItemEntryDisplayTile(
+                  entry: e,
+                  bucketId: b.id,
+                ))
+          ])),
+      Divider(
+        height: 10,
+        color: Colors.black,
+      ),
+      ...dashboardState.entriesBetweenBlocAndRepo.iter.map(
+        (e) => FoodItemEntryDisplayTile(
+          entry: e,
+          color: Colors.blue,
+        ),
+      ),
+      ...dashboardState.entriesFoodInputBloc.iter.map(
+        (e) => FoodItemEntryDisplayTile(
+          entry: e,
+          color: Colors.orange,
+        ),
       )
     ];
   }
