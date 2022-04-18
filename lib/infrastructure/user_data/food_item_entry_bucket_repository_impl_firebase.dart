@@ -47,10 +47,9 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
             .doc(entry.id.value)
             .set(entry.toJson());
       }
-
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
@@ -59,18 +58,19 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket) async {
     try {
       final userDoc = await _firestore.userDocument();
-      final docRef =
+      final bucketDocRef =
           userDoc.collection(kBucketsCollectionName).doc(bucket.id.value);
-      var entryDocs =
-          (await docRef.collection(kFoodItemEntriesSubCollectionName).get())
-              .docs;
+      var entryDocs = (await bucketDocRef
+              .collection(kFoodItemEntriesSubCollectionName)
+              .get())
+          .docs;
       for (var d in entryDocs) {
         d.reference.delete();
       }
-      await docRef.delete();
+      await bucketDocRef.delete();
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
@@ -86,11 +86,12 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
         bucketDocRef
             .collection(kFoodItemEntriesSubCollectionName)
             .doc(entry.id.value)
-            .set(entry.toJson());
+            .set(entry
+                .toJson()); // TODO: in case an entry was deleted from the bucket this is not reflected here!!!
       }
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
@@ -106,12 +107,12 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       await userDoc
           .collection(kBucketsCollectionName)
           .doc(bucketId.value)
-          .collection(kBucketsCollectionName)
+          .collection(kFoodItemEntriesSubCollectionName)
           .doc(entry.id.value)
           .set(entry.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
@@ -123,22 +124,22 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       final entriesCollection = userDoc
           .collection(kBucketsCollectionName)
           .doc(bucketId.value)
-          .collection(kBucketsCollectionName);
+          .collection(kFoodItemEntriesSubCollectionName);
       for (var entry in entries) {
         entriesCollection.doc(entry.id.value).set(entry.toJson());
       }
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> createEntryToToday(FoodItemEntry entry) =>
+  Future<Either<Failure, Unit>> createEntryForToday(FoodItemEntry entry) =>
       _operationOnTodaysBucket((bucketId) => createEntry(bucketId, entry));
 
   @override
-  Future<Either<Failure, Unit>> createEntriesToToday(
+  Future<Either<Failure, Unit>> createEntriesForToday(
           Iterable<FoodItemEntry> entries) =>
       _operationOnTodaysBucket((bucketId) => createEntries(bucketId, entries));
 
@@ -150,17 +151,17 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       await userDoc
           .collection(kBucketsCollectionName)
           .doc(bucketId.value)
-          .collection(kBucketsCollectionName)
+          .collection(kFoodItemEntriesSubCollectionName)
           .doc(entry.id.value)
           .delete();
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteEntryFromToday(FoodItemEntry entry) =>
+  Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry) =>
       _operationOnTodaysBucket((bucketId) => deleteEntry(bucketId, entry));
 
   @override
@@ -176,12 +177,12 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       await userDoc
           .collection(kBucketsCollectionName)
           .doc(bucketId.value)
-          .collection(kBucketsCollectionName)
+          .collection(kFoodItemEntriesSubCollectionName)
           .doc(entry.id.value)
           .update(entry.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
@@ -195,7 +196,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       final docRef = userDoc
           .collection(kBucketsCollectionName)
           .doc(bucketId.value)
-          .collection(kBucketsCollectionName)
+          .collection(kFoodItemEntriesSubCollectionName)
           .doc(entryId.value);
       var entryJson = await docRef.get();
       var before = FoodItemEntry.fromJson(entryJson.data()!);
@@ -203,26 +204,26 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
       docRef.update(after.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> updateEntryInToday(FoodItemEntry entry) =>
+  Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry) =>
       _operationOnTodaysBucket((bucketId) => updateEntry(bucketId, entry));
 
   @override
-  Future<Either<Failure, Unit>> updateEntryFunctionalInToday(UniqueId entryId,
+  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(UniqueId entryId,
           FoodItemEntry Function(FoodItemEntry before) applyUpdate) =>
       _operationOnTodaysBucket(
-          (bucketId) => updateEntryFunctionalInToday(bucketId, applyUpdate));
+          (bucketId) => updateEntryFunctionalForToday(bucketId, applyUpdate));
 
   @override
   Stream<Either<Failure, KtList<FoodItemEntryBucket>>>
       watchLoggedBuckets() async* {
     final userDoc = await _firestore.userDocument();
     yield* userDoc
-        .collection('buckets')
+        .collection(kBucketsCollectionName)
         .orderBy('tag', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map(
@@ -237,7 +238,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
             const FireStoreFailure.unexpected()));
   }
 
-  _operationOnTodaysBucket(
+  Future<Either<Failure, Unit>> _operationOnTodaysBucket(
       Future<Either<Failure, Unit>> Function(UniqueId bucketId)
           operation) async {
     final bucketIdOrFailure = await _getOrCreateBucketForToday();
@@ -264,12 +265,26 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
             (r) => right(uniqueId));
       }
     } on FirebaseException catch (e) {
-      return left(_fireBaseExceptionToFaulure(e));
+      return left(_fireBaseExceptionToFailure(e));
     }
+  }
+
+  @override
+  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(
+      UniqueId bucketId) async* {
+    final userDoc = await _firestore.userDocument();
+    {
+      DocumentReference bucketRef =
+          userDoc.collection(kBucketsCollectionName).doc(bucketId.value);
+      // bucketRef.snapshots((sn) {
+
+      // });
+    }
+    yield left(Failure());
   }
 }
 
-_fireBaseExceptionToFaulure(FirebaseException e) {
+_fireBaseExceptionToFailure(FirebaseException e) {
   if (e.message == null) return const FireStoreFailure.unexpected();
   if (e.message!.contains('PERMISSION_DENIED')) {
     return const FireStoreFailure.insufficientPermission();

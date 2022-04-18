@@ -12,6 +12,8 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
   Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket);
   Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket);
 
+  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId);
+
   Future<Either<Failure, Unit>> createEntry(
       UniqueId bucketId, FoodItemEntry entry);
   Future<Either<Failure, Unit>> createEntries(
@@ -25,13 +27,13 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
   Future<Either<Failure, Unit>> deleteEntry(
       UniqueId bucketId, FoodItemEntry entry);
 
-  Future<Either<Failure, Unit>> createEntryToToday(FoodItemEntry entry);
-  Future<Either<Failure, Unit>> createEntriesToToday(
+  Future<Either<Failure, Unit>> createEntryForToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> createEntriesForToday(
       Iterable<FoodItemEntry> entries);
-  Future<Either<Failure, Unit>> updateEntryInToday(FoodItemEntry entry);
-  Future<Either<Failure, Unit>> updateEntryFunctionalInToday(UniqueId entryId,
+  Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(UniqueId entryId,
       FoodItemEntry Function(FoodItemEntry before) applyUpdate);
-  Future<Either<Failure, Unit>> deleteEntryFromToday(FoodItemEntry entry);
+  Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry);
 }
 
 

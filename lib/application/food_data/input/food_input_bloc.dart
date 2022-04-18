@@ -120,7 +120,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       safeText: updatedSafeText,
     ));
     // send to repo:
-    _foodItemEntryBucketRepository.addEntriesToToday(repoEntries);
+    _foodItemEntryBucketRepository.createEntriesForToday(repoEntries);
   }
 
   Future<void> _fetchFood(
@@ -175,7 +175,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       emit(state.copyWith(entries: _entries));
     } else {
       // 2. assume entry is alread saved in repo, so update in repo:
-      _foodItemEntryBucketRepository.updateEntryFunctionalInToday(
+      _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
           entry.id, updateEntry);
     }
   }

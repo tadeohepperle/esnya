@@ -45,7 +45,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> createEntriesToToday(
+  Future<Either<Failure, Unit>> createEntriesForToday(
       Iterable<FoodItemEntry> entries) {
     final bucketId = _getIdOfToday();
     return createEntries(bucketId, entries);
@@ -64,7 +64,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> createEntryToToday(FoodItemEntry entry) {
+  Future<Either<Failure, Unit>> createEntryForToday(FoodItemEntry entry) {
     final bucketId = _getIdOfToday();
     return createEntry(bucketId, entry);
   }
@@ -77,7 +77,7 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteEntryFromToday(FoodItemEntry entry) {
+  Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry) {
     // TODO: implement deleteEntryFromToday
     throw UnimplementedError();
   }
@@ -113,14 +113,14 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> updateEntryFunctionalInToday(UniqueId entryId,
+  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(UniqueId entryId,
       FoodItemEntry Function(FoodItemEntry before) applyUpdate) {
     final bucketId = _getIdOfToday();
     return updateEntryFunctional(bucketId, entryId, applyUpdate);
   }
 
   @override
-  Future<Either<Failure, Unit>> updateEntryInToday(FoodItemEntry entry) {
+  Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry) {
     final bucketId = _getIdOfToday();
     return updateEntry(bucketId, entry);
   }
@@ -163,6 +163,12 @@ class FoodEntriesRepositorySimpleImpl extends SetupRepositoryImpl
   @override
   Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket) {
     // TODO: implement updateBucket
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId) {
+    // TODO: implement watchBucket
     throw UnimplementedError();
   }
 }
