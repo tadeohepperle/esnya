@@ -19,6 +19,7 @@ import 'package:injectable/injectable.dart' as _i2;
 import 'application/auth/auth_bloc.dart' as _i27;
 import 'application/auth/sign_in_form/sign_in_form_bloc.dart' as _i25;
 import 'application/food_data/input/food_input_bloc.dart' as _i23;
+import 'application/home_screen/bloc/dashboard_bloc.dart' as _i28;
 import 'application/user_data/entries/bloc/food_entries_watcher_bloc.dart'
     as _i22;
 import 'domain/auth/auth_repository.dart' as _i19;
@@ -27,9 +28,9 @@ import 'domain/user_data/food_item_entry_bucket_repository.dart' as _i10;
 import 'infrastructure/auth/auth_repository_impl.dart' as _i20;
 import 'infrastructure/core/api/food_backend_client.dart' as _i6;
 import 'infrastructure/core/api/food_backend_client_impl.dart' as _i7;
-import 'infrastructure/core/dio_injectible_module.dart' as _i28;
-import 'infrastructure/core/firebase_injectible_module.dart' as _i29;
-import 'infrastructure/core/shared_resources_injectible_module.dart' as _i30;
+import 'infrastructure/core/dio_injectible_module.dart' as _i29;
+import 'infrastructure/core/firebase_injectible_module.dart' as _i30;
+import 'infrastructure/core/shared_resources_injectible_module.dart' as _i31;
 import 'infrastructure/food_data/food_data_repository_isolate_bridge.dart'
     as _i21;
 import 'infrastructure/food_data/food_data_repository_remote_impl.dart' as _i9;
@@ -92,7 +93,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i22.FoodEntriesWatcherBloc(
           get<_i10.FoodItemEntryBucketRepository>()),
       registerFor: {_isolate1});
-  gh.factory<_i23.FoodInputBloc>(
+  gh.lazySingleton<_i23.FoodInputBloc>(
       () => _i23.FoodInputBloc(
           get<_i8.TextProcessingRepository>(),
           get<_i10.FoodItemEntryBucketRepository>(),
@@ -107,12 +108,16 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i26.AppRouter>(
       () => _i26.AppRouter(get<_i19.AuthRepository>()));
   gh.factory<_i27.AuthBloc>(() => _i27.AuthBloc(get<_i19.AuthRepository>()));
+  gh.factory<_i28.DashboardBloc>(
+      () => _i28.DashboardBloc(
+          get<_i10.FoodItemEntryBucketRepository>(), get<_i23.FoodInputBloc>()),
+      registerFor: {_isolate1});
   return get;
 }
 
-class _$DioInjectibleModule extends _i28.DioInjectibleModule {}
+class _$DioInjectibleModule extends _i29.DioInjectibleModule {}
 
-class _$FirebaseInjectibleModule extends _i29.FirebaseInjectibleModule {}
+class _$FirebaseInjectibleModule extends _i30.FirebaseInjectibleModule {}
 
 class _$SharedResourcesInjectibleModule
-    extends _i30.SharedResourcesInjectibleModule {}
+    extends _i31.SharedResourcesInjectibleModule {}

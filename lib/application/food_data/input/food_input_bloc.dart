@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
@@ -6,22 +8,35 @@ import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:kt_dart/collection.dart';
 
 part 'food_input_event.dart';
 part 'food_input_state.dart';
 part 'food_input_bloc.freezed.dart';
 
 @isolate1
-@injectable
+@lazySingleton
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   final TextProcessingRepository _textProcessingRepository;
   final FoodMappingRepository _foodMappingRepository;
   final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
 
+  List<Tuple2<Tuple2<IntRange, FoodItemString>, FoodItemEntry>>
+      _fragmentsAndEntries; // not part of state because no need to expose
+
+  final StreamController<BlocAndRepoFoodItemEntries> _entriesStreamController =
+      StreamController<BlocAndRepoFoodItemEntries>.broadcast();
+  Stream<BlocAndRepoFoodItemEntries> watchEntries() =>
+      _entriesStreamController.stream;
+
   FoodInputBloc(this._textProcessingRepository,
       this._foodItemEntryBucketRepository, this._foodMappingRepository)
       : _fragmentsAndEntries = [],
         super(FoodInputState.initial()) {
+    _entriesStreamController.onListen = () {
+      _entriesStreamController
+          .add(BlocAndRepoFoodItemEntries(blocEntries: _entries));
+    };
     on<FoodInputEvent>((event, emit) async {
       await event.map(
         setVolatileText: (setVolatileText) async {
@@ -39,9 +54,6 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       );
     });
   }
-
-  List<Tuple2<Tuple2<IntRange, FoodItemString>, FoodItemEntry>>
-      _fragmentsAndEntries; // not part of state because no need to expose
 
   Future<void> _recalculateFragmentsAndEntries(
       Emitter<FoodInputState> emit) async {
@@ -71,7 +83,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       entriesToFetchFoodFor.add(newList[i].value2);
     }
     _fragmentsAndEntries = oldList;
-    emit(state.copyWith(entries: _entries));
+    _entriesStreamController
+        .add(BlocAndRepoFoodItemEntries(blocEntries: _entries));
     // fetch food for entries:
     for (var e in entriesToFetchFoodFor) {
       add(_FetchFood(e));
@@ -115,8 +128,12 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     final updatedSafeText = state.safeText.substring(lastSafeRangeEnd);
     // alter bloc state:
     _fragmentsAndEntries = blocEntries;
+    _entriesStreamController.add(BlocAndRepoFoodItemEntries(
+      blocEntries: _entries,
+      betweenBlocAndRepoEntries: repoEntries,
+      // the repoEntries will be stored in dashboard_bloc until the repoEntries from the repository (firebase) arrive in dashboard_bloc
+    ));
     emit(state.copyWith(
-      entries: _entries,
       safeText: updatedSafeText,
     ));
     // send to repo:
@@ -172,7 +189,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       }
     }).toList();
     if (updatedinBloc) {
-      emit(state.copyWith(entries: _entries));
+      _entriesStreamController
+          .add(BlocAndRepoFoodItemEntries(blocEntries: _entries));
     } else {
       // 2. assume entry is alread saved in repo, so update in repo:
       _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
@@ -182,4 +200,20 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
 
   List<FoodItemEntry> get _entries =>
       _fragmentsAndEntries.map((e) => e.value2).toList();
+}
+
+class BlocAndRepoFoodItemEntries {
+  /// entries that have been sent to the repo. They could already have been persisted
+  /// there or the persisting takes some time.
+  /// This is the reason we send them over for example to the dashboard_bloc,
+  /// such that the user, does not get some milliseconds where the repoEntries
+  /// have already left the foodInputBloc but have still not arrived in firestore completely.
+  final List<FoodItemEntry> betweenBlocAndRepoEntries;
+  // entries that are remaining in the bloc because their text in volatile and could change.K
+  final List<FoodItemEntry> blocEntries;
+
+  BlocAndRepoFoodItemEntries({
+    required this.blocEntries,
+    this.betweenBlocAndRepoEntries = const [],
+  });
 }

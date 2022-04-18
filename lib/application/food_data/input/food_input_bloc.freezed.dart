@@ -506,13 +506,10 @@ class _$FoodInputStateTearOff {
   const _$FoodInputStateTearOff();
 
   _FoodInputState call(
-      {required String safeText,
-      required String volatileText,
-      required List<FoodItemEntry> entries}) {
+      {required String safeText, required String volatileText}) {
     return _FoodInputState(
       safeText: safeText,
       volatileText: volatileText,
-      entries: entries,
     );
   }
 }
@@ -524,7 +521,6 @@ const $FoodInputState = _$FoodInputStateTearOff();
 mixin _$FoodInputState {
   String get safeText => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
-  List<FoodItemEntry> get entries => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FoodInputStateCopyWith<FoodInputState> get copyWith =>
@@ -536,8 +532,7 @@ abstract class $FoodInputStateCopyWith<$Res> {
   factory $FoodInputStateCopyWith(
           FoodInputState value, $Res Function(FoodInputState) then) =
       _$FoodInputStateCopyWithImpl<$Res>;
-  $Res call(
-      {String safeText, String volatileText, List<FoodItemEntry> entries});
+  $Res call({String safeText, String volatileText});
 }
 
 /// @nodoc
@@ -553,7 +548,6 @@ class _$FoodInputStateCopyWithImpl<$Res>
   $Res call({
     Object? safeText = freezed,
     Object? volatileText = freezed,
-    Object? entries = freezed,
   }) {
     return _then(_value.copyWith(
       safeText: safeText == freezed
@@ -564,10 +558,6 @@ class _$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      entries: entries == freezed
-          ? _value.entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<FoodItemEntry>,
     ));
   }
 }
@@ -579,8 +569,7 @@ abstract class _$FoodInputStateCopyWith<$Res>
           _FoodInputState value, $Res Function(_FoodInputState) then) =
       __$FoodInputStateCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String safeText, String volatileText, List<FoodItemEntry> entries});
+  $Res call({String safeText, String volatileText});
 }
 
 /// @nodoc
@@ -598,7 +587,6 @@ class __$FoodInputStateCopyWithImpl<$Res>
   $Res call({
     Object? safeText = freezed,
     Object? volatileText = freezed,
-    Object? entries = freezed,
   }) {
     return _then(_FoodInputState(
       safeText: safeText == freezed
@@ -609,10 +597,6 @@ class __$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
-      entries: entries == freezed
-          ? _value.entries
-          : entries // ignore: cast_nullable_to_non_nullable
-              as List<FoodItemEntry>,
     ));
   }
 }
@@ -620,22 +604,17 @@ class __$FoodInputStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FoodInputState extends _FoodInputState {
-  const _$_FoodInputState(
-      {required this.safeText,
-      required this.volatileText,
-      required this.entries})
+  const _$_FoodInputState({required this.safeText, required this.volatileText})
       : super._();
 
   @override
   final String safeText;
   @override
   final String volatileText;
-  @override
-  final List<FoodItemEntry> entries;
 
   @override
   String toString() {
-    return 'FoodInputState(safeText: $safeText, volatileText: $volatileText, entries: $entries)';
+    return 'FoodInputState(safeText: $safeText, volatileText: $volatileText)';
   }
 
   @override
@@ -645,16 +624,14 @@ class _$_FoodInputState extends _FoodInputState {
             other is _FoodInputState &&
             const DeepCollectionEquality().equals(other.safeText, safeText) &&
             const DeepCollectionEquality()
-                .equals(other.volatileText, volatileText) &&
-            const DeepCollectionEquality().equals(other.entries, entries));
+                .equals(other.volatileText, volatileText));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(safeText),
-      const DeepCollectionEquality().hash(volatileText),
-      const DeepCollectionEquality().hash(entries));
+      const DeepCollectionEquality().hash(volatileText));
 
   @JsonKey(ignore: true)
   @override
@@ -665,16 +642,13 @@ class _$_FoodInputState extends _FoodInputState {
 abstract class _FoodInputState extends FoodInputState {
   const factory _FoodInputState(
       {required String safeText,
-      required String volatileText,
-      required List<FoodItemEntry> entries}) = _$_FoodInputState;
+      required String volatileText}) = _$_FoodInputState;
   const _FoodInputState._() : super._();
 
   @override
   String get safeText;
   @override
   String get volatileText;
-  @override
-  List<FoodItemEntry> get entries;
   @override
   @JsonKey(ignore: true)
   _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>

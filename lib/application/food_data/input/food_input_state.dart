@@ -6,10 +6,9 @@ class FoodInputState with _$FoodInputState {
   const factory FoodInputState({
     required String safeText,
     required String volatileText,
-    required List<FoodItemEntry> entries,
   }) = _FoodInputState;
   factory FoodInputState.initial() =>
-      FoodInputState(safeText: '', volatileText: '', entries: []);
+      const FoodInputState(safeText: '', volatileText: '');
 
   String get totalText => safeText + ' ' + volatileText;
 }

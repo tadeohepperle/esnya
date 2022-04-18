@@ -17,19 +17,20 @@ part 'food_entries_watcher_bloc.freezed.dart';
 @injectable
 class FoodEntriesWatcherBloc
     extends Bloc<FoodEntriesWatcherEvent, FoodEntriesWatcherState> {
-  final FoodItemEntryBucketRepository _foodEntriesRepository;
+  final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
 
   StreamSubscription<Either<Failure, KtList<FoodItemEntryBucket>>>?
       _foodEntriesStreamSubscription;
 
-  FoodEntriesWatcherBloc(this._foodEntriesRepository)
+  FoodEntriesWatcherBloc(this._foodItemEntryBucketRepository)
       : super(FoodEntriesWatcherState.initial()) {
     on<FoodEntriesWatcherEvent>((event, emit) async {
       await event.map(watchStarted: (_Started watchStarted) async {
         emit(FoodEntriesWatcherState.loadInProgress());
         await _foodEntriesStreamSubscription?.cancel();
-        _foodEntriesStreamSubscription =
-            _foodEntriesRepository.watchLogBuckets().listen((failureOrBuckets) {
+        _foodEntriesStreamSubscription = _foodItemEntryBucketRepository
+            .watchLogBuckets()
+            .listen((failureOrBuckets) {
           print(failureOrBuckets.fold((l) => l, (r) => r));
           add(FoodEntriesWatcherEvent.entriesReceived(failureOrBuckets));
         });
