@@ -152,12 +152,15 @@ class FoodEntriesRepositoryImplFirestore extends SetupRepositoryImpl
         .orderBy(FieldPath.documentId, descending: true)
         .limit(20)
         .snapshots()
-        .map((colSnapshot) => colSnapshot.docs
-            .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
-            .toImmutableList())
-        .map((list) => right<Failure, KtList<FoodItemEntryBucket>>(list))
-        .onErrorReturn(left<Failure, KtList<FoodItemEntryBucket>>(
-            const FireStoreFailure.unexpected()));
+        .map((colSnapshot) {
+      print('SNAPSHOT!\n\n');
+      print(colSnapshot.docs);
+      return colSnapshot.docs
+          .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
+          .toImmutableList();
+    }).map((list) => right<Failure, KtList<FoodItemEntryBucket>>(list));
+    // .onErrorReturn(left<Failure, KtList<FoodItemEntryBucket>>(
+    //     const FireStoreFailure.unexpected()));
   }
 
   ///////////////////////////////////

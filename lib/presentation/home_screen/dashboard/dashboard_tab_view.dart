@@ -106,10 +106,14 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return [
       if (foodEntriesState is FoodEntriesWatcherStateLoadSuccess)
         ...foodEntriesState.buckets
+            .reversed()
             .map((b) => Column(children: [
                   Text('Bucket value: ${b.id.value}'),
                   ...b.entries
-                      .map((e) => FoodItemEntryDisplayTile(entry: e))
+                      .map((e) => FoodItemEntryDisplayTile(
+                            entry: e,
+                            bucketId: b.id,
+                          ))
                       .iter
                 ]))
             .asList(),

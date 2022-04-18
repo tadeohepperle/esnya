@@ -8,7 +8,6 @@ extension FoodItemEntryBucketDTO on FoodItemEntryBucket {
 
   Map<String, dynamic> toFireStore() {
     var json = toJson();
-    json.remove("id");
     return json;
   }
 }

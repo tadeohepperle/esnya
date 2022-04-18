@@ -28,9 +28,9 @@ class FoodEntriesWatcherBloc
       await event.map(watchStarted: (_Started watchStarted) async {
         emit(FoodEntriesWatcherState.loadInProgress());
         await _foodEntriesStreamSubscription?.cancel();
-        _foodEntriesStreamSubscription = _foodEntriesRepository
-            .watchLoggedBuckets()
-            .listen((failureOrBuckets) {
+        _foodEntriesStreamSubscription =
+            _foodEntriesRepository.watchLogBuckets().listen((failureOrBuckets) {
+          print(failureOrBuckets.fold((l) => l, (r) => r));
           add(FoodEntriesWatcherEvent.entriesReceived(failureOrBuckets));
         });
       }, entriesReceived: (_EntriesReceived entriesReceived) {
