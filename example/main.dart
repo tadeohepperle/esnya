@@ -1,7 +1,12 @@
+import 'dart:math';
+
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
+import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
+import 'package:esnya/presentation/core/snackbar/snackbar_util.dart';
 import 'package:esnya/setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,7 +50,8 @@ class ExampleHomeScreen extends StatelessWidget {
               height: 30,
             ),
             SubscreenListTile("Text Styles", (c) => TextStylesScreen()),
-            SubscreenListTile("Color Styles", (c) => ColorsScreen())
+            SubscreenListTile("Color Styles", (c) => ColorsScreen()),
+            SubscreenListTile("Buttons", (c) => ButtonsScreen())
           ],
         ),
       )),
@@ -104,6 +110,10 @@ class ColorsScreen extends StatelessWidget {
             children: [
               _colorTile("background", colorTheme.background),
               _colorTile("surface", colorTheme.surface),
+              _colorTile("surface weak text", colorTheme.surface,
+                  esnyaColorsLight.textSecondary),
+              _colorTile("surface weakest text", colorTheme.surface,
+                  esnyaColorsLight.textTertiary),
               _colorTile("primary", colorTheme.primary, colorTheme.surface),
               _colorTile("secondary", colorTheme.secondary, colorTheme.surface),
               _colorTile("error", colorTheme.error, colorTheme.surface),
@@ -140,6 +150,67 @@ class TextStylesScreen extends StatelessWidget {
                   child: e,
                 ))
             .toList(),
+      ),
+    ));
+  }
+}
+
+class ButtonsScreen extends StatelessWidget {
+  const ButtonsScreen({Key? key}) : super(key: key);
+
+  press(BuildContext context) {
+    return () {
+      showSnackBar(context, "Button pressed");
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView(
+        children: [
+          Row(
+            children: [
+              EsynaButton.primary(
+                  onPressed: press(context), title: "Primary Button"),
+              EsynaButton.secondary(
+                  onPressed: press(context), title: "Secondary Button")
+            ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
+          ),
+          Row(
+            children: [
+              EsynaButton.primary(title: "Primary Disabled"),
+              EsynaButton.secondary(title: "Secondary Disabled")
+            ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
+          ),
+          Divider(),
+          Center(
+            child: EsynaButton.primary(
+                onPressed: press(context), title: "Primary Button"),
+          ),
+          Divider(),
+          Center(
+            child: EsynaButton.secondary(
+                onPressed: press(context), title: "Secondary Button"),
+          ),
+          Divider(),
+          Center(
+            child: EsynaButton.primary(
+              onPressed: press(context),
+              title: "Primary Icon",
+              iconData: Icons.local_airport,
+            ),
+          ),
+          Divider(),
+          EsynaButton.secondary(
+            onPressed: press(context),
+            title: "Secondary Icon Wide",
+            iconData: Icons.local_airport,
+          ),
+          Divider(),
+        ],
       ),
     ));
   }

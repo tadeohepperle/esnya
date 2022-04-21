@@ -19,25 +19,25 @@ final esnyaTextThemeLight = const TextTheme(
   ),
   titleMedium: TextStyle(
     fontSize: 16,
-    height: 24 / 16,
-    fontWeight: FontWeight.bold,
+    height: 1, // This is such that Buttons and stuff are vertically centered.
+    fontWeight: FontWeight.w500,
   ),
   titleSmall: TextStyle(
     fontSize: 12,
     height: 16 / 12,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
   ),
   bodyMedium: TextStyle(
     fontSize: 14,
     height: 20 / 14,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
   ),
   bodySmall: TextStyle(
     fontSize: 10,
     height: 14 / 10,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
   ),
 ).apply(
-  bodyColor: kEsnyaColorsLight.textPrimary,
-  displayColor: kEsnyaColorsLight.textPrimary,
+  bodyColor: esnyaColorsLight.textPrimary,
+  displayColor: esnyaColorsLight.textPrimary,
 );

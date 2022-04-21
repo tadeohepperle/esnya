@@ -24,12 +24,12 @@ class EsnyaColors {
   });
 }
 
-const kEsnyaColorsLight = EsnyaColors(
+const esnyaColorsLight = EsnyaColors(
   primary: Color.fromARGB(255, 21, 113, 69),
   secondary: Color.fromARGB(255, 142, 70, 61),
   error: Color.fromARGB(255, 255, 60, 54),
   textPrimary: Color.fromARGB(255, 46, 46, 46),
-  textSecondary: Color.fromARGB(255, 176, 176, 176),
+  textSecondary: Color.fromARGB(255, 140, 140, 140),
   textTertiary: Color.fromARGB(255, 207, 207, 207),
   background: Color.fromARGB(255, 241, 241, 241),
   surface: Color.fromARGB(255, 255, 255, 255),
@@ -37,15 +37,15 @@ const kEsnyaColorsLight = EsnyaColors(
 );
 
 final colorSchemeLight = ColorScheme(
-  primary: kEsnyaColorsLight.primary,
-  secondary: kEsnyaColorsLight.secondary,
-  background: kEsnyaColorsLight.background,
+  primary: esnyaColorsLight.primary,
+  secondary: esnyaColorsLight.secondary,
+  background: esnyaColorsLight.background,
   brightness: Brightness.light,
-  error: kEsnyaColorsLight.error,
-  onBackground: kEsnyaColorsLight.textPrimary,
-  onError: kEsnyaColorsLight.background,
-  onPrimary: kEsnyaColorsLight.background,
-  onSecondary: kEsnyaColorsLight.background,
-  onSurface: kEsnyaColorsLight.textPrimary,
-  surface: kEsnyaColorsLight.surface,
+  error: esnyaColorsLight.error,
+  onBackground: esnyaColorsLight.textPrimary,
+  onError: esnyaColorsLight.background,
+  onPrimary: esnyaColorsLight.background,
+  onSecondary: esnyaColorsLight.background,
+  onSurface: esnyaColorsLight.textPrimary,
+  surface: esnyaColorsLight.surface,
 );

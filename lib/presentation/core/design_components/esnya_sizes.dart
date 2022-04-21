@@ -10,4 +10,10 @@ abstract class EsnyaSizes {
     borderRadius: BorderRadius.circular(base),
     side: BorderSide.none,
   );
+
+  static Padding paddingWrap(Widget child, [double paddingSize = base]) =>
+      Padding(
+        padding: EdgeInsets.all(paddingSize),
+        child: child,
+      );
 }
