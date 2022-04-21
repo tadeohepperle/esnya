@@ -3,8 +3,8 @@ import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 
 final esnyaTextThemeLight = const TextTheme(
   headlineLarge: TextStyle(
-    fontSize: 36,
-    height: 44 / 36,
+    fontSize: 38,
+    height: 44 / 38,
     fontWeight: FontWeight.bold,
   ),
   headlineMedium: TextStyle(
@@ -16,6 +16,11 @@ final esnyaTextThemeLight = const TextTheme(
     fontSize: 24,
     height: 32 / 24,
     fontWeight: FontWeight.bold,
+  ),
+  titleLarge: TextStyle(
+    fontSize: 16,
+    height: 1, // same as titleMedium just fatter for titles and such
+    fontWeight: FontWeight.w700,
   ),
   titleMedium: TextStyle(
     fontSize: 16,

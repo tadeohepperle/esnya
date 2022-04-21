@@ -1,8 +1,12 @@
 import 'dart:math';
 
 import 'package:esnya/injection_environments.dart';
+import 'package:esnya/presentation/core/design_components/big_nutrient_goal_display.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
+import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
+import 'package:esnya/presentation/core/design_components/esnya_floating_action_button.dart';
+import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
@@ -51,7 +55,9 @@ class ExampleHomeScreen extends StatelessWidget {
             ),
             SubscreenListTile("Text Styles", (c) => TextStylesScreen()),
             SubscreenListTile("Color Styles", (c) => ColorsScreen()),
-            SubscreenListTile("Buttons", (c) => ButtonsScreen())
+            SubscreenListTile("Buttons", (c) => ButtonsScreen()),
+            SubscreenListTile(
+                "DashboardHeaderScreen", (c) => DashboardHeaderScreen())
           ],
         ),
       )),
@@ -134,6 +140,7 @@ class TextStylesScreen extends StatelessWidget {
       EsnyaText.h1("h1 - Heading 1"),
       EsnyaText.h2("h2 - Heading 2"),
       EsnyaText.h3("h3 - Heading 3"),
+      EsnyaText.titleBold("titleBold - e.g. Title 1"),
       EsnyaText.title("title - e.g. Button 1"),
       EsnyaText.titleSmall("titleSmall - e.g. 134 kcal"),
       EsnyaText.body("body - e.g. This is a drink"),
@@ -160,7 +167,7 @@ class ButtonsScreen extends StatelessWidget {
 
   press(BuildContext context) {
     return () {
-      showSnackBar(context, "Button pressed");
+      print("Button pressed");
     };
   }
 
@@ -174,44 +181,193 @@ class ButtonsScreen extends StatelessWidget {
           Row(
             children: [
               EsynaButton.primary(
-                  onPressed: press(context), title: "Primary Button"),
-              EsynaButton.secondary(
-                  onPressed: press(context), title: "Secondary Button")
+                title: "Primary",
+                onPressed: () {},
+              ),
+              EsynaButton.primary(title: "Diabled"),
+              EsynaButton.primary(
+                title: "Icon",
+                iconData: Icons.wifi,
+                onPressed: () {},
+              )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
           ),
+          Divider(),
           Row(
             children: [
-              EsynaButton.primary(title: "Primary Disabled"),
-              EsynaButton.secondary(title: "Secondary Disabled")
+              EsynaButton.secondary(
+                title: "Secondary",
+                onPressed: () {},
+              ),
+              EsynaButton.secondary(title: "Diabled"),
+              EsynaButton.secondary(
+                title: "Icon",
+                iconData: Icons.wifi,
+                onPressed: () {},
+              )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
           ),
           Divider(),
-          Center(
-            child: EsynaButton.primary(
-                onPressed: press(context), title: "Primary Button"),
+          Row(
+            children: [
+              EsynaButton.surface(
+                title: "Surface",
+                onPressed: () {},
+              ),
+              EsynaButton.surface(title: "Diabled"),
+              EsynaButton.surface(
+                title: "Icon",
+                iconData: Icons.wifi,
+                onPressed: () {},
+              )
+            ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
           ),
           Divider(),
-          Center(
-            child: EsynaButton.secondary(
-                onPressed: press(context), title: "Secondary Button"),
+          Row(
+            children: [
+              EsynaButton.background(
+                title: "Background",
+                onPressed: () {},
+              ),
+              EsynaButton.background(title: "Diabled"),
+              EsynaButton.background(
+                title: "Icon",
+                iconData: Icons.wifi,
+                onPressed: () {},
+              )
+            ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
           ),
-          Divider(),
-          Center(
-            child: EsynaButton.primary(
-              onPressed: press(context),
-              title: "Primary Icon",
-              iconData: Icons.local_airport,
-            ),
+          Divider(
+            height: 30,
           ),
-          Divider(),
-          EsynaButton.secondary(
-            onPressed: press(context),
-            title: "Secondary Icon Wide",
-            iconData: Icons.local_airport,
+          EsnyaText.body("Esnya Floating Action Buttons:"),
+          shadowWrapLarge(Container(
+            color: getColorTheme(context).surface,
+            width: double.infinity,
+            child: EsnyaSizes.paddingWrap(Row(
+              children: [
+                EsnyaFloatingActionButton.primary(
+                  Icons.ac_unit_sharp,
+                  onPressed: () {},
+                ),
+                EsnyaFloatingActionButton.secondary(
+                  Icons.wifi,
+                  onPressed: () {},
+                ),
+                EsnyaFloatingActionButton.surface(
+                  Icons.mic,
+                  onPressed: () {},
+                ),
+                EsnyaFloatingActionButton.background(
+                  Icons.pending_actions,
+                  onPressed: () {},
+                ),
+              ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
+            )),
+          )),
+          Divider(
+            height: 30,
           ),
-          Divider(),
+          EsnyaText.body("Esnya Icon Buttons:"),
+          shadowWrapLarge(Container(
+            color: getColorTheme(context).surface,
+            width: double.infinity,
+            child: EsnyaSizes.paddingWrap(Row(
+              children: [
+                EsnyaIconButton.primary(
+                  Icons.ac_unit_sharp,
+                  onPressed: () {},
+                ),
+                EsnyaIconButton.secondary(
+                  Icons.wifi,
+                  onPressed: () {},
+                ),
+                EsnyaIconButton.surface(
+                  Icons.wifi,
+                  onPressed: () {},
+                ),
+                EsnyaIconButton.background(
+                  Icons.wifi,
+                  onPressed: () {},
+                ),
+              ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
+            )),
+          ))
         ],
       ),
     ));
+  }
+}
+
+class DashboardHeaderScreen extends StatelessWidget {
+  const DashboardHeaderScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: shadowWrapLarge(
+        Container(
+          padding: EdgeInsets.all(EsnyaSizes.base * 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: const Radius.circular(EsnyaSizes.base * 3),
+              bottomRight: const Radius.circular(EsnyaSizes.base * 3),
+            ),
+            color: Colors.white,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Hello Tadeo, this is your day in numbers"),
+              SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  EsnyaIconButton.background(
+                    Icons.settings,
+                    onPressed: () {},
+                    shadowSize: ShadowSize.none,
+                  ),
+                  EsnyaIconButton.background(
+                    Icons.settings,
+                    onPressed: () {},
+                    shadowSize: ShadowSize.none,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              BigNutrientGoalDisplay(
+                getColor: (c) => c.secondary,
+                iconData: Icons.invert_colors,
+                largeText: '1235 kcal',
+                smallText: '/ 2300 kcal',
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              BigNutrientGoalDisplay(
+                iconData: Icons.icecream,
+                largeText: '43 g',
+                smallText: '/ 120 g Protein',
+              ),
+              Center(
+                child: Transform.translate(
+                  offset: Offset(0, 16),
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: esnyaColorsLight.textTertiary,
+                    size: 40,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

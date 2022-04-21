@@ -31,9 +31,9 @@ const esnyaColorsLight = EsnyaColors(
   textPrimary: Color.fromARGB(255, 46, 46, 46),
   textSecondary: Color.fromARGB(255, 140, 140, 140),
   textTertiary: Color.fromARGB(255, 207, 207, 207),
-  background: Color.fromARGB(255, 241, 241, 241),
+  background: Color.fromARGB(255, 230, 230, 230),
   surface: Color.fromARGB(255, 255, 255, 255),
-  shadow: Color.fromRGBO(40, 49, 47, 0.149),
+  shadow: Color.fromARGB(49, 43, 43, 43),
 );
 
 final colorSchemeLight = ColorScheme(

@@ -57,6 +57,15 @@ class EsnyaText extends StatelessWidget {
         getTextStyle: (t) => t.bodySmall,
       );
 
+  factory EsnyaText.titleBold(String text,
+          {Color? color, GetColor? getColor}) =>
+      EsnyaText._internal(
+        text: text,
+        color: color,
+        getColor: getColor,
+        getTextStyle: (t) => t.titleLarge,
+      );
+
   factory EsnyaText.title(String text, {Color? color, GetColor? getColor}) =>
       EsnyaText._internal(
         text: text,
