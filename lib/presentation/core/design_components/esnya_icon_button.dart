@@ -105,22 +105,32 @@ class EsnyaIconButton extends StatelessWidget {
     final c = getColor(colorScheme);
     final iC = getIconColor(colorScheme);
 
+    final padding = floatingActionStyle
+        ? const EdgeInsets.all(6)
+        : const EdgeInsets.all(EsnyaSizes.base / 2);
+    final shape = floatingActionStyle
+        ? RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+            side: BorderSide.none,
+          )
+        : EsnyaSizes.roundedRectangleBorder;
+    final iconSize = floatingActionStyle ? 36.0 : 20.0;
+
     return shadowWrap(
       shadowSize ?? ShadowSize.large,
       MaterialButton(
         disabledColor:
             Color.lerp(c, const Color.fromARGB(255, 184, 184, 184), 0.5),
-        padding: const EdgeInsets.all(EsnyaSizes.base / 2),
+        padding: padding,
         height: 0,
         minWidth: 0,
-        // elevation: 0,
         key: key,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: EsnyaSizes.roundedRectangleBorder,
+        shape: shape,
         onPressed: onPressed,
         child: Icon(
           iconData,
-          size: 20,
+          size: iconSize,
           color: iC,
         ),
         color: c,

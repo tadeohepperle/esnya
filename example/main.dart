@@ -1,19 +1,12 @@
-import 'dart:math';
-
-import 'package:esnya/injection_environments.dart';
 import 'package:esnya/presentation/core/design_components/big_nutrient_goal_display.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_floating_action_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
-import 'package:esnya/presentation/core/snackbar/snackbar_util.dart';
-import 'package:esnya/setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 /// flutter run -t ./example/main.dart
@@ -246,21 +239,25 @@ class ButtonsScreen extends StatelessWidget {
             width: double.infinity,
             child: EsnyaSizes.paddingWrap(Row(
               children: [
-                EsnyaFloatingActionButton.primary(
+                EsnyaIconButton.primary(
                   Icons.ac_unit_sharp,
                   onPressed: () {},
+                  floatingActionStyle: true,
                 ),
-                EsnyaFloatingActionButton.secondary(
+                EsnyaIconButton.primary(
                   Icons.wifi,
                   onPressed: () {},
+                  floatingActionStyle: true,
                 ),
-                EsnyaFloatingActionButton.surface(
+                EsnyaIconButton.surface(
                   Icons.mic,
                   onPressed: () {},
+                  floatingActionStyle: true,
                 ),
-                EsnyaFloatingActionButton.background(
+                EsnyaIconButton.background(
                   Icons.pending_actions,
                   onPressed: () {},
+                  floatingActionStyle: true,
                 ),
               ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
             )),
