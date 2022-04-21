@@ -47,5 +47,5 @@ final colorSchemeLight = ColorScheme(
   onPrimary: kEsnyaColorsLight.background,
   onSecondary: kEsnyaColorsLight.background,
   onSurface: kEsnyaColorsLight.textPrimary,
-  surface: kEsnyaColorsLight.background,
+  surface: kEsnyaColorsLight.surface,
 );

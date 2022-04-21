@@ -99,11 +99,11 @@ flutter:
   fonts:
     - family: CircularStd
       fonts:
-        - asset: fonts/CircularStd-Medium.ttf
+        - asset: fonts/CircularStd-Medium.otf
           weight: 500
-        - asset: fonts/CircularStd-Bold.ttf
+        - asset: fonts/CircularStd-Bold.otf
           weight: 700
-        - asset: fonts/CircularStd-Light.ttf
+        - asset: fonts/CircularStd-Light.otf
           weight: 300
   #   - family: Trajan Pro
   #     fonts:
