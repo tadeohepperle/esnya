@@ -10,6 +10,7 @@ class EsnyaIconButton extends StatelessWidget {
   final GetColor getIconColor;
   final ShadowSize? shadowSize;
   final bool floatingActionStyle;
+  final double? customIconSize;
 
   final void Function()? onPressed;
   const EsnyaIconButton._internal({
@@ -20,6 +21,7 @@ class EsnyaIconButton extends StatelessWidget {
     required this.getColor,
     required this.getIconColor,
     this.floatingActionStyle = false,
+    this.customIconSize,
   }) : super(key: key);
 
   factory EsnyaIconButton.primary(
@@ -89,6 +91,9 @@ class EsnyaIconButton extends StatelessWidget {
     GetColor? getIconColor,
     GetColor? getColor,
     bool? floatingActionStyle,
+
+    /// standard is 20 for normal and 36 for floating action button
+    double? customIconSize,
   }) =>
       EsnyaIconButton._internal(
         iconData: iconData,
@@ -97,6 +102,7 @@ class EsnyaIconButton extends StatelessWidget {
         getIconColor: getIconColor ?? (c) => c.onBackground,
         getColor: getColor ?? (c) => c.surface,
         floatingActionStyle: floatingActionStyle ?? false,
+        customIconSize: customIconSize,
       );
 
   @override
@@ -106,16 +112,21 @@ class EsnyaIconButton extends StatelessWidget {
     final iC = getIconColor(colorScheme);
 
     final padding = floatingActionStyle
-        ? const EdgeInsets.all(6)
-        : const EdgeInsets.all(EsnyaSizes.base / 2);
+        ? EdgeInsets.all(
+            customIconSize != null ? (48 - customIconSize!) / 2 : 6)
+        : EdgeInsets.all(
+            customIconSize != null ? (32 - customIconSize!) / 2 : 6);
     final shape = floatingActionStyle
         ? RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
             side: BorderSide.none,
           )
         : EsnyaSizes.roundedRectangleBorder;
-    final iconSize = floatingActionStyle ? 36.0 : 20.0;
+    final iconSize = floatingActionStyle
+        ? (customIconSize ?? 36.0)
+        : (customIconSize ?? 20.0);
 
+    // normal is 32 px high and wide, floating action is 48 high and wide.
     return shadowWrap(
       shadowSize ?? ShadowSize.large,
       MaterialButton(

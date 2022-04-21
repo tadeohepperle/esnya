@@ -322,20 +322,25 @@ class DashboardHeaderScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  EsnyaIconButton.background(
-                    Icons.settings,
+                  EsynaButton.custom(
+                    title: "Today, 24 Mar, 2022",
+                    iconData: Icons.calendar_today,
                     onPressed: () {},
                     shadowSize: ShadowSize.none,
+                    customPadding:
+                        EdgeInsets.only(top: 6, bottom: 6, right: 7, left: 7),
+                    customPaddingBetweenIconAndText: 16,
                   ),
-                  EsnyaIconButton.background(
+                  EsnyaIconButton.custom(
                     Icons.settings,
                     onPressed: () {},
                     shadowSize: ShadowSize.none,
+                    customIconSize: 24,
                   ),
                 ],
               ),
               SizedBox(
-                height: 24,
+                height: 10,
               ),
               BigNutrientGoalDisplay(
                 getColor: (c) => c.secondary,
