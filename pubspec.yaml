@@ -55,6 +55,7 @@ dependencies:
       ref: master
   stream_channel: ^2.1.0
   cloud_firestore: ^3.1.12
+  font_awesome_flutter: ^10.1.0
   # logger: any
 
 dev_dependencies:

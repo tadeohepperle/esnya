@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:esnya/presentation/core/design_components/big_nutrient_goal_display.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
@@ -6,6 +7,8 @@ import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
+import 'package:esnya/presentation/core/design_components/food_item_entry_list_tile.dart';
+import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +53,9 @@ class ExampleHomeScreen extends StatelessWidget {
             SubscreenListTile("Color Styles", (c) => ColorsScreen()),
             SubscreenListTile("Buttons", (c) => ButtonsScreen()),
             SubscreenListTile(
-                "DashboardHeaderScreen", (c) => DashboardHeaderScreen())
+                "DashboardHeaderScreen", (c) => DashboardHeaderScreen()),
+            SubscreenListTile("Food Item Entry List Tiles",
+                (c) => FoodItemEntryListTileScreen()),
           ],
         ),
       )),
@@ -95,7 +100,7 @@ class ColorsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorTheme = getColorTheme(context);
+    final colorTheme = getColorScheme(context);
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 79, 79, 79),
         body: Padding(
@@ -235,7 +240,7 @@ class ButtonsScreen extends StatelessWidget {
           ),
           EsnyaText.body("Esnya Floating Action Buttons:"),
           shadowWrapLarge(Container(
-            color: getColorTheme(context).surface,
+            color: getColorScheme(context).surface,
             width: double.infinity,
             child: EsnyaSizes.paddingWrap(Row(
               children: [
@@ -267,7 +272,7 @@ class ButtonsScreen extends StatelessWidget {
           ),
           EsnyaText.body("Esnya Icon Buttons:"),
           shadowWrapLarge(Container(
-            color: getColorTheme(context).surface,
+            color: getColorScheme(context).surface,
             width: double.infinity,
             child: EsnyaSizes.paddingWrap(Row(
               children: [
@@ -315,10 +320,10 @@ class DashboardHeaderScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Hello Tadeo, this is your day in numbers"),
-              SizedBox(
-                height: 24,
-              ),
+              // Text("Hello Tadeo, this is your day in numbers"),
+              // SizedBox(
+              //   height: 24,
+              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -371,5 +376,34 @@ class DashboardHeaderScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class FoodItemEntryListTileScreen extends StatelessWidget {
+  FoodItemEntryListTileScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final colorTheme = getColorScheme(context);
+
+    List<Tuple2<FoodItemEntry, BadgeDisplayMode>> data = [
+      Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.kcal),
+      Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.protein),
+      Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.kcal)
+    ];
+
+    return Scaffold(
+        body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView(
+              children: [
+                ...data
+                    .map((e) => FoodItemEntryListTile(
+                          foodItemEntry: e.value1,
+                          badgeDisplayMode: e.value2,
+                        ))
+                    .map((e) => EsnyaSizes.paddingWrap(e))
+              ],
+            )));
   }
 }

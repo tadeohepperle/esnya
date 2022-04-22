@@ -29,7 +29,7 @@ const esnyaColorsLight = EsnyaColors(
   secondary: Color.fromARGB(255, 142, 70, 61),
   error: Color.fromARGB(255, 255, 60, 54),
   textPrimary: Color.fromARGB(255, 46, 46, 46),
-  textSecondary: Color.fromARGB(255, 140, 140, 140),
+  textSecondary: Color.fromARGB(255, 163, 160, 159),
   textTertiary: Color.fromARGB(255, 207, 207, 207),
   background: Color.fromARGB(255, 230, 230, 230),
   surface: Color.fromARGB(255, 255, 255, 255),

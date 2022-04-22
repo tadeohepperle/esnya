@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'esnya_theme.dart';
+import 'esnya_design_utils.dart';
 
 class EsnyaText extends StatelessWidget {
   final String text;
@@ -88,7 +88,7 @@ class EsnyaText extends StatelessWidget {
     TextStyle? tS =
         getTextStyle != null ? getTextStyle!(getTextTheme(context)) : null;
     final Color? c =
-        color ?? (getColor != null ? getColor!(getColorTheme(context)) : null);
+        color ?? (getColor != null ? getColor!(getColorScheme(context)) : null);
     if (c != null) {
       tS = (tS ?? const TextStyle()).copyWith(color: c);
     }

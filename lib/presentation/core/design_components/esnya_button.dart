@@ -3,8 +3,6 @@ import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:flutter/material.dart';
 
-import 'esnya_theme.dart';
-
 class EsynaButton extends StatelessWidget {
   final void Function()? onPressed;
   final bool disabled;
@@ -111,7 +109,7 @@ class EsynaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = getColorScheme(context);
     final c = getColor(colorScheme);
     final tC = getTextColor(colorScheme);
     Widget child = EsnyaText.title(

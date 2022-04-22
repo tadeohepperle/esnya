@@ -1,7 +1,8 @@
 import 'package:esnya/presentation/core/core.dart';
+import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
+import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
-import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
 
 class BigNutrientGoalDisplay extends StatelessWidget {
   final IconData iconData;
@@ -18,7 +19,7 @@ class BigNutrientGoalDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = getColorScheme(context);
     final c = getColor != null ? getColor!(colorScheme) : colorScheme.primary;
     return Row(
       mainAxisSize: MainAxisSize.max,
@@ -42,7 +43,10 @@ class BigNutrientGoalDisplay extends StatelessWidget {
         ),
         Transform.translate(
           offset: Offset(0, -2),
-          child: EsnyaText.titleBold(smallText),
+          child: EsnyaText.titleBold(
+            smallText,
+            color: esnyaColorsLight.textSecondary,
+          ),
         ),
       ],
     );

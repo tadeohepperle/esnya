@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'esnya_design_utils.dart';
 import 'esnya_sizes.dart';
-import 'esnya_theme.dart';
 
 class EsnyaIconButton extends StatelessWidget {
   final IconData iconData;
@@ -107,7 +106,7 @@ class EsnyaIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = getColorScheme(context);
     final c = getColor(colorScheme);
     final iC = getIconColor(colorScheme);
 

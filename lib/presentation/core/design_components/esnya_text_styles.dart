@@ -29,7 +29,7 @@ final esnyaTextThemeLight = const TextTheme(
   ),
   titleSmall: TextStyle(
     fontSize: 12,
-    height: 16 / 12,
+    height: 1,
     fontWeight: FontWeight.w500,
   ),
   bodyMedium: TextStyle(
@@ -38,8 +38,8 @@ final esnyaTextThemeLight = const TextTheme(
     fontWeight: FontWeight.w500,
   ),
   bodySmall: TextStyle(
-    fontSize: 10,
-    height: 14 / 10,
+    fontSize: 12,
+    height: 1,
     fontWeight: FontWeight.w500,
   ),
 ).apply(

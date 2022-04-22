@@ -12,13 +12,3 @@ final themeDataLight = ThemeData(
   colorScheme: colorSchemeLight,
   textTheme: esnyaTextThemeLight,
 );
-
-// utils:
-
-ColorScheme getColorTheme(BuildContext context) =>
-    Theme.of(context).colorScheme;
-
-TextTheme getTextTheme(BuildContext context) => Theme.of(context).textTheme;
-
-typedef GetColor = Color Function(ColorScheme c);
-typedef GetTextStyle = TextStyle? Function(TextTheme t);
