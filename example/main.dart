@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:esnya/injection.dart';
+import 'package:esnya/injection_environments.dart';
 import 'package:esnya/presentation/core/design_components/big_nutrient_goal_display.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
@@ -15,6 +17,7 @@ import 'package:flutter/material.dart';
 /// flutter run -t ./example/main.dart
 
 void main() async {
+  configureInjection(isolate1.name);
   WidgetsFlutterBinding.ensureInitialized();
   setupEsnyaSharedResources();
 
@@ -388,7 +391,11 @@ class FoodItemEntryListTileScreen extends StatelessWidget {
 
     List<Tuple2<FoodItemEntry, BadgeDisplayMode>> data = [
       Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.kcal),
-      Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.protein),
+      Tuple2(
+          TestObjects.foodItemEntrySuccess.copyWith(
+              foodItem: TestObjects.foodItemEntrySuccess.foodItem
+                  .copyWith(amount: Amount(MeasureUnit.g, 234.34))),
+          BadgeDisplayMode.protein),
       Tuple2(TestObjects.foodItemEntrySuccess, BadgeDisplayMode.kcal)
     ];
 

@@ -1,3 +1,4 @@
+import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
@@ -21,6 +22,25 @@ class FoodItemEntryListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
+    final loading = foodItemEntry.map(
+      semanticSuccess: (_) => true,
+      success: (_) => false,
+    );
+    final title = foodItemEntry.map(
+      semanticSuccess: (_) => _.title,
+      success: (_) => _.foodItem.food.title,
+    );
+    final amount = foodItemEntry.map(
+      semanticSuccess: (_) => _.amount,
+      success: (_) => _.foodItem.amount,
+    );
+    final textColor = foodItemEntry.map(
+      semanticSuccess: (_) => esnyaColorsLight.textSecondary,
+      success: (_) => colorScheme.onSurface,
+    );
+
+    final LanguageRepository langRepo = getIt<LanguageRepository>();
+
     return shadowWrapLarge(
       Container(
         decoration: BoxDecoration(
@@ -33,11 +53,22 @@ class FoodItemEntryListTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            EsnyaText.titleBold("200 g"),
-            SizedBox(
-              width: EsnyaSizes.base * 2,
+            Expanded(
+              flex: 2,
+              child: EsnyaText.titleBold(
+                langRepo.translateAmount(amount),
+                color: textColor,
+              ),
             ),
-            Expanded(child: EsnyaText.titleBold("Chocoalate Bar")),
+            const SizedBox(
+              width: EsnyaSizes.base,
+            ),
+            Expanded(
+                flex: 10,
+                child: EsnyaText.titleBold(
+                  title,
+                  color: textColor,
+                )),
             Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.end,
