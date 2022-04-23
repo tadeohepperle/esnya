@@ -1,6 +1,5 @@
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +12,24 @@ enum BadgeDisplayMode { kcal, protein }
 class FoodItemEntryListTile extends StatelessWidget {
   final FoodItemEntry foodItemEntry;
   final BadgeDisplayMode badgeDisplayMode;
-  const FoodItemEntryListTile({
+  final VoidCallback onTap;
+  final VoidCallback onBadgeTap;
+  final double amountBoxWidth;
+  FoodItemEntryListTile({
     Key? key,
     required this.foodItemEntry,
     this.badgeDisplayMode = BadgeDisplayMode.kcal,
+    required this.onTap,
+    required this.onBadgeTap,
+    this.amountBoxWidth = 50,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
-    final loading = foodItemEntry.map(
-      semanticSuccess: (_) => true,
-      success: (_) => false,
+    final isSuccess = foodItemEntry.map(
+      semanticSuccess: (_) => false,
+      success: (_) => true,
     );
     final title = foodItemEntry.map(
       semanticSuccess: (_) => _.title,
@@ -34,71 +39,135 @@ class FoodItemEntryListTile extends StatelessWidget {
       semanticSuccess: (_) => _.amount,
       success: (_) => _.foodItem.amount,
     );
-    final textColor = foodItemEntry.map(
-      semanticSuccess: (_) => esnyaColorsLight.textSecondary,
-      success: (_) => colorScheme.onSurface,
-    );
+    final textColor =
+        isSuccess ? colorScheme.onSurface : esnyaColorsLight.textSecondary;
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
-    return shadowWrapLarge(
-      Container(
-        decoration: BoxDecoration(
-          color: colorScheme.surface,
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
-        ),
-        padding: const EdgeInsets.only(left: 16),
+    final badgeIconData = badgeDisplayMode == BadgeDisplayMode.protein
+        ? EsnyaIcons.protein
+        : null;
+
+    String? badgeTitle = foodItemEntry.map(
+        semanticSuccess: (_) => null,
+        success: (success) {
+          NutrientType nutrientType =
+              badgeDisplayMode == BadgeDisplayMode.protein
+                  ? NutrientType.protein
+                  : NutrientType.energy;
+
+          final nutrientValue = success.foodItem.food.nutrients[nutrientType];
+          if (nutrientValue != null) {
+            return langRepo
+                .translateAmount(Amount(nutrientType.unit, nutrientValue));
+          }
+          return null;
+        });
+
+    Widget _buildEndOfColumnForSuccess(FoodItemEntrySuccess success) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          FoodItemEntryListTileBadge(
+            title: badgeTitle!,
+            onTap: onBadgeTap,
+            iconData: badgeIconData,
+            badgeDisplayMode: badgeDisplayMode,
+          ),
+          _buildTimeDisplay(success.dateTime, langRepo)
+        ],
+      );
+    }
+
+    Widget _buildEndOfColumnForFailed(
+        FoodItemEntrySemanticSuccess semanticSuccess) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+              padding: EdgeInsets.only(right: 8, top: 4),
+              height: 18,
+              child: EsnyaText.titleSmall("not found",
+                  color: esnyaColorsLight.error)),
+          _buildTimeDisplay(semanticSuccess.dateTime, langRepo)
+        ],
+      );
+    }
+
+    Widget _buildEndOfColumnForLoading(
+        FoodItemEntrySemanticSuccess semanticSuccess) {
+      return Container(
+        padding: EdgeInsets.all(8),
         height: 36,
+        width: 36,
+        child: CircularProgressIndicator(
+            color: esnyaColorsLight.textTertiary, strokeWidth: 3),
+      );
+    }
+
+    Widget endOfRowElement = foodItemEntry.map(
+      semanticSuccess: (semanticSuccess) => semanticSuccess.mappingFailed
+          ? _buildEndOfColumnForFailed(semanticSuccess)
+          : _buildEndOfColumnForLoading(semanticSuccess),
+      success: (success) => _buildEndOfColumnForSuccess(success),
+    );
+
+    return shadowWrapLarge(
+      MaterialButton(
+        onPressed: onTap,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        height: 36,
+        padding: const EdgeInsets.only(left: 12),
+        minWidth: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: const BorderRadius.all(Radius.circular(18)),
+          side: BorderSide.none,
+        ),
+        color: colorScheme.surface,
+        disabledColor: colorScheme.surface,
+        elevation: 0,
+        hoverElevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 2,
+            SizedBox(
+              width: amountBoxWidth,
               child: EsnyaText.titleBold(
                 langRepo.translateAmount(amount),
                 color: textColor,
               ),
             ),
-            const SizedBox(
-              width: EsnyaSizes.base,
-            ),
             Expanded(
-                flex: 10,
                 child: EsnyaText.titleBold(
-                  title,
-                  color: textColor,
-                )),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                FoodItemEntryListTileBadge(
-                  title: "3.4 g",
-                  onTap: () {
-                    print("tAPPAAPPAPA");
-                  },
-                  iconData: EsnyaIcons.protein,
-                  badgeDisplayMode: badgeDisplayMode,
-                ),
-                Container(
-                  height: 18,
-                  padding: EdgeInsets.only(right: 8),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      EsnyaText.bodySmall(
-                        "11:23 am",
-                        color: esnyaColorsLight.textSecondary,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            )
+              title, // TODO: IMPORTANT-PRE-RELEASE: translations for title
+              color: textColor,
+            )),
+            endOfRowElement
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildTimeDisplay(DateTime dateTime, LanguageRepository langRepo) {
+    return Container(
+      height: 18,
+      padding: EdgeInsets.only(right: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          EsnyaText.bodySmall(
+            langRepo.translateTime(dateTime),
+            color: esnyaColorsLight.textSecondary,
+          )
+        ],
       ),
     );
   }
@@ -155,7 +224,7 @@ class FoodItemEntryListTileBadge extends StatelessWidget {
         children: [
           if (iconData != null)
             Padding(
-              padding: EdgeInsets.only(right: 4),
+              padding: EdgeInsets.only(right: 8),
               child: Transform.translate(
                 offset: Offset(0, -1),
                 child: Icon(
