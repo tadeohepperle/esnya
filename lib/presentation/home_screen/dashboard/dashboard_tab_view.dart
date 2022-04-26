@@ -1,10 +1,17 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/home_screen/bloc/dashboard_bloc.dart';
+import 'package:esnya/domain/auth/auth_repository.dart';
+import 'package:esnya/domain/core/errors.dart';
+import 'package:esnya/infrastructure/core/firestore_helpers.dart';
+import 'package:esnya/infrastructure/user_data/dtos/food_item_entry_bucket_dto.dart';
+import 'package:esnya/infrastructure/user_data/food_item_entry_bucket_repository_impl_firebase.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
+import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -186,3 +193,39 @@ class _DashboardTabViewState extends State<DashboardTabView>
 }
 
 enum DashboardInputState { closed, text }
+
+// void _postRandomDataToFireStore() async {
+//   FirebaseFirestore _firestore = getIt<FirebaseFirestore>();
+//   AuthRepository _authRepo = getIt<AuthRepository>();
+//   var user = _authRepo
+//       .getSignedInUser()
+//       .getOrElse(() => throw NotAuthenticatedError());
+//   final userDoc = await _firestore.userDocument();
+//   var startDate = DateTime(2021, 1, 1);
+
+//   for (var i = 0; i < 200; i++) {
+//     startDate = startDate.add(Duration(days: 1));
+//     var y = startDate.year.toString();
+//     var m = startDate.month.toString().padLeft(2, '0');
+//     var d = startDate.day.toString().padLeft(2, '0');
+//     var bucketid = 'log-$y-$m-$d';
+
+//     int nEntries = randInt(0, 8);
+//     DateTime entryTime = startDate.add(Duration(hours: randInt(0, 12)));
+//     List<FoodItemEntry> entries = [];
+//     for (var i = 0; i < nEntries; i++) {
+//       entryTime = entryTime.add(Duration(minutes: randInt(0, 59)));
+//       entries.add(TestObjectFaker.randomFoodItemEntry(entryTime));
+//     }
+
+//     var bucket = FoodItemEntryBucket(
+//         userId: user.id,
+//         id: UniqueId.fromUniqueString(bucketid),
+//         type: FoodItemEntryBucketType.log,
+//         entries: entries.toImmutableList());
+
+//     await userDoc.collection("buckets").doc(bucketid).set(bucket.toFireStore());
+//     print("sent bucket for $startDate");
+//     print("----------");
+//   }
+// }

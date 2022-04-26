@@ -18,11 +18,13 @@ import 'utils/food_item_entry_bucket_utils.dart';
 
 @isolate1
 @LazySingleton(as: FoodItemEntryBucketRepository)
-class FoodEntriesRepositoryImplFirestore extends SetupRepositoryImpl
+class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
     implements FoodItemEntryBucketRepository {
   final FirebaseFirestore _firestore;
 
-  FoodEntriesRepositoryImplFirestore(this._firestore);
+  FoodItemEntryBucketRepositoryImplFirebase(this._firestore) {
+    print("INIT FoodItemEntryBucketRepositoryImplFirebase");
+  }
 
   ///////////////////////////////////
   /// Bucket operations:
@@ -143,14 +145,16 @@ class FoodEntriesRepositoryImplFirestore extends SetupRepositoryImpl
   }
 
   @override
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>>
-      watchLogBuckets() async* {
+  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets({
+    /// for example 'log-2022-04-13'
+    required int batchSize,
+  }) async* {
     final userDoc = await _firestore.userDocument();
     yield* userDoc
         .collection(kBucketsCollectionName)
         .where("type", isEqualTo: 'log')
         .orderBy(FieldPath.documentId, descending: true)
-        .limit(20)
+        .limit(batchSize)
         .snapshots()
         .map((colSnapshot) {
       print('SNAPSHOT!\n\n');

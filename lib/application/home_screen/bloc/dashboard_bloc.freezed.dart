@@ -35,6 +35,10 @@ class _$DashboardEventTearOff {
       entries,
     );
   }
+
+  _ExtendBucketWatchRange extendBucketWatchRange() {
+    return const _ExtendBucketWatchRange();
+  }
 }
 
 /// @nodoc
@@ -50,6 +54,7 @@ mixin _$DashboardEvent {
         bucketsReceived,
     required TResult Function(BlocAndRepoFoodItemEntries entries)
         foodInputEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +65,7 @@ mixin _$DashboardEvent {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +76,7 @@ mixin _$DashboardEvent {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -79,6 +86,8 @@ mixin _$DashboardEvent {
     required TResult Function(_BucketsReceived value) bucketsReceived,
     required TResult Function(_FoodInputEntriesReceived value)
         foodInputEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -86,6 +95,7 @@ mixin _$DashboardEvent {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,6 +103,7 @@ mixin _$DashboardEvent {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -159,6 +170,7 @@ class _$_Started implements _Started {
         bucketsReceived,
     required TResult Function(BlocAndRepoFoodItemEntries entries)
         foodInputEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
   }) {
     return started();
   }
@@ -172,6 +184,7 @@ class _$_Started implements _Started {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
   }) {
     return started?.call();
   }
@@ -185,6 +198,7 @@ class _$_Started implements _Started {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -200,6 +214,8 @@ class _$_Started implements _Started {
     required TResult Function(_BucketsReceived value) bucketsReceived,
     required TResult Function(_FoodInputEntriesReceived value)
         foodInputEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
   }) {
     return started(this);
   }
@@ -210,6 +226,7 @@ class _$_Started implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
   }) {
     return started?.call(this);
   }
@@ -220,6 +237,7 @@ class _$_Started implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -305,6 +323,7 @@ class _$_BucketsReceived implements _BucketsReceived {
         bucketsReceived,
     required TResult Function(BlocAndRepoFoodItemEntries entries)
         foodInputEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
   }) {
     return bucketsReceived(failureOrBuckets);
   }
@@ -318,6 +337,7 @@ class _$_BucketsReceived implements _BucketsReceived {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
   }) {
     return bucketsReceived?.call(failureOrBuckets);
   }
@@ -331,6 +351,7 @@ class _$_BucketsReceived implements _BucketsReceived {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (bucketsReceived != null) {
@@ -346,6 +367,8 @@ class _$_BucketsReceived implements _BucketsReceived {
     required TResult Function(_BucketsReceived value) bucketsReceived,
     required TResult Function(_FoodInputEntriesReceived value)
         foodInputEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
   }) {
     return bucketsReceived(this);
   }
@@ -356,6 +379,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
   }) {
     return bucketsReceived?.call(this);
   }
@@ -366,6 +390,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (bucketsReceived != null) {
@@ -459,6 +484,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
         bucketsReceived,
     required TResult Function(BlocAndRepoFoodItemEntries entries)
         foodInputEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
   }) {
     return foodInputEntriesReceived(entries);
   }
@@ -472,6 +498,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
   }) {
     return foodInputEntriesReceived?.call(entries);
   }
@@ -485,6 +512,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
         bucketsReceived,
     TResult Function(BlocAndRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (foodInputEntriesReceived != null) {
@@ -500,6 +528,8 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
     required TResult Function(_BucketsReceived value) bucketsReceived,
     required TResult Function(_FoodInputEntriesReceived value)
         foodInputEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
   }) {
     return foodInputEntriesReceived(this);
   }
@@ -510,6 +540,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
   }) {
     return foodInputEntriesReceived?.call(this);
   }
@@ -520,6 +551,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
     TResult Function(_Started value)? started,
     TResult Function(_BucketsReceived value)? bucketsReceived,
     TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
     required TResult orElse(),
   }) {
     if (foodInputEntriesReceived != null) {
@@ -537,6 +569,134 @@ abstract class _FoodInputEntriesReceived implements DashboardEvent {
   @JsonKey(ignore: true)
   _$FoodInputEntriesReceivedCopyWith<_FoodInputEntriesReceived> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ExtendBucketWatchRangeCopyWith<$Res> {
+  factory _$ExtendBucketWatchRangeCopyWith(_ExtendBucketWatchRange value,
+          $Res Function(_ExtendBucketWatchRange) then) =
+      __$ExtendBucketWatchRangeCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ExtendBucketWatchRangeCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$ExtendBucketWatchRangeCopyWith<$Res> {
+  __$ExtendBucketWatchRangeCopyWithImpl(_ExtendBucketWatchRange _value,
+      $Res Function(_ExtendBucketWatchRange) _then)
+      : super(_value, (v) => _then(v as _ExtendBucketWatchRange));
+
+  @override
+  _ExtendBucketWatchRange get _value => super._value as _ExtendBucketWatchRange;
+}
+
+/// @nodoc
+
+class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
+  const _$_ExtendBucketWatchRange();
+
+  @override
+  String toString() {
+    return 'DashboardEvent.extendBucketWatchRange()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ExtendBucketWatchRange);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+        bucketsReceived,
+    required TResult Function(BlocAndRepoFoodItemEntries entries)
+        foodInputEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
+  }) {
+    return extendBucketWatchRange();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+        bucketsReceived,
+    TResult Function(BlocAndRepoFoodItemEntries entries)?
+        foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
+  }) {
+    return extendBucketWatchRange?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(
+            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+        bucketsReceived,
+    TResult Function(BlocAndRepoFoodItemEntries entries)?
+        foodInputEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
+    required TResult orElse(),
+  }) {
+    if (extendBucketWatchRange != null) {
+      return extendBucketWatchRange();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_BucketsReceived value) bucketsReceived,
+    required TResult Function(_FoodInputEntriesReceived value)
+        foodInputEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
+  }) {
+    return extendBucketWatchRange(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_BucketsReceived value)? bucketsReceived,
+    TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+  }) {
+    return extendBucketWatchRange?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_BucketsReceived value)? bucketsReceived,
+    TResult Function(_FoodInputEntriesReceived value)? foodInputEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    required TResult orElse(),
+  }) {
+    if (extendBucketWatchRange != null) {
+      return extendBucketWatchRange(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ExtendBucketWatchRange implements DashboardEvent {
+  const factory _ExtendBucketWatchRange() = _$_ExtendBucketWatchRange;
 }
 
 /// @nodoc

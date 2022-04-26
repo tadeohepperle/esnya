@@ -62,8 +62,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       () => _i9.FoodDataRepositoryRemoteImpl(get<_i6.FoodBackendClient>()),
       registerFor: {_isolate2});
   gh.lazySingleton<_i10.FoodItemEntryBucketRepository>(
-      () =>
-          _i11.FoodEntriesRepositoryImplFirestore(get<_i5.FirebaseFirestore>()),
+      () => _i11.FoodItemEntryBucketRepositoryImplFirebase(
+          get<_i5.FirebaseFirestore>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i12.FoodMappingRepository>(
       () => _i13.FoodMappingRepositoryRemoteImpl(get<_i6.FoodBackendClient>()),
@@ -99,7 +99,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i23.AppRouter>(
       () => _i23.AppRouter(get<_i17.AuthRepository>()));
   gh.factory<_i24.AuthBloc>(() => _i24.AuthBloc(get<_i17.AuthRepository>()));
-  gh.factory<_i25.DashboardBloc>(
+  gh.lazySingleton<_i25.DashboardBloc>(
       () => _i25.DashboardBloc(
           get<_i10.FoodItemEntryBucketRepository>(), get<_i20.FoodInputBloc>()),
       registerFor: {_isolate1});

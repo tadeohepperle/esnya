@@ -14,31 +14,41 @@ part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 part 'dashboard_bloc.freezed.dart';
 
+const kInitialBucketBatchSize = 20;
+const kIncrementalBucketBatchSize = 10;
+const kMinMillisecondsBetweenExtendBucketWatchRange = 2000;
+
 @isolate1
-@injectable
+@lazySingleton
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
   final FoodInputBloc _foodInputBloc;
 
   StreamSubscription<Either<Failure, KtList<FoodItemEntryBucket>>>?
       _bucketsStreamSubscription;
+  late int _currentBatchSize;
+  late DateTime _lastExtendBucketWatchRange;
   StreamSubscription<BlocAndRepoFoodItemEntries>?
       _foodInputBlocEntriesSubscription;
 
   DashboardBloc(this._foodItemEntryBucketRepository, this._foodInputBloc)
       : super(DashboardState.initial()) {
+    ////////////////////////////////////////////////////
+    // initialization
+    ////////////////////////////////////////////////////
+    _lastExtendBucketWatchRange = DateTime.now();
+    _currentBatchSize = kInitialBucketBatchSize;
+
+    ////////////////////////////////////////////////////
+    // setup event handlers
+    ////////////////////////////////////////////////////
     on<DashboardEvent>((event, emit) async {
       await event.map(
         started: (_Started event) async {
           // cancel subscriptions just in case.
-          await _bucketsStreamSubscription?.cancel();
-          await _foodInputBlocEntriesSubscription?.cancel();
+          await _cleanup();
           // listen to buckets from firestore
-          _bucketsStreamSubscription = _foodItemEntryBucketRepository
-              .watchLogBuckets()
-              .listen((failureOrBuckets) {
-            add(DashboardEvent.bucketsReceived(failureOrBuckets));
-          });
+          _createBucketStreamSubscription(_currentBatchSize);
           // listen to entries from foodInputBloc
           _foodInputBlocEntriesSubscription =
               _foodInputBloc.watchEntries().listen((entries) {
@@ -72,17 +82,46 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
             entriesFoodInputBloc: event.entries.blocEntries.toImmutableList(),
           ));
         },
+        extendBucketWatchRange: (_ExtendBucketWatchRange value) {
+          // if last extend was less than for example 2 seconds ago we dont do anything.
+          final now = DateTime.now();
+          if (now.difference(_lastExtendBucketWatchRange).inMilliseconds <=
+              kMinMillisecondsBetweenExtendBucketWatchRange) {
+            return;
+          }
+          // add a new stream subscription for the next buckets.
+          _currentBatchSize += kIncrementalBucketBatchSize;
+          _createBucketStreamSubscription(_currentBatchSize);
+        },
       );
     });
 
+    ////////////////////////////////////////////////////
+    // kick off any events
+    ////////////////////////////////////////////////////
     add(const DashboardEvent.started());
+  }
+
+  Future<void> _createBucketStreamSubscription(int batchSize) async {
+    // The big disadvantage here is: we fetch the entire data again which is not very efficient. We can just hope not much users will scroll up. Sadly Firebase sucks at proper pagination.
+    await _bucketsStreamSubscription?.cancel();
+    _bucketsStreamSubscription = _foodItemEntryBucketRepository
+        .watchLogBuckets(batchSize: batchSize)
+        .listen((failureOrBuckets) {
+      add(DashboardEvent.bucketsReceived(failureOrBuckets));
+    });
   }
 
   @override
   Future<void> close() async {
+    await _cleanup();
+    return super.close();
+  }
+
+  Future<void> _cleanup() async {
+    _currentBatchSize = kInitialBucketBatchSize;
     await _bucketsStreamSubscription?.cancel();
     await _foodInputBlocEntriesSubscription?.cancel();
-    return super.close();
   }
 
   Set<UniqueId> _extractEntryIdsFromBucketListThatAreAlsoInBetweenEntries(

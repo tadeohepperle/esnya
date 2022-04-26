@@ -10,7 +10,9 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
   Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket);
 
   Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId);
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets();
+  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets({
+    required int batchSize,
+  });
 
   Future<Either<Failure, Unit>> createEntry(
       UniqueId bucketId, FoodItemEntry entry);
