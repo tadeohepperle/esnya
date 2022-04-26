@@ -8,6 +8,7 @@ import 'subpages/buttons_screen.dart';
 import 'subpages/colors_screen.dart';
 import 'subpages/dashboard_header_screen.dart';
 import 'subpages/food_input_bar_screen.dart';
+import 'subpages/food_item_entry_card_screen.dart';
 import 'subpages/food_item_entry_list_tile_screen.dart';
 import 'subpages/text_styles_screen.dart';
 
@@ -58,6 +59,8 @@ class ExampleHomeScreen extends StatelessWidget {
                 (c) => FoodItemEntryListTileScreen()),
             SubscreenListTile(
                 "FoodInputBarScreen", (c) => FoodInputBarScreen()),
+            SubscreenListTile(
+                "FoodItemEntryCardScreen", (c) => FoodItemEntryCardScreen()),
           ],
         ),
       )),

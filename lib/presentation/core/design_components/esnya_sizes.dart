@@ -11,9 +11,29 @@ abstract class EsnyaSizes {
     side: BorderSide.none,
   );
 
+  static RoundedRectangleBorder roundedButtonBorder = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(base * 10),
+    side: BorderSide.none,
+  );
+
   static Padding paddingWrap(Widget child, [double paddingSize = base]) =>
       Padding(
         padding: EdgeInsets.all(paddingSize),
         child: child,
       );
+
+  static const SizedBox spaceBaseWidth = SizedBox(
+    width: base,
+  );
+  static const SizedBox spaceBaseWidth2 = SizedBox(
+    width: base * 2,
+  );
+
+  static const SizedBox spaceBaseHeight = SizedBox(
+    height: base,
+  );
+
+  static const SizedBox spaceBaseHeight2 = SizedBox(
+    height: base * 2,
+  );
 }

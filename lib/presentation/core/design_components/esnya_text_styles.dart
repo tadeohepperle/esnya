@@ -14,7 +14,7 @@ final esnyaTextThemeLight = const TextTheme(
   ),
   headlineSmall: TextStyle(
     fontSize: 24,
-    height: 32 / 24,
+    height: 1.25,
     fontWeight: FontWeight.bold,
   ),
   titleLarge: TextStyle(

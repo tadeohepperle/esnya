@@ -13,19 +13,22 @@ class EsynaButton extends StatelessWidget {
   final ShadowSize? shadowSize;
   final EdgeInsetsGeometry? customPadding;
   final double? customPaddingBetweenIconAndText;
+  final ShapeBorder shape;
 
-  const EsynaButton._internal(
-      {required this.title,
-      required this.getColor,
-      required this.getTextColor,
-      Key? key,
-      this.onPressed,
-      this.disabled = false, // TODO: not implemented yet
-      this.iconData,
-      this.shadowSize,
-      this.customPadding,
-      this.customPaddingBetweenIconAndText})
-      : super(key: key);
+  EsynaButton._internal({
+    required this.title,
+    required this.getColor,
+    required this.getTextColor,
+    Key? key,
+    this.onPressed,
+    this.disabled = false, // TODO: not implemented yet
+    this.iconData,
+    this.shadowSize,
+    this.customPadding,
+    this.customPaddingBetweenIconAndText,
+    ShapeBorder? shape,
+  })  : shape = shape ?? EsnyaSizes.roundedRectangleBorder,
+        super(key: key);
 
   factory EsynaButton.primary({
     required String title,
@@ -87,15 +90,17 @@ class EsynaButton extends StatelessWidget {
         shadowSize: shadowSize,
       );
 
-  factory EsynaButton.custom(
-          {required String title,
-          void Function()? onPressed,
-          IconData? iconData,
-          ShadowSize? shadowSize,
-          GetColor? getColor,
-          GetColor? getTextColor,
-          EdgeInsetsGeometry? customPadding,
-          double? customPaddingBetweenIconAndText}) =>
+  factory EsynaButton.custom({
+    required String title,
+    void Function()? onPressed,
+    IconData? iconData,
+    ShadowSize? shadowSize,
+    GetColor? getColor,
+    GetColor? getTextColor,
+    EdgeInsetsGeometry? customPadding,
+    double? customPaddingBetweenIconAndText,
+    ShapeBorder? shape,
+  }) =>
       EsynaButton._internal(
         onPressed: onPressed,
         title: title,
@@ -105,6 +110,7 @@ class EsynaButton extends StatelessWidget {
         shadowSize: shadowSize,
         customPadding: customPadding,
         customPaddingBetweenIconAndText: customPaddingBetweenIconAndText,
+        shape: shape,
       );
 
   @override
@@ -147,7 +153,7 @@ class EsynaButton extends StatelessWidget {
         height: 0,
         key: key,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: EsnyaSizes.roundedRectangleBorder,
+        shape: shape,
         onPressed: onPressed,
         child: child,
         elevation: 0,
