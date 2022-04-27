@@ -8,9 +8,9 @@ import 'package:esnya_shared_resources/core/models/user_data/food_item_entry.dar
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
-import 'esnya_design_utils.dart';
-import 'esnya_sizes.dart';
-import 'esnya_text.dart';
+import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_sizes.dart';
+import '../design_components/esnya_text.dart';
 import 'nutrient_table.dart';
 
 class FoodItemEntrySuccessCard extends StatefulWidget {
@@ -79,7 +79,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               EsnyaIconButton.custom(
-                Icons.delete,
+                EsnyaIcons.delete,
                 onPressed: widget.onDeleteButtonClick,
                 getColor: (c) => c.surface,
                 getIconColor: (c) => c.secondary,
@@ -87,7 +87,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
               ),
               EsnyaSizes.spaceBaseWidth,
               EsnyaIconButton.custom(
-                Icons.close,
+                EsnyaIcons.close,
                 onPressed: widget.onCloseButtonClick,
                 getColor: (c) => c.surface,
                 getIconColor: (c) => c.onSurface,
@@ -148,7 +148,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
                                       EsnyaIcons.energy,
                                       color: kcal != null
                                           ? colorScheme.secondary
-                                          : esnyaColorsLight.textSecondary,
+                                          : colorScheme.onBackground,
                                     ),
                                     EsnyaSizes.spaceBaseWidth2,
                                     EsnyaText.h3(
@@ -158,7 +158,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
                                           : "unknown kcal",
                                       color: kcal != null
                                           ? colorScheme.secondary
-                                          : esnyaColorsLight.textSecondary,
+                                          : colorScheme.onBackground,
                                     )
                                   ],
                                 ),
@@ -202,7 +202,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
                           child: Center(
                               child: Column(
                             children: [
-                              Icon(Icons.warning),
+                              Icon(Icons.warning), // TODO
                               EsnyaText.body("No Data Available")
                             ],
                           )),

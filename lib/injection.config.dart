@@ -14,30 +14,32 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:google_sign_in/google_sign_in.dart' as _i14;
 import 'package:injectable/injectable.dart' as _i2;
 
-import 'application/auth/auth_bloc.dart' as _i24;
-import 'application/auth/sign_in_form/sign_in_form_bloc.dart' as _i22;
-import 'application/food_data/input/food_input_bloc.dart' as _i20;
-import 'application/home_screen/bloc/dashboard_bloc.dart' as _i25;
-import 'domain/auth/auth_repository.dart' as _i17;
+import 'application/auth/auth_bloc.dart' as _i25;
+import 'application/auth/sign_in_form/sign_in_form_bloc.dart' as _i23;
+import 'application/food_data/input/food_input_bloc.dart' as _i21;
+import 'application/home_screen/bloc/dashboard_bloc.dart' as _i26;
+import 'domain/auth/auth_repository.dart' as _i18;
 import 'domain/isolate2/isolate_2_repository.dart' as _i15;
 import 'domain/user_data/food_item_entry_bucket_repository.dart' as _i10;
-import 'infrastructure/auth/auth_repository_impl.dart' as _i18;
+import 'infrastructure/auth/auth_repository_impl.dart' as _i19;
 import 'infrastructure/core/api/food_backend_client.dart' as _i6;
 import 'infrastructure/core/api/food_backend_client_impl.dart' as _i7;
-import 'infrastructure/core/dio_injectible_module.dart' as _i26;
-import 'infrastructure/core/firebase_injectible_module.dart' as _i27;
-import 'infrastructure/core/shared_resources_injectible_module.dart' as _i28;
+import 'infrastructure/core/dio_injectible_module.dart' as _i27;
+import 'infrastructure/core/firebase_injectible_module.dart' as _i28;
+import 'infrastructure/core/shared_resources_injectible_module.dart' as _i29;
 import 'infrastructure/food_data/food_data_repository_isolate_bridge.dart'
-    as _i19;
+    as _i20;
 import 'infrastructure/food_data/food_data_repository_remote_impl.dart' as _i9;
 import 'infrastructure/food_mapping/food_mapping_repository_isolate_bridge.dart'
-    as _i21;
+    as _i22;
 import 'infrastructure/food_mapping/food_mapping_repository_remote_impl.dart'
     as _i13;
 import 'infrastructure/isolate2/isolate_2_repository_impl.dart' as _i16;
 import 'infrastructure/user_data/food_item_entry_bucket_repository_impl_firebase.dart'
     as _i11;
-import 'presentation/routes/app_router.dart' as _i23;
+import 'presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart'
+    as _i17;
+import 'presentation/routes/app_router.dart' as _i24;
 
 const String _isolate2 = 'isolate2';
 const String _isolate1 = 'isolate1';
@@ -78,37 +80,39 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       sharedResourcesInjectibleModule.similarityCalculator());
   gh.singleton<_i8.TextProcessingRepository>(
       sharedResourcesInjectibleModule.textProcessingRepository());
-  gh.lazySingleton<_i17.AuthRepository>(() => _i18.AuthRepositoryImpl(
+  gh.factory<_i17.VoiceInputSheetCubit>(() => _i17.VoiceInputSheetCubit(),
+      registerFor: {_isolate1});
+  gh.lazySingleton<_i18.AuthRepository>(() => _i19.AuthRepositoryImpl(
       get<_i4.FirebaseAuth>(), get<_i14.GoogleSignIn>()));
   gh.lazySingleton<_i8.FoodDataRepository>(
       () =>
-          _i19.FoodDataRepositoryIsolateBridge(get<_i15.Isolate2Repository>()),
+          _i20.FoodDataRepositoryIsolateBridge(get<_i15.Isolate2Repository>()),
       registerFor: {_isolate1});
-  gh.lazySingleton<_i20.FoodInputBloc>(
-      () => _i20.FoodInputBloc(
+  gh.lazySingleton<_i21.FoodInputBloc>(
+      () => _i21.FoodInputBloc(
           get<_i8.TextProcessingRepository>(),
           get<_i10.FoodItemEntryBucketRepository>(),
           get<_i8.FoodMappingRepository>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i12.FoodMappingRepository>(
-      () => _i21.FoodMappingRepositoryIsolateBridge(
+      () => _i22.FoodMappingRepositoryIsolateBridge(
           get<_i15.Isolate2Repository>()),
       registerFor: {_isolate1});
-  gh.factory<_i22.SignInFormBloc>(
-      () => _i22.SignInFormBloc(get<_i17.AuthRepository>()));
-  gh.lazySingleton<_i23.AppRouter>(
-      () => _i23.AppRouter(get<_i17.AuthRepository>()));
-  gh.factory<_i24.AuthBloc>(() => _i24.AuthBloc(get<_i17.AuthRepository>()));
-  gh.lazySingleton<_i25.DashboardBloc>(
-      () => _i25.DashboardBloc(
-          get<_i10.FoodItemEntryBucketRepository>(), get<_i20.FoodInputBloc>()),
+  gh.factory<_i23.SignInFormBloc>(
+      () => _i23.SignInFormBloc(get<_i18.AuthRepository>()));
+  gh.lazySingleton<_i24.AppRouter>(
+      () => _i24.AppRouter(get<_i18.AuthRepository>()));
+  gh.factory<_i25.AuthBloc>(() => _i25.AuthBloc(get<_i18.AuthRepository>()));
+  gh.lazySingleton<_i26.DashboardBloc>(
+      () => _i26.DashboardBloc(
+          get<_i10.FoodItemEntryBucketRepository>(), get<_i21.FoodInputBloc>()),
       registerFor: {_isolate1});
   return get;
 }
 
-class _$DioInjectibleModule extends _i26.DioInjectibleModule {}
+class _$DioInjectibleModule extends _i27.DioInjectibleModule {}
 
-class _$FirebaseInjectibleModule extends _i27.FirebaseInjectibleModule {}
+class _$FirebaseInjectibleModule extends _i28.FirebaseInjectibleModule {}
 
 class _$SharedResourcesInjectibleModule
-    extends _i28.SharedResourcesInjectibleModule {}
+    extends _i29.SharedResourcesInjectibleModule {}

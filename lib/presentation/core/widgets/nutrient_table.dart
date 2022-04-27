@@ -8,7 +8,7 @@ import 'package:esnya_shared_resources/core/conversion/measure_unit_conversion.d
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
-import 'esnya_design_utils.dart';
+import '../design_components/esnya_design_utils.dart';
 
 class NutrientTable extends StatelessWidget {
   final NutrientTableState state;

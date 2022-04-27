@@ -11,6 +11,7 @@ import 'subpages/food_input_bar_screen.dart';
 import 'subpages/food_item_entry_card_screen.dart';
 import 'subpages/food_item_entry_list_tile_screen.dart';
 import 'subpages/text_styles_screen.dart';
+import 'subpages/voice_input_sheet_page.dart';
 
 /// flutter run -t ./example/main.dart
 
@@ -61,6 +62,8 @@ class ExampleHomeScreen extends StatelessWidget {
                 "FoodInputBarScreen", (c) => FoodInputBarScreen()),
             SubscreenListTile(
                 "FoodItemEntryCardScreen", (c) => FoodItemEntryCardScreen()),
+            SubscreenListTile(
+                "VoiceInputSheetScreen", (c) => VoiceInputSheetScreen()),
           ],
         ),
       )),

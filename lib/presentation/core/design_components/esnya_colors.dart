@@ -42,7 +42,8 @@ final colorSchemeLight = ColorScheme(
   background: esnyaColorsLight.background,
   brightness: Brightness.light,
   error: esnyaColorsLight.error,
-  onBackground: esnyaColorsLight.textPrimary,
+  // textSecondary => onBackground, textPrimary => onSurface, This is more like a workaround.
+  onBackground: esnyaColorsLight.textSecondary,
   onError: esnyaColorsLight.background,
   onPrimary: esnyaColorsLight.background,
   onSecondary: esnyaColorsLight.background,

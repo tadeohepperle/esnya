@@ -13,6 +13,15 @@ abstract class EsnyaIcons {
   static const IconData fiber =
       FontAwesomeIcons.mattressPillow; // TODO: change icons
 
+  static const IconData close = Icons.close;
+  static const IconData delete = Icons.delete;
+  static const IconData back = Icons.back_hand;
+  static const IconData calendar = Icons.calendar_today;
+  static const IconData settings = Icons.settings;
+  static const IconData check = Icons.check;
+  static const IconData error = Icons.error;
+  static const IconData microphone = Icons.mic;
+
   static final Map<NutrientType, IconData> nutrientIcons = {
     NutrientType.energy: energy,
     NutrientType.protein: protein,

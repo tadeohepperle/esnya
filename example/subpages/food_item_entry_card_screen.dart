@@ -1,4 +1,4 @@
-import 'package:esnya/presentation/core/design_components/food_item_entry_success_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry_success_card.dart';
 import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:flutter/material.dart';
 

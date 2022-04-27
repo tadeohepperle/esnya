@@ -1,4 +1,8 @@
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart';
+
+import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_icons.dart';
 
 class FoodInputBar extends StatefulWidget {
   final void Function(String) onChanged;
@@ -11,7 +15,7 @@ class FoodInputBar extends StatefulWidget {
     required this.onClosed,
   }) : super(key: key);
 
-  static const kFoodInputBarHeight = 60.0;
+  static const kFoodInputBarHeight = 36.0;
 
   @override
   State<FoodInputBar> createState() => _FoodInputBarState();
@@ -48,30 +52,69 @@ class _FoodInputBarState extends State<FoodInputBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.lightGreenAccent,
-      height: FoodInputBar.kFoodInputBarHeight,
-      child: Row(children: [
-        Expanded(
+    final colorScheme = getColorScheme(context);
+    final textTheme = getTextTheme(context);
+
+    Widget _buildInput() => shadowWrapLarge(Container(
+          height: 36,
           child: TextField(
             onChanged: widget.onChanged,
             onSubmitted: widget.onClosed,
             focusNode: _focusNode,
             textInputAction: TextInputAction.done,
             controller: _controller,
-            decoration: const InputDecoration(
-              // contentPadding: EdgeInsets.all(0),
-              hintText: 'Type "300 oz of tomatoes300a"',
+            clipBehavior: Clip.antiAlias,
+            maxLines: 1,
+            style: textTheme.titleLarge,
+            textAlignVertical: TextAlignVertical.center,
+            decoration: InputDecoration(
+              filled: true,
+              border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+              fillColor: colorScheme.surface,
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: EsnyaSizes.base * 2),
+              hintText: 'Search',
             ),
           ),
-        ),
-        ElevatedButton(
+        ));
+    Widget _buildButton() => shadowWrapLarge(
+          MaterialButton(
             onPressed: () {
               widget.onSubmitted(_content);
               _controller.clear();
             },
-            child: Icon(Icons.add))
-      ]),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            height: 36,
+            padding: const EdgeInsets.all(4),
+            minWidth: 0,
+            shape: const RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(18)),
+              side: BorderSide.none,
+            ),
+            color: colorScheme.primary,
+            disabledColor: colorScheme.surface,
+            elevation: 0,
+            hoverElevation: 0,
+            focusElevation: 0,
+            highlightElevation: 0,
+            child: Icon(
+              EsnyaIcons.check,
+              size: 28,
+              color: colorScheme.surface,
+            ),
+          ),
+        );
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(child: _buildInput()),
+        Padding(
+          padding: const EdgeInsets.only(left: EsnyaSizes.base),
+          child: _buildButton(),
+        )
+      ],
     );
   }
 }

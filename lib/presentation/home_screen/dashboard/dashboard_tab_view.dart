@@ -11,11 +11,10 @@ import 'package:esnya/infrastructure/user_data/food_item_entry_bucket_repository
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
-
-import '../../core/widgets/food_item_entry_display_tile.dart';
 
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
@@ -113,25 +112,28 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return [
       ...dashboardState.buckets.reversed().iter.map((b) => Column(children: [
             Text('Bucket value: ${b.id.value}'),
-            ...b.entries.iter.map((e) => FoodItemEntryDisplayTile(
-                  entry: e,
-                  bucketId: b.id,
-                ))
+            ...b.entries.iter.map((e) => FoodItemEntryListTile(
+                  foodItemEntry: e,
+                  onTap: () {},
+                  onBadgeTap: () {},
+                )),
           ])),
       Divider(
         height: 10,
         color: Colors.black,
       ),
       ...dashboardState.entriesBetweenBlocAndRepo.iter.map(
-        (e) => FoodItemEntryDisplayTile(
-          entry: e,
-          color: Colors.blue,
+        (e) => FoodItemEntryListTile(
+          foodItemEntry: e,
+          onTap: () {},
+          onBadgeTap: () {},
         ),
       ),
       ...dashboardState.entriesFoodInputBloc.iter.map(
-        (e) => FoodItemEntryDisplayTile(
-          entry: e,
-          color: Colors.orange,
+        (e) => FoodItemEntryListTile(
+          foodItemEntry: e,
+          onTap: () {},
+          onBadgeTap: () {},
         ),
       )
     ];

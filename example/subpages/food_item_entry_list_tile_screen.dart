@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart' hide State;
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/design_components/food_item_entry_list_tile.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
 import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';

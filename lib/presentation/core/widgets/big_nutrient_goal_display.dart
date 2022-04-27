@@ -1,6 +1,7 @@
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
+import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 
@@ -11,7 +12,7 @@ class BigNutrientGoalDisplay extends StatelessWidget {
   final String smallText;
   const BigNutrientGoalDisplay({
     Key? key,
-    this.iconData = Icons.invert_colors,
+    this.iconData = EsnyaIcons.energy,
     this.largeText = '1365 kcal',
     this.smallText = '/ 2300 kcal',
     this.getColor,
@@ -45,7 +46,7 @@ class BigNutrientGoalDisplay extends StatelessWidget {
           offset: Offset(0, -2),
           child: EsnyaText.titleBold(
             smallText,
-            color: esnyaColorsLight.textSecondary,
+            color: colorScheme.onBackground,
           ),
         ),
       ],

@@ -1,9 +1,10 @@
-import 'package:esnya/presentation/core/design_components/big_nutrient_goal_display.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
+import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
+import 'package:esnya/presentation/core/widgets/big_nutrient_goal_display.dart';
 import 'package:flutter/material.dart';
 
 class DashboardHeaderScreen extends StatelessWidget {
@@ -42,7 +43,7 @@ class DashboardHeaderScreen extends StatelessWidget {
                     customPaddingBetweenIconAndText: 16,
                   ),
                   EsnyaIconButton.custom(
-                    Icons.settings,
+                    EsnyaIcons.settings,
                     onPressed: () {},
                     shadowSize: ShadowSize.none,
                     customIconSize: 24,
@@ -54,7 +55,7 @@ class DashboardHeaderScreen extends StatelessWidget {
               ),
               BigNutrientGoalDisplay(
                 getColor: (c) => c.secondary,
-                iconData: Icons.invert_colors,
+                iconData: EsnyaIcons.energy,
                 largeText: '1235 kcal',
                 smallText: '/ 2300 kcal',
               ),
@@ -62,7 +63,7 @@ class DashboardHeaderScreen extends StatelessWidget {
                 height: 8,
               ),
               BigNutrientGoalDisplay(
-                iconData: Icons.icecream,
+                iconData: EsnyaIcons.protein,
                 largeText: '43 g',
                 smallText: '/ 120 g Protein',
               ),

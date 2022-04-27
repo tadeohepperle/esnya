@@ -4,8 +4,8 @@ import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
-import 'esnya_design_utils.dart';
-import 'esnya_icons.dart';
+import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_icons.dart';
 
 enum BadgeDisplayMode { kcal, protein }
 
@@ -40,7 +40,7 @@ class FoodItemEntryListTile extends StatelessWidget {
       success: (_) => _.foodItem.amount,
     );
     final textColor =
-        isSuccess ? colorScheme.onSurface : esnyaColorsLight.textSecondary;
+        isSuccess ? colorScheme.onSurface : colorScheme.onBackground;
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
@@ -76,7 +76,7 @@ class FoodItemEntryListTile extends StatelessWidget {
             iconData: badgeIconData,
             badgeDisplayMode: badgeDisplayMode,
           ),
-          _buildTimeDisplay(success.dateTime, langRepo)
+          _buildTimeDisplay(context, success.dateTime, langRepo)
         ],
       );
     }
@@ -93,7 +93,7 @@ class FoodItemEntryListTile extends StatelessWidget {
               height: 18,
               child: EsnyaText.titleSmall("not found",
                   color: esnyaColorsLight.error)),
-          _buildTimeDisplay(semanticSuccess.dateTime, langRepo)
+          _buildTimeDisplay(context, semanticSuccess.dateTime, langRepo)
         ],
       );
     }
@@ -156,7 +156,9 @@ class FoodItemEntryListTile extends StatelessWidget {
     );
   }
 
-  Widget _buildTimeDisplay(DateTime dateTime, LanguageRepository langRepo) {
+  Widget _buildTimeDisplay(
+      BuildContext context, DateTime dateTime, LanguageRepository langRepo) {
+    final colorScheme = getColorScheme(context);
     return Container(
       height: 18,
       padding: EdgeInsets.only(right: 8),
@@ -165,7 +167,7 @@ class FoodItemEntryListTile extends StatelessWidget {
         children: [
           EsnyaText.bodySmall(
             langRepo.translateTime(dateTime),
-            color: esnyaColorsLight.textSecondary,
+            color: colorScheme.onBackground,
           )
         ],
       ),

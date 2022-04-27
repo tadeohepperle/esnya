@@ -6,18 +6,22 @@ class EsnyaText extends StatelessWidget {
   final String text;
   final GetTextStyle? getTextStyle;
   final GetColor? getColor;
-  final Color?
-      color; // color has priority over getColor if both are set. This is not encouraged.
-  const EsnyaText._internal(
-      {Key? key,
-      required this.text,
-      this.getColor,
-      this.color,
-      this.getTextStyle})
-      : super(key: key);
+  final Color? color;
+  final TextOverflow? overflow;
+  final int? maxLines;
+  // color has priority over getColor if both are set. This is not encouraged.
+  const EsnyaText.custom({
+    Key? key,
+    required this.text,
+    this.getColor,
+    this.color,
+    this.getTextStyle,
+    this.overflow,
+    this.maxLines,
+  }) : super(key: key);
 
   factory EsnyaText.h1(String text, {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -25,7 +29,7 @@ class EsnyaText extends StatelessWidget {
       );
 
   factory EsnyaText.h2(String text, {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -33,7 +37,7 @@ class EsnyaText extends StatelessWidget {
       );
 
   factory EsnyaText.h3(String text, {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -41,7 +45,7 @@ class EsnyaText extends StatelessWidget {
       );
 
   factory EsnyaText.body(String text, {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -50,7 +54,7 @@ class EsnyaText extends StatelessWidget {
 
   factory EsnyaText.bodySmall(String text,
           {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -59,7 +63,7 @@ class EsnyaText extends StatelessWidget {
 
   factory EsnyaText.titleBold(String text,
           {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -67,7 +71,7 @@ class EsnyaText extends StatelessWidget {
       );
 
   factory EsnyaText.title(String text, {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -76,7 +80,7 @@ class EsnyaText extends StatelessWidget {
 
   factory EsnyaText.titleSmall(String text,
           {Color? color, GetColor? getColor}) =>
-      EsnyaText._internal(
+      EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
@@ -92,6 +96,11 @@ class EsnyaText extends StatelessWidget {
     if (c != null) {
       tS = (tS ?? const TextStyle()).copyWith(color: c);
     }
-    return Text(text, style: tS);
+    return Text(
+      text,
+      style: tS,
+      overflow: overflow,
+      maxLines: maxLines,
+    );
   }
 }
