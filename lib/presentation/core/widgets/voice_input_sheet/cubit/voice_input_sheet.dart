@@ -1,9 +1,12 @@
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
+import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,52 +29,95 @@ class VoiceInputSheet extends StatefulWidget {
 }
 
 class _VoiceInputSheetState extends State<VoiceInputSheet> {
+  void _stopRecording(BuildContext context) {
+    context.read<VoiceInputSheetCubit>().stopRecording();
+  }
+
+  void _startRecording(BuildContext context) {
+    context.read<VoiceInputSheetCubit>().startRecording();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VoiceInputSheetCubit, VoiceInputSheetState>(
         builder: (context, state) {
+      print("rebuild");
       return _buildSheet(context, state);
     });
   }
 
   Widget _buildSheet(BuildContext context, VoiceInputSheetState state) {
     final colorScheme = getColorScheme(context);
-    final getText = state.map(
-      initial: (value) => "initial",
-      error: (value) => "initial",
-      recording: (value) => "initial",
-      stopped: (value) => "initial",
-      preparing: (value) => "initial",
-    );
+    state = VoiceInputSheetState.error("sasa sa as sa");
+
     final textColor = state.maybeMap(
       orElse: () => colorScheme.onBackground,
       error: (value) => colorScheme.error,
     );
 
     final text = state.map(
-        initial: (value) => "initial",
-        error: (value) => "something went wrong",
+        initial: (value) => "",
+        error: (value) => value.errorText,
         recording: (value) => _ellipsisTextFromLeft(value.currentInput, 32),
         stopped: (value) => "",
-        preparing: (value) => "...preparing our ears");
+        preparing: (value) =>
+            "preparing AI (${(value.progress * 100).toStringAsFixed(0)} %)");
 
     final centralWidget = state.map(
       initial: (value) => SizedBox.shrink(),
       error: (value) => Icon(
         EsnyaIcons.error,
         size: 56,
+        color: colorScheme.error,
       ),
-      recording: (value) => Icon(
+      stopped: (value) => EsnyaIconButton.custom(
         EsnyaIcons.microphone,
-        size: 56,
-        color: colorScheme.primary,
+        onPressed: () => _startRecording(context),
+        floatingActionStyle: true,
+        customPadding: EsnyaSizes.paddingBase,
+        borderRadius: 50,
+        customIconSize: 56,
+        getIconColor: (c) => c.error,
+        getColor: (c) => c.surface,
       ),
-      stopped: (value) => Icon(
-        EsnyaIcons.microphone,
-        size: 56,
+
+      // EsnyaIconButton.custom(
+      //   EsnyaIcons.microphone,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(50),
+      //     side: BorderSide.none,
+      //   ),
+      //   customPadding: EsnyaSizes.paddingBase2,
+      //   floatingActionStyle: true,
+      //   onPressed: () => _startRecording(context),
+      //   customIconSize: 56,
+      //   getColor: (c) => c.surface,
+      //   getIconColor: (c) => c.primary,
+      //   shadowSize: ShadowSize.small,
+      // ),
+      recording: (value) => GestureDetector(
+        onTap: () => _stopRecording(context),
+        child: SizedBox(
+          height: 100,
+          width: 300,
+          child: AvatarGlow(
+            curve: Curves.decelerate,
+            showTwoGlows: true,
+            glowColor: colorScheme.error,
+            animate: true,
+            endRadius: 60,
+            child: Icon(
+              EsnyaIcons.microphone,
+              size: 56,
+              color: colorScheme.error,
+            ),
+          ),
+        ),
+      ),
+      preparing: (value) => CircularProgressIndicator(
+        strokeWidth: 4,
         color: colorScheme.onBackground,
       ),
-      preparing: (value) => CircularProgressIndicator(),
     );
 
     return shadowWrapLargeUp(
@@ -105,10 +151,9 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
               ),
             ],
           ),
-          EsnyaSizes.spaceBaseHeight2,
           Container(
             width: double.infinity,
-            height: 60,
+            height: 100,
             child: Center(
               child: centralWidget,
             ),

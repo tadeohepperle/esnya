@@ -228,7 +228,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
       EsynaButton.custom(
         title: title,
         shadowSize: active ? ShadowSize.small : ShadowSize.none,
-        shape: EsnyaSizes.roundedButtonBorder,
+        borderRadius: 100,
         getColor: (c) => active ? c.onSurface : c.surface,
         getTextColor: (c) => active ? c.surface : c.onSurface,
         customPadding: EdgeInsets.fromLTRB(8, 4, 8, 4),

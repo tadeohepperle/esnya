@@ -24,15 +24,16 @@ Map<ShadowSize, BoxShadow?> _shadowMap = {
   ),
 };
 
-Widget shadowWrapLarge(child) => shadowWrap(ShadowSize.large, child);
-Widget shadowWrapLargeUp(child) => shadowWrap(ShadowSize.largeUp, child);
-Widget shadowWrapSmall(child) => shadowWrap(ShadowSize.small, child);
+Widget shadowWrapLarge(child) => shadowWrap(ShadowSize.large, 0, child);
+Widget shadowWrapLargeUp(child) => shadowWrap(ShadowSize.largeUp, 0, child);
+Widget shadowWrapSmall(child) => shadowWrap(ShadowSize.small, 0, child);
 
-Widget shadowWrap(ShadowSize shadowSize, Widget child) =>
+Widget shadowWrap(ShadowSize shadowSize, double borderRadius, Widget child) =>
     shadowSize == ShadowSize.none
         ? child
         : Container(
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               boxShadow: [_shadowMap[shadowSize]!],
             ),
             child: child,

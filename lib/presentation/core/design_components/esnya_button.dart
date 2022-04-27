@@ -13,7 +13,7 @@ class EsynaButton extends StatelessWidget {
   final ShadowSize? shadowSize;
   final EdgeInsetsGeometry? customPadding;
   final double? customPaddingBetweenIconAndText;
-  final ShapeBorder shape;
+  final double borderRadius;
 
   EsynaButton._internal({
     required this.title,
@@ -26,9 +26,8 @@ class EsynaButton extends StatelessWidget {
     this.shadowSize,
     this.customPadding,
     this.customPaddingBetweenIconAndText,
-    ShapeBorder? shape,
-  })  : shape = shape ?? EsnyaSizes.roundedRectangleBorder,
-        super(key: key);
+    this.borderRadius = 8,
+  }) : super(key: key);
 
   factory EsynaButton.primary({
     required String title,
@@ -90,17 +89,16 @@ class EsynaButton extends StatelessWidget {
         shadowSize: shadowSize,
       );
 
-  factory EsynaButton.custom({
-    required String title,
-    void Function()? onPressed,
-    IconData? iconData,
-    ShadowSize? shadowSize,
-    GetColor? getColor,
-    GetColor? getTextColor,
-    EdgeInsetsGeometry? customPadding,
-    double? customPaddingBetweenIconAndText,
-    ShapeBorder? shape,
-  }) =>
+  factory EsynaButton.custom(
+          {required String title,
+          void Function()? onPressed,
+          IconData? iconData,
+          ShadowSize? shadowSize,
+          GetColor? getColor,
+          GetColor? getTextColor,
+          EdgeInsetsGeometry? customPadding,
+          double? customPaddingBetweenIconAndText,
+          double? borderRadius}) =>
       EsynaButton._internal(
         onPressed: onPressed,
         title: title,
@@ -110,7 +108,7 @@ class EsynaButton extends StatelessWidget {
         shadowSize: shadowSize,
         customPadding: customPadding,
         customPaddingBetweenIconAndText: customPaddingBetweenIconAndText,
-        shape: shape,
+        borderRadius: borderRadius ?? 8,
       );
 
   @override
@@ -122,6 +120,12 @@ class EsynaButton extends StatelessWidget {
       title,
       color: tC,
     );
+
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(borderRadius),
+      side: BorderSide.none,
+    );
+
     if (iconData != null) {
       child = Row(
         mainAxisSize: MainAxisSize.min,
@@ -141,6 +145,7 @@ class EsynaButton extends StatelessWidget {
     }
     return shadowWrap(
       shadowSize ?? ShadowSize.large,
+      borderRadius,
       MaterialButton(
         color: c,
         disabledColor:

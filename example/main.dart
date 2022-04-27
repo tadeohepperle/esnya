@@ -11,7 +11,7 @@ import 'subpages/food_input_bar_screen.dart';
 import 'subpages/food_item_entry_card_screen.dart';
 import 'subpages/food_item_entry_list_tile_screen.dart';
 import 'subpages/text_styles_screen.dart';
-import 'subpages/voice_input_sheet_page.dart';
+import 'subpages/voice_input_sheet_screen.dart';
 
 /// flutter run -t ./example/main.dart
 

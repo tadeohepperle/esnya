@@ -11,11 +11,6 @@ abstract class EsnyaSizes {
     side: BorderSide.none,
   );
 
-  static RoundedRectangleBorder roundedButtonBorder = RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(base * 10),
-    side: BorderSide.none,
-  );
-
   static Padding paddingWrap(Widget child, [double paddingSize = base]) =>
       Padding(
         padding: EdgeInsets.all(paddingSize),
@@ -36,4 +31,7 @@ abstract class EsnyaSizes {
   static const SizedBox spaceBaseHeight2 = SizedBox(
     height: base * 2,
   );
+
+  static const paddingBase = EdgeInsets.all(base);
+  static const paddingBase2 = EdgeInsets.all(base * 2);
 }

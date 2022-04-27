@@ -10,18 +10,23 @@ class EsnyaIconButton extends StatelessWidget {
   final ShadowSize? shadowSize;
   final bool floatingActionStyle;
   final double? customIconSize;
+  final EdgeInsetsGeometry? customPadding;
+  final double borderRadius;
 
   final void Function()? onPressed;
-  const EsnyaIconButton._internal({
-    Key? key,
-    required this.iconData,
-    this.onPressed,
-    this.shadowSize,
-    required this.getColor,
-    required this.getIconColor,
-    this.floatingActionStyle = false,
-    this.customIconSize,
-  }) : super(key: key);
+  EsnyaIconButton._internal(
+      {Key? key,
+      required this.iconData,
+      this.onPressed,
+      this.shadowSize,
+      required this.getColor,
+      required this.getIconColor,
+      this.floatingActionStyle = false,
+      this.customPadding,
+      this.customIconSize,
+      double? borderRadius})
+      : borderRadius = borderRadius ?? (floatingActionStyle ? 24 : 8),
+        super(key: key);
 
   factory EsnyaIconButton.primary(
     IconData iconData, {
@@ -83,6 +88,7 @@ class EsnyaIconButton extends StatelessWidget {
         floatingActionStyle: floatingActionStyle ?? false,
       );
 
+  /// customIconSize: standard is 20 for normal and 36 for floating action button
   factory EsnyaIconButton.custom(
     IconData iconData, {
     void Function()? onPressed,
@@ -90,9 +96,9 @@ class EsnyaIconButton extends StatelessWidget {
     GetColor? getIconColor,
     GetColor? getColor,
     bool? floatingActionStyle,
-
-    /// standard is 20 for normal and 36 for floating action button
     double? customIconSize,
+    EdgeInsetsGeometry? customPadding,
+    double? borderRadius,
   }) =>
       EsnyaIconButton._internal(
         iconData: iconData,
@@ -102,6 +108,8 @@ class EsnyaIconButton extends StatelessWidget {
         getColor: getColor ?? (c) => c.surface,
         floatingActionStyle: floatingActionStyle ?? false,
         customIconSize: customIconSize,
+        customPadding: customPadding,
+        borderRadius: borderRadius,
       );
 
   @override
@@ -110,24 +118,25 @@ class EsnyaIconButton extends StatelessWidget {
     final c = getColor(colorScheme);
     final iC = getIconColor(colorScheme);
 
-    final padding = floatingActionStyle
-        ? EdgeInsets.all(
-            customIconSize != null ? (48 - customIconSize!) / 2 : 6)
-        : EdgeInsets.all(
-            customIconSize != null ? (32 - customIconSize!) / 2 : 6);
-    final shape = floatingActionStyle
-        ? RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-            side: BorderSide.none,
-          )
-        : EsnyaSizes.roundedRectangleBorder;
+    final padding = customPadding ??
+        (floatingActionStyle
+            ? EdgeInsets.all(
+                customIconSize != null ? (48 - customIconSize!) / 2 : 6)
+            : EdgeInsets.all(
+                customIconSize != null ? (32 - customIconSize!) / 2 : 6));
     final iconSize = floatingActionStyle
         ? (customIconSize ?? 36.0)
         : (customIconSize ?? 20.0);
 
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(borderRadius),
+      side: BorderSide.none,
+    );
+
     // normal is 32 px high and wide, floating action is 48 high and wide.
     return shadowWrap(
       shadowSize ?? ShadowSize.large,
+      borderRadius,
       MaterialButton(
         disabledColor:
             Color.lerp(c, const Color.fromARGB(255, 184, 184, 184), 0.5),
