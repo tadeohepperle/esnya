@@ -56,6 +56,16 @@ class LocalDataRepositoryImpl extends SetupRepositoryImpl
   }
 
   @override
+  Future<Either<Failure, String>> getTextFromURL(String url) async {
+    try {
+      String text = await http.read(Uri.parse(url));
+      return right(text);
+    } catch (e) {
+      return left(ApiFailure.unexpected());
+    }
+  }
+
+  @override
   Stream<Either<Failure, double>> downloadFile(
       String url, String targetPath) async* {
     try {
@@ -125,7 +135,7 @@ class LocalDataRepositoryImpl extends SetupRepositoryImpl
   Future<void> storageWrite(String key, value) => _storage.write(key, value);
 
   @override
-  Future<void> unzip(String originPath, targetPath,
+  Future<void> unzip(String originPath, String targetPath,
       {bool deleteOrigin = false}) async {
     final zipFile = File(originPath);
     final destinationDir = Directory(targetPath);
