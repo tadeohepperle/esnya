@@ -61,7 +61,7 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
         recording: (value) => _ellipsisTextFromLeft(value.currentInput, 32),
         stopped: (value) => "",
         preparing: (value) =>
-            "preparing AI (${(value.progress * 100).toStringAsFixed(0)} %)");
+            "preparing AI ${(value.progress * 100).toStringAsFixed(0)} %");
 
     final centralWidget = state.map(
       initial: (value) => SizedBox.shrink(),

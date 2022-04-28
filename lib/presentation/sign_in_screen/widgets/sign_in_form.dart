@@ -47,7 +47,7 @@ class SignInForm extends StatelessWidget {
         ? AutovalidateMode.always
         : AutovalidateMode.disabled;
     return Padding(
-      padding: EdgeInsetsX.allLarge,
+      padding: EdgeInsets.all(8),
       child: Form(
           key: _formKey,
           child: Column(
@@ -60,7 +60,6 @@ class SignInForm extends StatelessWidget {
                   style: TextStyle(fontSize: 130),
                 ),
               ),
-              SizedBoxX.hSmall,
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.email),
@@ -80,7 +79,6 @@ class SignInForm extends StatelessWidget {
                       (_) => null);
                 },
               ),
-              SizedBoxX.hSmall,
               TextFormField(
                 decoration: const InputDecoration(
                   icon: Icon(Icons.password),
@@ -101,7 +99,6 @@ class SignInForm extends StatelessWidget {
                       (r) => null);
                 },
               ),
-              SizedBoxX.hSmall,
               Row(
                 children: [
                   Expanded(
@@ -115,7 +112,6 @@ class SignInForm extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBoxX.wSmall,
                   Expanded(
                     child: ElevatedButton(
                       child: Text(l10ns.registerButtonText),

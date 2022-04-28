@@ -57,6 +57,10 @@ dependencies:
   cloud_firestore: ^3.1.12
   font_awesome_flutter: ^10.1.0
   avatar_glow: ^2.0.2
+  path_provider: ^2.0.9
+  get_storage: ^2.0.3
+  flutter_archive: ^4.2.0
+  http: ^0.13.4
   # logger: any
 
 dev_dependencies:

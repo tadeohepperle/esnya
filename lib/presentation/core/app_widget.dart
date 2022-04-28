@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../application/auth/auth_bloc.dart';
 import '../../injection.dart';
 import './core.dart';
+import 'design_components/esnya_theme.dart';
 
 class AppWidget extends StatelessWidget {
   AppWidget({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class AppWidget extends StatelessWidget {
           supportedLocales: [
             for (var l in Language.languages) Locale(l.languageCode)
           ],
-          theme: themeData,
+          theme: themeDataLight,
           title: kAppName,
           debugShowCheckedModeBanner: false,
           routerDelegate: _rootRouter.routerDelegate,

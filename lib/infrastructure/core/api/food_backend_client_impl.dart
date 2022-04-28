@@ -1,3 +1,4 @@
+import 'package:esnya/constants.dart';
 import 'package:esnya/infrastructure/core/api/food_backend_client.dart';
 import 'package:esnya/infrastructure/core/api/models/guess_food_request_body.dart';
 import 'package:esnya/injection_environments.dart';
@@ -11,7 +12,7 @@ part 'food_backend_client_impl.g.dart';
 /// We can access localhost of our computer like so: http://10.0.2.2:8080/data/food/173818 when we run the esnya_food_backend dart app on port 8080
 
 @isolate2
-@RestApi(baseUrl: "http://10.0.2.2:8080/")
+@RestApi(baseUrl: kEsnyaBackendAPIbaseURL)
 @LazySingleton(as: FoodBackendClient)
 abstract class FoodBackendClientImpl implements FoodBackendClient {
   @factoryMethod
