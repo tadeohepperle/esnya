@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/home_screen/bloc/dashboard_bloc.dart';
@@ -156,14 +157,20 @@ class _DashboardTabViewState extends State<DashboardTabView>
     }
 
     Widget _buildVoiceInputSheet() {
-      return Container(child: Text("VOICE input"));
-      return VoiceInputSheet(onChanged: (value) {
-        // TODO:
-      }, onSubmitted: (value) {
-        // TODO:
-      }, onClosed: (value) {
-        dashboardInputState = DashboardInputState.closed;
-      });
+      return BlocProvider<VoiceInputSheetCubit>(
+        create: (context) => getIt<VoiceInputSheetCubit>(),
+        child: VoiceInputSheet(
+          onChanged: (value) {
+            // TODO:
+          },
+          onSubmitted: (value) {
+            // TODO:
+          },
+          onClosed: (value) {
+            dashboardInputState = DashboardInputState.closed;
+          },
+        ),
+      );
     }
 
     return Positioned(

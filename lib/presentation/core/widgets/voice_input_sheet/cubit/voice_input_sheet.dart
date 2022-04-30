@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../design_components/esnya_design_utils.dart';
 
+/// needs to be wrapped in BlocProvider<VoiceInputSheetCubit,VoiceInputSheetState>
 class VoiceInputSheet extends StatefulWidget {
   final void Function(String) onChanged;
   final void Function(String) onSubmitted;
@@ -41,14 +42,12 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
   Widget build(BuildContext context) {
     return BlocBuilder<VoiceInputSheetCubit, VoiceInputSheetState>(
         builder: (context, state) {
-      print("rebuild");
       return _buildSheet(context, state);
     });
   }
 
   Widget _buildSheet(BuildContext context, VoiceInputSheetState state) {
     final colorScheme = getColorScheme(context);
-    state = VoiceInputSheetState.error("sasa sa as sa");
 
     final textColor = state.maybeMap(
       orElse: () => colorScheme.onBackground,
