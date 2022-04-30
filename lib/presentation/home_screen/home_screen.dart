@@ -4,6 +4,10 @@ import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/domain/core/app_localizations_x.dart';
+import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
+import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
+import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/home_screen/calculator/calculator_tab_view.dart';
 import 'package:esnya/presentation/home_screen/dashboard/dashboard_tab_view.dart';
 import 'package:esnya/presentation/home_screen/profile/profile_tab_view.dart';
@@ -36,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       vsync: this,
       initialIndex: widget.tabIndex,
     );
+    // todo on change tab, make keyboard disappear
   }
 
   @override
@@ -63,18 +68,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         builder: (context, state) {
           final loc = AppLocalizations.of(context);
           return Scaffold(
-            resizeToAvoidBottomInset: false,
+            //resizeToAvoidBottomInset: false,
+            bottomNavigationBar: TabBar(
+              controller: _controller,
+              tabs: [
+                for (final i in HomeScreenTabType.values.asMap().keys)
+                  BottomNavigationTab(
+                    title: loc!.homeScreenTabTitle(HomeScreenTabType.values[i]),
+                    iconData:
+                        EsnyaIcons.tabIcons[HomeScreenTabType.values[i]] ??
+                            EsnyaIcons.placeholder,
+                    active: _controller.index == i,
+                  )
+                // Tab(
+                //   text: loc!.homeScreenTabTitle(tab),
+                //   icon: Icon(Icons.abc),
+                // )
+              ],
+              onTap: (index) {
+                context.go(HomeScreenTabType.values[index].nameAndPath.path);
+              },
+            ),
             appBar: AppBar(
-              title: TabBar(
-                controller: _controller,
-                tabs: [
-                  for (final tab in HomeScreenTabType.values)
-                    Tab(text: loc!.homeScreenTabTitle(tab))
-                ],
-                onTap: (index) {
-                  context.go(HomeScreenTabType.values[index].nameAndPath.path);
-                },
-              ),
+              backgroundColor: Color(0xFF3F5AA6),
+              title: Text("Title text"),
             ),
             body: TabBarView(
               controller: _controller,
@@ -99,5 +116,40 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       return ProfileTabView();
     }
     return null;
+  }
+}
+
+class BottomNavigationTab extends StatelessWidget {
+  final String title;
+  final IconData iconData;
+  final bool active;
+  const BottomNavigationTab({
+    Key? key,
+    required this.title,
+    required this.iconData,
+    this.active = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = getColorScheme(context);
+    final color = active ? colorScheme.primary : colorScheme.onSurface;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 4,
+        ),
+        Icon(
+          iconData,
+          color: color,
+          size: 20,
+        ),
+        EsnyaText.body(title, color: color),
+        SizedBox(
+          height: 4,
+        ),
+      ],
+    );
   }
 }

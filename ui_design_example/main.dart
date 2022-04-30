@@ -13,7 +13,7 @@ import 'subpages/food_item_entry_list_tile_screen.dart';
 import 'subpages/text_styles_screen.dart';
 import 'subpages/voice_input_sheet_screen.dart';
 
-/// flutter run -t ./example/main.dart
+/// flutter run -t ./ui_design_example/main.dart
 
 void main() async {
   configureInjection(isolate1.name);
