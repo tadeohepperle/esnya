@@ -1,18 +1,22 @@
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart';
 
-import '../design_components/esnya_design_utils.dart';
-import '../design_components/esnya_icons.dart';
+import '../../design_components/esnya_design_utils.dart';
+import '../../design_components/esnya_icons.dart';
+import 'food_input_bar_controller.dart';
 
 class FoodInputBar extends StatefulWidget {
   final void Function(String) onChanged;
   final void Function(String) onSubmitted;
   final void Function(String) onClosed;
+  final FocusNode focusNode;
+
   const FoodInputBar({
     Key? key,
     required this.onChanged,
     required this.onSubmitted,
     required this.onClosed,
+    required this.focusNode,
   }) : super(key: key);
 
   static const kFoodInputBarHeight = 36.0;
@@ -25,7 +29,6 @@ class FoodInputBar extends StatefulWidget {
 
 class _FoodInputBarState extends State<FoodInputBar> {
   final _controller = TextEditingController();
-  late FocusNode _focusNode;
   String _content = "";
 
   void _handleChange() {
@@ -37,16 +40,14 @@ class _FoodInputBarState extends State<FoodInputBar> {
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
-    _focusNode.requestFocus();
     _controller.addListener(_handleChange);
+    widget.focusNode.requestFocus();
   }
 
   @override
   void dispose() {
-    // _focusNode.unfocus();
+    widget.focusNode.unfocus();
     _controller.dispose();
-    _focusNode.dispose();
     super.dispose();
   }
 
@@ -60,7 +61,7 @@ class _FoodInputBarState extends State<FoodInputBar> {
           child: TextField(
             onChanged: widget.onChanged,
             onSubmitted: widget.onClosed,
-            focusNode: _focusNode,
+            focusNode: widget.focusNode,
             textInputAction: TextInputAction.done,
             controller: _controller,
             clipBehavior: Clip.antiAlias,

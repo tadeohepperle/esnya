@@ -1,5 +1,10 @@
+import 'dart:math';
+
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
+import 'package:esnya/presentation/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../constants.dart';
 
 enum ShadowSize { none, small, large, largeUp }
 
@@ -46,3 +51,28 @@ TextTheme getTextTheme(BuildContext context) => Theme.of(context).textTheme;
 
 typedef GetColor = Color Function(ColorScheme c);
 typedef GetTextStyle = TextStyle? Function(TextTheme t);
+
+/// makes the child widget cling to the top of the keyboard or the bottom of the screen.
+/// required `resizeToAvoidBottomInset: false` on the scaffold
+class KeyboardAligned extends StatelessWidget {
+  final Widget child;
+
+  /// default = kBottomNavigationBarHeight, can be removed on screen without the tab bar.
+  final double bottomNavigationBarHeight;
+  const KeyboardAligned({
+    Key? key,
+    required this.child,
+    this.bottomNavigationBarHeight = kEsnyaBottomNavigationBarHeight,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final inset = MediaQuery.of(context).viewInsets.bottom;
+    return Positioned(
+      child: child,
+      bottom: max(0, inset - bottomNavigationBarHeight),
+      left: 0,
+      right: 0,
+    );
+  }
+}

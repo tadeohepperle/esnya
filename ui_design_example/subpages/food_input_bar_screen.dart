@@ -1,5 +1,5 @@
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/widgets/food_input_bar.dart';
+import 'package:esnya/presentation/core/widgets/food_input_bar/food_input_bar.dart';
 import 'package:flutter/material.dart';
 
 class FoodInputBarScreen extends StatefulWidget {
@@ -12,6 +12,20 @@ class FoodInputBarScreen extends StatefulWidget {
 class _FoodInputBarScreenState extends State<FoodInputBarScreen> {
   String _text = '';
   String _unsavedText = '';
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,21 +50,26 @@ class _FoodInputBarScreenState extends State<FoodInputBarScreen> {
           child: Text(_text + _unsavedText),
         ),
         Divider(),
-        FoodInputBar(onChanged: (v) {
-          setState(() {
-            _unsavedText = v;
-          });
-        }, onSubmitted: (v) {
-          setState(() {
-            _text += _unsavedText + "\n";
-            _unsavedText = '';
-          });
-        }, onClosed: (v) {
-          setState(() {
-            _text += '\n Closed. \n';
-            _unsavedText = '';
-          });
-        })
+        FoodInputBar(
+          focusNode: focusNode,
+          onChanged: (v) {
+            setState(() {
+              _unsavedText = v;
+            });
+          },
+          onSubmitted: (v) {
+            setState(() {
+              _text += _unsavedText + "\n";
+              _unsavedText = '';
+            });
+          },
+          onClosed: (v) {
+            setState(() {
+              _text += '\n Closed. \n';
+              _unsavedText = '';
+            });
+          },
+        )
       ]),
     ));
   }
