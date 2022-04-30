@@ -37,6 +37,13 @@
             {
               "client_id": "816048333127-st957fv1j45r5nc1oithlq9vkcuugve4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "816048333127-t19aosaovm7k4bpjlgflhqc1h5dhhles.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thapps.esnya"
+              }
             }
           ]
         }

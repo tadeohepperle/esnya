@@ -75,7 +75,7 @@ class _FoodInputBarState extends State<FoodInputBar> {
               fillColor: colorScheme.surface,
               contentPadding:
                   EdgeInsets.symmetric(horizontal: EsnyaSizes.base * 2),
-              hintText: 'Search',
+              hintText: '200 g of kidney beans',
             ),
           ),
         ));

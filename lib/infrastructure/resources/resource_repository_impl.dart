@@ -4,7 +4,6 @@ import 'package:esnya/injection_environments.dart';
 import 'package:injectable/injectable.dart';
 
 @isolate1 // TODO: is this correct isolate?
-@isolate2
 @LazySingleton(as: ResourceRepository)
 class ResourceRepositoryImpl implements ResourceRepository {
   final EsnyaResources _resources = EsnyaResources();

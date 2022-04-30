@@ -10,3 +10,9 @@ https://roszkowski.dev/2021/i18n-in-flutter/
 
 to generate translations:
  flutter packages get 
+
+
+to setup firebase:
+
+firebase login
+flutterfire configure

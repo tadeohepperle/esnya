@@ -3,8 +3,10 @@ import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/isolate2/entities/isolate_response.dart';
+import 'package:esnya/domain/resources/local_data_repository.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
+import 'package:esnya/setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
@@ -17,7 +19,7 @@ void runIsolate2(SendPort sPort) {
   /////////////////////////////////
 
   configureInjection(isolate2.name);
-  unawaited(setupRepositories());
+  unawaited(setupServicesIsolate2());
   // do not await because we want to create channel and get app started as soon as possible.
 
   /////////////////////////////////
@@ -29,11 +31,6 @@ void runIsolate2(SendPort sPort) {
     final response = await makeRequest(request);
     channel.sink.add(response);
   });
-}
-
-Future<void> setupRepositories() async {
-  await getIt<FoodDataRepository>().setup();
-  await getIt<FoodMappingRepository>().setup();
 }
 
 Future<IsolateResponse> makeRequest(IsolateRequest request) async {
