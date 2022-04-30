@@ -22,9 +22,7 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
     implements FoodItemEntryBucketRepository {
   final FirebaseFirestore _firestore;
 
-  FoodItemEntryBucketRepositoryImplFirebase(this._firestore) {
-    print("INIT FoodItemEntryBucketRepositoryImplFirebase");
-  }
+  FoodItemEntryBucketRepositoryImplFirebase(this._firestore) {}
 
   ///////////////////////////////////
   /// Bucket operations:

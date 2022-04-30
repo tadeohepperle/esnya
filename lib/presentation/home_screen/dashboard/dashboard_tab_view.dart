@@ -36,10 +36,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     });
     print("target: $target");
     if (target == DashboardInputState.text) {
-      () async {
-        await Future.delayed(Duration(milliseconds: 20));
-        _foodInputBarFocusNode.requestFocus();
-      }(); // TODO: MAYBE: find a better way to open the keyboard and focus the faded in input bar.
+      _requestFocusUntilItsGranted();
     }
   }
 
@@ -73,6 +70,21 @@ class _DashboardTabViewState extends State<DashboardTabView>
     if (!visible && dashboardInputState == DashboardInputState.text) {
       dashboardInputState = DashboardInputState.closed;
     }
+  }
+
+  /// requests focus multiple times. Necessary, because due to crossfade animations, the food input bar may not be focussable right away.
+  /// returns, wether the food input bar was ultimatily focussable or not.
+  Future<bool> _requestFocusUntilItsGranted(
+      {Duration requestInterval = const Duration(milliseconds: 5),
+      int maxRequests = 100}) async {
+    for (var i = 0; i < maxRequests; i++) {
+      if (_foodInputBarFocusNode.canRequestFocus) {
+        _foodInputBarFocusNode.requestFocus();
+        return true;
+      }
+      await Future.delayed(requestInterval);
+    }
+    return false;
   }
 
   @override
