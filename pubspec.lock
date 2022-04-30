@@ -237,7 +237,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "330c9ea132ad7c23c88d25a01d87e67d3e7d8636"
+      resolved-ref: cafb2dae74ee5085ba52158a74cffc54f6ac03e0
       url: "https://github.com/tadeohepperle/esnya_shared_resources.git"
     source: git
     version: "1.0.0"
@@ -555,13 +555,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.2.0"
-  keyboard_visibility:
-    dependency: "direct main"
-    description:
-      name: keyboard_visibility
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.6"
   kt_dart:
     dependency: "direct main"
     description:

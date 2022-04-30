@@ -5,6 +5,7 @@ import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/domain/core/app_localizations_x.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/home_screen/calculator/calculator_tab_view.dart';
 import 'package:esnya/presentation/home_screen/dashboard/dashboard_tab_view.dart';
 import 'package:esnya/presentation/home_screen/profile/profile_tab_view.dart';
@@ -69,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           return Scaffold(
             resizeToAvoidBottomInset: false,
             bottomNavigationBar: TabBar(
+              indicatorWeight: EsnyaSizes.kEsnyaBottomNavigationIndicatorHeight,
               controller: _controller,
               tabs: [
                 for (final i in HomeScreenTabType.values.asMap().keys)

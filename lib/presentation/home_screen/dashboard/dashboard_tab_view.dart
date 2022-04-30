@@ -1,6 +1,12 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:esnya/presentation/core/design_components/esnya_button.dart';
+import 'package:esnya/presentation/core/design_components/esnya_text.dart';
+import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/home_screen/bloc/dashboard_bloc.dart';
@@ -99,28 +105,158 @@ class _DashboardTabViewState extends State<DashboardTabView>
             builder: (context, dashboardState) {
           return Stack(children: [
             // the body of the page
-            _buildBody(context),
+            _buildBody(context, dashboardState),
             // the bottom floating action icons / the voice input panel
             _buildBottomWidgets(context),
             // the text input bar clinging to the keyboard
             _buildFoodInputBar(context),
-            ElevatedButton(
-              child: Text("Klick me"),
-              onPressed: () {
-                _foodInputBarFocusNode.requestFocus();
-              },
-            ),
           ]);
         });
       }),
     );
   }
 
-  Widget _buildBody(context) {
-    return SingleChildScrollView(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        ...List.generate(50, (index) => Text(index.toRadixString(3)))
-      ]),
+  Widget _buildBody(BuildContext context, DashboardState dashboardState) {
+    LanguageRepository langRepo = getIt<LanguageRepository>();
+    Widget _buildBodyHeader() {
+      return Container(
+        color: Colors.amber,
+        child: SafeArea(
+            child: Container(
+          width: double.infinity,
+          height: EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea,
+          child: Text("HEADER"),
+        )),
+      );
+    }
+
+    Widget _buildListItem(FoodItemEntry foodItemEntry, {UniqueId? bucketId}) {
+      return Padding(
+        padding: const EdgeInsets.only(
+            bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
+        child: FoodItemEntryListTile(
+          foodItemEntry: foodItemEntry,
+          onBadgeTap: () {
+            // TODO:
+          },
+          onTap: () {
+            // TODO:
+          },
+        ),
+      );
+    }
+
+    Widget _buildBodyFoodLogList() {
+      Widget _buildBucket(FoodItemEntryBucket bucket) {
+        return Padding(
+          padding: EdgeInsets.only(
+              left: EsnyaSizes.base,
+              right: EsnyaSizes.base,
+              top: EsnyaSizes.kDashboardPaddingBetweenBucketsInListView),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BucketDateTitleListItem(bucket: bucket),
+              ...bucket.entries.iter
+                  .map((e) => _buildListItem(e, bucketId: bucket.id)),
+            ],
+          ),
+        );
+      }
+
+      Widget _buildUnsafeEntries() {
+        return Column(
+          children: [
+            ...dashboardState.entriesBetweenBlocAndRepo.iter
+                .map((e) => _buildListItem(e)),
+            ...dashboardState.entriesFoodInputBloc.iter
+                .map((e) => _buildListItem(e)),
+          ],
+        );
+      }
+
+      /// this complicated calculation is relevant because we need this space at the end of the listview such that the title of the last food item bucket (today) appears right below the header panel.
+      Widget _buildContainerForScrollUp() {
+        final mediaQuery = MediaQuery.of(context);
+        double height = mediaQuery.size.height;
+        height -= mediaQuery.padding.top +
+            EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea +
+            0 +
+            _heightOfContainerBelowListView(context) +
+            EsnyaSizes.kEsnyaBottomNavigationBarHeight;
+
+        int entryCount = (dashboardState.entriesBetweenBlocAndRepo.size +
+            dashboardState.entriesFoodInputBloc.size);
+
+        if (!dashboardState.buckets.isEmpty()) {
+          final lastBucket = dashboardState.buckets[0];
+          height -= EsnyaSizes.kBucketDateTitleListItemHeight;
+          entryCount += lastBucket.entries.size;
+        }
+
+        height -= entryCount *
+            (EsnyaSizes.kFoodItemEntryListTileHeight +
+                EsnyaSizes.kFoodItemEntryListTilePaddingBelow);
+
+        height = max(height, 0);
+
+        return SizedBox(
+          height: height,
+        );
+
+        /// just for debugging:
+        // return Container(
+        //     alignment: Alignment.topCenter,
+        //     height: height,
+        //     width: double.infinity,
+        //     color: Colors.green,
+        //     child: SizedBox(
+        //       height: 20,
+        //       width: 20,
+        //       child: Container(color: Colors.black),
+        //     ));
+      }
+
+      return ListView.builder(
+        controller: _scrollController,
+        physics: BouncingScrollPhysics(),
+        reverse: true,
+        // +1 for the unsafe items, +1 for a container allowing more scroll up than usual, such that "Today" can be displayed right beneath the header
+        itemCount: dashboardState.buckets.size + 2,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return _buildContainerForScrollUp();
+          }
+          if (index == 1) {
+            /// because of `reverse: true` this will be the downmost widget: a column for the entries not yet stored in firestore.
+            return _buildUnsafeEntries();
+          } else {
+            return _buildBucket(dashboardState.buckets[index - 2]);
+          }
+        },
+      );
+    }
+
+    /// below list view, so that scrolling over the floating action buttons is prohibited
+    Widget _buildPlaceKeeperContainer() {
+      return SizedBox(
+        height: _heightOfContainerBelowListView(context),
+      );
+
+      /// just for debugging:
+      // return Container(
+      //   height: _heightOfContainerBelowListView(context),
+      //   width: double.infinity,
+      //   color: Colors.red,
+      // );
+    }
+
+    return Column(
+      children: [
+        _buildBodyHeader(),
+        Expanded(child: _buildBodyFoodLogList()),
+        _buildPlaceKeeperContainer(),
+      ],
     );
   }
 
@@ -151,6 +287,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
               },
               floatingActionStyle: true,
             ),
+            EsynaButton.primary(
+              title: "test",
+              onPressed: () {
+                _scrollToEndInListView();
+              },
+            )
           ],
         ),
       );
@@ -160,15 +302,9 @@ class _DashboardTabViewState extends State<DashboardTabView>
       return BlocProvider<VoiceInputSheetCubit>(
         create: (context) => getIt<VoiceInputSheetCubit>(),
         child: VoiceInputSheet(
-          onChanged: (value) {
-            // TODO:
-          },
-          onSubmitted: (value) {
-            // TODO:
-          },
-          onClosed: (value) {
-            dashboardInputState = DashboardInputState.closed;
-          },
+          onChanged: (value) => _onChanged(context, value),
+          onSubmitted: (value) => _onSubmitted(context, value),
+          onClosed: (value) => _onClosed(context, value),
         ),
       );
     }
@@ -198,34 +334,42 @@ class _DashboardTabViewState extends State<DashboardTabView>
         secondChild: SizedBox.shrink(),
         firstChild: FoodInputBar(
           focusNode: _foodInputBarFocusNode,
-          onChanged: (v) {
-            // context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(v));
-          },
-          onSubmitted: (v) {
-            // context
-            //     .read<FoodInputBloc>()
-            //     .add(const FoodInputEvent.saveVolatileText());
-          },
-          onClosed: (v) {
-            dashboardInputState = DashboardInputState.closed;
-            // context
-            //     .read<FoodInputBloc>()
-            //     .add(const FoodInputEvent.saveVolatileText());
-            // FocusManager.instance.primaryFocus?.unfocus();
-            // if (_dashboardInputState == DashboardInputState.text) {
-            //   setState(() {
-            //     _dashboardInputState = DashboardInputState.closed;
-            //   });
-            // }
-          },
+          onChanged: (value) => _onChanged(context, value),
+          onSubmitted: (value) => _onSubmitted(context, value),
+          onClosed: (value) => _onClosed(context, value),
         ),
       ),
     );
-    // return AnimatedOpacity(
-    //   opacity: 1,
-    //   duration: kCrossFadeAnimationDuration,
-    //   child:
-    // );
+  }
+
+  _onClosed(BuildContext context, String value) {
+    context.read<FoodInputBloc>().add(const FoodInputEvent.saveVolatileText());
+    dashboardInputState = DashboardInputState.closed;
+  }
+
+  _onSubmitted(BuildContext context, String value) {
+    context.read<FoodInputBloc>().add(const FoodInputEvent.saveVolatileText());
+  }
+
+  _onChanged(BuildContext context, String value) {
+    context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(value));
+    _scrollToEndInListView();
+  }
+
+  void _scrollToEndInListView({bool animated = false}) {
+    final target = _scrollController.position.minScrollExtent;
+    if (!animated) {
+      _scrollController.jumpTo(target);
+    } else {
+      _scrollController.animateTo(target,
+          duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
+    }
+  }
+
+  double _heightOfContainerBelowListView(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+    return max(bottomInset, EsnyaSizes.kDashboardContainerBelowListViewHeight);
   }
 }
 

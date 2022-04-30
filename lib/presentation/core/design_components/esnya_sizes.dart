@@ -6,6 +6,19 @@ abstract class EsnyaSizes {
   static double get roundedCornerSmall => base / 2;
   static double get roundedCornerLarge => base * 2;
 
+  static const double kEsnyaBottomNavigationTabHeight = 48.0;
+  static const double kEsnyaBottomNavigationIndicatorHeight = 2.0;
+  static const double kEsnyaBottomNavigationBarHeight =
+      kEsnyaBottomNavigationTabHeight + kEsnyaBottomNavigationIndicatorHeight;
+
+  static const double kDashboardHeaderheightWithoutUnsafeArea = 100;
+  static const double kDashboardContainerBelowListViewHeight = 100;
+
+  static const double kFoodItemEntryListTileHeight = 36;
+  static const double kFoodItemEntryListTilePaddingBelow = 8.0;
+  static const double kBucketDateTitleListItemHeight = 20;
+  static const double kDashboardPaddingBetweenBucketsInListView = 30;
+
   static RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(base),
     side: BorderSide.none,

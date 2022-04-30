@@ -21,7 +21,7 @@ class FoodItemEntryListTile extends StatelessWidget {
     this.badgeDisplayMode = BadgeDisplayMode.kcal,
     required this.onTap,
     required this.onBadgeTap,
-    this.amountBoxWidth = 50,
+    this.amountBoxWidth = 150,
   }) : super(key: key);
 
   @override

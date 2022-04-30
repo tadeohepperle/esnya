@@ -61,7 +61,6 @@ dependencies:
   get_storage: ^2.0.3
   flutter_archive: ^4.2.0
   http: ^0.13.4
-  keyboard_visibility: ^0.5.6
   flutter_keyboard_visibility: ^5.2.0
   # logger: any
 

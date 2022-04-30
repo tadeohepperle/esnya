@@ -5,6 +5,7 @@ import 'package:esnya/presentation/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'esnya_sizes.dart';
 
 enum ShadowSize { none, small, large, largeUp }
 
@@ -62,7 +63,7 @@ class KeyboardAligned extends StatelessWidget {
   const KeyboardAligned({
     Key? key,
     required this.child,
-    this.bottomNavigationBarHeight = kEsnyaBottomNavigationBarHeight,
+    this.bottomNavigationBarHeight = EsnyaSizes.kEsnyaBottomNavigationBarHeight,
   }) : super(key: key);
 
   @override

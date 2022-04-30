@@ -1,3 +1,4 @@
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart' hide kBottomNavigationBarHeight;
 
 import '../constants.dart';
@@ -20,22 +21,17 @@ class BottomNavigationTab extends StatelessWidget {
     final colorScheme = getColorScheme(context);
     final color = active ? colorScheme.primary : colorScheme.onSurface;
 
-    return Container(
-      height: kEsnyaBottomNavigationBarHeight,
+    return SizedBox(
+      height: EsnyaSizes.kEsnyaBottomNavigationTabHeight,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 4,
-          ),
           Icon(
             iconData,
             color: color,
             size: 20,
           ),
           EsnyaText.body(title, color: color),
-          SizedBox(
-            height: 4,
-          ),
         ],
       ),
     );
