@@ -1,3 +1,6 @@
+import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
+import 'package:esnya/presentation/core/widgets/nutrient_table.dart';
+import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter/material.dart';
 
 class EsnyaColors {
@@ -50,3 +53,23 @@ final colorSchemeLight = ColorScheme(
   onSurface: esnyaColorsLight.textPrimary,
   surface: esnyaColorsLight.surface,
 );
+
+final Map<NutrientType, Color> _nutrientColorMap = {
+  NutrientType.protein: esnyaColorsLight.primary,
+  NutrientType.energy: esnyaColorsLight.secondary,
+};
+
+final Map<NutrientType, GetColor> _nutrientGetColorMap = {
+  NutrientType.protein: (c) => c.primary,
+  NutrientType.energy: (c) => c.secondary,
+};
+
+Color mapNutrientToColor(NutrientType nutrientType,
+    [ColorScheme? colorScheme]) {
+  if (colorScheme != null) {
+    return _nutrientGetColorMap[nutrientType]?.call(colorScheme) ??
+        colorScheme.onSurface;
+  } else {
+    return _nutrientColorMap[nutrientType] ?? esnyaColorsLight.textPrimary;
+  }
+}

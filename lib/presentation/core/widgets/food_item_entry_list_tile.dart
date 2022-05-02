@@ -203,10 +203,10 @@ class FoodItemEntryListTileBadge extends StatelessWidget {
       minWidth: 0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4),
+          topLeft: Radius.circular(8),
           topRight: Radius.circular(8),
           bottomLeft: Radius.circular(8),
-          bottomRight: Radius.circular(4),
+          bottomRight: Radius.circular(8),
         ),
         side: BorderSide.none,
       ),

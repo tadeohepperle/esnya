@@ -4,7 +4,7 @@ import 'package:esnya/presentation/core/design_components/esnya_design_utils.dar
 import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/widgets/big_nutrient_goal_display.dart';
+import 'package:esnya/presentation/core/widgets/dashboard_header/big_nutrient_goal_display.dart';
 import 'package:flutter/material.dart';
 
 class DashboardHeaderScreen extends StatelessWidget {
@@ -26,10 +26,6 @@ class DashboardHeaderScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Text("Hello Tadeo, this is your day in numbers"),
-              // SizedBox(
-              //   height: 24,
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

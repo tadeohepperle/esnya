@@ -11,7 +11,7 @@ abstract class EsnyaSizes {
   static const double kEsnyaBottomNavigationBarHeight =
       kEsnyaBottomNavigationTabHeight + kEsnyaBottomNavigationIndicatorHeight;
 
-  static const double kDashboardHeaderheightWithoutUnsafeArea = 100;
+  static const double kDashboardHeaderheightWithoutUnsafeArea = 164;
   static const double kDashboardContainerBelowListViewHeight = 64;
 
   static const double kFoodItemEntryListTileHeight = 36;

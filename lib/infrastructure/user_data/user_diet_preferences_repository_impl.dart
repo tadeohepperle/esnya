@@ -10,10 +10,12 @@ class UserDietPreferencesRepositoryImpl
     implements UserDietPreferencesRepository {
   @override
   List<NutrientType> get preferredNutrients =>
+      // TODO:
       [NutrientType.energy, NutrientType.protein];
 
   @override
   DailyNutrientTarget getDailyTarget(NutrientType nutrientType) {
+    // TODO:
     if (nutrientType == NutrientType.energy) {
       return DailyNutrientTarget(
         nutrientType: nutrientType,

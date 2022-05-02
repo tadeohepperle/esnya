@@ -39,4 +39,8 @@ abstract class EsnyaIcons {
     HomeScreenTabType.dashboard: Icons.accessibility,
     HomeScreenTabType.profile: Icons.person,
   };
+
+  static IconData mapNutrientToIcon(NutrientType nutrientType) {
+    return nutrientIcons[nutrientType] ?? placeholder;
+  }
 }

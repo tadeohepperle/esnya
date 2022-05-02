@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
-import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
+import 'package:esnya/presentation/core/widgets/dashboard_header/dashboard_header.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
 import 'package:esnya/presentation/core/widgets/no_entries_yet_list_item.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
@@ -130,14 +130,18 @@ class _DashboardTabViewState extends State<DashboardTabView>
     ////////////////////////////////////////////////////////////
 
     Widget _buildBodyHeader() {
-      return Container(
-        color: Colors.amber,
-        child: SafeArea(
-            child: Container(
-          width: double.infinity,
-          height: EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea,
-          child: Text("HEADER"),
-        )),
+      // TODO: put in bucket
+      return DashboardHeader(
+        bucket: TestObjects.foodItemEntryBucket,
+        onCalendarTap: () {
+          // TODO
+        },
+        onCardTap: () {
+          // TODO
+        },
+        onSettingsTap: () {
+          // TODO
+        },
       );
     }
 

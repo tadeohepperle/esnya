@@ -28,14 +28,7 @@ class BucketDateTitleListItem extends StatelessWidget {
           )
         : "Unknown Date";
 
-    final Map<NutrientType, Amount> nutrientAmounts =
-        mergeNutrientAmountMaps(bucket.entries.iter.map(
-      (e) => e.map(
-        semanticSuccess: (_) => {},
-        success: (success) => success.foodItem.computedNutrientAmounts,
-      ),
-    ));
-
+    final nutrientAmounts = bucket.computedNutrientAmounts;
     _nutrientTypeName(NutrientType n) {
       return n == NutrientType.energy
           ? ""
