@@ -46,14 +46,22 @@ class DashboardHeader extends StatelessWidget {
     return shadowWrap(
       ShadowSize.small,
       EsnyaSizes.base * 2,
-      Container(
-        decoration: const BoxDecoration(
+      MaterialButton(
+        onPressed: onCardTap,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: EdgeInsets.all(0),
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(EsnyaSizes.base * 3),
             bottomRight: Radius.circular(EsnyaSizes.base * 3),
           ),
-          color: Colors.white,
+          side: BorderSide.none,
         ),
+        color: colorScheme.surface,
+        elevation: 0,
+        hoverElevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
         child: SafeArea(
             child: Container(
           padding: EdgeInsets.fromLTRB(
