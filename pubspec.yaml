@@ -62,7 +62,6 @@ dependencies:
   flutter_archive: ^4.2.0
   http: ^0.13.4
   flutter_keyboard_visibility: ^5.2.0
-  # logger: any
 
 dev_dependencies:
   flutter_test:
@@ -70,12 +69,9 @@ dev_dependencies:
   freezed: ^2.0.2
   build_runner: ^2.1.7
   flutter_lints: ^1.0.0
-  # bloc_test: ^9.0.3
   injectable_generator: ^1.5.2
   retrofit_generator: ">=4.0.0 <5.0.0"
   json_serializable:
-  # mocktail: ^0.3.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -13,14 +13,12 @@ class FoodItemEntryListTile extends StatelessWidget {
   final NutrientType badgeNutrient;
   final VoidCallback onTap;
   final VoidCallback onBadgeTap;
-  final double amountBoxWidth;
   FoodItemEntryListTile({
     Key? key,
     required this.foodItemEntry,
     required this.onTap,
     required this.onBadgeTap,
     this.badgeNutrient = NutrientType.energy,
-    this.amountBoxWidth = 150,
   }) : super(key: key);
 
   IconData? _badgeIcon() {
@@ -45,14 +43,14 @@ class FoodItemEntryListTile extends StatelessWidget {
       semanticSuccess: (_) => _.amount,
       success: (_) => _.foodItem.amount,
     );
-    final textColor =
+    final titleColor =
         isSuccess ? colorScheme.onSurface : colorScheme.onBackground;
+    final amountColor =
+        isSuccess ? colorScheme.primary : colorScheme.onBackground;
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
     final badgeIcon = _badgeIcon();
-
-    // String? badgeTitle = "badgeTitle";
 
     String? badgeTitle = foodItemEntry.map(
         semanticSuccess: (_) => null,
@@ -64,23 +62,6 @@ class FoodItemEntryListTile extends StatelessWidget {
           }
           return langRepo.translateAmount(amount, fractionDigits: 0);
         });
-
-    // foodItemEntry.map(
-    //     semanticSuccess: (_) => null,
-    //     success: (success) {
-    //       final nutrientAmountsOrFailure = success.foodItem
-    //           .getNutrientAmounts(nutrientTypes: [badgeNutrient]);
-    //       return nutrientAmountsOrFailure.fold(
-    //         (failure) => null,
-    //         (nutrientAmounts) {
-    //           final amountOrNull = optionOf(nutrientAmounts[badgeNutrient]);
-    //           return amountOrNull.fold(
-    //             () => null,
-    //             (amount) => langRepo.translateAmount(amount, fractionDigits: 0),
-    //           );
-    //         },
-    //       );
-    //     });
 
     Widget _buildEndOfColumnForSuccess(FoodItemEntrySuccess success) {
       return Column(
@@ -136,7 +117,7 @@ class FoodItemEntryListTile extends StatelessWidget {
 
     return shadowWrap(
       ShadowSize.small,
-      18,
+      8,
       MaterialButton(
         onPressed: onTap,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -144,7 +125,7 @@ class FoodItemEntryListTile extends StatelessWidget {
         padding: const EdgeInsets.only(left: 12),
         minWidth: 0,
         shape: const RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(18)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           side: BorderSide.none,
         ),
         color: colorScheme.surface,
@@ -157,17 +138,13 @@ class FoodItemEntryListTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              width: amountBoxWidth,
-              child: EsnyaText.titleBold(
-                langRepo.translateAmount(amount),
-                color: textColor,
-              ),
-            ),
+            EsnyaText.titleBold(langRepo.translateAmount(amount) + " ",
+                color: amountColor),
             Expanded(
                 child: EsnyaText.titleBold(
-              title, // TODO: IMPORTANT-PRE-RELEASE: translations for title
-              color: textColor,
+              " " +
+                  title, // TODO: IMPORTANT-PRE-RELEASE: translations for title
+              color: titleColor,
             )),
             endOfRowElement
           ],
@@ -227,8 +204,8 @@ class FoodItemEntryListTileBadge extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(4),
-          topRight: Radius.circular(12),
-          bottomLeft: Radius.circular(12),
+          topRight: Radius.circular(8),
+          bottomLeft: Radius.circular(8),
           bottomRight: Radius.circular(4),
         ),
         side: BorderSide.none,

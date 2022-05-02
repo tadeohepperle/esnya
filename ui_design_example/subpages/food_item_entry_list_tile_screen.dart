@@ -32,10 +32,11 @@ class _FoodItemEntryListTileScreenState
       TestObjects.foodItemEntrySuccess,
       TestObjects.foodItemEntrySuccess.copyWith(
         foodItem: TestObjects.foodItemEntrySuccess.foodItem.copyWith(
-          amount: Amount(MeasureUnit.g, 234.34),
+          amount: Amount(MeasureUnit.can, 234.34),
         ),
       ),
-      TestObjects.foodItemEntrySuccess,
+      TestObjects.foodItemEntrySuccess.copyWith.foodItem
+          .amount(unit: MeasureUnit.handful, number: 2),
       TestObjects.foodItemEntrySemanticSuccess,
       TestObjects.foodItemEntrySemanticSuccessFailed,
     ];

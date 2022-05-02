@@ -1,5 +1,6 @@
 import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
 import 'package:esnya/injection.dart';
+import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
@@ -57,8 +58,14 @@ class BucketDateTitleListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            EsnyaText.body(bucketTitle),
-            EsnyaText.body(nutrientText)
+            EsnyaText.titleBold(
+              bucketTitle,
+              color: colorSchemeLight.onSurface,
+            ),
+            EsnyaText.titleBold(
+              nutrientText,
+              color: colorSchemeLight.onSurface,
+            )
           ], // TODO: use real numbers
         ));
   }

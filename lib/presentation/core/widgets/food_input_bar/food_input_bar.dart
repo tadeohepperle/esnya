@@ -72,7 +72,10 @@ class _FoodInputBarState extends State<FoodInputBar> {
               filled: true,
               border: OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(8),
+                    topLeft: Radius.circular(8),
+                  )),
               fillColor: colorScheme.surface,
               contentPadding:
                   EdgeInsets.symmetric(horizontal: EsnyaSizes.base * 2),
@@ -91,7 +94,9 @@ class _FoodInputBarState extends State<FoodInputBar> {
             padding: const EdgeInsets.all(4),
             minWidth: 0,
             shape: const RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(18)),
+              borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(8),
+                  topRight: Radius.circular(8)),
               side: BorderSide.none,
             ),
             color: colorScheme.primary,
@@ -111,10 +116,7 @@ class _FoodInputBarState extends State<FoodInputBar> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(child: _buildInput()),
-        Padding(
-          padding: const EdgeInsets.only(left: EsnyaSizes.base),
-          child: _buildButton(),
-        )
+        _buildButton(),
       ],
     );
   }
