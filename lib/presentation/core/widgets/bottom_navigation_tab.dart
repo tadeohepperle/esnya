@@ -23,6 +23,7 @@ class BottomNavigationTab extends StatelessWidget {
 
     return SizedBox(
       height: EsnyaSizes.kEsnyaBottomNavigationTabHeight,
+      width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -147,6 +147,7 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
     /// for example 'log-2022-04-13'
     required int batchSize,
   }) async* {
+    await _getOrCreateBucketForToday();
     final userDoc = await _firestore.userDocument();
     yield* userDoc
         .collection(kBucketsCollectionName)
@@ -155,11 +156,20 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
         .limit(batchSize)
         .snapshots()
         .map((colSnapshot) {
-      print('SNAPSHOT!\n\n');
-      print(colSnapshot.docs);
-      return colSnapshot.docs
+      print(
+          'FoodItemEntryBucketRepositoryImplFirebase.watchLogBuckets() Snapshot: ${colSnapshot.docs.length} buckets.\n\n');
+      final buckets = colSnapshot.docs
           .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
-          .toImmutableList();
+          .toList()
+          .asMap()
+          .entries
+          .where(
+            // take only the bucket of today or nonempty buckets
+            (entry) => entry.key == 0 || entry.value.entries.isNotEmpty(),
+          )
+          .map((e) => e.value);
+
+      return buckets.toImmutableList();
     }).map((list) => right<Failure, KtList<FoodItemEntryBucket>>(list));
     // .onErrorReturn(left<Failure, KtList<FoodItemEntryBucket>>(
     //     const FireStoreFailure.unexpected()));

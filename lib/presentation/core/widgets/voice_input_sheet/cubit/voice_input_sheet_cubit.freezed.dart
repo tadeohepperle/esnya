@@ -12,41 +12,7 @@ part of 'voice_input_sheet_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$VoiceInputSheetStateTearOff {
-  const _$VoiceInputSheetStateTearOff();
-
-  _Initial initial() {
-    return const _Initial();
-  }
-
-  _Error error(String errorText) {
-    return _Error(
-      errorText,
-    );
-  }
-
-  _Recording recording(String currentInput) {
-    return _Recording(
-      currentInput,
-    );
-  }
-
-  _Stopped stopped() {
-    return const _Stopped();
-  }
-
-  _Preparing preparing(double progress) {
-    return _Preparing(
-      progress,
-    );
-  }
-}
-
-/// @nodoc
-const $VoiceInputSheetState = _$VoiceInputSheetStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$VoiceInputSheetState {
@@ -388,9 +354,9 @@ class _$_Error implements _Error {
 }
 
 abstract class _Error implements VoiceInputSheetState {
-  const factory _Error(String errorText) = _$_Error;
+  const factory _Error(final String errorText) = _$_Error;
 
-  String get errorText;
+  String get errorText => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ErrorCopyWith<_Error> get copyWith => throw _privateConstructorUsedError;
 }
@@ -539,9 +505,9 @@ class _$_Recording implements _Recording {
 }
 
 abstract class _Recording implements VoiceInputSheetState {
-  const factory _Recording(String currentInput) = _$_Recording;
+  const factory _Recording(final String currentInput) = _$_Recording;
 
-  String get currentInput;
+  String get currentInput => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$RecordingCopyWith<_Recording> get copyWith =>
       throw _privateConstructorUsedError;
@@ -811,9 +777,9 @@ class _$_Preparing implements _Preparing {
 }
 
 abstract class _Preparing implements VoiceInputSheetState {
-  const factory _Preparing(double progress) = _$_Preparing;
+  const factory _Preparing(final double progress) = _$_Preparing;
 
-  double get progress;
+  double get progress => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$PreparingCopyWith<_Preparing> get copyWith =>
       throw _privateConstructorUsedError;

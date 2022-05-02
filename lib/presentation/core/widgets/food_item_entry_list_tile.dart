@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
@@ -7,22 +8,27 @@ import 'package:flutter/material.dart';
 import '../design_components/esnya_design_utils.dart';
 import '../design_components/esnya_icons.dart';
 
-enum BadgeDisplayMode { kcal, protein }
-
 class FoodItemEntryListTile extends StatelessWidget {
   final FoodItemEntry foodItemEntry;
-  final BadgeDisplayMode badgeDisplayMode;
+  final NutrientType badgeNutrient;
   final VoidCallback onTap;
   final VoidCallback onBadgeTap;
   final double amountBoxWidth;
   FoodItemEntryListTile({
     Key? key,
     required this.foodItemEntry,
-    this.badgeDisplayMode = BadgeDisplayMode.kcal,
     required this.onTap,
     required this.onBadgeTap,
+    this.badgeNutrient = NutrientType.energy,
     this.amountBoxWidth = 150,
   }) : super(key: key);
+
+  IconData? _badgeIcon() {
+    if (badgeNutrient == NutrientType.energy) {
+      return null;
+    }
+    return EsnyaIcons.nutrientIcons[badgeNutrient];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +50,37 @@ class FoodItemEntryListTile extends StatelessWidget {
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
-    final badgeIconData = badgeDisplayMode == BadgeDisplayMode.protein
-        ? EsnyaIcons.protein
-        : null;
+    final badgeIcon = _badgeIcon();
+
+    // String? badgeTitle = "badgeTitle";
 
     String? badgeTitle = foodItemEntry.map(
         semanticSuccess: (_) => null,
         success: (success) {
-          NutrientType nutrientType =
-              badgeDisplayMode == BadgeDisplayMode.protein
-                  ? NutrientType.protein
-                  : NutrientType.energy;
-
-          final nutrientValue = success.foodItem.food.nutrients[nutrientType];
-          if (nutrientValue != null) {
-            return langRepo
-                .translateAmount(Amount(nutrientType.unit, nutrientValue));
+          final amount =
+              success.foodItem.computedNutrientAmounts[badgeNutrient];
+          if (amount == null) {
+            return "unknown";
           }
-          return null;
+          return langRepo.translateAmount(amount, fractionDigits: 0);
         });
+
+    // foodItemEntry.map(
+    //     semanticSuccess: (_) => null,
+    //     success: (success) {
+    //       final nutrientAmountsOrFailure = success.foodItem
+    //           .getNutrientAmounts(nutrientTypes: [badgeNutrient]);
+    //       return nutrientAmountsOrFailure.fold(
+    //         (failure) => null,
+    //         (nutrientAmounts) {
+    //           final amountOrNull = optionOf(nutrientAmounts[badgeNutrient]);
+    //           return amountOrNull.fold(
+    //             () => null,
+    //             (amount) => langRepo.translateAmount(amount, fractionDigits: 0),
+    //           );
+    //         },
+    //       );
+    //     });
 
     Widget _buildEndOfColumnForSuccess(FoodItemEntrySuccess success) {
       return Column(
@@ -73,8 +91,8 @@ class FoodItemEntryListTile extends StatelessWidget {
           FoodItemEntryListTileBadge(
             title: badgeTitle!,
             onTap: onBadgeTap,
-            iconData: badgeIconData,
-            badgeDisplayMode: badgeDisplayMode,
+            iconData: badgeIcon,
+            badgeNutrient: badgeNutrient,
           ),
           _buildTimeDisplay(context, success.dateTime, langRepo)
         ],
@@ -116,7 +134,9 @@ class FoodItemEntryListTile extends StatelessWidget {
       success: (success) => _buildEndOfColumnForSuccess(success),
     );
 
-    return shadowWrapLarge(
+    return shadowWrap(
+      ShadowSize.small,
+      18,
       MaterialButton(
         onPressed: onTap,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -176,31 +196,28 @@ class FoodItemEntryListTile extends StatelessWidget {
 }
 
 class FoodItemEntryListTileBadge extends StatelessWidget {
-  final BadgeDisplayMode badgeDisplayMode;
+  final NutrientType badgeNutrient;
   final IconData? iconData;
   final String title;
   final VoidCallback onTap;
   FoodItemEntryListTileBadge({
     required this.title,
-    this.badgeDisplayMode = BadgeDisplayMode.kcal,
+    required this.badgeNutrient,
     this.iconData,
     required this.onTap,
     Key? key,
   }) : super(key: key);
 
-  static final Map<BadgeDisplayMode, GetColor> _mapBadgeModeToColor = {
-    BadgeDisplayMode.kcal: (c) => c.secondary,
-    BadgeDisplayMode.protein: (c) => c.primary,
+  static final Map<NutrientType, GetColor> _mapBadgeModeToColor = {
+    NutrientType.energy: (c) => c.secondary,
+    NutrientType.protein: (c) => c.primary,
   };
 
   @override
   Widget build(BuildContext context) {
-    return _buildPill(context);
-  }
-
-  Widget _buildPill(BuildContext context) {
     final colorScheme = getColorScheme(context);
-    final color = _mapBadgeModeToColor[badgeDisplayMode]!(colorScheme);
+    final color = (_mapBadgeModeToColor[badgeNutrient] ??
+        (c) => c.secondary)(colorScheme);
     return MaterialButton(
       onPressed: onTap,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
+import 'package:esnya/presentation/core/widgets/no_entries_yet_list_item.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -34,6 +35,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
   late ScrollController _scrollController;
   late FocusNode _foodInputBarFocusNode;
   late StreamSubscription<bool> _keyboardSubscription;
+  NutrientType _nutrientTypeForBadges = NutrientType.energy;
 
   set dashboardInputState(DashboardInputState target) {
     final before = _dashboardInputState;
@@ -87,6 +89,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     for (var i = 0; i < maxRequests; i++) {
       if (_foodInputBarFocusNode.canRequestFocus) {
         _foodInputBarFocusNode.requestFocus();
+        _scrollToEndInListView(animated: true);
         return true;
       }
       await Future.delayed(requestInterval);
@@ -117,7 +120,15 @@ class _DashboardTabViewState extends State<DashboardTabView>
   }
 
   Widget _buildBody(BuildContext context, DashboardState dashboardState) {
-    LanguageRepository langRepo = getIt<LanguageRepository>();
+    ////////////////////////////////////////////////////////////
+    ///  CACHING VARIABLES
+    ////////////////////////////////////////////////////////////
+    final buckets = dashboardState.buckets;
+
+    ////////////////////////////////////////////////////////////
+    ///  DEFINE WIDGET FUNCTIONS
+    ////////////////////////////////////////////////////////////
+
     Widget _buildBodyHeader() {
       return Container(
         color: Colors.amber,
@@ -138,40 +149,54 @@ class _DashboardTabViewState extends State<DashboardTabView>
           foodItemEntry: foodItemEntry,
           onBadgeTap: () {
             // TODO:
+            _switchBadgeNutrients();
           },
           onTap: () {
             // TODO:
+            _scrollToEndInListView();
           },
+          badgeNutrient: _nutrientTypeForBadges,
         ),
       );
     }
 
     Widget _buildBodyFoodLogList() {
       Widget _buildBucket(FoodItemEntryBucket bucket) {
+        final isEmpty = bucket.entries.isEmpty();
+        final noVolatileItems =
+            dashboardState.entriesBetweenBlocAndRepo.isEmpty() &&
+                dashboardState.entriesFoodInputBloc.isEmpty();
         return Padding(
-          padding: EdgeInsets.only(
-              left: EsnyaSizes.base,
-              right: EsnyaSizes.base,
-              top: EsnyaSizes.kDashboardPaddingBetweenBucketsInListView),
+          padding: const EdgeInsets.only(
+            top: EsnyaSizes.kDashboardPaddingBetweenBucketsInListView,
+            left: EsnyaSizes.base,
+            right: EsnyaSizes.base,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BucketDateTitleListItem(bucket: bucket),
-              ...bucket.entries.iter
-                  .map((e) => _buildListItem(e, bucketId: bucket.id)),
+              if (isEmpty && noVolatileItems)
+                NoEntriesYetListItem()
+              else
+                ...bucket.entries.iter
+                    .map((e) => _buildListItem(e, bucketId: bucket.id)),
             ],
           ),
         );
       }
 
       Widget _buildUnsafeEntries() {
-        return Column(
-          children: [
-            ...dashboardState.entriesBetweenBlocAndRepo.iter
-                .map((e) => _buildListItem(e)),
-            ...dashboardState.entriesFoodInputBloc.iter
-                .map((e) => _buildListItem(e)),
-          ],
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: EsnyaSizes.base),
+          child: Column(
+            children: [
+              ...dashboardState.entriesBetweenBlocAndRepo.iter
+                  .map((e) => _buildListItem(e)),
+              ...dashboardState.entriesFoodInputBloc.iter
+                  .map((e) => _buildListItem(e)),
+            ],
+          ),
         );
       }
 
@@ -188,9 +213,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
         int entryCount = (dashboardState.entriesBetweenBlocAndRepo.size +
             dashboardState.entriesFoodInputBloc.size);
 
-        if (!dashboardState.buckets.isEmpty()) {
-          final lastBucket = dashboardState.buckets[0];
+        if (!buckets.isEmpty()) {
+          final lastBucket = buckets[0];
           height -= EsnyaSizes.kBucketDateTitleListItemHeight;
+          if (entryCount == 0 && lastBucket.entries.isEmpty()) {
+            height -= EsnyaSizes.kNoEntriesYetListItemHeight;
+          }
           entryCount += lastBucket.entries.size;
         }
 
@@ -222,7 +250,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
         physics: BouncingScrollPhysics(),
         reverse: true,
         // +1 for the unsafe items, +1 for a container allowing more scroll up than usual, such that "Today" can be displayed right beneath the header
-        itemCount: dashboardState.buckets.size + 2,
+        itemCount: buckets.size + 2,
         itemBuilder: (context, index) {
           if (index == 0) {
             return _buildContainerForScrollUp();
@@ -231,7 +259,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
             /// because of `reverse: true` this will be the downmost widget: a column for the entries not yet stored in firestore.
             return _buildUnsafeEntries();
           } else {
-            return _buildBucket(dashboardState.buckets[index - 2]);
+            return _buildBucket(buckets[index - 2]);
           }
         },
       );
@@ -239,17 +267,39 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
     /// below list view, so that scrolling over the floating action buttons is prohibited
     Widget _buildPlaceKeeperContainer() {
-      return SizedBox(
-        height: _heightOfContainerBelowListView(context),
+      final height = _heightOfContainerBelowListView(context);
+      // (so no gradient when keyboard is open)
+      final double gradientHeight = height > 200 ? 0 : 40;
+      final colorScheme = getColorScheme(context);
+      return Container(
+        color: colorScheme.background,
+        alignment: Alignment.topCenter,
+        width: double.infinity,
+        height: height,
+        child: Transform.translate(
+          offset: Offset(0, -gradientHeight),
+          child: SizedBox(
+            height: gradientHeight,
+            width: double.infinity,
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  colorScheme.background.withAlpha(0),
+                  colorScheme.background,
+                ],
+              )),
+            ),
+          ),
+        ),
       );
-
-      /// just for debugging:
-      // return Container(
-      //   height: _heightOfContainerBelowListView(context),
-      //   width: double.infinity,
-      //   color: Colors.red,
-      // );
     }
+
+    ////////////////////////////////////////////////////////////
+    ///  RETURN THE ACTUAL WIDGET:
+    ////////////////////////////////////////////////////////////
 
     return Column(
       children: [
@@ -270,6 +320,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
           children: [
             EsnyaIconButton.surface(
               EsnyaIcons.write,
+              shadowSize: ShadowSize.small,
               onPressed: () {
                 if (dashboardInputState == DashboardInputState.closed) {
                   dashboardInputState = DashboardInputState.text;
@@ -280,6 +331,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
             EsnyaSizes.spaceBaseWidth,
             EsnyaIconButton.surface(
               EsnyaIcons.microphone,
+              shadowSize: ShadowSize.small,
               onPressed: () {
                 if (dashboardInputState == DashboardInputState.closed) {
                   dashboardInputState = DashboardInputState.voice;
@@ -287,12 +339,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
               },
               floatingActionStyle: true,
             ),
-            EsynaButton.primary(
-              title: "test",
-              onPressed: () {
-                _scrollToEndInListView();
-              },
-            )
           ],
         ),
       );
@@ -370,6 +416,15 @@ class _DashboardTabViewState extends State<DashboardTabView>
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
     return max(bottomInset, EsnyaSizes.kDashboardContainerBelowListViewHeight);
+  }
+
+  void _switchBadgeNutrients() {
+    final dietRepo = getIt<UserDietPreferencesRepository>();
+    final preferredNutrients = dietRepo.preferredNutrients;
+    setState(() {
+      _nutrientTypeForBadges =
+          preferredNutrients.where((e) => e != _nutrientTypeForBadges).first;
+    });
   }
 }
 

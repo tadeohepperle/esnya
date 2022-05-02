@@ -13,8 +13,8 @@ Map<ShadowSize, BoxShadow?> _shadowMap = {
   ShadowSize.small: BoxShadow(
     color: esnyaColorsLight.shadow,
     spreadRadius: 0,
-    blurRadius: 8,
-    offset: Offset(0, 4), // changes position of shadow
+    blurRadius: 4,
+    offset: Offset(0, 2), // changes position of shadow
   ),
   ShadowSize.large: BoxShadow(
     color: esnyaColorsLight.shadow,

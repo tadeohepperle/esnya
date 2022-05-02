@@ -12,37 +12,7 @@ part of 'dashboard_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$DashboardEventTearOff {
-  const _$DashboardEventTearOff();
-
-  _Started started() {
-    return const _Started();
-  }
-
-  _BucketsReceived bucketsReceived(
-      Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets) {
-    return _BucketsReceived(
-      failureOrBuckets,
-    );
-  }
-
-  _FoodInputEntriesReceived foodInputEntriesReceived(
-      BlocAndRepoFoodItemEntries entries) {
-    return _FoodInputEntriesReceived(
-      entries,
-    );
-  }
-
-  _ExtendBucketWatchRange extendBucketWatchRange() {
-    return const _ExtendBucketWatchRange();
-  }
-}
-
-/// @nodoc
-const $DashboardEvent = _$DashboardEventTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$DashboardEvent {
@@ -402,10 +372,11 @@ class _$_BucketsReceived implements _BucketsReceived {
 
 abstract class _BucketsReceived implements DashboardEvent {
   const factory _BucketsReceived(
-          Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets) =
+          final Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets) =
       _$_BucketsReceived;
 
-  Either<Failure, KtList<FoodItemEntryBucket>> get failureOrBuckets;
+  Either<Failure, KtList<FoodItemEntryBucket>> get failureOrBuckets =>
+      throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$BucketsReceivedCopyWith<_BucketsReceived> get copyWith =>
       throw _privateConstructorUsedError;
@@ -562,10 +533,10 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
 }
 
 abstract class _FoodInputEntriesReceived implements DashboardEvent {
-  const factory _FoodInputEntriesReceived(BlocAndRepoFoodItemEntries entries) =
-      _$_FoodInputEntriesReceived;
+  const factory _FoodInputEntriesReceived(
+      final BlocAndRepoFoodItemEntries entries) = _$_FoodInputEntriesReceived;
 
-  BlocAndRepoFoodItemEntries get entries;
+  BlocAndRepoFoodItemEntries get entries => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FoodInputEntriesReceivedCopyWith<_FoodInputEntriesReceived> get copyWith =>
       throw _privateConstructorUsedError;
@@ -698,27 +669,6 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
 abstract class _ExtendBucketWatchRange implements DashboardEvent {
   const factory _ExtendBucketWatchRange() = _$_ExtendBucketWatchRange;
 }
-
-/// @nodoc
-class _$DashboardStateTearOff {
-  const _$DashboardStateTearOff();
-
-  _DashboardState call(
-      {required DashboardBucketsState dashboardBucketsState,
-      required KtList<FoodItemEntryBucket> buckets,
-      required KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-      required KtList<FoodItemEntry> entriesFoodInputBloc}) {
-    return _DashboardState(
-      dashboardBucketsState: dashboardBucketsState,
-      buckets: buckets,
-      entriesBetweenBlocAndRepo: entriesBetweenBlocAndRepo,
-      entriesFoodInputBloc: entriesFoodInputBloc,
-    );
-  }
-}
-
-/// @nodoc
-const $DashboardState = _$DashboardStateTearOff();
 
 /// @nodoc
 mixin _$DashboardState {
@@ -890,19 +840,23 @@ class _$_DashboardState implements _DashboardState {
 
 abstract class _DashboardState implements DashboardState {
   const factory _DashboardState(
-      {required DashboardBucketsState dashboardBucketsState,
-      required KtList<FoodItemEntryBucket> buckets,
-      required KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-      required KtList<FoodItemEntry> entriesFoodInputBloc}) = _$_DashboardState;
+          {required final DashboardBucketsState dashboardBucketsState,
+          required final KtList<FoodItemEntryBucket> buckets,
+          required final KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
+          required final KtList<FoodItemEntry> entriesFoodInputBloc}) =
+      _$_DashboardState;
 
   @override
-  DashboardBucketsState get dashboardBucketsState;
+  DashboardBucketsState get dashboardBucketsState =>
+      throw _privateConstructorUsedError;
   @override
-  KtList<FoodItemEntryBucket> get buckets;
+  KtList<FoodItemEntryBucket> get buckets => throw _privateConstructorUsedError;
   @override
-  KtList<FoodItemEntry> get entriesBetweenBlocAndRepo;
+  KtList<FoodItemEntry> get entriesBetweenBlocAndRepo =>
+      throw _privateConstructorUsedError;
   @override
-  KtList<FoodItemEntry> get entriesFoodInputBloc;
+  KtList<FoodItemEntry> get entriesFoodInputBloc =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$DashboardStateCopyWith<_DashboardState> get copyWith =>

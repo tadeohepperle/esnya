@@ -1,10 +1,7 @@
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
-import 'package:esnya_shared_resources/core/core.dart';
-import 'package:esnya_shared_resources/core/models/user_data/food_item_entry.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 

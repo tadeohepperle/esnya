@@ -12,26 +12,11 @@ part of 'home_screen_tabs_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$HomeScreenTabsEventTearOff {
-  const _$HomeScreenTabsEventTearOff();
-
-  _SetTab setTab(HomeScreenTabType tabType) {
-    return _SetTab(
-      tabType,
-    );
-  }
-}
-
-/// @nodoc
-const $HomeScreenTabsEvent = _$HomeScreenTabsEventTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$HomeScreenTabsEvent {
   HomeScreenTabType get tabType => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(HomeScreenTabType tabType) setTab,
@@ -232,28 +217,14 @@ class _$_SetTab implements _SetTab {
 }
 
 abstract class _SetTab implements HomeScreenTabsEvent {
-  const factory _SetTab(HomeScreenTabType tabType) = _$_SetTab;
+  const factory _SetTab(final HomeScreenTabType tabType) = _$_SetTab;
 
   @override
-  HomeScreenTabType get tabType;
+  HomeScreenTabType get tabType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SetTabCopyWith<_SetTab> get copyWith => throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$HomeScreenTabsStateTearOff {
-  const _$HomeScreenTabsStateTearOff();
-
-  _HomeScreenTabsState call(HomeScreenTabType tabType) {
-    return _HomeScreenTabsState(
-      tabType,
-    );
-  }
-}
-
-/// @nodoc
-const $HomeScreenTabsState = _$HomeScreenTabsStateTearOff();
 
 /// @nodoc
 mixin _$HomeScreenTabsState {
@@ -373,12 +344,12 @@ class _$_HomeScreenTabsState extends _HomeScreenTabsState {
 }
 
 abstract class _HomeScreenTabsState extends HomeScreenTabsState {
-  const factory _HomeScreenTabsState(HomeScreenTabType tabType) =
+  const factory _HomeScreenTabsState(final HomeScreenTabType tabType) =
       _$_HomeScreenTabsState;
   const _HomeScreenTabsState._() : super._();
 
   @override
-  HomeScreenTabType get tabType;
+  HomeScreenTabType get tabType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$HomeScreenTabsStateCopyWith<_HomeScreenTabsState> get copyWith =>

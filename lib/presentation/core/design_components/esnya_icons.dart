@@ -21,6 +21,7 @@ abstract class EsnyaIcons {
   static const IconData settings = Icons.settings;
   static const IconData check = Icons.check;
   static const IconData error = Icons.error;
+  static const IconData info = Icons.info_outline;
 
   static const IconData microphone = Icons.mic;
   static const IconData write = Icons.create_outlined;

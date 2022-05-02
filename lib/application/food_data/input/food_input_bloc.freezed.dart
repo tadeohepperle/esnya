@@ -12,31 +12,7 @@ part of 'food_input_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$FoodInputEventTearOff {
-  const _$FoodInputEventTearOff();
-
-  _SetVolatileText setVolatileText(String value) {
-    return _SetVolatileText(
-      value,
-    );
-  }
-
-  _SaveVolatileText saveVolatileText() {
-    return const _SaveVolatileText();
-  }
-
-  _FetchFood fetchFood(FoodItemEntry entry) {
-    return _FetchFood(
-      entry,
-    );
-  }
-}
-
-/// @nodoc
-const $FoodInputEvent = _$FoodInputEventTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$FoodInputEvent {
@@ -235,9 +211,9 @@ class _$_SetVolatileText implements _SetVolatileText {
 }
 
 abstract class _SetVolatileText implements FoodInputEvent {
-  const factory _SetVolatileText(String value) = _$_SetVolatileText;
+  const factory _SetVolatileText(final String value) = _$_SetVolatileText;
 
-  String get value;
+  String get value => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SetVolatileTextCopyWith<_SetVolatileText> get copyWith =>
       throw _privateConstructorUsedError;
@@ -493,29 +469,13 @@ class _$_FetchFood implements _FetchFood {
 }
 
 abstract class _FetchFood implements FoodInputEvent {
-  const factory _FetchFood(FoodItemEntry entry) = _$_FetchFood;
+  const factory _FetchFood(final FoodItemEntry entry) = _$_FetchFood;
 
-  FoodItemEntry get entry;
+  FoodItemEntry get entry => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FetchFoodCopyWith<_FetchFood> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$FoodInputStateTearOff {
-  const _$FoodInputStateTearOff();
-
-  _FoodInputState call(
-      {required String safeText, required String volatileText}) {
-    return _FoodInputState(
-      safeText: safeText,
-      volatileText: volatileText,
-    );
-  }
-}
-
-/// @nodoc
-const $FoodInputState = _$FoodInputStateTearOff();
 
 /// @nodoc
 mixin _$FoodInputState {
@@ -641,14 +601,14 @@ class _$_FoodInputState extends _FoodInputState {
 
 abstract class _FoodInputState extends FoodInputState {
   const factory _FoodInputState(
-      {required String safeText,
-      required String volatileText}) = _$_FoodInputState;
+      {required final String safeText,
+      required final String volatileText}) = _$_FoodInputState;
   const _FoodInputState._() : super._();
 
   @override
-  String get safeText;
+  String get safeText => throw _privateConstructorUsedError;
   @override
-  String get volatileText;
+  String get volatileText => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$FoodInputStateCopyWith<_FoodInputState> get copyWith =>

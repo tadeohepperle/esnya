@@ -1,3 +1,4 @@
+import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
@@ -14,27 +15,51 @@ class BucketDateTitleListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langRepo = getIt<LanguageRepository>();
+    final userDietRepo = getIt<UserDietPreferencesRepository>();
 
     final bucketDateTime = bucketIdToDate(bucket.id.value);
     final bucketTitle = bucketDateTime != null
         ? langRepo.translateDate(
             bucketDateTime,
-            includeYear: true,
+            includeYear: false,
             replaceDateByTodayRelation: true,
             dateTodayRelation: computeDateTodayRelation(bucketDateTime),
           )
         : "Unknown Date";
 
+    final Map<NutrientType, Amount> nutrientAmounts =
+        mergeNutrientAmountMaps(bucket.entries.iter.map(
+      (e) => e.map(
+        semanticSuccess: (_) => {},
+        success: (success) => success.foodItem.computedNutrientAmounts,
+      ),
+    ));
+
+    _nutrientTypeName(NutrientType n) {
+      return n == NutrientType.energy
+          ? ""
+          : " " + langRepo.translateNutrientType(n);
+    }
+
+    final nutrientText = userDietRepo.preferredNutrients
+        .map((n) => nutrientAmounts[n] != null
+            ? (langRepo.translateAmount(nutrientAmounts[n]!) +
+                _nutrientTypeName(n))
+            : "")
+        .where((e) => e.isNotEmpty)
+        .join(", ");
+
     return Container(
+        padding: EdgeInsets.symmetric(horizontal: EsnyaSizes.base),
         height: EsnyaSizes.kBucketDateTitleListItemHeight,
         width: double.infinity,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             EsnyaText.body(bucketTitle),
-            EsnyaText.body("switch")
-          ], // TODO: implement switch protein/kcal button instead of text "switch"
+            EsnyaText.body(nutrientText)
+          ], // TODO: use real numbers
         ));
   }
 }

@@ -12,39 +12,7 @@ part of 'sign_in_form_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$SignInFormEventTearOff {
-  const _$SignInFormEventTearOff();
-
-  EmailChanged emailChanged(String emailStr) {
-    return EmailChanged(
-      emailStr,
-    );
-  }
-
-  PasswordChanged passwordChanged(String passwordStr) {
-    return PasswordChanged(
-      passwordStr,
-    );
-  }
-
-  RegisterWithEmailAndPasswordPressed registerWithEmailAndPasswordPressed() {
-    return const RegisterWithEmailAndPasswordPressed();
-  }
-
-  SignInWithEmailAndPasswordPressed signInWithEmailAndPasswordPressed() {
-    return const SignInWithEmailAndPasswordPressed();
-  }
-
-  SignInWithGooglePressed signInWithGooglePressed() {
-    return const SignInWithGooglePressed();
-  }
-}
-
-/// @nodoc
-const $SignInFormEvent = _$SignInFormEventTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$SignInFormEvent {
@@ -281,9 +249,9 @@ class _$EmailChanged implements EmailChanged {
 }
 
 abstract class EmailChanged implements SignInFormEvent {
-  const factory EmailChanged(String emailStr) = _$EmailChanged;
+  const factory EmailChanged(final String emailStr) = _$EmailChanged;
 
-  String get emailStr;
+  String get emailStr => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $EmailChangedCopyWith<EmailChanged> get copyWith =>
       throw _privateConstructorUsedError;
@@ -441,9 +409,9 @@ class _$PasswordChanged implements PasswordChanged {
 }
 
 abstract class PasswordChanged implements SignInFormEvent {
-  const factory PasswordChanged(String passwordStr) = _$PasswordChanged;
+  const factory PasswordChanged(final String passwordStr) = _$PasswordChanged;
 
-  String get passwordStr;
+  String get passwordStr => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $PasswordChangedCopyWith<PasswordChanged> get copyWith =>
       throw _privateConstructorUsedError;
@@ -852,29 +820,6 @@ abstract class SignInWithGooglePressed implements SignInFormEvent {
 }
 
 /// @nodoc
-class _$SignInFormStateTearOff {
-  const _$SignInFormStateTearOff();
-
-  _SignInFormState call(
-      {required EmailAddress emailAddress,
-      required Password password,
-      required bool showErrorMessages,
-      required bool isSubmitting,
-      required Option<Either<AuthFailure, Unit>> authFailureOrSuccessOption}) {
-    return _SignInFormState(
-      emailAddress: emailAddress,
-      password: password,
-      showErrorMessages: showErrorMessages,
-      isSubmitting: isSubmitting,
-      authFailureOrSuccessOption: authFailureOrSuccessOption,
-    );
-  }
-}
-
-/// @nodoc
-const $SignInFormState = _$SignInFormStateTearOff();
-
-/// @nodoc
 mixin _$SignInFormState {
   EmailAddress get emailAddress => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
@@ -1061,23 +1006,24 @@ class _$_SignInFormState implements _SignInFormState {
 
 abstract class _SignInFormState implements SignInFormState {
   const factory _SignInFormState(
-      {required EmailAddress emailAddress,
-      required Password password,
-      required bool showErrorMessages,
-      required bool isSubmitting,
-      required Option<Either<AuthFailure, Unit>>
+      {required final EmailAddress emailAddress,
+      required final Password password,
+      required final bool showErrorMessages,
+      required final bool isSubmitting,
+      required final Option<Either<AuthFailure, Unit>>
           authFailureOrSuccessOption}) = _$_SignInFormState;
 
   @override
-  EmailAddress get emailAddress;
+  EmailAddress get emailAddress => throw _privateConstructorUsedError;
   @override
-  Password get password;
+  Password get password => throw _privateConstructorUsedError;
   @override
-  bool get showErrorMessages;
+  bool get showErrorMessages => throw _privateConstructorUsedError;
   @override
-  bool get isSubmitting;
+  bool get isSubmitting => throw _privateConstructorUsedError;
   @override
-  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption;
+  Option<Either<AuthFailure, Unit>> get authFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SignInFormStateCopyWith<_SignInFormState> get copyWith =>

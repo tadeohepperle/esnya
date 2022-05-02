@@ -12,21 +12,7 @@ part of 'user.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$UserTearOff {
-  const _$UserTearOff();
-
-  _User call({required UniqueId id}) {
-    return _User(
-      id: id,
-    );
-  }
-}
-
-/// @nodoc
-const $User = _$UserTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$User {
@@ -126,10 +112,10 @@ class _$_User implements _User {
 }
 
 abstract class _User implements User {
-  const factory _User({required UniqueId id}) = _$_User;
+  const factory _User({required final UniqueId id}) = _$_User;
 
   @override
-  UniqueId get id;
+  UniqueId get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;

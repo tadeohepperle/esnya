@@ -12,33 +12,7 @@ part of 'resource_request_event.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$ResourceRequestStatusTearOff {
-  const _$ResourceRequestStatusTearOff();
-
-  Unknown unknown() {
-    return const Unknown();
-  }
-
-  InProgress inProgress(double progress) {
-    return InProgress(
-      progress,
-    );
-  }
-
-  Available available() {
-    return const Available();
-  }
-
-  Failed failed() {
-    return const Failed();
-  }
-}
-
-/// @nodoc
-const $ResourceRequestStatus = _$ResourceRequestStatusTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$ResourceRequestStatus {
@@ -363,9 +337,9 @@ class _$InProgress implements InProgress {
 }
 
 abstract class InProgress implements ResourceRequestStatus {
-  const factory InProgress(double progress) = _$InProgress;
+  const factory InProgress(final double progress) = _$InProgress;
 
-  double get progress;
+  double get progress => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $InProgressCopyWith<InProgress> get copyWith =>
       throw _privateConstructorUsedError;

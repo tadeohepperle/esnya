@@ -12,32 +12,11 @@ part of 'failures.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$ValueFailureTearOff {
-  const _$ValueFailureTearOff();
-
-  InvalidEmail<T> invalidEmail<T>({required String failedValue}) {
-    return InvalidEmail<T>(
-      failedValue: failedValue,
-    );
-  }
-
-  InvalidPassword<T> invalidPassword<T>({required String failedValue}) {
-    return InvalidPassword<T>(
-      failedValue: failedValue,
-    );
-  }
-}
-
-/// @nodoc
-const $ValueFailure = _$ValueFailureTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$ValueFailure<T> {
   String get failedValue => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String failedValue) invalidEmail,
@@ -241,11 +220,12 @@ class _$InvalidEmail<T> extends InvalidEmail<T> {
 }
 
 abstract class InvalidEmail<T> extends ValueFailure<T> {
-  const factory InvalidEmail({required String failedValue}) = _$InvalidEmail<T>;
+  const factory InvalidEmail({required final String failedValue}) =
+      _$InvalidEmail<T>;
   const InvalidEmail._() : super._();
 
   @override
-  String get failedValue;
+  String get failedValue => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $InvalidEmailCopyWith<T, InvalidEmail<T>> get copyWith =>
@@ -381,29 +361,17 @@ class _$InvalidPassword<T> extends InvalidPassword<T> {
 }
 
 abstract class InvalidPassword<T> extends ValueFailure<T> {
-  const factory InvalidPassword({required String failedValue}) =
+  const factory InvalidPassword({required final String failedValue}) =
       _$InvalidPassword<T>;
   const InvalidPassword._() : super._();
 
   @override
-  String get failedValue;
+  String get failedValue => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $InvalidPasswordCopyWith<T, InvalidPassword<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$ApiFailureTearOff {
-  const _$ApiFailureTearOff();
-
-  _ApiFailureUnexpected unexpected() {
-    return const _ApiFailureUnexpected();
-  }
-}
-
-/// @nodoc
-const $ApiFailure = _$ApiFailureTearOff();
 
 /// @nodoc
 mixin _$ApiFailure {
@@ -556,26 +524,6 @@ abstract class _ApiFailureUnexpected extends ApiFailure {
   const factory _ApiFailureUnexpected() = _$_ApiFailureUnexpected;
   const _ApiFailureUnexpected._() : super._();
 }
-
-/// @nodoc
-class _$FireStoreFailureTearOff {
-  const _$FireStoreFailureTearOff();
-
-  FireStoreFailureNotFound notFound() {
-    return const FireStoreFailureNotFound();
-  }
-
-  FireStoreFailureUnexpected unexpected() {
-    return const FireStoreFailureUnexpected();
-  }
-
-  FireStoreFailureInsufficientPermission insufficientPermission() {
-    return const FireStoreFailureInsufficientPermission();
-  }
-}
-
-/// @nodoc
-const $FireStoreFailure = _$FireStoreFailureTearOff();
 
 /// @nodoc
 mixin _$FireStoreFailure {

@@ -12,12 +12,13 @@ abstract class EsnyaSizes {
       kEsnyaBottomNavigationTabHeight + kEsnyaBottomNavigationIndicatorHeight;
 
   static const double kDashboardHeaderheightWithoutUnsafeArea = 100;
-  static const double kDashboardContainerBelowListViewHeight = 100;
+  static const double kDashboardContainerBelowListViewHeight = 64;
 
   static const double kFoodItemEntryListTileHeight = 36;
   static const double kFoodItemEntryListTilePaddingBelow = 8.0;
-  static const double kBucketDateTitleListItemHeight = 20;
+  static const double kBucketDateTitleListItemHeight = 40;
   static const double kDashboardPaddingBetweenBucketsInListView = 30;
+  static const double kNoEntriesYetListItemHeight = 100;
 
   static RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(base),

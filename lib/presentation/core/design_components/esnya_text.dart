@@ -9,6 +9,7 @@ class EsnyaText extends StatelessWidget {
   final Color? color;
   final TextOverflow? overflow;
   final int? maxLines;
+  final TextAlign? textAlign;
   // color has priority over getColor if both are set. This is not encouraged.
   const EsnyaText.custom({
     Key? key,
@@ -18,73 +19,119 @@ class EsnyaText extends StatelessWidget {
     this.getTextStyle,
     this.overflow,
     this.maxLines,
+    this.textAlign,
   }) : super(key: key);
 
-  factory EsnyaText.h1(String text, {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.h1(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.headlineLarge,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.h2(String text, {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.h2(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.headlineMedium,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.h3(String text, {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.h3(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.headlineSmall,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.body(String text, {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.body(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.bodyMedium,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.bodySmall(String text,
-          {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.bodySmall(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.bodySmall,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.titleBold(String text,
-          {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.titleBold(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.titleLarge,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.title(String text, {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.title(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.titleMedium,
+        textAlign: textAlign,
       );
 
-  factory EsnyaText.titleSmall(String text,
-          {Color? color, GetColor? getColor}) =>
+  factory EsnyaText.titleSmall(
+    String text, {
+    Color? color,
+    GetColor? getColor,
+    TextAlign? textAlign,
+  }) =>
       EsnyaText.custom(
         text: text,
         color: color,
         getColor: getColor,
         getTextStyle: (t) => t.titleSmall,
+        textAlign: textAlign,
       );
 
   @override
@@ -101,6 +148,7 @@ class EsnyaText extends StatelessWidget {
       style: tS,
       overflow: overflow,
       maxLines: maxLines,
+      textAlign: textAlign,
     );
   }
 }

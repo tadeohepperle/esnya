@@ -12,22 +12,7 @@ part of 'app_router.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$NameAndPathTearOff {
-  const _$NameAndPathTearOff();
-
-  _NameAndPath call(String name, String path) {
-    return _NameAndPath(
-      name,
-      path,
-    );
-  }
-}
-
-/// @nodoc
-const $NameAndPath = _$NameAndPathTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$NameAndPath {
@@ -148,13 +133,14 @@ class _$_NameAndPath extends _NameAndPath {
 }
 
 abstract class _NameAndPath extends NameAndPath {
-  const factory _NameAndPath(String name, String path) = _$_NameAndPath;
+  const factory _NameAndPath(final String name, final String path) =
+      _$_NameAndPath;
   const _NameAndPath._() : super._();
 
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get path;
+  String get path => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$NameAndPathCopyWith<_NameAndPath> get copyWith =>

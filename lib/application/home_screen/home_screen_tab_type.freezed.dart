@@ -12,21 +12,7 @@ part of 'home_screen_tab_type.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$HomeScreenTabTypeTearOff {
-  const _$HomeScreenTabTypeTearOff();
-
-  _HomeScreenTabType call(NameAndPath nameAndPath) {
-    return _HomeScreenTabType(
-      nameAndPath,
-    );
-  }
-}
-
-/// @nodoc
-const $HomeScreenTabType = _$HomeScreenTabTypeTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$HomeScreenTabType {
@@ -146,12 +132,12 @@ class _$_HomeScreenTabType extends _HomeScreenTabType {
 }
 
 abstract class _HomeScreenTabType extends HomeScreenTabType {
-  const factory _HomeScreenTabType(NameAndPath nameAndPath) =
+  const factory _HomeScreenTabType(final NameAndPath nameAndPath) =
       _$_HomeScreenTabType;
   const _HomeScreenTabType._() : super._();
 
   @override
-  NameAndPath get nameAndPath;
+  NameAndPath get nameAndPath => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$HomeScreenTabTypeCopyWith<_HomeScreenTabType> get copyWith =>
