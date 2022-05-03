@@ -36,6 +36,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
   late FocusNode _foodInputBarFocusNode;
   late StreamSubscription<bool> _keyboardSubscription;
   NutrientType _nutrientTypeForBadges = NutrientType.energy;
+  List<double> _bucketDistancesFromScrollEnd = [];
+  FoodItemEntryBucket? _headerBucket;
 
   set dashboardInputState(DashboardInputState target) {
     final before = _dashboardInputState;
@@ -104,8 +106,11 @@ class _DashboardTabViewState extends State<DashboardTabView>
       create: (context) => getIt<FoodInputBloc>(),
       child: BlocBuilder<FoodInputBloc, FoodInputState>(
           builder: (context, foodInputState) {
-        return BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, dashboardState) {
+        return BlocConsumer<DashboardBloc, DashboardState>(
+            listener: (context, dashboardState) {
+          /// recalculate _bucketDistancesFromScrollEnd
+          _recalculateBucketDistancesFromScrollEnd(dashboardState.buckets.iter);
+        }, builder: (context, dashboardState) {
           return Stack(children: [
             // the body of the page
             _buildBody(context, dashboardState),
@@ -132,7 +137,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     Widget _buildBodyHeader() {
       // TODO: put in bucket
       return DashboardHeader(
-        bucket: TestObjects.foodItemEntryBucket,
+        bucket: _headerBucket ?? TestObjects.foodItemEntryBucket, // TODO!!
         onCalendarTap: () {
           // TODO
         },
@@ -429,6 +434,46 @@ class _DashboardTabViewState extends State<DashboardTabView>
       _nutrientTypeForBadges =
           preferredNutrients.where((e) => e != _nutrientTypeForBadges).first;
     });
+  }
+
+  void _recalculateBucketDistancesFromScrollEnd(
+      Iterable<FoodItemEntryBucket> buckets) {
+    const hurdleToScrollOverIntoBucket = 20.0;
+    final List<double> result = [0, hurdleToScrollOverIntoBucket];
+    double _heightOfBucket(FoodItemEntryBucket bucket) {
+      final length = bucket.entries.size;
+      return EsnyaSizes.kBucketDateTitleListItemHeight +
+          length *
+              (EsnyaSizes.kFoodItemEntryListTileHeight +
+                  EsnyaSizes.kFoodItemEntryListTilePaddingBelow) +
+          (length == 0 ? EsnyaSizes.kNoEntriesYetListItemHeight : 0.00);
+    }
+
+    for (var b in buckets.skip(1).take(buckets.length - 2)) {
+      result.add(_heightOfBucket(b) + hurdleToScrollOverIntoBucket);
+    }
+
+    setState(() {
+      _bucketDistancesFromScrollEnd = result;
+    });
+  }
+
+  void _recalculateHeaderBucket(BuildContext context) {
+    int _bucketIdFromScrollPosition() {
+      // _bucketDistancesFromScrollEnd;
+      final scrollDistFromEnd = _scrollController.position.pixels;
+      //_scrollController.position.minScrollExtent;
+      return 0;
+    }
+
+    final bucket = context
+        .read<DashboardBloc>()
+        .getBucketByIndex(_bucketIdFromScrollPosition());
+    if (bucket != null) {
+      setState(() {
+        _headerBucket = bucket;
+      });
+    }
   }
 }
 

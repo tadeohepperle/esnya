@@ -141,4 +141,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
     return results;
   }
+
+  FoodItemEntryBucket? getBucketByIndex(int index) => state.buckets[index];
 }
