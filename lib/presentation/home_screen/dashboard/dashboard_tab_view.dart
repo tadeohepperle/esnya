@@ -61,6 +61,10 @@ class _DashboardTabViewState extends State<DashboardTabView>
     super.initState();
     _dashboardInputState = DashboardInputState.closed;
     _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      _recalculateHeaderBucket();
+    });
     _foodInputBarFocusNode = FocusNode();
     var keyboardVisibilityController = KeyboardVisibilityController();
     _keyboardSubscription =
@@ -109,7 +113,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
         return BlocConsumer<DashboardBloc, DashboardState>(
             listener: (context, dashboardState) {
           /// recalculate _bucketDistancesFromScrollEnd
-          _recalculateBucketDistancesFromScrollEnd(dashboardState.buckets.iter);
+          _recalculateBucketDistancesFromScrollEnd(
+              dashboardState.buckets.asList());
         }, builder: (context, dashboardState) {
           return Stack(children: [
             // the body of the page
@@ -437,9 +442,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
   }
 
   void _recalculateBucketDistancesFromScrollEnd(
-      Iterable<FoodItemEntryBucket> buckets) {
-    const hurdleToScrollOverIntoBucket = 20.0;
-    final List<double> result = [0, hurdleToScrollOverIntoBucket];
+      List<FoodItemEntryBucket> buckets) {
+    const hurdleToScrollOverIntoBucket = 90.0;
+    final List<double> result = [0];
+    if (buckets.length > 1) {
+      result.add(hurdleToScrollOverIntoBucket);
+    }
     double _heightOfBucket(FoodItemEntryBucket bucket) {
       final length = bucket.entries.size;
       return EsnyaSizes.kBucketDateTitleListItemHeight +
@@ -449,26 +457,36 @@ class _DashboardTabViewState extends State<DashboardTabView>
           (length == 0 ? EsnyaSizes.kNoEntriesYetListItemHeight : 0.00);
     }
 
-    for (var b in buckets.skip(1).take(buckets.length - 2)) {
-      result.add(_heightOfBucket(b) + hurdleToScrollOverIntoBucket);
+    for (var i = 2; i < buckets.length; i++) {
+      result.add(result.last + _heightOfBucket(buckets[i - 1]));
     }
 
     setState(() {
+      print(result);
       _bucketDistancesFromScrollEnd = result;
     });
   }
 
-  void _recalculateHeaderBucket(BuildContext context) {
-    int _bucketIdFromScrollPosition() {
+  void _recalculateHeaderBucket() {
+    int _bucketIndexFromScrollPosition() {
       // _bucketDistancesFromScrollEnd;
-      final scrollDistFromEnd = _scrollController.position.pixels;
-      //_scrollController.position.minScrollExtent;
-      return 0;
+      final pos = _scrollController.position.pixels;
+      int index = -1;
+      for (var i = 0; i < _bucketDistancesFromScrollEnd.length; i++) {
+        final threshhold = _bucketDistancesFromScrollEnd[i];
+        if (pos < threshhold) {
+          break;
+        } else {
+          index++;
+        }
+      }
+      print([pos, index]);
+      return max(index, 0);
     }
 
-    final bucket = context
-        .read<DashboardBloc>()
-        .getBucketByIndex(_bucketIdFromScrollPosition());
+    final bucket = getIt<DashboardBloc>()
+        .getBucketByIndex(_bucketIndexFromScrollPosition());
+
     if (bucket != null) {
       setState(() {
         _headerBucket = bucket;

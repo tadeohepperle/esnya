@@ -4,6 +4,7 @@ import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya_shared_resources/core/core.dart';
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
 import '../../design_components/esnya_button.dart';
@@ -28,7 +29,18 @@ class DashboardHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
     final dietRepo = getIt<UserDietPreferencesRepository>();
+    final langRepo = getIt<LanguageRepository>();
     final nutrientAmounts = bucket.computedNutrientAmounts;
+
+    final bucketDateTime = bucketIdToDate(bucket.id.value);
+    final dateTitle = bucketDateTime != null
+        ? langRepo.translateDate(
+            bucketDateTime,
+            includeYear: true,
+            replaceDateByTodayRelation: false,
+            dateTodayRelation: computeDateTodayRelation(bucketDateTime),
+          )
+        : "Unknown Date";
 
     final bigNutrientGoalDisplays = [
       for (NutrientType nutrientType in dietRepo.preferredNutrients) ...[
@@ -75,7 +87,7 @@ class DashboardHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   EsynaButton.custom(
-                    title: "Today, 24 Mar, 2022",
+                    title: dateTitle,
                     iconData: Icons.calendar_today,
                     onPressed: onCalendarTap,
                     shadowSize: ShadowSize.none,
