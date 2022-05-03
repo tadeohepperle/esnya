@@ -14,7 +14,7 @@ part 'dashboard_event.dart';
 part 'dashboard_state.dart';
 part 'dashboard_bloc.freezed.dart';
 
-const kInitialBucketBatchSize = 10;
+const kInitialBucketBatchSize = 40;
 const kIncrementalBucketBatchSize = 10;
 const kMinMillisecondsBetweenExtendBucketWatchRange = 2000;
 

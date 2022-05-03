@@ -45,7 +45,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
     setState(() {
       _dashboardInputState = target;
     });
-    print("target: $target");
     if (target == DashboardInputState.text) {
       _requestFocusUntilItsGranted();
     }
@@ -443,7 +442,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
   void _recalculateBucketDistancesFromScrollEnd(
       List<FoodItemEntryBucket> buckets) {
-    const hurdleToScrollOverIntoBucket = 90.0;
+    const hurdleToScrollOverIntoBucket = 80.0;
     final List<double> result = [0];
     if (buckets.length > 1) {
       result.add(hurdleToScrollOverIntoBucket);
@@ -451,6 +450,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     double _heightOfBucket(FoodItemEntryBucket bucket) {
       final length = bucket.entries.size;
       return EsnyaSizes.kBucketDateTitleListItemHeight +
+          EsnyaSizes.kDashboardPaddingBetweenBucketsInListView +
           length *
               (EsnyaSizes.kFoodItemEntryListTileHeight +
                   EsnyaSizes.kFoodItemEntryListTilePaddingBelow) +
@@ -462,7 +462,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
     }
 
     setState(() {
-      print(result);
       _bucketDistancesFromScrollEnd = result;
     });
   }
@@ -480,7 +479,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
           index++;
         }
       }
-      print([pos, index]);
       return max(index, 0);
     }
 

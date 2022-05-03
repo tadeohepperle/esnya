@@ -35,10 +35,12 @@ class FoodItemEntryListTile extends StatelessWidget {
       semanticSuccess: (_) => false,
       success: (_) => true,
     );
-    final title = foodItemEntry.map(
-      semanticSuccess: (_) => _.title,
-      success: (_) => _.foodItem.food.title,
-    );
+    final title = foodItemEntry
+        .map(
+          semanticSuccess: (_) => _.title,
+          success: (_) => _.foodItem.food.title,
+        )
+        .toLowerCase(); // TODO: this should rather be done in data source.
     final amount = foodItemEntry.map(
       semanticSuccess: (_) => _.amount,
       success: (_) => _.foodItem.amount,
@@ -114,6 +116,7 @@ class FoodItemEntryListTile extends StatelessWidget {
           : _buildEndOfColumnForLoading(semanticSuccess),
       success: (success) => _buildEndOfColumnForSuccess(success),
     );
+    final translatedAmount = langRepo.translateAmount(amount);
 
     return shadowWrap(
       ShadowSize.small,
@@ -138,12 +141,12 @@ class FoodItemEntryListTile extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            EsnyaText.titleBold(langRepo.translateAmount(amount) + " ",
-                color: amountColor),
+            EsnyaText.titleBold(translatedAmount, color: amountColor),
             Expanded(
                 child: EsnyaText.titleBold(
-              " " +
-                  title, // TODO: IMPORTANT-PRE-RELEASE: translations for title
+              "   $title ",
+              // TODO: IMPORTANT-PRE-RELEASE: translations for title
+              // TODO: ellipsis
               color: titleColor,
             )),
             endOfRowElement

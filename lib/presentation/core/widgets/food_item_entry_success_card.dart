@@ -69,6 +69,8 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
       replaceDateByTodayRelation: true,
     );
 
+    final translatedAmount = langRepo.translateAmount(foodItem.amount);
+
     return shadowWrapLarge(
       Column(
         children: [
@@ -109,7 +111,7 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
                   children: [
                     EsynaButton.custom(
                       onPressed: widget.onAmountButtonClick,
-                      title: langRepo.translateAmount(foodItem.amount),
+                      title: translatedAmount,
                       customPadding: const EdgeInsets.all(EsnyaSizes.base),
                       shadowSize: ShadowSize.none,
                     ),
