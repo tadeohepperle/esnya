@@ -49,19 +49,8 @@ class DashboardHeaderScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              BigNutrientGoalDisplay(
-                getColor: (c) => c.secondary,
-                iconData: EsnyaIcons.energy,
-                largeText: '1235 kcal',
-                smallText: '/ 2300 kcal',
-              ),
               SizedBox(
                 height: 8,
-              ),
-              BigNutrientGoalDisplay(
-                iconData: EsnyaIcons.protein,
-                largeText: '43 g',
-                smallText: '/ 120 g Protein',
               ),
               Center(
                 child: Transform.translate(
