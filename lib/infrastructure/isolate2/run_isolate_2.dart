@@ -8,12 +8,15 @@ import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya/setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';
 
 void runIsolate2(SendPort sPort) {
   print("isolate 2 created");
+
   /////////////////////////////////
   // dependency injection and setup
   /////////////////////////////////

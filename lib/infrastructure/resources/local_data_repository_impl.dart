@@ -18,6 +18,7 @@ import '../../injection_environments.dart';
 const String _kLocalStorageKey = "b7s0s8";
 
 // TODO: PRE-RELEASE: To have this repo in both isolates could be a huge source for errors.
+@isolate2
 @isolate1
 @LazySingleton(as: LocalDataRepository)
 class LocalDataRepositoryImpl extends SetupRepositoryImpl

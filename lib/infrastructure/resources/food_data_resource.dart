@@ -10,5 +10,5 @@ class FoodDataResource extends ZipDataResource {
 
   @override
   String get zipFileUrl =>
-      kEsnyaBackendAPIbaseURL + 'static/files/food_data.csv';
+      kEsnyaBackendAPIbaseURL + 'static/files/food_data.zip';
 }

@@ -143,6 +143,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   Future<void> _fetchFood(
       Emitter<FoodInputState> emit, FoodItemEntry entry) async {
     final resultOrFailure = await _foodMappingRepository.mapInput(entry.title);
+    print(resultOrFailure);
 
     /// cases to consider:
     /// entry is in bloc vs. in repository  => same behavior
@@ -160,6 +161,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     ///              if entry already is success: no nothing, keep the old result, where a match was found.
 
     FoodItemEntry updateEntry(FoodItemEntry entry) {
+      print("update entry");
       return resultOrFailure.fold(
         (failure) {
           if (failure is FoodMappingFailureNoMatchFound) {

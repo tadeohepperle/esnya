@@ -32,6 +32,7 @@ abstract class ZipDataResource implements EsnyaResource {
   @override
   ResourceRequestStatus get status => _status;
   set status(value) {
+    print("ZipDataResource: zipFileUrl: $zipFileUrl    $status");
     _status = value;
     _streamController.add(_status);
   }
