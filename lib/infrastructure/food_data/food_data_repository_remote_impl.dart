@@ -4,8 +4,8 @@ import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:injectable/injectable.dart';
 
-@isolate2
-@LazySingleton(as: FoodDataRepository)
+// @isolate2
+// @LazySingleton(as: FoodDataRepository)
 class FoodDataRepositoryRemoteImpl extends SetupRepositoryImpl
     implements FoodDataRepository {
   final FoodBackendClient apiClient;

@@ -9,8 +9,8 @@ import 'package:esnya_shared_resources/food_mapping/models/food_mapping_result.d
 import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@isolate2
-@LazySingleton(as: FoodMappingRepository)
+// @isolate2
+// @LazySingleton(as: FoodMappingRepository)
 class FoodMappingRepositoryRemoteImpl extends SetupRepositoryImpl
     implements FoodMappingRepository {
   final FoodBackendClient apiClient;
