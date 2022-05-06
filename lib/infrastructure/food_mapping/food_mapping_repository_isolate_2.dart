@@ -14,12 +14,11 @@ class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
   final ResourceRepository resourceRepository;
   final FoodMappingRepositoryLocalImplCsv foodMappingRepositoryLocalImplCsv;
   final FoodMappingRepositoryRemoteImpl foodMappingRepositoryRemoteImpl;
-  final FoodDataResource fdr;
   FoodMappingRepositoryIsolate2(
-      this.resourceRepository,
-      this.foodMappingRepositoryLocalImplCsv,
-      this.foodMappingRepositoryRemoteImpl)
-      : fdr = resourceRepository.getResource<FoodDataResource>();
+    this.resourceRepository,
+    this.foodMappingRepositoryLocalImplCsv,
+    this.foodMappingRepositoryRemoteImpl,
+  );
 
   @override
   Future<Either<Failure, Unit>> doSetupWork() async {
@@ -28,7 +27,9 @@ class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) {
-    return fdr.status.maybeMap(
+    final foodDataResourceStatus =
+        resourceRepository.resourceStatus<FoodDataResource>();
+    return foodDataResourceStatus.maybeMap(
       available: (_) => foodMappingRepositoryLocalImplCsv.mapInput(input),
       orElse: () => foodMappingRepositoryRemoteImpl.mapInput(input),
     );

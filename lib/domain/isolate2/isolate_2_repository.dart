@@ -9,5 +9,30 @@ abstract class IsolateOperation {}
 /// Reading in those values from storage or downloading und updating local files happens all in the second isolate to not slow down the main app.
 /// to get the second isolate to do something an [IsolateRequest] can be sent to it with makeRequest() Then an [IsolateResponse] is returned that carries the actual payload that is then returned from makeRequest()
 abstract class Isolate2Repository implements SetupRepository, IsolateOperation {
-  Future<R> makeRequest<R>(IsolateRequest isolateOperationObject);
+  Future<R> makeRequest<R>(IsolateRequest<R> isolateOperationObject);
 }
+
+
+/*
+
+Notes about working with the Isolate 2 (2022-05-06):
+
+# Instatiation
+On App Start in the main() method the second repository is instantiated via  getIt<Isolate2Repository>().setup(). 
+This instantiates the isolate 2.
+In Isolate 2 we do not use injectible, but will register the couple repositories used there by hand. 
+
+# Communication
+All Communication with the isolate 2 is a bit cumbersome and therefore should be limited to really data heavy operations.
+It works by sending IsolateRequest<R> Objects via  Isolate2Repository.makeRequest<R> which returns a Future<R>.
+Example:
+ class IsoRequestGetTime extends IsolateRequest<DateTime>{}
+
+ --> make request, get DateTime back. 
+
+
+
+
+
+
+*/

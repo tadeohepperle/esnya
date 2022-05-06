@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'resource_request_event.dart';
+part of 'resource_status.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ResourceRequestStatus {
+mixin _$ResourceStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unknown,
@@ -69,20 +69,20 @@ mixin _$ResourceRequestStatus {
 }
 
 /// @nodoc
-abstract class $ResourceRequestStatusCopyWith<$Res> {
-  factory $ResourceRequestStatusCopyWith(ResourceRequestStatus value,
-          $Res Function(ResourceRequestStatus) then) =
-      _$ResourceRequestStatusCopyWithImpl<$Res>;
+abstract class $ResourceStatusCopyWith<$Res> {
+  factory $ResourceStatusCopyWith(
+          ResourceStatus value, $Res Function(ResourceStatus) then) =
+      _$ResourceStatusCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ResourceRequestStatusCopyWithImpl<$Res>
-    implements $ResourceRequestStatusCopyWith<$Res> {
-  _$ResourceRequestStatusCopyWithImpl(this._value, this._then);
+class _$ResourceStatusCopyWithImpl<$Res>
+    implements $ResourceStatusCopyWith<$Res> {
+  _$ResourceStatusCopyWithImpl(this._value, this._then);
 
-  final ResourceRequestStatus _value;
+  final ResourceStatus _value;
   // ignore: unused_field
-  final $Res Function(ResourceRequestStatus) _then;
+  final $Res Function(ResourceStatus) _then;
 }
 
 /// @nodoc
@@ -92,8 +92,7 @@ abstract class $UnknownCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UnknownCopyWithImpl<$Res>
-    extends _$ResourceRequestStatusCopyWithImpl<$Res>
+class _$UnknownCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
     implements $UnknownCopyWith<$Res> {
   _$UnknownCopyWithImpl(Unknown _value, $Res Function(Unknown) _then)
       : super(_value, (v) => _then(v as Unknown));
@@ -109,7 +108,7 @@ class _$Unknown implements Unknown {
 
   @override
   String toString() {
-    return 'ResourceRequestStatus.unknown()';
+    return 'ResourceStatus.unknown()';
   }
 
   @override
@@ -196,7 +195,7 @@ class _$Unknown implements Unknown {
   }
 }
 
-abstract class Unknown implements ResourceRequestStatus {
+abstract class Unknown implements ResourceStatus {
   const factory Unknown() = _$Unknown;
 }
 
@@ -209,8 +208,7 @@ abstract class $InProgressCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InProgressCopyWithImpl<$Res>
-    extends _$ResourceRequestStatusCopyWithImpl<$Res>
+class _$InProgressCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
     implements $InProgressCopyWith<$Res> {
   _$InProgressCopyWithImpl(InProgress _value, $Res Function(InProgress) _then)
       : super(_value, (v) => _then(v as InProgress));
@@ -241,7 +239,7 @@ class _$InProgress implements InProgress {
 
   @override
   String toString() {
-    return 'ResourceRequestStatus.inProgress(progress: $progress)';
+    return 'ResourceStatus.inProgress(progress: $progress)';
   }
 
   @override
@@ -336,7 +334,7 @@ class _$InProgress implements InProgress {
   }
 }
 
-abstract class InProgress implements ResourceRequestStatus {
+abstract class InProgress implements ResourceStatus {
   const factory InProgress(final double progress) = _$InProgress;
 
   double get progress => throw _privateConstructorUsedError;
@@ -352,8 +350,7 @@ abstract class $AvailableCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AvailableCopyWithImpl<$Res>
-    extends _$ResourceRequestStatusCopyWithImpl<$Res>
+class _$AvailableCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
     implements $AvailableCopyWith<$Res> {
   _$AvailableCopyWithImpl(Available _value, $Res Function(Available) _then)
       : super(_value, (v) => _then(v as Available));
@@ -369,7 +366,7 @@ class _$Available implements Available {
 
   @override
   String toString() {
-    return 'ResourceRequestStatus.available()';
+    return 'ResourceStatus.available()';
   }
 
   @override
@@ -456,7 +453,7 @@ class _$Available implements Available {
   }
 }
 
-abstract class Available implements ResourceRequestStatus {
+abstract class Available implements ResourceStatus {
   const factory Available() = _$Available;
 }
 
@@ -467,8 +464,7 @@ abstract class $FailedCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FailedCopyWithImpl<$Res>
-    extends _$ResourceRequestStatusCopyWithImpl<$Res>
+class _$FailedCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
     implements $FailedCopyWith<$Res> {
   _$FailedCopyWithImpl(Failed _value, $Res Function(Failed) _then)
       : super(_value, (v) => _then(v as Failed));
@@ -484,7 +480,7 @@ class _$Failed implements Failed {
 
   @override
   String toString() {
-    return 'ResourceRequestStatus.failed()';
+    return 'ResourceStatus.failed()';
   }
 
   @override
@@ -571,6 +567,6 @@ class _$Failed implements Failed {
   }
 }
 
-abstract class Failed implements ResourceRequestStatus {
+abstract class Failed implements ResourceStatus {
   const factory Failed() = _$Failed;
 }

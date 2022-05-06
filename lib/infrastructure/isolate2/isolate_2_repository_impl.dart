@@ -3,8 +3,10 @@ import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
+import 'package:esnya/domain/resources/data_directory_path_provider.dart';
 
-import 'package:esnya/infrastructure/isolate2/run_isolate_2.dart';
+import 'package:esnya/infrastructure/isolate2/isolate_2_main.dart';
+import 'package:esnya/infrastructure/isolate2/isolate_2_spawn_arguments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stream_channel/isolate_channel.dart';
@@ -30,13 +32,21 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> doSetupWork() async {
+    final dataDirectoryPath = DataDirectoryPathProvider.dataDirectoryPath;
+
     ReceivePort receivePort = ReceivePort();
     _channel = IsolateChannel.connectReceive(receivePort);
     _channel.stream.listen((data) {
       _onReceiveOnChannel(data as IsolateResponse);
     });
     try {
-      isolate = await Isolate.spawn(runIsolate2, receivePort.sendPort);
+      isolate = await Isolate.spawn(
+        isolate2Main,
+        Isolate2SpawnArguments(
+          sPort: receivePort.sendPort,
+          dataDirectoryPath: dataDirectoryPath,
+        ),
+      );
       return right(unit);
     } catch (ex) {
       print(ex);

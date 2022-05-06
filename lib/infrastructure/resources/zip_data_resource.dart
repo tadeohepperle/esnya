@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:esnya/domain/resources/data_directory_path_provider.dart';
 import 'package:esnya/domain/resources/esnya_resources.dart';
+import 'package:esnya/domain/resources/file_repository.dart';
 import 'package:esnya/domain/resources/local_data_repository.dart';
-import 'package:esnya/domain/resources/resource_request_event.dart';
+import 'package:esnya/domain/resources/resource_status.dart';
 import 'package:esnya/injection.dart';
 
 /// to customize override zipFileUrl and zipFileLocalDirPartialPath in subclasses
@@ -17,9 +19,9 @@ abstract class ZipDataResource implements EsnyaResource {
   /// It will be cached in local storage under key "zipFileUrl.checksum"
   String get zipFileLocalDirPartialPath;
 
-  ResourceRequestStatus _status = const ResourceRequestStatus.unknown();
-  final StreamController<ResourceRequestStatus> _streamController =
-      StreamController<ResourceRequestStatus>.broadcast();
+  ResourceStatus _status = const ResourceStatus.unknown();
+  final StreamController<ResourceStatus> _streamController =
+      StreamController<ResourceStatus>.broadcast();
 
   String get _zipFileVersionUrl => zipFileUrl + '.version';
   String get _zipFileVersionStorageKey => _zipFileVersionUrl;
@@ -27,29 +29,30 @@ abstract class ZipDataResource implements EsnyaResource {
   String get _checkSumStorageKey => zipFileUrl + '.checksum';
 
   @override
-  String get path => throw UnimplementedError();
+  ResourceStatus get status => _status;
 
   @override
-  ResourceRequestStatus get status => _status;
   set status(value) {
-    print("ZipDataResource: zipFileUrl: $zipFileUrl    $status");
     _status = value;
+
     _streamController.add(_status);
   }
 
+  /// should never be done in isolate 2!
   @override
-  Stream<ResourceRequestStatus> attemptUpdate() {
+  Stream<ResourceStatus> attemptUpdate() {
     Future<void> _attemptUpdate() async {
       final localDataRepository = getIt<LocalDataRepository>();
-      final targetFolderPath =
-          localDataRepository.dataDirectoryPath + zipFileLocalDirPartialPath;
+      final fileRepo = getIt<FileRepository>();
+      final targetFolderPath = DataDirectoryPathProvider.dataDirectoryPath +
+          zipFileLocalDirPartialPath;
       final targetZipFilePath = targetFolderPath + '.zip';
-      status = const ResourceRequestStatus.inProgress(0);
+      status = const ResourceStatus.inProgress(0);
 
       /// check if api has newer version than device:
       bool downLoadNeeded = true;
       final versionOrFailure =
-          await localDataRepository.getTextFromURL(_zipFileVersionUrl);
+          await fileRepo.getTextFromURL(_zipFileVersionUrl);
       downLoadNeeded = await versionOrFailure.fold(
         (failure) => true,
         (versionFromApi) async {
@@ -69,34 +72,33 @@ abstract class ZipDataResource implements EsnyaResource {
       }
 
       if (!downLoadNeeded) {
-        status = const ResourceRequestStatus.available();
+        status = const ResourceStatus.available();
         return;
       }
 
       /// only continue if newer version available or checksum corrupted:
 
       const downloadFractionOfEntireUpdate = 0.9;
-      await for (final progress in localDataRepository.downloadFile(
+      await for (final progress in fileRepo.downloadFile(
         zipFileUrl,
         targetZipFilePath,
       )) {
         final nullableProgress = progress.toOption().toNullable();
         if (nullableProgress == null /* A Failure Happened */) {
-          status = const ResourceRequestStatus.failed();
+          status = const ResourceStatus.failed();
           return;
         } else {
-          status = ResourceRequestStatus.inProgress(
+          status = ResourceStatus.inProgress(
               nullableProgress * downloadFractionOfEntireUpdate);
         }
       }
-      status = ResourceRequestStatus.inProgress(downloadFractionOfEntireUpdate);
-      await localDataRepository.unzip(targetZipFilePath, targetFolderPath,
+      status = ResourceStatus.inProgress(downloadFractionOfEntireUpdate);
+      await fileRepo.unzip(targetZipFilePath, targetFolderPath,
           deleteOrigin: true);
 
       /// cache checksum and version:
 
-      String checksum =
-          await localDataRepository.pathCheckSum(targetFolderPath);
+      String checksum = await fileRepo.pathCheckSum(targetFolderPath);
       await localDataRepository.storageWrite(_checkSumStorageKey, checksum);
       String? versionOrNull = versionOrFailure.toOption().toNullable();
       if (versionOrNull != null) {
@@ -105,28 +107,30 @@ abstract class ZipDataResource implements EsnyaResource {
       }
 
       /// yield the success
-      status = const ResourceRequestStatus.available();
+      status = const ResourceStatus.available();
     }
 
     if (status is! InProgress) {
       unawaited(_attemptUpdate().catchError((e) {
-        status = const ResourceRequestStatus.failed();
+        status = const ResourceStatus.failed();
       }));
     }
     return statusStream;
   }
 
+  /// should never be done in isolate 2! (because localDataRepository with GetStorage has problems there)
   @override
   Future<bool> checkAvailability() async {
+    final fileRepo = getIt<FileRepository>();
     final localDataRepository = getIt<LocalDataRepository>();
-    final targetFolderPath =
-        localDataRepository.dataDirectoryPath + zipFileLocalDirPartialPath;
-    String checksum = await localDataRepository.pathCheckSum(targetFolderPath);
+    final targetFolderPath = DataDirectoryPathProvider.dataDirectoryPath +
+        zipFileLocalDirPartialPath;
+    String checksum = await fileRepo.pathCheckSum(targetFolderPath);
     final cachedChecksum =
         await localDataRepository.storageRead(_checkSumStorageKey);
     return checksum == cachedChecksum;
   }
 
   @override
-  Stream<ResourceRequestStatus> get statusStream => _streamController.stream;
+  Stream<ResourceStatus> get statusStream => _streamController.stream;
 }
