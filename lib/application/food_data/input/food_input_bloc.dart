@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/text_processing/models/food_item_string.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kt_dart/collection.dart';
 import 'package:loggy/loggy.dart';
 
 part 'food_input_event.dart';
@@ -27,8 +27,14 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
 
   final StreamController<BlocAndRepoFoodItemEntries> _entriesStreamController =
       StreamController<BlocAndRepoFoodItemEntries>.broadcast();
-  Stream<BlocAndRepoFoodItemEntries> watchEntries() =>
+  Stream<BlocAndRepoFoodItemEntries> get blocAndRepoEntriesStream =>
       _entriesStreamController.stream;
+
+  final StreamController<Tuple2<UniqueId, MapFunction<FoodItemEntry>>>
+      _updateEntryInRepositoryRequests = StreamController<
+          Tuple2<UniqueId, MapFunction<FoodItemEntry>>>.broadcast();
+  Stream<Tuple2<UniqueId, MapFunction<FoodItemEntry>>>
+      get updateEntryRequestsStream => _updateEntryInRepositoryRequests.stream;
 
   FoodInputBloc(this._textProcessingRepository,
       this._foodItemEntryBucketRepository, this._foodMappingRepository)
@@ -38,6 +44,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       _entriesStreamController
           .add(BlocAndRepoFoodItemEntries(blocEntries: _entries));
     };
+
     on<FoodInputEvent>((event, emit) async {
       await event.map(
         setVolatileText: (setVolatileText) async {
@@ -165,6 +172,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     FoodItemEntry updateEntry(FoodItemEntry entry) {
       return resultOrFailure.fold(
         (failure) {
+          print("failure in uopdate");
           return entry.toMappingFailed();
         },
         (foodMappingResult) => entry.map(
@@ -180,6 +188,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
 
     // 1. assume entry is in bloc, so try to update in bloc:
     bool updatedinBloc = false;
+    print(_fragmentsAndEntries);
     _fragmentsAndEntries = _fragmentsAndEntries.map((e) {
       if (e.value2.id == entry.id) {
         updatedinBloc = true;
@@ -192,9 +201,12 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       _entriesStreamController
           .add(BlocAndRepoFoodItemEntries(blocEntries: _entries));
     } else {
-      // 2. assume entry is alread saved in repo, so update in repo:
-      _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
-          entry.id, updateEntry);
+      // 2. assume entry is alread saved in repo or has been deleted in the meantime, so (try) update in repo:
+      // fo this we just stream it out, and for example the dashboardbloc can listen to this stream and decide how to handle the update requests
+      // for example by sending the request directly to the firebase bucket repository or checking first if the entry still exists, for which we want to update.
+      // in other contexts (e.g. calculator tab) some other bloc/repo might listen and update the entry there accordingly.
+      // this stream promotes loose coupling, as we dont do anything directly here.
+      _updateEntryInRepositoryRequests.add(Tuple2(entry.id, updateEntry));
     }
   }
 

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/failures.dart';
+import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -20,10 +20,8 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
       UniqueId bucketId, Iterable<FoodItemEntry> entries);
   Future<Either<Failure, Unit>> updateEntry(
       UniqueId bucketId, FoodItemEntry entry);
-  Future<Either<Failure, Unit>> updateEntryFunctional(
-      UniqueId bucketId,
-      UniqueId entryId,
-      FoodItemEntry Function(FoodItemEntry before) applyUpdate);
+  Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
+      UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
   Future<Either<Failure, Unit>> deleteEntry(
       UniqueId bucketId, FoodItemEntry entry);
 
@@ -31,8 +29,8 @@ abstract class FoodItemEntryBucketRepository extends SetupRepository {
   Future<Either<Failure, Unit>> createEntriesForToday(
       Iterable<FoodItemEntry> entries);
   Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry);
-  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(UniqueId entryId,
-      FoodItemEntry Function(FoodItemEntry before) applyUpdate);
+  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
+      UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
   Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry);
 }
 

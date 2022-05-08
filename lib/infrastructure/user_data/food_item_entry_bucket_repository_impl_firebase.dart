@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/infrastructure/core/firestore_helpers.dart';
 import 'package:esnya/infrastructure/user_data/dtos/food_item_entry_bucket_dto.dart';
 
@@ -105,17 +106,17 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
       createEntry(bucketId, entry);
 
   @override
-  Future<Either<Failure, Unit>> updateEntryFunctional(
-          UniqueId bucketId,
-          UniqueId entryId,
-          FoodItemEntry Function(FoodItemEntry before) applyUpdate) =>
+  Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
+          UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
       _operationOnBucketDocRef(
         bucketId,
         (bucketDocRef) async {
           // TODO: THINK: the entire updateEntryFunctional might be a bit inefficient, because the pull and put are two operations.
           // We dont know what happens if something happens to the document in between.
           final json = await bucketDocRef.get();
-          final before = FoodItemEntry.fromJson(json["entries"][entryId]);
+
+          final a = json["entries"];
+          final before = FoodItemEntry.fromJson(json["entries"][entryId.value]);
           final after = applyUpdate(before);
           await bucketDocRef.update(updateObjectForEntry(after));
         },
@@ -126,10 +127,10 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
       _operationOnTodaysBucket((bucketId) => updateEntry(bucketId, entry));
 
   @override
-  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(UniqueId entryId,
-          FoodItemEntry Function(FoodItemEntry before) applyUpdate) =>
+  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
+          UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
       _operationOnTodaysBucket(
-          (bucketId) => updateEntryFunctionalForToday(bucketId, applyUpdate));
+          (bucketId) => updateEntryFunctional(bucketId, entryId, applyUpdate));
 
   @override
   Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(

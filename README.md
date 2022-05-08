@@ -33,3 +33,9 @@ firebase only listen to changes, not all docs
 add today bucket, as soon as app starts
 
 firebase local caching offline
+
+
+
+## The flow of input:
+
+user input --> 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
+import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
@@ -31,6 +32,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   StreamSubscription<BlocAndRepoFoodItemEntries>?
       _foodInputBlocEntriesSubscription;
 
+  StreamSubscription<Tuple2<UniqueId, MapFunction<FoodItemEntry>>>?
+      _updateEntryRequestsSubscription;
+
   DashboardBloc(this._foodItemEntryBucketRepository, this._foodInputBloc)
       : super(DashboardState.initial()) {
     ////////////////////////////////////////////////////
@@ -51,8 +55,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           _createBucketStreamSubscription(_currentBatchSize);
           // listen to entries from foodInputBloc
           _foodInputBlocEntriesSubscription =
-              _foodInputBloc.watchEntries().listen((entries) {
+              _foodInputBloc.blocAndRepoEntriesStream.listen((entries) {
             add(DashboardEvent.foodInputEntriesReceived(entries));
+          });
+          _updateEntryRequestsSubscription =
+              _foodInputBloc.updateEntryRequestsStream.listen((tuple) {
+            _updateEntryInRepository(tuple.value1, tuple.value2);
           });
         },
         bucketsReceived: (_BucketsReceived event) async {
@@ -121,6 +129,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Future<void> _cleanup() async {
     _currentBatchSize = kInitialBucketBatchSize;
     await _bucketsStreamSubscription?.cancel();
+    await _updateEntryRequestsSubscription?.cancel();
     await _foodInputBlocEntriesSubscription?.cancel();
   }
 
@@ -143,4 +152,32 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 
   FoodItemEntryBucket? getBucketByIndex(int index) => state.buckets[index];
+
+  Future<void> _updateEntryInRepository(
+      UniqueId entryId, MapFunction<FoodItemEntry> update) async {
+    // only send update request to firebase if entry is still in todays bucket or in entriesBetweenBlocAndRepo
+    if (_entryStillExistsInFirebaseOrBetweenBlocAndRepo(entryId)) {
+      _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
+        entryId,
+        update,
+      );
+    }
+  }
+
+  bool _entryStillExistsInFirebaseOrBetweenBlocAndRepo(UniqueId entryId) {
+    for (var e in state.entriesBetweenBlocAndRepo.iter) {
+      if (e.id == entryId) {
+        return true;
+      }
+    }
+    final todayBucket = state.buckets.firstOrNull();
+    if (todayBucket != null) {
+      for (var e in todayBucket.entries.iter) {
+        if (e.id == entryId) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
