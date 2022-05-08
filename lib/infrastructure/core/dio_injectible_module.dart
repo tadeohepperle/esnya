@@ -8,7 +8,7 @@ abstract class DioInjectibleModule {
   @lazySingleton
   Dio get dio => Dio(BaseOptions(
         contentType: "application/json",
-        connectTimeout: 5000,
+        connectTimeout: 3000,
         receiveTimeout: 3000,
       ));
 }

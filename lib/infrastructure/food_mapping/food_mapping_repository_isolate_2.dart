@@ -29,8 +29,10 @@ class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) {
     final foodDataResourceStatus =
         resourceRepository.resourceStatus<FoodDataResource>();
-    return foodMappingRepositoryRemoteImpl
-        .mapInput(input); // TODO: CHANGE BACK!!!
+
+    return Future.delayed(Duration(milliseconds: 1500))
+        .then((value) => foodMappingRepositoryRemoteImpl.mapInput(input));
+    // TODO: CHANGE BACK!!!
     return foodDataResourceStatus.maybeMap(
       available: (_) => foodMappingRepositoryLocalImplCsv.mapInput(input),
       orElse: () => foodMappingRepositoryRemoteImpl.mapInput(input),
