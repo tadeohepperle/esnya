@@ -3,18 +3,18 @@
 
 TODO:
 
-kcal and protein switch on tap 
+kcal and protein switch on tap  <CHECK>
 
 correct amount of protein and kcal in list items <CHECK>
 
 
-bucket title date: add kcal and protein in text
+bucket title date: add kcal and protein in text <CHECK>
 
 
 food item entry:
-- computed property gram equivalent
+- computed property gram equivalent  <CHECK>
 
-solve problem with everloading items
+solve problem with everloading items 
 
 header for dashboard
 

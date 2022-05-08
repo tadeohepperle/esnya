@@ -6,5 +6,9 @@ import 'package:injectable/injectable.dart';
 @module
 abstract class DioInjectibleModule {
   @lazySingleton
-  Dio get dio => Dio(BaseOptions(contentType: "application/json"));
+  Dio get dio => Dio(BaseOptions(
+        contentType: "application/json",
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
+      ));
 }

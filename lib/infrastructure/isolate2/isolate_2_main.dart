@@ -10,13 +10,16 @@ import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya/setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+import 'package:loggy/loggy.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';
+import '../core/api/food_backend_client.dart';
+import '../core/api/models/guess_food_request_body.dart';
 import 'isolate_2_spawn_arguments.dart';
 
 void isolate2Main(Isolate2SpawnArguments args) {
-  print("isolate 2 created");
+  logInfo("Isolate 2 created");
 
   /////////////////////////////////
   // dependency injection and setup

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:dartz/dartz.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loggy/loggy.dart';
 
 @isolate1
 @isolate2
@@ -35,7 +36,6 @@ class FileRepositoryImpl implements FileRepository {
     var completer = Completer<List<FileSystemEntity>>();
     var lister = directory.list(recursive: true);
     lister.listen((file) => files.add(file),
-        // should also register onError
         onDone: () => completer.complete(files),
         onError: (e) {
           completer.completeError(e);
@@ -46,9 +46,11 @@ class FileRepositoryImpl implements FileRepository {
   @override
   Future<Either<Failure, String>> getTextFromURL(String url) async {
     try {
+      logInfo('called FileRepository.getTextFromURL($url)');
       String text = await http.read(Uri.parse(url));
       return right(text);
     } catch (e) {
+      logInfo('FileRepository.getTextFromURL($url) failed with $e');
       return left(ApiFailure.unexpected());
     }
   }
@@ -57,6 +59,7 @@ class FileRepositoryImpl implements FileRepository {
   Stream<Either<Failure, double>> downloadFile(
       String url, String targetPath) async* {
     try {
+      logInfo('trying to download file from $url to $targetPath');
       final client = http.Client();
       final request = http.Request('GET', Uri.parse(url));
       final response = await client.send(request);
@@ -66,19 +69,21 @@ class FileRepositoryImpl implements FileRepository {
       final stream = response.stream;
       final _localFile = File(targetPath);
       final _localFileExists = await _localFile.exists();
-      if (_localFileExists) {
-        await _localFile.delete();
-      }
+      // if (_localFileExists) {
+      //   logInfo('delete existing file at $targetPath');
+      //   await _localFile.delete();
+      // }
       await for (var data in stream) {
         bytes.addAll(data);
         receivedLength += data.length;
         yield right(receivedLength.toDouble() / totalLength.toDouble());
       }
       await _localFile.writeAsBytes(bytes);
-      print("Downloaded File to $targetPath");
+      logInfo('Download successful for file from $url to $targetPath');
       yield right(1.0);
       client.close();
     } catch (ex) {
+      logInfo('Download failed for file from $url to $targetPath');
       yield left(const ApiFailure.unexpected());
     }
   }
@@ -121,12 +126,12 @@ class FileRepositoryImpl implements FileRepository {
       {bool deleteOrigin = false}) async {
     final zipFile = File(originPath);
     final destinationDir = Directory(targetPath);
-    print("extract zip archive from $originPath to $targetPath");
+    logInfo('Unzip from $originPath to $targetPath');
     await ZipFile.extractToDirectory(
         zipFile: zipFile, destinationDir: destinationDir);
     if (deleteOrigin) {
       await File(originPath).delete();
-      print("deleted $originPath");
+      logInfo('Deleted File at $originPath');
     }
   }
 }

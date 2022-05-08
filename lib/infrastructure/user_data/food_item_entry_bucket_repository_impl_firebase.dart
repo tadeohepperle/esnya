@@ -10,6 +10,7 @@ import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:loggy/loggy.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'utils/food_item_entry_bucket_utils.dart';
@@ -156,8 +157,8 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
         .limit(batchSize)
         .snapshots()
         .map((colSnapshot) {
-      print(
-          'FoodItemEntryBucketRepositoryImplFirebase.watchLogBuckets() Snapshot: ${colSnapshot.docs.length} buckets.\n\n');
+      logInfo(
+          'FoodItemEntryBucketRepository.watchLogBuckets() received snapshot of ${colSnapshot.docs.length} buckets');
       final buckets = colSnapshot.docs
           .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
           .toList()

@@ -57,8 +57,6 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
     }
 
     final kcal = nutrientAmounts?[NutrientType.energy];
-    print(kcal);
-
     final dateTodayRelation =
         computeDateTodayRelation(widget.foodItemEntry.dateTime);
     final dateTimeString = langRepo.translateDate(

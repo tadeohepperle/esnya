@@ -9,6 +9,7 @@ import 'package:esnya_shared_resources/text_processing/models/food_item_string.d
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
+import 'package:loggy/loggy.dart';
 
 part 'food_input_event.dart';
 part 'food_input_state.dart';
@@ -48,7 +49,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
           await _sendSafeEntriesToFoodEntriesRepository(emit);
         },
         fetchFood: (fetchFood) async {
-          print("fetch food for ${fetchFood.entry.title}");
+          logDebug("fetch food for ${fetchFood.entry.title}");
           await _fetchFood(emit, fetchFood.entry);
         },
       );
@@ -143,7 +144,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   Future<void> _fetchFood(
       Emitter<FoodInputState> emit, FoodItemEntry entry) async {
     final resultOrFailure = await _foodMappingRepository.mapInput(entry.title);
-    print(resultOrFailure);
+    print('_fetchFood($resultOrFailure)');
+    // logDebug('FoodInputBloc _fetchFood resultOrFailure: $resultOrFailure');
 
     /// cases to consider:
     /// entry is in bloc vs. in repository  => same behavior
@@ -161,13 +163,9 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     ///              if entry already is success: no nothing, keep the old result, where a match was found.
 
     FoodItemEntry updateEntry(FoodItemEntry entry) {
-      print("update entry");
       return resultOrFailure.fold(
         (failure) {
-          if (failure is FoodMappingFailureNoMatchFound) {
-            return entry.toMappingFailed();
-          }
-          return entry;
+          return entry.toMappingFailed();
         },
         (foodMappingResult) => entry.map(
           semanticSuccess: (semanticSuccess) =>

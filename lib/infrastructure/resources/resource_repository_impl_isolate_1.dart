@@ -8,6 +8,7 @@ import 'package:esnya/infrastructure/resources/food_data_resource.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loggy/loggy.dart';
 
 // TODO: is this correct isolate? in both isoaltes can lead to problems
 @isolate1
@@ -51,7 +52,7 @@ class ResourceRepositoryImplIsolate1 extends SetupRepositoryImpl
   @override
   // not triggered in doSetupWork directly, will be called somewhere else in startup process of app.
   Future<void> attemptUpdates() async {
-    print("ResourceRepositoryImplIsolate1.attemptUpdates");
+    logInfo('called ResourceRepositoryImplIsolate1.attemptUpdates()');
     _getResource<FoodDataResource>().attemptUpdate();
   }
 }

@@ -9,6 +9,7 @@ import 'package:esnya/infrastructure/isolate2/isolate_2_main.dart';
 import 'package:esnya/infrastructure/isolate2/isolate_2_spawn_arguments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loggy/loggy.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';
@@ -49,7 +50,7 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
       );
       return right(unit);
     } catch (ex) {
-      print(ex);
+      logError(ex);
       return left(SetupFailure.unexpected(runtimeType.toString()));
     }
   }

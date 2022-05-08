@@ -6,6 +6,7 @@ import 'package:esnya/domain/resources/file_repository.dart';
 import 'package:esnya/domain/resources/local_data_repository.dart';
 import 'package:esnya/domain/resources/resource_status.dart';
 import 'package:esnya/injection.dart';
+import 'package:loggy/loggy.dart';
 
 /// to customize override zipFileUrl and zipFileLocalDirPartialPath in subclasses
 abstract class ZipDataResource implements EsnyaResource {
@@ -42,6 +43,7 @@ abstract class ZipDataResource implements EsnyaResource {
   @override
   Stream<ResourceStatus> attemptUpdate() {
     Future<void> _attemptUpdate() async {
+      logInfo('called $runtimeType.attemptUpdate()');
       final localDataRepository = getIt<LocalDataRepository>();
       final fileRepo = getIt<FileRepository>();
       final targetFolderPath = DataDirectoryPathProvider.dataDirectoryPath +
@@ -58,6 +60,8 @@ abstract class ZipDataResource implements EsnyaResource {
         (versionFromApi) async {
           final cachedVersion = await localDataRepository.storageRead(
               _zipFileVersionStorageKey); // key is just version url
+          logInfo(
+              '$runtimeType.attemptUpdate() versionFromAPI: $versionFromApi, cachedVersion: $cachedVersion');
           return versionFromApi != cachedVersion;
         },
       );
@@ -67,11 +71,14 @@ abstract class ZipDataResource implements EsnyaResource {
       if (downLoadNeeded == false) {
         final checksumsMatch = await checkAvailability();
         if (!checksumsMatch) {
+          logInfo(
+              '$runtimeType.attemptUpdate() downLoadNeeded == false and checksums do not match ==> do update.');
           downLoadNeeded = true;
         }
       }
 
       if (!downLoadNeeded) {
+        logInfo('$runtimeType.attemptUpdate() no update needed.');
         status = const ResourceStatus.available();
         return;
       }
@@ -85,6 +92,8 @@ abstract class ZipDataResource implements EsnyaResource {
       )) {
         final nullableProgress = progress.toOption().toNullable();
         if (nullableProgress == null /* A Failure Happened */) {
+          logInfo(
+              '$runtimeType.attemptUpdate() failure happened in progress of downloading. Return.');
           status = const ResourceStatus.failed();
           return;
         } else {
@@ -93,6 +102,7 @@ abstract class ZipDataResource implements EsnyaResource {
         }
       }
       status = ResourceStatus.inProgress(downloadFractionOfEntireUpdate);
+      logInfo('$runtimeType.attemptUpdate() Download Successful.');
       await fileRepo.unzip(targetZipFilePath, targetFolderPath,
           deleteOrigin: true);
 
@@ -100,8 +110,12 @@ abstract class ZipDataResource implements EsnyaResource {
 
       String checksum = await fileRepo.pathCheckSum(targetFolderPath);
       await localDataRepository.storageWrite(_checkSumStorageKey, checksum);
+      logInfo(
+          'localDataRepository.storageWrite($_checkSumStorageKey, $checksum)');
       String? versionOrNull = versionOrFailure.toOption().toNullable();
       if (versionOrNull != null) {
+        logInfo(
+            'localDataRepository.storageWrite($_zipFileVersionStorageKey, $versionOrNull)');
         await localDataRepository.storageWrite(
             _zipFileVersionStorageKey, versionOrNull);
       }

@@ -8,6 +8,7 @@ import 'package:esnya_shared_resources/core/repositories/setup_repository_impl.d
 import 'package:esnya_shared_resources/food_mapping/models/food_mapping_result.dart';
 import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loggy/loggy.dart';
 
 @isolate2
 @lazySingleton
@@ -24,12 +25,13 @@ class FoodMappingRepositoryRemoteImpl extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) async {
+    print("FoodMappingRepositoryRemoteImpl.mapInput($input)");
     try {
       final foodMappingResult =
           await apiClient.mapInput(GuessFoodRequestBody(input));
       return right(foodMappingResult);
     } catch (ex) {
-      print(ex);
+      logError(ex);
       return left(DataFailure.apiFailure(
           'POST /guess/food with body {"input": $input}'));
     }
