@@ -23,7 +23,7 @@ class ButtonsAboveCard extends StatelessWidget {
           EsnyaIcons.delete,
           onPressed: onDeleteButtonClick,
           getColor: (c) => c.surface,
-          getIconColor: (c) => c.secondary,
+          getIconColor: (c) => c.error,
           shadowSize: ShadowSize.small,
         ),
         EsnyaSizes.spaceBaseWidth,
