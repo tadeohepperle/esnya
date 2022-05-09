@@ -5,10 +5,11 @@ import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
-import '../design_components/esnya_design_utils.dart';
-import '../design_components/esnya_sizes.dart';
-import '../design_components/esnya_text.dart';
-import 'nutrient_table.dart';
+import '../../design_components/esnya_design_utils.dart';
+import '../../design_components/esnya_sizes.dart';
+import '../../design_components/esnya_text.dart';
+import '../nutrient_table.dart';
+import 'buttons_above_card.dart';
 
 class FoodItemEntrySuccessCard extends StatefulWidget {
   final FoodItemEntrySuccess foodItemEntry;
@@ -69,36 +70,20 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
 
     final translatedAmount = langRepo.translateAmount(foodItem.amount);
 
-    return shadowWrapLarge(
-      Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              EsnyaIconButton.custom(
-                EsnyaIcons.delete,
-                onPressed: widget.onDeleteButtonClick,
-                getColor: (c) => c.surface,
-                getIconColor: (c) => c.secondary,
-                shadowSize: ShadowSize.none,
-              ),
-              EsnyaSizes.spaceBaseWidth,
-              EsnyaIconButton.custom(
-                EsnyaIcons.close,
-                onPressed: widget.onCloseButtonClick,
-                getColor: (c) => c.surface,
-                getIconColor: (c) => c.onSurface,
-                shadowSize: ShadowSize.none,
-              ),
-            ],
-          ),
-          EsnyaSizes.spaceBaseHeight,
+    return Column(
+      children: [
+        ButtonsAboveCard(
+          onDeleteButtonClick: widget.onDeleteButtonClick,
+          onCloseButtonClick: widget.onCloseButtonClick,
+        ),
+        EsnyaSizes.spaceBaseHeight,
+        shadowWrapLarge(
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(EsnyaSizes.base),
             decoration: BoxDecoration(
               borderRadius:
-                  BorderRadius.all(Radius.circular(EsnyaSizes.base * 2)),
+                  const BorderRadius.all(Radius.circular(EsnyaSizes.base)),
               color: colorScheme.surface,
             ),
             child: Column(
@@ -213,8 +198,8 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

@@ -188,7 +188,6 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
 
     // 1. assume entry is in bloc, so try to update in bloc:
     bool updatedinBloc = false;
-    print(_fragmentsAndEntries);
     _fragmentsAndEntries = _fragmentsAndEntries.map((e) {
       if (e.value2.id == entry.id) {
         updatedinBloc = true;

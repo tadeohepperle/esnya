@@ -56,7 +56,8 @@ abstract class ZipDataResource implements EsnyaResource {
       final versionOrFailure =
           await fileRepo.getTextFromURL(_zipFileVersionUrl);
       downLoadNeeded = await versionOrFailure.fold(
-        (failure) => true,
+        (failure) =>
+            false, // lets just assume there is no internet connection so not point in updating
         (versionFromApi) async {
           final cachedVersion = await localDataRepository.storageRead(
               _zipFileVersionStorageKey); // key is just version url
@@ -74,6 +75,9 @@ abstract class ZipDataResource implements EsnyaResource {
           logInfo(
               '$runtimeType.attemptUpdate() downLoadNeeded == false and checksums do not match ==> do update.');
           downLoadNeeded = true;
+        } else {
+          logInfo(
+              '$runtimeType.attemptUpdate() downLoadNeeded == false but checksums are ok ==> no update required.');
         }
       }
 

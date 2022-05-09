@@ -1,3 +1,4 @@
+import 'package:esnya/constants.dart';
 import 'package:esnya/domain/core/failures.dart';
 import 'package:esnya/domain/resources/file_repository.dart';
 import 'package:esnya/injection_environments.dart';
@@ -47,7 +48,7 @@ class FileRepositoryImpl implements FileRepository {
   Future<Either<Failure, String>> getTextFromURL(String url) async {
     try {
       logInfo('called FileRepository.getTextFromURL($url)');
-      String text = await http.read(Uri.parse(url));
+      String text = await http.read(Uri.parse(url)).timeout(connectionTimeout);
       return right(text);
     } catch (e) {
       logInfo('FileRepository.getTextFromURL($url) failed with $e');
@@ -62,7 +63,7 @@ class FileRepositoryImpl implements FileRepository {
       logInfo('trying to download file from $url to $targetPath');
       final client = http.Client();
       final request = http.Request('GET', Uri.parse(url));
-      final response = await client.send(request);
+      final response = await client.send(request).timeout(connectionTimeout);
       final totalLength = response.contentLength ?? 0;
       int receivedLength = response.contentLength ?? 0;
       final List<int> bytes = [];
