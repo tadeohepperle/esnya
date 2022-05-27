@@ -43,7 +43,6 @@ class VoiceInputSheetCubit extends Cubit<VoiceInputSheetState> {
 
   startRecording() {
     if (state is _Idle) {
-      VoskSpeechRecognition.loadModel();
       emit(const VoiceInputSheetState.recording(''));
     }
   }

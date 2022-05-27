@@ -908,7 +908,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "5b9cd5f6256b18bbef32a9af0df32f812c344bbb"
+      resolved-ref: "498732e174e8839dac59f6527c50841ef19f169d"
       url: "https://github.com/tadeohepperle/vosk_speech_recognition.git"
     source: git
     version: "0.0.1"
