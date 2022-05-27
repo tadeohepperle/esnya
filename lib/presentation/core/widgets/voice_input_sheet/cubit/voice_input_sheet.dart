@@ -58,7 +58,7 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
         initial: (value) => "",
         error: (value) => value.errorText,
         recording: (value) => _ellipsisTextFromLeft(value.currentInput, 32),
-        stopped: (value) => "",
+        idle: (value) => "",
         preparing: (value) =>
             "preparing AI ${(value.progress * 100).toStringAsFixed(0)} %");
 
@@ -69,7 +69,7 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
         size: 56,
         color: colorScheme.error,
       ),
-      stopped: (value) => EsnyaIconButton.custom(
+      idle: (value) => EsnyaIconButton.custom(
         EsnyaIcons.microphone,
         onPressed: () => _startRecording(context),
         floatingActionStyle: true,

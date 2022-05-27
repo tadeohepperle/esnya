@@ -2,11 +2,16 @@ import 'dart:async';
 
 import 'package:esnya/domain/resources/resource_status.dart';
 import 'package:esnya/infrastructure/resources/food_data_resource.dart';
+import 'package:esnya/infrastructure/resources/stt_model_resource.dart';
 
 class EsnyaResources {
   final FoodDataResource foodDataResource = FoodDataResource();
+  final SttModelResource sttModelResource = SttModelResource();
 
-  List<EsnyaResource> get resources => [foodDataResource];
+  List<EsnyaResource> get resources => [
+        foodDataResource,
+        sttModelResource,
+      ];
 }
 
 /// a resource that needs to be setup locally, for example downloaded

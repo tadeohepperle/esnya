@@ -31,9 +31,9 @@ import 'infrastructure/core/api/food_backend_client_impl.dart' as _i9;
 import 'infrastructure/core/dio_injectible_module.dart' as _i40;
 import 'infrastructure/core/firebase_injectible_module.dart' as _i41;
 import 'infrastructure/core/shared_resources_injectible_module.dart' as _i42;
-import 'infrastructure/food_data/food_data_repository_isolate_2.dart' as _i30;
+import 'infrastructure/food_data/food_data_repository_isolate_2.dart' as _i29;
 import 'infrastructure/food_data/food_data_repository_isolate_bridge.dart'
-    as _i29;
+    as _i30;
 import 'infrastructure/food_data/food_data_repository_local_impl_csv.dart'
     as _i10;
 import 'infrastructure/food_data/food_data_repository_remote_impl.dart' as _i11;
@@ -116,20 +116,21 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i24.UserDietPreferencesRepository>(
       () => _i25.UserDietPreferencesRepositoryImpl(),
       registerFor: {_isolate1});
-  gh.factory<_i26.VoiceInputSheetCubit>(() => _i26.VoiceInputSheetCubit(),
+  gh.factory<_i26.VoiceInputSheetCubit>(
+      () => _i26.VoiceInputSheetCubit(get<_i21.ResourceRepository>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i27.AuthRepository>(() => _i28.AuthRepositoryImpl(
       get<_i6.FirebaseAuth>(), get<_i15.GoogleSignIn>()));
   gh.lazySingleton<_i18.FoodDataRepository>(
-      () =>
-          _i29.FoodDataRepositoryIsolateBridge(get<_i16.Isolate2Repository>()),
-      registerFor: {_isolate1});
-  gh.lazySingleton<_i18.FoodDataRepository>(
-      () => _i30.FoodDataRepositoryIsolate2(
+      () => _i29.FoodDataRepositoryIsolate2(
           get<_i21.ResourceRepository>(),
           get<_i10.FoodDataRepositoryLocalImplCsv>(),
           get<_i11.FoodDataRepositoryRemoteImpl>()),
       registerFor: {_isolate2});
+  gh.lazySingleton<_i18.FoodDataRepository>(
+      () =>
+          _i30.FoodDataRepositoryIsolateBridge(get<_i16.Isolate2Repository>()),
+      registerFor: {_isolate1});
   gh.lazySingleton<_i31.FoodInputBloc>(
       () => _i31.FoodInputBloc(
           get<_i18.TextProcessingRepository>(),

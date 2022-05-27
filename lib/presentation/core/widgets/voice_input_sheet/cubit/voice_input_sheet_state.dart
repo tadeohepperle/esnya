@@ -8,7 +8,7 @@ class VoiceInputSheetState with _$VoiceInputSheetState {
 
   const factory VoiceInputSheetState.recording(String currentInput) =
       _Recording;
-  const factory VoiceInputSheetState.stopped() = _Stopped;
+  const factory VoiceInputSheetState.idle() = _Idle;
 
   const factory VoiceInputSheetState.preparing(double progress) = _Preparing;
 }

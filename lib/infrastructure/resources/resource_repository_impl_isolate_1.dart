@@ -5,6 +5,7 @@ import 'package:esnya/domain/resources/esnya_resources.dart';
 import 'package:esnya/domain/resources/resource_repository.dart';
 import 'package:esnya/domain/resources/resource_status.dart';
 import 'package:esnya/infrastructure/resources/food_data_resource.dart';
+import 'package:esnya/infrastructure/resources/stt_model_resource.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
@@ -39,12 +40,16 @@ class ResourceRepositoryImplIsolate1 extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> doSetupWork() async {
-    FoodDataResource fdr = _getResource<FoodDataResource>();
-    fdr.statusStream.listen((status) {
-      isolate2repository.makeRequest(
-        IsolateRequest.resourceStatusChanged(fdr.resourceId, status),
-      );
-    });
+    for (var r in [
+      _getResource<FoodDataResource>(),
+      _getResource<SttModelResource>()
+    ]) {
+      r.statusStream.listen((status) {
+        isolate2repository.makeRequest(
+          IsolateRequest.resourceStatusChanged(r.resourceId, status),
+        );
+      });
+    }
     // TODO: 1234 put in for voice resource.
     return right(unit);
   }
@@ -54,5 +59,6 @@ class ResourceRepositoryImplIsolate1 extends SetupRepositoryImpl
   Future<void> attemptUpdates() async {
     logInfo('called ResourceRepositoryImplIsolate1.attemptUpdates()');
     _getResource<FoodDataResource>().attemptUpdate();
+    _getResource<SttModelResource>().attemptUpdate();
   }
 }
