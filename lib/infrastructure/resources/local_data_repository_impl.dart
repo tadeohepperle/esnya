@@ -6,12 +6,8 @@ import 'dart:io';
 
 import 'package:esnya/domain/resources/local_data_repository.dart';
 import 'package:esnya/injection_environments.dart';
-import 'package:esnya_shared_resources/core/core.dart';
-import 'package:flutter_archive/flutter_archive.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 // just so that noone else will access the get storage by accident.
 const String _kLocalStorageKey = "b7s0s8";

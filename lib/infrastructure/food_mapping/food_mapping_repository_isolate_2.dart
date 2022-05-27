@@ -1,8 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/resources/resource_repository.dart';
 import 'package:esnya/infrastructure/food_mapping/food_mapping_repository_local_impl_csv.dart';
-import 'package:esnya/infrastructure/food_mapping/food_mapping_repository_remote_impl.dart';
-import 'package:esnya/infrastructure/resources/food_data_resource.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:injectable/injectable.dart';
@@ -11,13 +8,9 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: FoodMappingRepository)
 class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
     implements FoodMappingRepository {
-  final ResourceRepository resourceRepository;
   final FoodMappingRepositoryLocalImplCsv foodMappingRepositoryLocalImplCsv;
-  final FoodMappingRepositoryRemoteImpl foodMappingRepositoryRemoteImpl;
   FoodMappingRepositoryIsolate2(
-    this.resourceRepository,
     this.foodMappingRepositoryLocalImplCsv,
-    this.foodMappingRepositoryRemoteImpl,
   );
 
   @override
@@ -27,16 +20,7 @@ class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) {
-    final foodDataResourceStatus =
-        resourceRepository.resourceStatus<FoodDataResource>();
-
-    // for simulating remote only:
-    // return Future.delayed(Duration(milliseconds: 1500))
-    //     .then((value) => foodMappingRepositoryRemoteImpl.mapInput(input));
-
-    return foodDataResourceStatus.maybeMap(
-      available: (_) => foodMappingRepositoryLocalImplCsv.mapInput(input),
-      orElse: () => foodMappingRepositoryRemoteImpl.mapInput(input),
-    );
+    /// TODO: currently we just delegate to ImplCsv, in future failures could lead to remote requests or something.
+    return foodMappingRepositoryLocalImplCsv.mapInput(input);
   }
 }

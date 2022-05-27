@@ -1,39 +1,42 @@
-import 'package:esnya/infrastructure/core/api/food_backend_client.dart';
-import 'package:esnya/infrastructure/core/api/models/guess_food_request_body.dart';
-import 'package:esnya/injection_environments.dart';
-import 'package:esnya_shared_resources/core/error_handling/failure.dart';
-import 'package:dartz/dartz.dart';
-import 'package:esnya_shared_resources/core/error_handling/failures.dart';
-import 'package:esnya_shared_resources/core/repositories/setup_repository_impl.dart';
-import 'package:esnya_shared_resources/food_mapping/models/food_mapping_result.dart';
-import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
-import 'package:injectable/injectable.dart';
-import 'package:loggy/loggy.dart';
 
-@isolate2
-@lazySingleton
-class FoodMappingRepositoryRemoteImpl extends SetupRepositoryImpl
-    implements FoodMappingRepository {
-  final FoodBackendClient apiClient;
+/// currently not in use!
 
-  FoodMappingRepositoryRemoteImpl(this.apiClient);
+// import 'package:esnya/infrastructure/core/api/food_backend_client.dart';
+// import 'package:esnya/infrastructure/core/api/models/guess_food_request_body.dart';
+// import 'package:esnya/injection_environments.dart';
+// import 'package:esnya_shared_resources/core/error_handling/failure.dart';
+// import 'package:dartz/dartz.dart';
+// import 'package:esnya_shared_resources/core/error_handling/failures.dart';
+// import 'package:esnya_shared_resources/core/repositories/setup_repository_impl.dart';
+// import 'package:esnya_shared_resources/food_mapping/models/food_mapping_result.dart';
+// import 'package:esnya_shared_resources/food_mapping/repositories/food_mapping_repository.dart';
+// import 'package:injectable/injectable.dart';
+// import 'package:loggy/loggy.dart';
 
-  @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    return right(unit);
-  }
+// @isolate2
+// @lazySingleton
+// class FoodMappingRepositoryRemoteImpl extends SetupRepositoryImpl
+//     implements FoodMappingRepository {
+//   final FoodBackendClient apiClient;
 
-  @override
-  Future<Either<Failure, FoodMappingResult>> mapInput(String input) async {
-    print("FoodMappingRepositoryRemoteImpl.mapInput($input)");
-    try {
-      final foodMappingResult =
-          await apiClient.mapInput(GuessFoodRequestBody(input));
-      return right(foodMappingResult);
-    } catch (ex) {
-      logError(ex);
-      return left(DataFailure.apiFailure(
-          'POST /guess/food with body {"input": $input}'));
-    }
-  }
-}
+//   FoodMappingRepositoryRemoteImpl(this.apiClient);
+
+//   @override
+//   Future<Either<Failure, Unit>> doSetupWork() async {
+//     return right(unit);
+//   }
+
+//   @override
+//   Future<Either<Failure, FoodMappingResult>> mapInput(String input) async {
+//     print("FoodMappingRepositoryRemoteImpl.mapInput($input)");
+//     try {
+//       final foodMappingResult =
+//           await apiClient.mapInput(GuessFoodRequestBody(input));
+//       return right(foodMappingResult);
+//     } catch (ex) {
+//       logError(ex);
+//       return left(DataFailure.apiFailure(
+//           'POST /guess/food with body {"input": $input}'));
+//     }
+//   }
+// }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'resource_status.dart';
+part of 'esnya_resource_status.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,13 +15,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$ResourceStatus {
+mixin _$EsnyaResourceStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() unknown,
     required TResult Function(double progress) inProgress,
     required TResult Function() available,
-    required TResult Function() failed,
+    required TResult Function(Failure? failure) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$ResourceStatus {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$ResourceStatus {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,20 +69,20 @@ mixin _$ResourceStatus {
 }
 
 /// @nodoc
-abstract class $ResourceStatusCopyWith<$Res> {
-  factory $ResourceStatusCopyWith(
-          ResourceStatus value, $Res Function(ResourceStatus) then) =
-      _$ResourceStatusCopyWithImpl<$Res>;
+abstract class $EsnyaResourceStatusCopyWith<$Res> {
+  factory $EsnyaResourceStatusCopyWith(
+          EsnyaResourceStatus value, $Res Function(EsnyaResourceStatus) then) =
+      _$EsnyaResourceStatusCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ResourceStatusCopyWithImpl<$Res>
-    implements $ResourceStatusCopyWith<$Res> {
-  _$ResourceStatusCopyWithImpl(this._value, this._then);
+class _$EsnyaResourceStatusCopyWithImpl<$Res>
+    implements $EsnyaResourceStatusCopyWith<$Res> {
+  _$EsnyaResourceStatusCopyWithImpl(this._value, this._then);
 
-  final ResourceStatus _value;
+  final EsnyaResourceStatus _value;
   // ignore: unused_field
-  final $Res Function(ResourceStatus) _then;
+  final $Res Function(EsnyaResourceStatus) _then;
 }
 
 /// @nodoc
@@ -92,7 +92,8 @@ abstract class $UnknownCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UnknownCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
+class _$UnknownCopyWithImpl<$Res>
+    extends _$EsnyaResourceStatusCopyWithImpl<$Res>
     implements $UnknownCopyWith<$Res> {
   _$UnknownCopyWithImpl(Unknown _value, $Res Function(Unknown) _then)
       : super(_value, (v) => _then(v as Unknown));
@@ -108,7 +109,7 @@ class _$Unknown implements Unknown {
 
   @override
   String toString() {
-    return 'ResourceStatus.unknown()';
+    return 'EsnyaResourceStatus.unknown()';
   }
 
   @override
@@ -126,7 +127,7 @@ class _$Unknown implements Unknown {
     required TResult Function() unknown,
     required TResult Function(double progress) inProgress,
     required TResult Function() available,
-    required TResult Function() failed,
+    required TResult Function(Failure? failure) failed,
   }) {
     return unknown();
   }
@@ -137,7 +138,7 @@ class _$Unknown implements Unknown {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
   }) {
     return unknown?.call();
   }
@@ -148,7 +149,7 @@ class _$Unknown implements Unknown {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
     required TResult orElse(),
   }) {
     if (unknown != null) {
@@ -195,7 +196,7 @@ class _$Unknown implements Unknown {
   }
 }
 
-abstract class Unknown implements ResourceStatus {
+abstract class Unknown implements EsnyaResourceStatus {
   const factory Unknown() = _$Unknown;
 }
 
@@ -208,7 +209,8 @@ abstract class $InProgressCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$InProgressCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
+class _$InProgressCopyWithImpl<$Res>
+    extends _$EsnyaResourceStatusCopyWithImpl<$Res>
     implements $InProgressCopyWith<$Res> {
   _$InProgressCopyWithImpl(InProgress _value, $Res Function(InProgress) _then)
       : super(_value, (v) => _then(v as InProgress));
@@ -239,7 +241,7 @@ class _$InProgress implements InProgress {
 
   @override
   String toString() {
-    return 'ResourceStatus.inProgress(progress: $progress)';
+    return 'EsnyaResourceStatus.inProgress(progress: $progress)';
   }
 
   @override
@@ -265,7 +267,7 @@ class _$InProgress implements InProgress {
     required TResult Function() unknown,
     required TResult Function(double progress) inProgress,
     required TResult Function() available,
-    required TResult Function() failed,
+    required TResult Function(Failure? failure) failed,
   }) {
     return inProgress(progress);
   }
@@ -276,7 +278,7 @@ class _$InProgress implements InProgress {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
   }) {
     return inProgress?.call(progress);
   }
@@ -287,7 +289,7 @@ class _$InProgress implements InProgress {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -334,7 +336,7 @@ class _$InProgress implements InProgress {
   }
 }
 
-abstract class InProgress implements ResourceStatus {
+abstract class InProgress implements EsnyaResourceStatus {
   const factory InProgress(final double progress) = _$InProgress;
 
   double get progress => throw _privateConstructorUsedError;
@@ -350,7 +352,8 @@ abstract class $AvailableCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$AvailableCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
+class _$AvailableCopyWithImpl<$Res>
+    extends _$EsnyaResourceStatusCopyWithImpl<$Res>
     implements $AvailableCopyWith<$Res> {
   _$AvailableCopyWithImpl(Available _value, $Res Function(Available) _then)
       : super(_value, (v) => _then(v as Available));
@@ -366,7 +369,7 @@ class _$Available implements Available {
 
   @override
   String toString() {
-    return 'ResourceStatus.available()';
+    return 'EsnyaResourceStatus.available()';
   }
 
   @override
@@ -384,7 +387,7 @@ class _$Available implements Available {
     required TResult Function() unknown,
     required TResult Function(double progress) inProgress,
     required TResult Function() available,
-    required TResult Function() failed,
+    required TResult Function(Failure? failure) failed,
   }) {
     return available();
   }
@@ -395,7 +398,7 @@ class _$Available implements Available {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
   }) {
     return available?.call();
   }
@@ -406,7 +409,7 @@ class _$Available implements Available {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
     required TResult orElse(),
   }) {
     if (available != null) {
@@ -453,7 +456,7 @@ class _$Available implements Available {
   }
 }
 
-abstract class Available implements ResourceStatus {
+abstract class Available implements EsnyaResourceStatus {
   const factory Available() = _$Available;
 }
 
@@ -461,36 +464,60 @@ abstract class Available implements ResourceStatus {
 abstract class $FailedCopyWith<$Res> {
   factory $FailedCopyWith(Failed value, $Res Function(Failed) then) =
       _$FailedCopyWithImpl<$Res>;
+  $Res call({Failure? failure});
 }
 
 /// @nodoc
-class _$FailedCopyWithImpl<$Res> extends _$ResourceStatusCopyWithImpl<$Res>
+class _$FailedCopyWithImpl<$Res> extends _$EsnyaResourceStatusCopyWithImpl<$Res>
     implements $FailedCopyWith<$Res> {
   _$FailedCopyWithImpl(Failed _value, $Res Function(Failed) _then)
       : super(_value, (v) => _then(v as Failed));
 
   @override
   Failed get _value => super._value as Failed;
+
+  @override
+  $Res call({
+    Object? failure = freezed,
+  }) {
+    return _then(Failed(
+      failure == freezed
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Failure?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$Failed implements Failed {
-  const _$Failed();
+  const _$Failed([this.failure]);
+
+  @override
+  final Failure? failure;
 
   @override
   String toString() {
-    return 'ResourceStatus.failed()';
+    return 'EsnyaResourceStatus.failed(failure: $failure)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Failed);
+        (other.runtimeType == runtimeType &&
+            other is Failed &&
+            const DeepCollectionEquality().equals(other.failure, failure));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(failure));
+
+  @JsonKey(ignore: true)
+  @override
+  $FailedCopyWith<Failed> get copyWith =>
+      _$FailedCopyWithImpl<Failed>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -498,9 +525,9 @@ class _$Failed implements Failed {
     required TResult Function() unknown,
     required TResult Function(double progress) inProgress,
     required TResult Function() available,
-    required TResult Function() failed,
+    required TResult Function(Failure? failure) failed,
   }) {
-    return failed();
+    return failed(failure);
   }
 
   @override
@@ -509,9 +536,9 @@ class _$Failed implements Failed {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
   }) {
-    return failed?.call();
+    return failed?.call(failure);
   }
 
   @override
@@ -520,11 +547,11 @@ class _$Failed implements Failed {
     TResult Function()? unknown,
     TResult Function(double progress)? inProgress,
     TResult Function()? available,
-    TResult Function()? failed,
+    TResult Function(Failure? failure)? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed();
+      return failed(failure);
     }
     return orElse();
   }
@@ -567,6 +594,10 @@ class _$Failed implements Failed {
   }
 }
 
-abstract class Failed implements ResourceStatus {
-  const factory Failed() = _$Failed;
+abstract class Failed implements EsnyaResourceStatus {
+  const factory Failed([final Failure? failure]) = _$Failed;
+
+  Failure? get failure => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $FailedCopyWith<Failed> get copyWith => throw _privateConstructorUsedError;
 }

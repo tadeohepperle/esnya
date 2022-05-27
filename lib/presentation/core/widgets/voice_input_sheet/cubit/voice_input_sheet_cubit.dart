@@ -1,11 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/resources/resource_repository.dart';
-import 'package:esnya/infrastructure/resources/stt_model_resource.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vosk_speech_recognition/vosk_speech_recognition.dart';
 
 part 'voice_input_sheet_state.dart';
 part 'voice_input_sheet_cubit.freezed.dart';
@@ -17,9 +14,7 @@ class VoiceInputSheetCubit extends Cubit<VoiceInputSheetState> {
 
   VoiceInputSheetCubit(this.resourceRepository)
       : super(const VoiceInputSheetState.initial()) {
-    final resourceStatusStream =
-        resourceRepository.resourceStatusStream<SttModelResource>();
-    resourceStatusStream.listen((event) {
+    resourceRepository.voskModel.statusStream.listen((event) {
       event.map(
           unknown: (_) {},
           inProgress: (inProgress) {

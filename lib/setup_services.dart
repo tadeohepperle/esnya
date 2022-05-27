@@ -1,6 +1,5 @@
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
 import 'package:esnya/domain/resources/data_directory_path_provider.dart';
-import 'package:esnya/domain/resources/resource_repository.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,9 +16,7 @@ Future<void> setupServicesIsolate1() async {
   await Future.wait([
     getIt<Isolate2Repository>().setup(),
     getIt<FoodItemEntryBucketRepository>().setup(),
-    getIt<ResourceRepository>().setup(),
   ]);
-  getIt<ResourceRepository>().attemptUpdates();
 }
 
 Future<void> setupServicesIsolate2() async {
@@ -27,6 +24,5 @@ Future<void> setupServicesIsolate2() async {
   await Future.wait([
     getIt<FoodDataRepository>().setup(),
     getIt<FoodMappingRepository>().setup(),
-    getIt<ResourceRepository>().setup(),
   ]);
 }

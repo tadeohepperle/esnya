@@ -1,64 +1,48 @@
-import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/isolate2/entities/isolate_request.dart';
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
-import 'package:esnya/domain/resources/esnya_resources.dart';
+import 'package:esnya/domain/resources/esnya_resource.dart';
+import 'package:esnya/domain/resources/esnya_resource_status.dart';
 import 'package:esnya/domain/resources/resource_repository.dart';
-import 'package:esnya/domain/resources/resource_status.dart';
-import 'package:esnya/infrastructure/resources/food_data_resource.dart';
-import 'package:esnya/infrastructure/resources/stt_model_resource.dart';
 import 'package:esnya/injection_environments.dart';
-import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loggy/loggy.dart';
 
-// TODO: is this correct isolate? in both isoaltes can lead to problems
+/// any updates to resources from ResourceRepositoryImplIsolate1 are sent
+/// to the isolate 2, and reflected in ResourceRepositoryImplIsolate2 there.
+/// The opposite direction is not synchronized, so there should not be
+/// any changes made to the status of resources in isolate 2 except for
+/// those that just mirror isolate 1
+
 @isolate1
 @LazySingleton(as: ResourceRepository)
-class ResourceRepositoryImplIsolate1 extends SetupRepositoryImpl
-    implements ResourceRepository {
-  final Isolate2Repository isolate2repository;
-  final EsnyaResources _resources = EsnyaResources();
+class ResourceRepositoryImplIsolate1 implements ResourceRepository {
+  final Isolate2Repository isolate2Repository;
+  late final Map<EsnyaResourceId, EsnyaResource> _resources;
 
-  ResourceRepositoryImplIsolate1(this.isolate2repository);
-
-  T _getResource<T extends EsnyaResource>() {
-    for (var r in _resources.resources) {
-      if (r is T) return r;
-    }
-    throw Exception("Type $T not in EsnyaResources.resources");
-  }
-
-  @override
-  ResourceStatus resourceStatus<T extends EsnyaResource>() {
-    return _getResource<T>().status;
-  }
-
-  @override
-  Stream<ResourceStatus> resourceStatusStream<T extends EsnyaResource>() {
-    return _getResource<T>().statusStream;
-  }
-
-  @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    for (var r in [
-      _getResource<FoodDataResource>(),
-      _getResource<SttModelResource>()
-    ]) {
-      r.statusStream.listen((status) {
-        isolate2repository.makeRequest(
-          IsolateRequest.resourceStatusChanged(r.resourceId, status),
+  ResourceRepositoryImplIsolate1(this.isolate2Repository) {
+    _resources = {
+      _foodData.resourceId: _foodData,
+      _foodMappingData.resourceId: _foodMappingData,
+      _voskModel.resourceId: _voskModel,
+    };
+    for (var r in _resources.values) {
+      r.statusStream.listen((newStatus) {
+        isolate2Repository.makeRequest(
+          IsolateRequest.resourceStatusChanged(r.resourceId, newStatus),
         );
       });
     }
-    // TODO: 1234 put in for voice resource.
-    return right(unit);
   }
 
+  final EsnyaResource _foodData = EsnyaResource(EsnyaResourceId.foodData);
   @override
-  // not triggered in doSetupWork directly, will be called somewhere else in startup process of app.
-  Future<void> attemptUpdates() async {
-    logInfo('called ResourceRepositoryImplIsolate1.attemptUpdates()');
-    _getResource<FoodDataResource>().attemptUpdate();
-    _getResource<SttModelResource>().attemptUpdate();
-  }
+  EsnyaResource get foodData => _foodData;
+
+  final EsnyaResource _foodMappingData =
+      EsnyaResource(EsnyaResourceId.foodMappingData);
+  @override
+  EsnyaResource get foodMappingData => _foodMappingData;
+
+  final EsnyaResource _voskModel = EsnyaResource(EsnyaResourceId.voskModel);
+  @override
+  EsnyaResource get voskModel => _voskModel;
 }

@@ -1,4 +1,26 @@
-# esnya
+
+
+
+
+
+## Resources:
+
+##### Tadeo Hepperle, 2022-05-28 01:34am:
+
+Each Resource has a ResourceStatus: Unknown, Available, Failure
+
+class ResourceRepository provides access to all resources, their status and their status as a stream.
+- ResourceRepositoryImplIsolate1 in isolate 1
+- ResourceRepositoryImplIsolate2 in isolate 2
+
+from anywhere in isolate 1, we can for example call
+```dart
+getIt<ResourceRepositoryImplIsolate1>.foodData.status = EsnyaResourceStatus.available();
+```
+Because ResourceRepositoryImplIsolate1 listens to such changes, this will trigger an event sent to isolate 2, where the resource status is then mirrored and all listeners in isolate 2 are notified.
+
+
+## TODO
 
 
 TODO:

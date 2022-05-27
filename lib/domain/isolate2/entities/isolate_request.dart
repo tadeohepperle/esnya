@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/resources/esnya_resources.dart';
-import 'package:esnya/domain/resources/resource_status.dart';
+import 'package:esnya/domain/resources/esnya_resource.dart';
+import 'package:esnya/domain/resources/esnya_resource_status.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 
 final rng = Random();
@@ -22,10 +22,9 @@ abstract class IsolateRequest<R> {
       foodDataRepositoryGetFoodFromID(String input) =>
           IsolateRequestFoodDataRepositoryGetFoodFromID(input);
 
-  static IsolateRequestResourceStatusChanged
-      resourceStatusChanged<T extends EsnyaResource>(
-              String resourceId, ResourceStatus newStatus) =>
-          IsolateRequestResourceStatusChanged(resourceId, newStatus);
+  static IsolateRequestResourceStatusChanged resourceStatusChanged(
+          EsnyaResourceId resourceId, EsnyaResourceStatus newStatus) =>
+      IsolateRequestResourceStatusChanged(resourceId, newStatus);
 
   @override
   int get hashCode => _hashCode;
@@ -52,9 +51,8 @@ class IsolateRequestFoodDataRepositoryGetFoodFromID
   IsolateRequestFoodDataRepositoryGetFoodFromID(this.id);
 }
 
-class IsolateRequestResourceStatusChanged<T extends EsnyaResource>
-    extends IsolateRequest<void> {
-  final String resourceId;
-  final ResourceStatus newStatus;
+class IsolateRequestResourceStatusChanged extends IsolateRequest<void> {
+  final EsnyaResourceId resourceId;
+  final EsnyaResourceStatus newStatus;
   IsolateRequestResourceStatusChanged(this.resourceId, this.newStatus);
 }
