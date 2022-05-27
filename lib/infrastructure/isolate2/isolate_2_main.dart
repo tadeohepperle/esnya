@@ -59,7 +59,8 @@ Future<IsolateResponse> makeRequest(IsolateRequest request) async {
     return response(resultOrFailure);
   } else if (request is IsolateRequestResourceStatusChanged) {
     (getIt<ResourceRepository>() as ResourceRepositoryImplIsolate2)
-        .processIsolateRequest(request);
+        .onReceiveResourceUpdateFromIsolate1(
+            request.resourceId, request.newStatus);
     return response(null);
   }
   return response(null);
