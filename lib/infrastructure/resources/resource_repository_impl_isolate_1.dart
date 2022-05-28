@@ -25,7 +25,7 @@ class ResourceRepositoryImplIsolate1 implements ResourceRepository {
       _voskModel.resourceId: _voskModel,
     };
     for (var r in _resources.values) {
-      r.statusStream.listen((newStatus) {
+      r.status.stream.listen((newStatus) {
         isolate2Repository.makeRequest(
           IsolateRequest.resourceStatusChanged(r.resourceId, newStatus),
         );

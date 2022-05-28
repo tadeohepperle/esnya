@@ -96,8 +96,8 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
       _operationOnTodaysBucket((bucketId) => deleteEntry(bucketId, entry));
 
   @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    return right(unit);
+  Stream<Either<Failure, double>> doSetupWork() async* {
+    yield right(1);
   }
 
   @override

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/isolate2/entities/isolate_response.dart';
@@ -14,8 +13,6 @@ import 'package:loggy/loggy.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';
-import '../core/api/food_backend_client.dart';
-import '../core/api/models/guess_food_request_body.dart';
 import 'isolate_2_spawn_arguments.dart';
 
 void isolate2Main(Isolate2SpawnArguments args) {

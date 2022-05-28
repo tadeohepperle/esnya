@@ -15,13 +15,13 @@ class FoodDataRepositoryIsolate2 extends SetupRepositoryImpl
   );
 
   @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    return right(unit);
-  }
-
-  @override
   Future<Either<DataFailure, Food>> getFoodFromID(String id) {
     /// TODO: currently we just delegate to ImplCsv, in future failures could lead to remote requests or something.
     return foodDataRepositoryLocalImplCsv.getFoodFromID(id);
+  }
+
+  @override
+  Stream<Either<Failure, double>> doSetupWork() async* {
+    yield right(1);
   }
 }

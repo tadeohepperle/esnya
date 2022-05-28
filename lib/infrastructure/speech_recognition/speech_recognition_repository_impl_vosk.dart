@@ -14,16 +14,17 @@ class SpeechRecognitionRepositoryImplVosk extends SetupRepositoryImpl
   SpeechRecognitionRepositoryImplVosk(this.voskSpeechRecognition);
 
   @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
+  Stream<Either<Failure, double>> doSetupWork() async* {
+    yield right(0);
     voskSpeechRecognition.reset();
     final modelDirectoryPath =
         DataDirectoryPathProvider.dataDirectoryPath + '/stt_model_en_1';
     await voskSpeechRecognition.loadModel(modelDirectoryPath);
     final isLoaded = await voskSpeechRecognition.isModelLoaded();
     if (!isLoaded) {
-      return left(DataFailure.invalidDataFile(modelDirectoryPath));
+      yield left(DataFailure.invalidDataFile(modelDirectoryPath));
     }
-    return right(unit);
+    yield right(1);
   }
 
   @override

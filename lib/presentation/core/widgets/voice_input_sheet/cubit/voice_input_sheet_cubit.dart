@@ -14,7 +14,7 @@ class VoiceInputSheetCubit extends Cubit<VoiceInputSheetState> {
 
   VoiceInputSheetCubit(this.resourceRepository)
       : super(const VoiceInputSheetState.initial()) {
-    resourceRepository.voskModel.statusStream.listen((event) {
+    resourceRepository.voskModel.status.stream.listen((event) {
       event.map(
           unknown: (_) {},
           inProgress: (inProgress) {

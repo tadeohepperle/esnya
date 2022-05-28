@@ -14,8 +14,8 @@ class FoodDataRepositoryIsolateBridge extends SetupRepositoryImpl
   FoodDataRepositoryIsolateBridge(this.isolate2repository);
 
   @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
-    return right(unit);
+  Stream<Either<Failure, double>> doSetupWork() async* {
+    yield right(1);
   }
 
   @override

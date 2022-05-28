@@ -34,6 +34,6 @@ class ResourceRepositoryImplIsolate2 implements ResourceRepository {
 
   onReceiveResourceUpdateFromIsolate1(
       EsnyaResourceId resourceId, EsnyaResourceStatus newStatus) {
-    _resources[resourceId]!.status = newStatus;
+    _resources[resourceId]!.status.value = newStatus;
   }
 }

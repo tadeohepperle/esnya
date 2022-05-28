@@ -32,7 +32,8 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
   }
 
   @override
-  Future<Either<Failure, Unit>> doSetupWork() async {
+  Stream<Either<Failure, double>> doSetupWork() async* {
+    yield right(0);
     final dataDirectoryPath = DataDirectoryPathProvider.dataDirectoryPath;
 
     ReceivePort receivePort = ReceivePort();
@@ -48,10 +49,10 @@ class Isolate2RepositoryImpl extends SetupRepositoryImpl
           dataDirectoryPath: dataDirectoryPath,
         ),
       );
-      return right(unit);
+      yield right(1);
     } catch (ex) {
       logError(ex);
-      return left(SetupFailure.unexpected(runtimeType.toString()));
+      yield left(SetupFailure.unexpected(runtimeType.toString()));
     }
   }
 
