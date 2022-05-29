@@ -20,19 +20,19 @@ class SplashScreen extends StatelessWidget {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, authState) {
           final appStartupState = context.read<AppStartupCubit>().state;
-          // appStartupState.ifDone(() {
-          //   authState.goHomeOrSignIn(context);
-          // });
+          appStartupState.ifDone(() {
+            authState.goHomeOrSignIn(context);
+          });
         },
         child: BlocConsumer<AppStartupCubit, AppStartupState>(
           listener: (context, appStartupState) {
             /// when AppStartupState is done: check state of AuthBloc:
             /// authenticated -> send to home, unAuthenticated -> send to sign in
 
-            // appStartupState.ifDone(() {
-            //   final authState = context.read<AuthBloc>().state;
-            //   authState.goHomeOrSignIn(context);
-            // });
+            appStartupState.ifDone(() {
+              final authState = context.read<AuthBloc>().state;
+              authState.goHomeOrSignIn(context);
+            });
           },
           builder: (context, appStartupState) {
             return Center(

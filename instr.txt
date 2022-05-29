@@ -16,3 +16,15 @@ to setup firebase:
 
 firebase login
 flutterfire configure
+
+
+
+##########################
+icons:
+
+flutter_icons:
+  image_path: "images/logo.png"
+  android: true
+  ios: true
+  
+flutter pub run flutter_launcher_icons:main

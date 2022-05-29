@@ -70,15 +70,12 @@ class AppStartupRepositoryImpl implements AppStartupRepository {
     }
     getIt<FoodMappingRepository>().setup(); // to load/reload the csv
     addProgressSteps(4);
+
     /////////////////////////////////////////////////////////////////////
     /// end of required setup on appstart, emit state done
     /////////////////////////////////////////////////////////////////////
     await Future.delayed(Duration(milliseconds: 1000));
     _setupState.value = SetupDone();
-
-    /////////////////////////////////////////////////////////////////////
-    /// kick of actions in other repositories
-    /////////////////////////////////////////////////////////////////////
   }
 
   @override

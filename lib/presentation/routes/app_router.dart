@@ -28,25 +28,19 @@ class AppRouter {
   AppRouter(this.authRepository, this.appStartupRepository)
       : _router = GoRouter(
           redirect: (state) {
-            var l = state.location;
-            if (!(state.location == AppRoutes.splash.path)) {
-              return AppRoutes.splash.path;
-            } else {
-              return null;
+            String? pathOrNullIfAlreadyHeadingThere(String path) {
+              return state.location == path ? null : path;
             }
 
             final startUpState = appStartupRepository.setupState.value;
-            final isGoingToSplash = state.location == AppRoutes.splash.path;
-            if (startUpState is! SetupDone && !isGoingToSplash) {
-              return AppRoutes.splash.path;
+            if (startUpState is! SetupDone) {
+              return pathOrNullIfAlreadyHeadingThere(AppRoutes.splash.path);
             }
 
             final isSignedIn = authRepository.isSignedIn();
-            final isGoingToSignIn = state.location == AppRoutes.signIn.path;
-            if (!isGoingToSignIn && !isSignedIn) {
-              return AppRoutes.signIn.path;
+            if (!isSignedIn) {
+              return pathOrNullIfAlreadyHeadingThere(AppRoutes.signIn.path);
             }
-            return null;
           },
           routes: [
             GoRoute(
