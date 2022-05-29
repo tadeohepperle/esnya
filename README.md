@@ -5,6 +5,16 @@
 
 ## Resources:
 
+
+##### Tadeo Hepperle, 2022-05-28 11:21am:
+
+Structure of Pages:
+Splash:
+    --> Splash if Appstartup not complete
+    --> Login if no Auth
+    --> Home if Auth
+        --> Dashbaord
+
 ##### Tadeo Hepperle, 2022-05-28 01:34am:
 
 Each Resource has a ResourceStatus: Unknown, Available, Failure

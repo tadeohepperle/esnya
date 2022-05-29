@@ -29,7 +29,7 @@ void isolate2Main(Isolate2SpawnArguments args) {
   // do not await because we want to create channel and get app started as soon as possible.
 
   /////////////////////////////////
-  // dependency injection
+  // create and connect channel
   /////////////////////////////////
   IsolateChannel channel = IsolateChannel.connectSend(args.sPort);
   channel.stream.listen((data) async {
@@ -41,7 +41,7 @@ void isolate2Main(Isolate2SpawnArguments args) {
 
 Future<IsolateResponse> makeRequest(IsolateRequest request) async {
   // map the request to the respective repository handling it.
-  IsolateResponse response(dynamic payload) =>
+  IsolateResponse response<T>(dynamic payload) =>
       IsolateResponse(request: request, payload: payload);
   if (request is IsolateRequestHelloWorld) {
     await Future.delayed(const Duration(seconds: 1));
@@ -59,6 +59,14 @@ Future<IsolateResponse> makeRequest(IsolateRequest request) async {
         .onReceiveResourceUpdateFromIsolate1(
             request.resourceId, request.newStatus);
     return response(null);
+  } else if (request is IsolateRequestFoodDataRepositorySetup) {
+    final setupResult = await getIt<FoodDataRepository>().setup();
+    final failureOrNull = setupResult.fold(id, (r) => null);
+    return response(failureOrNull);
+  } else if (request is IsolateRequestFoodMappingRepositorySetup) {
+    final setupResult = await getIt<FoodMappingRepository>().setup();
+    final failureOrNull = setupResult.fold(id, (r) => null);
+    return response(failureOrNull);
   }
   return response(null);
 }

@@ -4,6 +4,7 @@ import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:injectable/injectable.dart';
 
+/// TODO: currently we just delegate to ImplCsv, in future failures could lead to remote requests or something.
 @isolate2
 @LazySingleton(as: FoodMappingRepository)
 class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
@@ -15,12 +16,11 @@ class FoodMappingRepositoryIsolate2 extends SetupRepositoryImpl
 
   @override
   Stream<Either<Failure, double>> doSetupWork() async* {
-    yield right(1);
+    yield* foodMappingRepositoryLocalImplCsv.doSetupWork();
   }
 
   @override
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) {
-    /// TODO: currently we just delegate to ImplCsv, in future failures could lead to remote requests or something.
     return foodMappingRepositoryLocalImplCsv.mapInput(input);
   }
 }

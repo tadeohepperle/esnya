@@ -17,4 +17,11 @@ abstract class FileRepository {
 
   /// deletes a file or directory (recursively)
   Future<void> deletePath(String path);
+
+  /// returns target path where the file was copied to
+  /// assetbundle (rootBundle) only available in isolate 1
+  /// [assetKey] should look like assets/filename.xyz
+  /// [targetFileName] should look like filename.xyz will then be created at e.g. /data/user/0/com.thapps.esnya/app_flutter/assets/filename.xyz
+  Future<Either<Failure, String>> copyFileFromAssetBundleToDataDirectory(
+      String assetKey, String targetFileName);
 }

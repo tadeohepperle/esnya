@@ -1,7 +1,10 @@
 import 'package:esnya/constants.dart';
 import 'package:esnya/domain/core/failures.dart';
+import 'package:esnya/infrastructure/resources/constants.dart';
+import 'package:esnya/domain/resources/data_directory_path_provider.dart';
 import 'package:esnya/domain/resources/file_repository.dart';
 import 'package:esnya/injection_environments.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_archive/flutter_archive.dart';
@@ -133,6 +136,31 @@ class FileRepositoryImpl implements FileRepository {
     if (deleteOrigin) {
       await File(originPath).delete();
       logInfo('Deleted File at $originPath');
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> copyFileFromAssetBundleToDataDirectory(
+      String assetKey, String targetFileName) async {
+    try {
+// TODO: implement copyFileFromAssetBundleToDataDirectory
+      final dDirPath = DataDirectoryPathProvider.dataDirectoryPath;
+      // create /assets dir if not there yet
+      final assetsDir = Directory('$dDirPath/$dataDirAssetDirSubDirName');
+      if (!(await assetsDir.exists())) {
+        assetsDir.create(recursive: true);
+      }
+      // read bytedata from rootBundle and write to file:
+      final byteData = await rootBundle.load(assetKey);
+      final buffer = byteData.buffer;
+      final filePath = '$dDirPath/$dataDirAssetDirSubDirName/$targetFileName';
+      final f = File(filePath);
+      await f.writeAsBytes(
+          buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+      return right(filePath);
+    } catch (ex) {
+      logError(ex);
+      return left(const DataFailure.unexpected());
     }
   }
 }

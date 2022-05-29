@@ -7,6 +7,7 @@ import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 
 final rng = Random();
 
+/// R symbolizes the return type
 abstract class IsolateRequest<R> {
   final int _hashCode;
   Type get getType => R;
@@ -34,7 +35,7 @@ abstract class IsolateRequest<R> {
       other is IsolateRequest && other.hashCode == _hashCode;
 }
 
-class IsolateRequestHelloWorld extends IsolateRequest<void> {
+class IsolateRequestHelloWorld extends IsolateRequest<String> {
   final String message;
   IsolateRequestHelloWorld(this.message) : super();
 }
@@ -56,3 +57,9 @@ class IsolateRequestResourceStatusChanged extends IsolateRequest<void> {
   final EsnyaResourceStatus newStatus;
   IsolateRequestResourceStatusChanged(this.resourceId, this.newStatus);
 }
+
+class IsolateRequestFoodDataRepositorySetup
+    extends IsolateRequest<Either<Failure, Unit>> {}
+
+class IsolateRequestFoodMappingRepositorySetup
+    extends IsolateRequest<Either<Failure, Unit>> {}
