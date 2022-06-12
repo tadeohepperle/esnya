@@ -3,18 +3,18 @@ import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 
 final esnyaTextThemeLight = const TextTheme(
   headlineLarge: TextStyle(
-    fontSize: 38,
-    height: 44 / 38,
+    fontSize: 40,
+    height: 48 / 32,
     fontWeight: FontWeight.bold,
   ),
   headlineMedium: TextStyle(
-    fontSize: 30,
-    height: 38 / 30,
+    fontSize: 32,
+    height: 40 / 32,
     fontWeight: FontWeight.bold,
   ),
   headlineSmall: TextStyle(
     fontSize: 24,
-    height: 1.25,
+    height: 32 / 24,
     fontWeight: FontWeight.bold,
   ),
   titleLarge: TextStyle(
@@ -34,12 +34,12 @@ final esnyaTextThemeLight = const TextTheme(
   ),
   bodyMedium: TextStyle(
     fontSize: 14,
-    height: 20 / 14,
+    height: 16 / 14,
     fontWeight: FontWeight.w500,
   ),
   bodySmall: TextStyle(
     fontSize: 12,
-    height: 1,
+    height: 16 / 12,
     fontWeight: FontWeight.w500,
   ),
 ).apply(

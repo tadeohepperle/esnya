@@ -74,7 +74,6 @@ class AppStartupRepositoryImpl implements AppStartupRepository {
     /////////////////////////////////////////////////////////////////////
     /// end of required setup on appstart, emit state done
     /////////////////////////////////////////////////////////////////////
-    await Future.delayed(Duration(milliseconds: 1000));
     _setupState.value = SetupDone();
   }
 

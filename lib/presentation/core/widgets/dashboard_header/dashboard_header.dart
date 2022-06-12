@@ -77,7 +77,7 @@ class DashboardHeader extends StatelessWidget {
         child: SafeArea(
             child: Container(
           padding: EdgeInsets.fromLTRB(
-              EsnyaSizes.base * 2, EsnyaSizes.base, EsnyaSizes.base * 2, 0),
+              EsnyaSizes.base * 2, EsnyaSizes.base * 2, EsnyaSizes.base * 2, 0),
           width: double.infinity,
           height: EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea,
           child: Column(
