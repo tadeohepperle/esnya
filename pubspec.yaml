@@ -52,7 +52,7 @@ dependencies:
   esnya_shared_resources:
     git:
       url: https://github.com/tadeohepperle/esnya_shared_resources.git
-      ref: master
+      ref: 2022-06-12-break
   vosk_speech_recognition:
     git:
       url: https://github.com/tadeohepperle/vosk_speech_recognition.git

@@ -243,7 +243,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
+      ref: "2022-06-12-break"
       resolved-ref: e5cc7a39b7635bd90fd113ca46013b1a1d6a6694
       url: "https://github.com/tadeohepperle/esnya_shared_resources.git"
     source: git
