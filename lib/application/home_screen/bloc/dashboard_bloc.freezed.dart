@@ -20,9 +20,9 @@ mixin _$DashboardEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
         bucketsReceived,
-    required TResult Function(BlocAndRepoFoodItemEntries entries)
+    required TResult Function(BlocAndBetweenRepoFoodItemEntries entries)
         foodInputEntriesReceived,
     required TResult Function() extendBucketWatchRange,
   }) =>
@@ -30,10 +30,9 @@ mixin _$DashboardEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
   }) =>
@@ -41,10 +40,9 @@ mixin _$DashboardEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
@@ -136,9 +134,9 @@ class _$_Started implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
         bucketsReceived,
-    required TResult Function(BlocAndRepoFoodItemEntries entries)
+    required TResult Function(BlocAndBetweenRepoFoodItemEntries entries)
         foodInputEntriesReceived,
     required TResult Function() extendBucketWatchRange,
   }) {
@@ -149,10 +147,9 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
   }) {
@@ -163,10 +160,9 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
@@ -226,7 +222,7 @@ abstract class _$BucketsReceivedCopyWith<$Res> {
   factory _$BucketsReceivedCopyWith(
           _BucketsReceived value, $Res Function(_BucketsReceived) then) =
       __$BucketsReceivedCopyWithImpl<$Res>;
-  $Res call({Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets});
+  $Res call({Either<Failure, KtList<DayBucket>> failureOrBuckets});
 }
 
 /// @nodoc
@@ -248,7 +244,7 @@ class __$BucketsReceivedCopyWithImpl<$Res>
       failureOrBuckets == freezed
           ? _value.failureOrBuckets
           : failureOrBuckets // ignore: cast_nullable_to_non_nullable
-              as Either<Failure, KtList<FoodItemEntryBucket>>,
+              as Either<Failure, KtList<DayBucket>>,
     ));
   }
 }
@@ -259,7 +255,7 @@ class _$_BucketsReceived implements _BucketsReceived {
   const _$_BucketsReceived(this.failureOrBuckets);
 
   @override
-  final Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets;
+  final Either<Failure, KtList<DayBucket>> failureOrBuckets;
 
   @override
   String toString() {
@@ -289,9 +285,9 @@ class _$_BucketsReceived implements _BucketsReceived {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
         bucketsReceived,
-    required TResult Function(BlocAndRepoFoodItemEntries entries)
+    required TResult Function(BlocAndBetweenRepoFoodItemEntries entries)
         foodInputEntriesReceived,
     required TResult Function() extendBucketWatchRange,
   }) {
@@ -302,10 +298,9 @@ class _$_BucketsReceived implements _BucketsReceived {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
   }) {
@@ -316,10 +311,9 @@ class _$_BucketsReceived implements _BucketsReceived {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
@@ -372,10 +366,10 @@ class _$_BucketsReceived implements _BucketsReceived {
 
 abstract class _BucketsReceived implements DashboardEvent {
   const factory _BucketsReceived(
-          final Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets) =
+          final Either<Failure, KtList<DayBucket>> failureOrBuckets) =
       _$_BucketsReceived;
 
-  Either<Failure, KtList<FoodItemEntryBucket>> get failureOrBuckets =>
+  Either<Failure, KtList<DayBucket>> get failureOrBuckets =>
       throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$BucketsReceivedCopyWith<_BucketsReceived> get copyWith =>
@@ -387,7 +381,7 @@ abstract class _$FoodInputEntriesReceivedCopyWith<$Res> {
   factory _$FoodInputEntriesReceivedCopyWith(_FoodInputEntriesReceived value,
           $Res Function(_FoodInputEntriesReceived) then) =
       __$FoodInputEntriesReceivedCopyWithImpl<$Res>;
-  $Res call({BlocAndRepoFoodItemEntries entries});
+  $Res call({BlocAndBetweenRepoFoodItemEntries entries});
 }
 
 /// @nodoc
@@ -410,7 +404,7 @@ class __$FoodInputEntriesReceivedCopyWithImpl<$Res>
       entries == freezed
           ? _value.entries
           : entries // ignore: cast_nullable_to_non_nullable
-              as BlocAndRepoFoodItemEntries,
+              as BlocAndBetweenRepoFoodItemEntries,
     ));
   }
 }
@@ -421,7 +415,7 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
   const _$_FoodInputEntriesReceived(this.entries);
 
   @override
-  final BlocAndRepoFoodItemEntries entries;
+  final BlocAndBetweenRepoFoodItemEntries entries;
 
   @override
   String toString() {
@@ -451,9 +445,9 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
         bucketsReceived,
-    required TResult Function(BlocAndRepoFoodItemEntries entries)
+    required TResult Function(BlocAndBetweenRepoFoodItemEntries entries)
         foodInputEntriesReceived,
     required TResult Function() extendBucketWatchRange,
   }) {
@@ -464,10 +458,9 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
   }) {
@@ -478,10 +471,9 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
@@ -534,9 +526,11 @@ class _$_FoodInputEntriesReceived implements _FoodInputEntriesReceived {
 
 abstract class _FoodInputEntriesReceived implements DashboardEvent {
   const factory _FoodInputEntriesReceived(
-      final BlocAndRepoFoodItemEntries entries) = _$_FoodInputEntriesReceived;
+          final BlocAndBetweenRepoFoodItemEntries entries) =
+      _$_FoodInputEntriesReceived;
 
-  BlocAndRepoFoodItemEntries get entries => throw _privateConstructorUsedError;
+  BlocAndBetweenRepoFoodItemEntries get entries =>
+      throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FoodInputEntriesReceivedCopyWith<_FoodInputEntriesReceived> get copyWith =>
       throw _privateConstructorUsedError;
@@ -585,9 +579,9 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
         bucketsReceived,
-    required TResult Function(BlocAndRepoFoodItemEntries entries)
+    required TResult Function(BlocAndBetweenRepoFoodItemEntries entries)
         foodInputEntriesReceived,
     required TResult Function() extendBucketWatchRange,
   }) {
@@ -598,10 +592,9 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
   }) {
@@ -612,10 +605,9 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(
-            Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets)?
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
         bucketsReceived,
-    TResult Function(BlocAndRepoFoodItemEntries entries)?
+    TResult Function(BlocAndBetweenRepoFoodItemEntries entries)?
         foodInputEntriesReceived,
     TResult Function()? extendBucketWatchRange,
     required TResult orElse(),
@@ -674,10 +666,10 @@ abstract class _ExtendBucketWatchRange implements DashboardEvent {
 mixin _$DashboardState {
   DashboardBucketsState get dashboardBucketsState =>
       throw _privateConstructorUsedError;
-  KtList<FoodItemEntryBucket> get buckets => throw _privateConstructorUsedError;
+  KtList<DayBucket> get buckets => throw _privateConstructorUsedError;
   KtList<FoodItemEntry> get entriesBetweenBlocAndRepo =>
       throw _privateConstructorUsedError;
-  KtList<FoodItemEntry> get entriesFoodInputBloc =>
+  KtList<FoodItemEntryWrapper> get entriesFoodInputBloc =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -692,9 +684,9 @@ abstract class $DashboardStateCopyWith<$Res> {
       _$DashboardStateCopyWithImpl<$Res>;
   $Res call(
       {DashboardBucketsState dashboardBucketsState,
-      KtList<FoodItemEntryBucket> buckets,
+      KtList<DayBucket> buckets,
       KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-      KtList<FoodItemEntry> entriesFoodInputBloc});
+      KtList<FoodItemEntryWrapper> entriesFoodInputBloc});
 }
 
 /// @nodoc
@@ -721,7 +713,7 @@ class _$DashboardStateCopyWithImpl<$Res>
       buckets: buckets == freezed
           ? _value.buckets
           : buckets // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntryBucket>,
+              as KtList<DayBucket>,
       entriesBetweenBlocAndRepo: entriesBetweenBlocAndRepo == freezed
           ? _value.entriesBetweenBlocAndRepo
           : entriesBetweenBlocAndRepo // ignore: cast_nullable_to_non_nullable
@@ -729,7 +721,7 @@ class _$DashboardStateCopyWithImpl<$Res>
       entriesFoodInputBloc: entriesFoodInputBloc == freezed
           ? _value.entriesFoodInputBloc
           : entriesFoodInputBloc // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntry>,
+              as KtList<FoodItemEntryWrapper>,
     ));
   }
 }
@@ -743,9 +735,9 @@ abstract class _$DashboardStateCopyWith<$Res>
   @override
   $Res call(
       {DashboardBucketsState dashboardBucketsState,
-      KtList<FoodItemEntryBucket> buckets,
+      KtList<DayBucket> buckets,
       KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-      KtList<FoodItemEntry> entriesFoodInputBloc});
+      KtList<FoodItemEntryWrapper> entriesFoodInputBloc});
 }
 
 /// @nodoc
@@ -774,7 +766,7 @@ class __$DashboardStateCopyWithImpl<$Res>
       buckets: buckets == freezed
           ? _value.buckets
           : buckets // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntryBucket>,
+              as KtList<DayBucket>,
       entriesBetweenBlocAndRepo: entriesBetweenBlocAndRepo == freezed
           ? _value.entriesBetweenBlocAndRepo
           : entriesBetweenBlocAndRepo // ignore: cast_nullable_to_non_nullable
@@ -782,7 +774,7 @@ class __$DashboardStateCopyWithImpl<$Res>
       entriesFoodInputBloc: entriesFoodInputBloc == freezed
           ? _value.entriesFoodInputBloc
           : entriesFoodInputBloc // ignore: cast_nullable_to_non_nullable
-              as KtList<FoodItemEntry>,
+              as KtList<FoodItemEntryWrapper>,
     ));
   }
 }
@@ -799,11 +791,11 @@ class _$_DashboardState implements _DashboardState {
   @override
   final DashboardBucketsState dashboardBucketsState;
   @override
-  final KtList<FoodItemEntryBucket> buckets;
+  final KtList<DayBucket> buckets;
   @override
   final KtList<FoodItemEntry> entriesBetweenBlocAndRepo;
   @override
-  final KtList<FoodItemEntry> entriesFoodInputBloc;
+  final KtList<FoodItemEntryWrapper> entriesFoodInputBloc;
 
   @override
   String toString() {
@@ -841,21 +833,21 @@ class _$_DashboardState implements _DashboardState {
 abstract class _DashboardState implements DashboardState {
   const factory _DashboardState(
           {required final DashboardBucketsState dashboardBucketsState,
-          required final KtList<FoodItemEntryBucket> buckets,
+          required final KtList<DayBucket> buckets,
           required final KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-          required final KtList<FoodItemEntry> entriesFoodInputBloc}) =
+          required final KtList<FoodItemEntryWrapper> entriesFoodInputBloc}) =
       _$_DashboardState;
 
   @override
   DashboardBucketsState get dashboardBucketsState =>
       throw _privateConstructorUsedError;
   @override
-  KtList<FoodItemEntryBucket> get buckets => throw _privateConstructorUsedError;
+  KtList<DayBucket> get buckets => throw _privateConstructorUsedError;
   @override
   KtList<FoodItemEntry> get entriesBetweenBlocAndRepo =>
       throw _privateConstructorUsedError;
   @override
-  KtList<FoodItemEntry> get entriesFoodInputBloc =>
+  KtList<FoodItemEntryWrapper> get entriesFoodInputBloc =>
       throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

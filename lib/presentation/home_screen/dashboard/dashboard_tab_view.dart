@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
@@ -39,7 +40,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
   late StreamSubscription<bool> _keyboardSubscription;
   NutrientType _nutrientTypeForBadges = NutrientType.energy;
   List<double> _bucketDistancesFromScrollEnd = [];
-  FoodItemEntryBucket? _headerBucket;
+  DayBucket? _headerBucket;
 
   set dashboardInputState(DashboardInputState target) {
     final before = _dashboardInputState;
@@ -156,19 +157,21 @@ class _DashboardTabViewState extends State<DashboardTabView>
       );
     }
 
-    Widget _buildListItem(FoodItemEntry foodItemEntry, {UniqueId? bucketId}) {
+    Widget _buildListItem(FoodItemEntryWrapper foodItemEntryWrapper,
+        {UniqueId? bucketId}) {
       return Padding(
         padding: const EdgeInsets.only(
             bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
         child: FoodItemEntryListTile(
-          foodItemEntry: foodItemEntry,
+          foodItemEntry: foodItemEntryWrapper,
           onBadgeTap: () {
             // TODO:
             _switchBadgeNutrients();
           },
           onTap: () {
             // TODO:
-            if (bucketId != null) {
+            if (bucketId != null &&
+                foodItemEntryWrapper is FoodItemEntrySuccess) {
               showDialog(
                 context: context,
                 builder: (context) {
@@ -179,13 +182,13 @@ class _DashboardTabViewState extends State<DashboardTabView>
                       Padding(
                         padding: EdgeInsets.all(EsnyaSizes.base * 2),
                         child: FoodItemEntryCard(
-                          foodItemEntry: foodItemEntry,
+                          foodItemEntry: foodItemEntryWrapper.entry,
                           onCloseButtonClick: () {
                             Navigator.of(context).pop();
                           },
                           onDeleteButtonClick: () {
-                            getIt<FoodItemEntryBucketRepository>()
-                                .deleteEntry(bucketId, foodItemEntry);
+                            getIt<DayBucketsRepository>().deleteEntry(
+                                bucketId, foodItemEntryWrapper.entry);
                             Navigator.of(context).pop();
                           },
                           onTimeButtonClick: () {
@@ -208,7 +211,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     }
 
     Widget _buildBodyFoodLogList() {
-      Widget _buildBucket(FoodItemEntryBucket bucket) {
+      Widget _buildBucket(DayBucket bucket) {
         final isEmpty = bucket.entries.isEmpty();
         final noVolatileItems =
             dashboardState.entriesBetweenBlocAndRepo.isEmpty() &&
@@ -226,8 +229,9 @@ class _DashboardTabViewState extends State<DashboardTabView>
               if (isEmpty && noVolatileItems)
                 NoEntriesYetListItem()
               else
-                ...bucket.entries.iter
-                    .map((e) => _buildListItem(e, bucketId: bucket.id)),
+                ...bucket.entries.iter.map((e) => _buildListItem(
+                    FoodItemEntryWrapper.success(e),
+                    bucketId: bucket.id)),
             ],
           ),
         );
@@ -239,7 +243,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
           child: Column(
             children: [
               ...dashboardState.entriesBetweenBlocAndRepo.iter
-                  .map((e) => _buildListItem(e)),
+                  .map((e) => _buildListItem(FoodItemEntryWrapper.success(e))),
               ...dashboardState.entriesFoodInputBloc.iter
                   .map((e) => _buildListItem(e)),
             ],
@@ -474,14 +478,13 @@ class _DashboardTabViewState extends State<DashboardTabView>
     });
   }
 
-  void _recalculateBucketDistancesFromScrollEnd(
-      List<FoodItemEntryBucket> buckets) {
+  void _recalculateBucketDistancesFromScrollEnd(List<DayBucket> buckets) {
     const hurdleToScrollOverIntoBucket = 80.0;
     final List<double> result = [0];
     if (buckets.length > 1) {
       result.add(hurdleToScrollOverIntoBucket);
     }
-    double _heightOfBucket(FoodItemEntryBucket bucket) {
+    double _heightOfBucket(DayBucket bucket) {
       final length = bucket.entries.size;
       return EsnyaSizes.kBucketDateTitleListItemHeight +
           EsnyaSizes.kDashboardPaddingBetweenBucketsInListView +

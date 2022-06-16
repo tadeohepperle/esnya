@@ -4,13 +4,13 @@ import 'package:esnya_shared_resources/core/core.dart';
 import 'package:kt_dart/collection.dart';
 
 /// responsible for storing and serving buckets of food item entries. For example each day has its own bucket with logged foods.
-abstract class FoodItemEntryBucketRepository extends SetupRepository {
-  Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket);
-  Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket);
-  Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket);
+abstract class DayBucketsRepository extends SetupRepository {
+  Future<Either<Failure, Unit>> createBucket(DayBucket bucket);
+  Future<Either<Failure, Unit>> updateBucket(DayBucket bucket);
+  Future<Either<Failure, Unit>> deleteBucket(DayBucket bucket);
 
-  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(UniqueId bucketId);
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets({
+  Stream<Either<Failure, DayBucket>> watchBucket(UniqueId bucketId);
+  Stream<Either<Failure, KtList<DayBucket>>> watchLogBuckets({
     required int batchSize,
   });
 

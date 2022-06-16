@@ -18,7 +18,7 @@ Future<void> setupServicesIsolate1() async {
   DataDirectoryPathProvider.setDataDirectoryPath(dataDirectory.path);
   await Future.wait([
     getIt<Isolate2Repository>().setup(),
-    getIt<FoodItemEntryBucketRepository>().setup(),
+    getIt<DayBucketsRepository>().setup(),
   ]);
 
   getIt<AppStartupRepository>().runStartUpFlow();

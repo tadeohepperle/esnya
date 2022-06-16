@@ -21,7 +21,7 @@ class FoodItemEntryDialog extends StatelessWidget {
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(EsnyaSizes.base * 2),
       ),
-      child: Text(foodItemEntry.title),
+      child: Text(foodItemEntry.input),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_success_card.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 
-import 'food_item_entry_semantic_success_card.dart';
+import 'food_item_entry_failed_card.dart';
 
 class FoodItemEntryCard extends StatelessWidget {
   final FoodItemEntry foodItemEntry;
@@ -21,21 +21,30 @@ class FoodItemEntryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return foodItemEntry.map(
-      semanticSuccess: (semanticSuccess) => FoodItemEntrySemanticSuccessCard(
-        foodItemEntry: semanticSuccess,
-        onDeleteButtonClick: onDeleteButtonClick,
-        onTimeButtonClick: onTimeButtonClick,
-        onAmountButtonClick: onAmountButtonClick,
-        onCloseButtonClick: onCloseButtonClick,
-      ),
-      success: (success) => FoodItemEntrySuccessCard(
-        foodItemEntry: success,
-        onDeleteButtonClick: onDeleteButtonClick,
-        onTimeButtonClick: onTimeButtonClick,
-        onAmountButtonClick: onAmountButtonClick,
-        onCloseButtonClick: onCloseButtonClick,
-      ),
+    return FoodItemEntrySuccessCard(
+      foodItemEntry: foodItemEntry,
+      onDeleteButtonClick: onDeleteButtonClick,
+      onTimeButtonClick: onTimeButtonClick,
+      onAmountButtonClick: onAmountButtonClick,
+      onCloseButtonClick: onCloseButtonClick,
     );
+    // XYZ
+
+    // foodItemEntry.map(
+    //   semanticSuccess: (semanticSuccess) => FoodItemEntrySemanticSuccessCard(
+    //     foodItemEntry: semanticSuccess,
+    //     onDeleteButtonClick: onDeleteButtonClick,
+    //     onTimeButtonClick: onTimeButtonClick,
+    //     onAmountButtonClick: onAmountButtonClick,
+    //     onCloseButtonClick: onCloseButtonClick,
+    //   ),
+    //   success: (success) => FoodItemEntrySuccessCard(
+    //     foodItemEntry: success,
+    //     onDeleteButtonClick: onDeleteButtonClick,
+    //     onTimeButtonClick: onTimeButtonClick,
+    //     onAmountButtonClick: onAmountButtonClick,
+    //     onCloseButtonClick: onCloseButtonClick,
+    //   ),
+    // );
   }
 }

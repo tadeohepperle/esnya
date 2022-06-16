@@ -7,7 +7,7 @@ import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
 class BucketDateTitleListItem extends StatelessWidget {
-  final FoodItemEntryBucket bucket;
+  final DayBucket bucket;
   const BucketDateTitleListItem({
     Key? key,
     required this.bucket,

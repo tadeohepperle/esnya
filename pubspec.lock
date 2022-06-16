@@ -244,7 +244,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: e5cc7a39b7635bd90fd113ca46013b1a1d6a6694
+      resolved-ref: f7dab22fabb962a2eceb5927c3d9f10e919ef00e
       url: "https://github.com/tadeohepperle/esnya_shared_resources.git"
     source: git
     version: "1.0.0"
@@ -813,7 +813,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.3"
+    version: "0.27.4"
   shelf:
     dependency: transitive
     description:

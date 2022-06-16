@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart' hide State;
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
@@ -7,6 +8,8 @@ import 'package:esnya/presentation/core/widgets/no_entries_yet_list_item.dart';
 import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class FoodItemEntryListTileScreen extends StatefulWidget {
   FoodItemEntryListTileScreen({Key? key}) : super(key: key);
@@ -28,22 +31,24 @@ class _FoodItemEntryListTileScreenState
   Widget build(BuildContext context) {
     final colorTheme = getColorScheme(context);
 
-    List<FoodItemEntry> data = [
-      TestObjects.foodItemEntrySuccess,
-      TestObjects.foodItemEntrySuccess.copyWith(
-        foodItem: TestObjects.foodItemEntrySuccess.foodItem.copyWith(
-          amount: Amount(MeasureUnit.can, 234.34),
-        ),
+    final success = TestObjects.foodItemEntry.copyWith(
+      foodItem: TestObjects.foodItemEntry.foodItem.copyWith(
+        amount: Amount(MeasureUnit.can, 234.34),
       ),
-      TestObjects.foodItemEntrySuccess.copyWith.foodItem
-          .amount(unit: MeasureUnit.handful, number: 2),
-      TestObjects.foodItemEntrySemanticSuccess,
-      TestObjects.foodItemEntrySemanticSuccessFailed,
+    );
+    List<FoodItemEntryWrapper> data = [
+      FoodItemEntryWrapper.success(TestObjects.foodItemEntry),
+      FoodItemEntryWrapper.success(
+        TestObjects.foodItemEntry.copyWith.foodItem
+            .amount(unit: MeasureUnit.handful, number: 2),
+      ),
+      TestObjectsX.foodItemEntryProcessing,
+      TestObjectsX.foodItemEntryFailed,
     ];
 
     final dateToday = DateTime.now();
     final todayBucketId = UniqueId.fromUniqueString(
-        'log-${dateToday.year}-${dateToday.month}-${dateToday.day}');
+        '${dateToday.year}-${dateToday.month}-${dateToday.day}');
     print(todayBucketId);
 
     return Scaffold(

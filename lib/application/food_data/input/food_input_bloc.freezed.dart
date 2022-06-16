@@ -20,21 +20,21 @@ mixin _$FoodInputEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String value) setVolatileText,
     required TResult Function() saveVolatileText,
-    required TResult Function(FoodItemEntry entry) fetchFood,
+    required TResult Function(FoodItemEntryWrapper entry) fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -146,7 +146,7 @@ class _$_SetVolatileText implements _SetVolatileText {
   TResult when<TResult extends Object?>({
     required TResult Function(String value) setVolatileText,
     required TResult Function() saveVolatileText,
-    required TResult Function(FoodItemEntry entry) fetchFood,
+    required TResult Function(FoodItemEntryWrapper entry) fetchFood,
   }) {
     return setVolatileText(value);
   }
@@ -156,7 +156,7 @@ class _$_SetVolatileText implements _SetVolatileText {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
   }) {
     return setVolatileText?.call(value);
   }
@@ -166,7 +166,7 @@ class _$_SetVolatileText implements _SetVolatileText {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -262,7 +262,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
   TResult when<TResult extends Object?>({
     required TResult Function(String value) setVolatileText,
     required TResult Function() saveVolatileText,
-    required TResult Function(FoodItemEntry entry) fetchFood,
+    required TResult Function(FoodItemEntryWrapper entry) fetchFood,
   }) {
     return saveVolatileText();
   }
@@ -272,7 +272,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
   }) {
     return saveVolatileText?.call();
   }
@@ -282,7 +282,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     required TResult orElse(),
   }) {
     if (saveVolatileText != null) {
@@ -335,9 +335,9 @@ abstract class _$FetchFoodCopyWith<$Res> {
   factory _$FetchFoodCopyWith(
           _FetchFood value, $Res Function(_FetchFood) then) =
       __$FetchFoodCopyWithImpl<$Res>;
-  $Res call({FoodItemEntry entry});
+  $Res call({FoodItemEntryWrapper entry});
 
-  $FoodItemEntryCopyWith<$Res> get entry;
+  $FoodItemEntryWrapperCopyWith<$Res> get entry;
 }
 
 /// @nodoc
@@ -357,13 +357,13 @@ class __$FetchFoodCopyWithImpl<$Res> extends _$FoodInputEventCopyWithImpl<$Res>
       entry == freezed
           ? _value.entry
           : entry // ignore: cast_nullable_to_non_nullable
-              as FoodItemEntry,
+              as FoodItemEntryWrapper,
     ));
   }
 
   @override
-  $FoodItemEntryCopyWith<$Res> get entry {
-    return $FoodItemEntryCopyWith<$Res>(_value.entry, (value) {
+  $FoodItemEntryWrapperCopyWith<$Res> get entry {
+    return $FoodItemEntryWrapperCopyWith<$Res>(_value.entry, (value) {
       return _then(_value.copyWith(entry: value));
     });
   }
@@ -375,7 +375,7 @@ class _$_FetchFood implements _FetchFood {
   const _$_FetchFood(this.entry);
 
   @override
-  final FoodItemEntry entry;
+  final FoodItemEntryWrapper entry;
 
   @override
   String toString() {
@@ -404,7 +404,7 @@ class _$_FetchFood implements _FetchFood {
   TResult when<TResult extends Object?>({
     required TResult Function(String value) setVolatileText,
     required TResult Function() saveVolatileText,
-    required TResult Function(FoodItemEntry entry) fetchFood,
+    required TResult Function(FoodItemEntryWrapper entry) fetchFood,
   }) {
     return fetchFood(entry);
   }
@@ -414,7 +414,7 @@ class _$_FetchFood implements _FetchFood {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
   }) {
     return fetchFood?.call(entry);
   }
@@ -424,7 +424,7 @@ class _$_FetchFood implements _FetchFood {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String value)? setVolatileText,
     TResult Function()? saveVolatileText,
-    TResult Function(FoodItemEntry entry)? fetchFood,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     required TResult orElse(),
   }) {
     if (fetchFood != null) {
@@ -469,9 +469,9 @@ class _$_FetchFood implements _FetchFood {
 }
 
 abstract class _FetchFood implements FoodInputEvent {
-  const factory _FetchFood(final FoodItemEntry entry) = _$_FetchFood;
+  const factory _FetchFood(final FoodItemEntryWrapper entry) = _$_FetchFood;
 
-  FoodItemEntry get entry => throw _privateConstructorUsedError;
+  FoodItemEntryWrapper get entry => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$FetchFoodCopyWith<_FetchFood> get copyWith =>
       throw _privateConstructorUsedError;

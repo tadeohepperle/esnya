@@ -4,15 +4,15 @@ part of 'dashboard_bloc.dart';
 class DashboardState with _$DashboardState {
   const factory DashboardState({
     required DashboardBucketsState dashboardBucketsState,
-    required KtList<FoodItemEntryBucket> buckets,
+    required KtList<DayBucket> buckets,
     required KtList<FoodItemEntry> entriesBetweenBlocAndRepo,
-    required KtList<FoodItemEntry> entriesFoodInputBloc,
+    required KtList<FoodItemEntryWrapper> entriesFoodInputBloc,
   }) = _DashboardState;
   factory DashboardState.initial() => DashboardState(
         dashboardBucketsState: DashboardBucketsState.loading,
-        buckets: <FoodItemEntryBucket>[].toImmutableList(),
+        buckets: <DayBucket>[].toImmutableList(),
         entriesBetweenBlocAndRepo: <FoodItemEntry>[].toImmutableList(),
-        entriesFoodInputBloc: <FoodItemEntry>[].toImmutableList(),
+        entriesFoodInputBloc: <FoodItemEntryWrapper>[].toImmutableList(),
       );
 }
 

@@ -12,7 +12,7 @@ import '../nutrient_table.dart';
 import 'buttons_above_card.dart';
 
 class FoodItemEntrySuccessCard extends StatefulWidget {
-  final FoodItemEntrySuccess foodItemEntry;
+  final FoodItemEntry foodItemEntry;
   final VoidCallback? onDeleteButtonClick;
   final VoidCallback? onCloseButtonClick;
   final VoidCallback? onTimeButtonClick;

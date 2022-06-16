@@ -1,3 +1,4 @@
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
@@ -88,4 +89,20 @@ class SubscreenListTile extends StatelessWidget {
       },
     );
   }
+}
+
+extension TestObjectsX on TestObjects {
+  static FoodItemEntryFailed get foodItemEntryFailed => FoodItemEntryFailed(
+        amount: Amount(MeasureUnit.g, 330),
+        dateTime: DateTime.now(),
+        uniqueId: UniqueId(),
+        inputFoodName: "green peppers",
+      );
+  static FoodItemEntryProcessing get foodItemEntryProcessing =>
+      FoodItemEntryProcessing(
+        amount: Amount(MeasureUnit.oz, 12),
+        dateTime: DateTime.now(),
+        uniqueId: UniqueId(),
+        inputFoodName: "green peppers",
+      );
 }

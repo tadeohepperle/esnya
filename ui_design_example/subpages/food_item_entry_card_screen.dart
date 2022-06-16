@@ -1,8 +1,11 @@
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_semantic_success_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_failed_card.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_success_card.dart';
+import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:flutter/material.dart';
+import '../main.dart';
 
 class FoodItemEntryCardScreen extends StatefulWidget {
   const FoodItemEntryCardScreen({Key? key}) : super(key: key);
@@ -13,8 +16,8 @@ class FoodItemEntryCardScreen extends StatefulWidget {
 }
 
 class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
-  final foodItemEntry = TestObjects.foodItemEntrySuccess
-      .copyWith(foodItem: TestObjects.foodItem2);
+  final foodItemEntry =
+      TestObjects.foodItemEntry.copyWith(foodItem: TestObjects.foodItem2);
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +50,8 @@ class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
             height: 30,
           ),
           EsnyaSizes.paddingWrap(
-            FoodItemEntrySemanticSuccessCard(
-              foodItemEntry: foodItemEntry.toMappingFailed(),
+            FoodItemEntryFailedCard(
+              foodItemEntryFailed: TestObjectsX.foodItemEntryFailed,
               onAmountButtonClick: () {
                 print("onAmountButtonClick");
               },
@@ -60,10 +63,11 @@ class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
               },
               onDeleteButtonClick: () {
                 showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Text("alet");
-                    });
+                  context: context,
+                  builder: (context) {
+                    return Text("alet");
+                  },
+                );
               },
             ),
           ),

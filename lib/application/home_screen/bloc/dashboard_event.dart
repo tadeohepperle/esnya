@@ -5,11 +5,11 @@ class DashboardEvent with _$DashboardEvent {
   const factory DashboardEvent.started() = _Started;
 
   const factory DashboardEvent.bucketsReceived(
-    Either<Failure, KtList<FoodItemEntryBucket>> failureOrBuckets,
+    Either<Failure, KtList<DayBucket>> failureOrBuckets,
   ) = _BucketsReceived;
 
   const factory DashboardEvent.foodInputEntriesReceived(
-      BlocAndRepoFoodItemEntries entries) = _FoodInputEntriesReceived;
+      BlocAndBetweenRepoFoodItemEntries entries) = _FoodInputEntriesReceived;
 
   const factory DashboardEvent.extendBucketWatchRange() =
       _ExtendBucketWatchRange;

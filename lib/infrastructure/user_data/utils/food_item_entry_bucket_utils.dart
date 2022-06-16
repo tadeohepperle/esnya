@@ -7,18 +7,16 @@ import 'package:esnya_shared_resources/core/core.dart';
 import 'package:kt_dart/collection.dart';
 
 final DateFormat formatter = DateFormat('yyyy-MM-dd');
-String bucketIdForDate(DateTime dateTime) =>
-    'log-${formatter.format(dateTime)}';
+String bucketIdForDate(DateTime dateTime) => formatter.format(dateTime);
 
 String bucketIdForToday() =>
     bucketIdForDate(DateTime.now()); // for example "log-2022-04-03";
-FoodItemEntryBucket createBucketForToday() {
+DayBucket createBucketForToday() {
   final userOption = getIt<AuthRepository>().getSignedInUser();
   final user = userOption.getOrElse(() => throw NotAuthenticatedError());
-  return FoodItemEntryBucket(
+  return DayBucket(
     userId: user.id,
     id: UniqueId.fromUniqueString(bucketIdForToday()),
-    type: FoodItemEntryBucketType.log,
     entries: <FoodItemEntry>[].toImmutableList(),
   );
 }

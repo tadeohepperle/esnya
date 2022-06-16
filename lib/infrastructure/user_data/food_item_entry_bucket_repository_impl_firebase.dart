@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/infrastructure/core/firestore_helpers.dart';
-import 'package:esnya/infrastructure/user_data/dtos/food_item_entry_bucket_dto.dart';
+import 'package:esnya/infrastructure/user_data/dtos/day_bucket_dto.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/core/failures.dart';
@@ -19,12 +19,12 @@ import 'utils/food_item_entry_bucket_utils.dart';
 /// buckets are saved under collection: user/useridxyz/buckets
 
 @isolate1
-@LazySingleton(as: FoodItemEntryBucketRepository)
-class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
-    implements FoodItemEntryBucketRepository {
+@LazySingleton(as: DayBucketsRepository)
+class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
+    implements DayBucketsRepository {
   final FirebaseFirestore _firestore;
 
-  FoodItemEntryBucketRepositoryImplFirebase(this._firestore) {}
+  DayBucketRepositoryImplFirebase(this._firestore) {}
 
   ///////////////////////////////////
   /// Bucket operations:
@@ -32,7 +32,7 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
 
   /// create bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> createBucket(FoodItemEntryBucket bucket) =>
+  Future<Either<Failure, Unit>> createBucket(DayBucket bucket) =>
       _operationOnBucketDocRef(
         bucket.id,
         (bucketDocRef) => bucketDocRef.set(bucket.toFireStore()),
@@ -40,7 +40,7 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
 
   /// delete bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> deleteBucket(FoodItemEntryBucket bucket) =>
+  Future<Either<Failure, Unit>> deleteBucket(DayBucket bucket) =>
       _operationOnBucketDocRef(
         bucket.id,
         (bucketDocRef) => bucketDocRef.delete(),
@@ -48,7 +48,7 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
 
   /// update bucket and all entries in its subcollection:
   @override
-  Future<Either<Failure, Unit>> updateBucket(FoodItemEntryBucket bucket) =>
+  Future<Either<Failure, Unit>> updateBucket(DayBucket bucket) =>
       _operationOnBucketDocRef(
         bucket.id,
         (bucketDocRef) => bucketDocRef.update(bucket.toFireStore()),
@@ -133,19 +133,18 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
           (bucketId) => updateEntryFunctional(bucketId, entryId, applyUpdate));
 
   @override
-  Stream<Either<Failure, FoodItemEntryBucket>> watchBucket(
-      UniqueId bucketId) async* {
+  Stream<Either<Failure, DayBucket>> watchBucket(UniqueId bucketId) async* {
     final bucketDocRef = await _firestore.bucketDocument(bucketId);
     yield* bucketDocRef
         .snapshots()
-        .map((docSnapshot) => FoodItemEntryBucketDTO.fromFireStore(docSnapshot))
-        .map((e) => right<Failure, FoodItemEntryBucket>(e))
-        .onErrorReturn(left<Failure, FoodItemEntryBucket>(
-            const FireStoreFailure.unexpected()));
+        .map((docSnapshot) => DayBucketDTO.fromFireStore(docSnapshot))
+        .map((e) => right<Failure, DayBucket>(e))
+        .onErrorReturn(
+            left<Failure, DayBucket>(const FireStoreFailure.unexpected()));
   }
 
   @override
-  Stream<Either<Failure, KtList<FoodItemEntryBucket>>> watchLogBuckets({
+  Stream<Either<Failure, KtList<DayBucket>>> watchLogBuckets({
     /// for example 'log-2022-04-13'
     required int batchSize,
   }) async* {
@@ -159,9 +158,9 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
         .snapshots()
         .map((colSnapshot) {
       logInfo(
-          'FoodItemEntryBucketRepository.watchLogBuckets() received snapshot of ${colSnapshot.docs.length} buckets');
+          'DayBucketRepository.watchLogBuckets() received snapshot of ${colSnapshot.docs.length} buckets');
       final buckets = colSnapshot.docs
-          .map((doc) => FoodItemEntryBucketDTO.fromFireStore(doc))
+          .map((doc) => DayBucketDTO.fromFireStore(doc))
           .toList()
           .asMap()
           .entries
@@ -172,8 +171,8 @@ class FoodItemEntryBucketRepositoryImplFirebase extends SetupRepositoryImpl
           .map((e) => e.value);
 
       return buckets.toImmutableList();
-    }).map((list) => right<Failure, KtList<FoodItemEntryBucket>>(list));
-    // .onErrorReturn(left<Failure, KtList<FoodItemEntryBucket>>(
+    }).map((list) => right<Failure, KtList<DayBucket>>(list));
+    // .onErrorReturn(left<Failure, KtList<DayBucket>>(
     //     const FireStoreFailure.unexpected()));
   }
 

@@ -1,7 +1,6 @@
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
@@ -10,15 +9,15 @@ import '../../design_components/esnya_sizes.dart';
 import '../../design_components/esnya_text.dart';
 import 'buttons_above_card.dart';
 
-class FoodItemEntrySemanticSuccessCard extends StatefulWidget {
-  final FoodItemEntrySemanticSuccess foodItemEntry;
+class FoodItemEntryFailedCard extends StatefulWidget {
+  final FoodItemEntryFailed foodItemEntryFailed;
   final VoidCallback? onDeleteButtonClick;
   final VoidCallback? onCloseButtonClick;
   final VoidCallback? onTimeButtonClick;
   final VoidCallback? onAmountButtonClick;
-  const FoodItemEntrySemanticSuccessCard({
+  const FoodItemEntryFailedCard({
     Key? key,
-    required this.foodItemEntry,
+    required this.foodItemEntryFailed,
     this.onDeleteButtonClick,
     this.onTimeButtonClick,
     this.onAmountButtonClick,
@@ -26,12 +25,11 @@ class FoodItemEntrySemanticSuccessCard extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FoodItemEntrySemanticSuccessCard> createState() =>
-      _FoodItemEntrySemanticSuccessCardState();
+  State<FoodItemEntryFailedCard> createState() =>
+      _FoodItemEntryFailedCardState();
 }
 
-class _FoodItemEntrySemanticSuccessCardState
-    extends State<FoodItemEntrySemanticSuccessCard> {
+class _FoodItemEntryFailedCardState extends State<FoodItemEntryFailedCard> {
   bool showsPer100g = false;
 
   void _toggleSwitch() {
@@ -42,13 +40,13 @@ class _FoodItemEntrySemanticSuccessCardState
 
   @override
   Widget build(BuildContext context) {
-    final entry = widget.foodItemEntry;
+    final entry = widget.foodItemEntryFailed;
     final LanguageRepository langRepo = getIt<LanguageRepository>();
     final colorScheme = getColorScheme(context);
 
     final dateTodayRelation = computeDateTodayRelation(entry.dateTime);
     final dateTimeString = langRepo.translateDate(
-      widget.foodItemEntry.dateTime,
+      widget.foodItemEntryFailed.dateTime,
       includeYear: true,
       includeTime: true,
       dateTodayRelation: dateTodayRelation,
@@ -100,13 +98,13 @@ class _FoodItemEntrySemanticSuccessCardState
                     SizedBox(
                       height: 4,
                     ),
-                    EsnyaText.h3(entry.title),
+                    EsnyaText.h3(entry.inputFoodName),
                     const Divider(
                       height: EsnyaSizes.base * 4,
                     ),
                     //TODO: what if this item is not mappingfailed but loading instead?
                     EsnyaText.body(
-                        'Our database does not contain any food that matches the input "${entry.title}". Delete this item with the trashcan button and try again.'),
+                        'Our database does not contain any food that matches the input "${entry.inputFoodName}". Delete this item with the trashcan button and try again.'),
                     const Divider(
                       height: EsnyaSizes.base * 4,
                     ),

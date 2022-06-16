@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
@@ -22,20 +23,17 @@ const kMinMillisecondsBetweenExtendBucketWatchRange = 2000;
 @isolate1
 @lazySingleton
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
-  final FoodItemEntryBucketRepository _foodItemEntryBucketRepository;
+  final DayBucketsRepository _dayBucketRepository;
   final FoodInputBloc _foodInputBloc;
 
-  StreamSubscription<Either<Failure, KtList<FoodItemEntryBucket>>>?
+  StreamSubscription<Either<Failure, KtList<DayBucket>>>?
       _bucketsStreamSubscription;
   late int _currentBatchSize;
   late DateTime _lastExtendBucketWatchRange;
-  StreamSubscription<BlocAndRepoFoodItemEntries>?
+  StreamSubscription<BlocAndBetweenRepoFoodItemEntries>?
       _foodInputBlocEntriesSubscription;
 
-  StreamSubscription<Tuple2<UniqueId, MapFunction<FoodItemEntry>>>?
-      _updateEntryRequestsSubscription;
-
-  DashboardBloc(this._foodItemEntryBucketRepository, this._foodInputBloc)
+  DashboardBloc(this._dayBucketRepository, this._foodInputBloc)
       : super(DashboardState.initial()) {
     ////////////////////////////////////////////////////
     // initialization
@@ -55,12 +53,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           _createBucketStreamSubscription(_currentBatchSize);
           // listen to entries from foodInputBloc
           _foodInputBlocEntriesSubscription =
-              _foodInputBloc.blocAndRepoEntriesStream.listen((entries) {
+              _foodInputBloc.blocAndRepoEntries.listen((entries) {
             add(DashboardEvent.foodInputEntriesReceived(entries));
-          });
-          _updateEntryRequestsSubscription =
-              _foodInputBloc.updateEntryRequestsStream.listen((tuple) {
-            _updateEntryInRepository(tuple.value1, tuple.value2);
           });
         },
         bucketsReceived: (_BucketsReceived event) async {
@@ -70,7 +64,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
                 dashboardBucketsState: DashboardBucketsState.failure,
               )); // TODO: also set buckets to [] or rather keep buckets from old state?
             },
-            (KtList<FoodItemEntryBucket> buckets) {
+            (KtList<DayBucket> buckets) {
               final arrivedIds =
                   _extractEntryIdsFromBucketListThatAreAlsoInBetweenEntries(
                       buckets);
@@ -86,8 +80,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         foodInputEntriesReceived: (_FoodInputEntriesReceived event) async {
           emit(state.copyWith(
             entriesBetweenBlocAndRepo: state.entriesBetweenBlocAndRepo +
-                event.entries.betweenBlocAndRepoEntries.toImmutableList(),
-            entriesFoodInputBloc: event.entries.blocEntries.toImmutableList(),
+                event.entries.betweenBlocAndRepoEntries,
+            entriesFoodInputBloc: event.entries.blocEntries,
           ));
         },
         extendBucketWatchRange: (_ExtendBucketWatchRange value) {
@@ -113,7 +107,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Future<void> _createBucketStreamSubscription(int batchSize) async {
     // The big disadvantage here is: we fetch the entire data again which is not very efficient. We can just hope not much users will scroll up. Sadly Firebase sucks at proper pagination.
     await _bucketsStreamSubscription?.cancel();
-    _bucketsStreamSubscription = _foodItemEntryBucketRepository
+    _bucketsStreamSubscription = _dayBucketRepository
         .watchLogBuckets(batchSize: batchSize)
         .listen((failureOrBuckets) {
       add(DashboardEvent.bucketsReceived(failureOrBuckets));
@@ -129,12 +123,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   Future<void> _cleanup() async {
     _currentBatchSize = kInitialBucketBatchSize;
     await _bucketsStreamSubscription?.cancel();
-    await _updateEntryRequestsSubscription?.cancel();
     await _foodInputBlocEntriesSubscription?.cancel();
   }
 
   Set<UniqueId> _extractEntryIdsFromBucketListThatAreAlsoInBetweenEntries(
-      KtList<FoodItemEntryBucket> buckets) {
+      KtList<DayBucket> buckets) {
     if (state.entriesBetweenBlocAndRepo.isEmpty()) {
       return {};
     }
@@ -151,13 +144,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     return results;
   }
 
-  FoodItemEntryBucket? getBucketByIndex(int index) => state.buckets[index];
+  DayBucket? getBucketByIndex(int index) => state.buckets[index];
 
   Future<void> _updateEntryInRepository(
       UniqueId entryId, MapFunction<FoodItemEntry> update) async {
     // only send update request to firebase if entry is still in todays bucket or in entriesBetweenBlocAndRepo
     if (_entryStillExistsInFirebaseOrBetweenBlocAndRepo(entryId)) {
-      _foodItemEntryBucketRepository.updateEntryFunctionalForToday(
+      _dayBucketRepository.updateEntryFunctionalForToday(
         entryId,
         update,
       );

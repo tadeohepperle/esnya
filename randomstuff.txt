@@ -23,10 +23,10 @@
 //       entries.add(TestObjectFaker.randomFoodItemEntry(entryTime));
 //     }
 
-//     var bucket = FoodItemEntryBucket(
+//     var bucket = DayBucket(
 //         userId: user.id,
 //         id: UniqueId.fromUniqueString(bucketid),
-//         type: FoodItemEntryBucketType.log,
+//         type: DayBucketType.log,
 //         entries: entries.toImmutableList());
 
 //     await userDoc.collection("buckets").doc(bucketid).set(bucket.toFireStore());

@@ -13,7 +13,7 @@ import '../../design_components/esnya_sizes.dart';
 import 'big_nutrient_goal_display.dart';
 
 class DashboardHeader extends StatelessWidget {
-  final FoodItemEntryBucket bucket;
+  final DayBucket bucket;
   final VoidCallback onCardTap;
   final VoidCallback onSettingsTap;
   final VoidCallback onCalendarTap;

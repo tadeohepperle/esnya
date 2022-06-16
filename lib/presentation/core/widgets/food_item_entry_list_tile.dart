@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
@@ -9,7 +10,7 @@ import '../design_components/esnya_design_utils.dart';
 import '../design_components/esnya_icons.dart';
 
 class FoodItemEntryListTile extends StatelessWidget {
-  final FoodItemEntry foodItemEntry;
+  final FoodItemEntryWrapper foodItemEntry;
   final NutrientType badgeNutrient;
   final VoidCallback onTap;
   final VoidCallback onBadgeTap;
@@ -31,19 +32,16 @@ class FoodItemEntryListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
-    final isSuccess = foodItemEntry.map(
-      semanticSuccess: (_) => false,
+    final isSuccess = foodItemEntry.maybeMap(
+      orElse: () => false,
       success: (_) => true,
     );
-    final title = foodItemEntry
-        .map(
-          semanticSuccess: (_) => _.title,
-          success: (_) => _.foodItem.food.title,
-        )
+    final title = foodItemEntry.inputString
         .toLowerCase(); // TODO: this should rather be done in data source.
     final amount = foodItemEntry.map(
-      semanticSuccess: (_) => _.amount,
-      success: (_) => _.foodItem.amount,
+      failed: (_) => _.amount,
+      processing: (_) => _.amount,
+      success: (_) => _.entry.foodItem.amount,
     );
     final titleColor =
         isSuccess ? colorScheme.onSurface : colorScheme.onBackground;
@@ -54,11 +52,11 @@ class FoodItemEntryListTile extends StatelessWidget {
 
     final badgeIcon = _badgeIcon();
 
-    String? badgeTitle = foodItemEntry.map(
-        semanticSuccess: (_) => null,
+    String? badgeTitle = foodItemEntry.maybeMap(
+        orElse: () => null,
         success: (success) {
           final amount =
-              success.foodItem.computedNutrientAmounts[badgeNutrient];
+              success.entry.foodItem.computedNutrientAmounts[badgeNutrient];
           if (amount == null) {
             return "unknown";
           }
@@ -77,13 +75,12 @@ class FoodItemEntryListTile extends StatelessWidget {
             iconData: badgeIcon,
             badgeNutrient: badgeNutrient,
           ),
-          _buildTimeDisplay(context, success.dateTime, langRepo)
+          _buildTimeDisplay(context, success.entry.dateTime, langRepo)
         ],
       );
     }
 
-    Widget _buildEndOfColumnForFailed(
-        FoodItemEntrySemanticSuccess semanticSuccess) {
+    Widget _buildEndOfColumnForFailed(FoodItemEntryFailed failed) {
       return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -94,13 +91,12 @@ class FoodItemEntryListTile extends StatelessWidget {
               height: 18,
               child: EsnyaText.titleSmall("not found",
                   color: esnyaColorsLight.error)),
-          _buildTimeDisplay(context, semanticSuccess.dateTime, langRepo)
+          _buildTimeDisplay(context, failed.dateTime, langRepo)
         ],
       );
     }
 
-    Widget _buildEndOfColumnForLoading(
-        FoodItemEntrySemanticSuccess semanticSuccess) {
+    Widget _buildEndOfColumnForProcessing(FoodItemEntryProcessing processing) {
       return Container(
         padding: EdgeInsets.all(8),
         height: 36,
@@ -111,9 +107,8 @@ class FoodItemEntryListTile extends StatelessWidget {
     }
 
     Widget endOfRowElement = foodItemEntry.map(
-      semanticSuccess: (semanticSuccess) => semanticSuccess.mappingFailed
-          ? _buildEndOfColumnForFailed(semanticSuccess)
-          : _buildEndOfColumnForLoading(semanticSuccess),
+      failed: (failed) => _buildEndOfColumnForFailed(failed),
+      processing: (processing) => _buildEndOfColumnForProcessing(processing),
       success: (success) => _buildEndOfColumnForSuccess(success),
     );
     final translatedAmount = langRepo.translateAmount(amount);
