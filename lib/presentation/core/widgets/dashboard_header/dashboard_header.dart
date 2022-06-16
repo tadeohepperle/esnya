@@ -55,27 +55,24 @@ class DashboardHeader extends StatelessWidget {
     ];
     bigNutrientGoalDisplays.removeLast();
 
-    return shadowWrap(
-      ShadowSize.small,
-      EsnyaSizes.base * 4,
-      MaterialButton(
-        onPressed: onCardTap,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.all(0),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(EsnyaSizes.base * 4),
-            bottomRight: Radius.circular(EsnyaSizes.base * 4),
-          ),
-          side: BorderSide.none,
+    return MaterialButton(
+      onPressed: onCardTap,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      padding: EdgeInsets.all(0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(EsnyaSizes.base * 4),
+          bottomRight: Radius.circular(EsnyaSizes.base * 4),
         ),
-        color: colorScheme.surface,
-        elevation: 0,
-        hoverElevation: 0,
-        focusElevation: 0,
-        highlightElevation: 0,
-        child: SafeArea(
-            child: Container(
+        side: BorderSide.none,
+      ),
+      color: colorScheme.surface,
+      elevation: 0,
+      hoverElevation: 0,
+      focusElevation: 0,
+      highlightElevation: 0,
+      child: SafeArea(
+        child: Container(
           padding: EdgeInsets.fromLTRB(
               EsnyaSizes.base * 2, EsnyaSizes.base * 2, EsnyaSizes.base * 2, 0),
           width: double.infinity,
@@ -86,22 +83,14 @@ class DashboardHeader extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  EsynaButton.custom(
+                  EsynaButton.surface(
                     title: dateTitle,
-                    iconData: Icons.calendar_today,
+                    leadingIcon: Icons.calendar_today,
                     onPressed: onCalendarTap,
-                    shadowSize: ShadowSize.none,
-                    getTextColor: (c) => c.onSurface,
-                    customPadding:
-                        EdgeInsets.only(top: 6, bottom: 6, right: 7, left: 7),
-                    customPaddingBetweenIconAndText: 12,
                   ),
-                  EsnyaIconButton.custom(
+                  EsnyaIconButton.surface(
                     EsnyaIcons.settings,
                     onPressed: onSettingsTap,
-                    shadowSize: ShadowSize.none,
-                    customIconSize: 24,
-                    getIconColor: (c) => c.onSurface,
                   ),
                 ],
               ),
@@ -128,7 +117,7 @@ class DashboardHeader extends StatelessWidget {
               )
             ],
           ),
-        )),
+        ),
       ),
     );
   }

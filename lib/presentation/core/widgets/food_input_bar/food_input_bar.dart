@@ -56,7 +56,7 @@ class _FoodInputBarState extends State<FoodInputBar> {
     final colorScheme = getColorScheme(context);
     final textTheme = getTextTheme(context);
 
-    Widget _buildInput() => shadowWrapLarge(Container(
+    Widget _buildInput() => Container(
           height: 36,
           child: TextField(
             onChanged: widget.onChanged,
@@ -82,34 +82,31 @@ class _FoodInputBarState extends State<FoodInputBar> {
               hintText: '200 g of kidney beans',
             ),
           ),
-        ));
-    Widget _buildButton() => shadowWrapLarge(
-          MaterialButton(
-            onPressed: () {
-              widget.onSubmitted(_content);
-              _controller.clear();
-            },
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            height: 36,
-            padding: const EdgeInsets.all(4),
-            minWidth: 0,
-            shape: const RoundedRectangleBorder(
-              borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(8),
-                  topRight: Radius.circular(8)),
-              side: BorderSide.none,
-            ),
-            color: colorScheme.primary,
-            disabledColor: colorScheme.surface,
-            elevation: 0,
-            hoverElevation: 0,
-            focusElevation: 0,
-            highlightElevation: 0,
-            child: Icon(
-              EsnyaIcons.check,
-              size: 28,
-              color: colorScheme.surface,
-            ),
+        );
+    Widget _buildButton() => MaterialButton(
+          onPressed: () {
+            widget.onSubmitted(_content);
+            _controller.clear();
+          },
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          height: 36,
+          padding: const EdgeInsets.all(4),
+          minWidth: 0,
+          shape: const RoundedRectangleBorder(
+            borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
+            side: BorderSide.none,
+          ),
+          color: colorScheme.primary,
+          disabledColor: colorScheme.surface,
+          elevation: 0,
+          hoverElevation: 0,
+          focusElevation: 0,
+          highlightElevation: 0,
+          child: Icon(
+            EsnyaIcons.check,
+            size: 28,
+            color: colorScheme.surface,
           ),
         );
     return Row(

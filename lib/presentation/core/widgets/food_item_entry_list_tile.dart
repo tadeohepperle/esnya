@@ -118,40 +118,36 @@ class FoodItemEntryListTile extends StatelessWidget {
     );
     final translatedAmount = langRepo.translateAmount(amount);
 
-    return shadowWrap(
-      ShadowSize.small,
-      8,
-      MaterialButton(
-        onPressed: onTap,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        height: 36,
-        padding: const EdgeInsets.only(left: 12),
-        minWidth: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          side: BorderSide.none,
-        ),
-        color: colorScheme.surface,
-        disabledColor: colorScheme.surface,
-        elevation: 0,
-        hoverElevation: 0,
-        focusElevation: 0,
-        highlightElevation: 0,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            EsnyaText.titleBold(translatedAmount, color: amountColor),
-            Expanded(
-                child: EsnyaText.titleBold(
-              "   $title ",
-              // TODO: IMPORTANT-PRE-RELEASE: translations for title
-              // TODO: ellipsis
-              color: titleColor,
-            )),
-            endOfRowElement
-          ],
-        ),
+    return MaterialButton(
+      onPressed: onTap,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      height: 36,
+      padding: const EdgeInsets.only(left: 12),
+      minWidth: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        side: BorderSide.none,
+      ),
+      color: colorScheme.surface,
+      disabledColor: colorScheme.surface,
+      elevation: 0,
+      hoverElevation: 0,
+      focusElevation: 0,
+      highlightElevation: 0,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          EsnyaText.titleBold(translatedAmount, color: amountColor),
+          Expanded(
+              child: EsnyaText.titleBold(
+            "   $title ",
+            // TODO: IMPORTANT-PRE-RELEASE: translations for title
+            // TODO: ellipsis
+            color: titleColor,
+          )),
+          endOfRowElement
+        ],
       ),
     );
   }

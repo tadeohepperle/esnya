@@ -6,109 +6,80 @@ import 'package:flutter/material.dart';
 class EsynaButton extends StatelessWidget {
   final void Function()? onPressed;
   final bool disabled;
-  final IconData? iconData;
+  final IconData? leadingIcon;
+  final IconData? trailingIcon;
   final String title;
   final GetColor getColor;
   final GetColor getTextColor;
-  final ShadowSize? shadowSize;
-  final EdgeInsetsGeometry? customPadding;
-  final double? customPaddingBetweenIconAndText;
-  final double borderRadius;
+  final ButtonSize buttonSize;
 
-  EsynaButton._internal({
+  EsynaButton._({
     required this.title,
     required this.getColor,
     required this.getTextColor,
-    Key? key,
     this.onPressed,
-    this.disabled = false, // TODO: not implemented yet
-    this.iconData,
-    this.shadowSize,
-    this.customPadding,
-    this.customPaddingBetweenIconAndText,
-    this.borderRadius = 8,
+    this.disabled = false,
+    Key? key,
+    this.leadingIcon,
+    this.trailingIcon,
+    this.buttonSize = ButtonSize.medium,
   }) : super(key: key);
 
   factory EsynaButton.primary({
     required String title,
     void Function()? onPressed,
-    IconData? iconData,
-    ShadowSize? shadowSize,
+    bool disabled = false,
+    Key? key,
+    IconData? leadingIcon,
+    IconData? trailingIcon,
+    ButtonSize buttonSize = ButtonSize.medium,
   }) =>
-      EsynaButton._internal(
+      EsynaButton._(
         onPressed: onPressed,
         title: title,
         getColor: (ColorScheme c) => c.primary,
         getTextColor: (ColorScheme c) => c.surface,
-        iconData: iconData,
-        shadowSize: shadowSize,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        buttonSize: buttonSize,
       );
 
   factory EsynaButton.secondary({
     required String title,
     void Function()? onPressed,
-    IconData? iconData,
-    ShadowSize? shadowSize,
+    bool disabled = false,
+    Key? key,
+    IconData? leadingIcon,
+    IconData? trailingIcon,
+    ButtonSize buttonSize = ButtonSize.medium,
   }) =>
-      EsynaButton._internal(
+      EsynaButton._(
         onPressed: onPressed,
         title: title,
         getColor: (ColorScheme c) => c.secondary,
         getTextColor: (ColorScheme c) => c.surface,
-        iconData: iconData,
-        shadowSize: shadowSize,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        buttonSize: buttonSize,
       );
 
   factory EsynaButton.surface({
     required String title,
     void Function()? onPressed,
-    IconData? iconData,
-    ShadowSize? shadowSize,
+    bool disabled = false,
+    Key? key,
+    IconData? leadingIcon,
+    IconData? trailingIcon,
+    ButtonSize buttonSize = ButtonSize.medium,
   }) =>
-      EsynaButton._internal(
+      EsynaButton._(
         onPressed: onPressed,
         title: title,
         getColor: (ColorScheme c) => c.surface,
-        getTextColor: (ColorScheme c) => c.primary,
-        iconData: iconData,
-        shadowSize: shadowSize,
-      );
-
-  factory EsynaButton.background({
-    required String title,
-    void Function()? onPressed,
-    IconData? iconData,
-    ShadowSize? shadowSize,
-  }) =>
-      EsynaButton._internal(
-        onPressed: onPressed,
-        title: title,
-        getColor: (ColorScheme c) => c.background,
-        getTextColor: (ColorScheme c) => c.onBackground,
-        iconData: iconData,
-        shadowSize: shadowSize,
-      );
-
-  factory EsynaButton.custom(
-          {required String title,
-          void Function()? onPressed,
-          IconData? iconData,
-          ShadowSize? shadowSize,
-          GetColor? getColor,
-          GetColor? getTextColor,
-          EdgeInsetsGeometry? customPadding,
-          double? customPaddingBetweenIconAndText,
-          double? borderRadius}) =>
-      EsynaButton._internal(
-        onPressed: onPressed,
-        title: title,
-        getColor: getColor ?? (c) => c.surface,
-        getTextColor: getTextColor ?? (c) => c.onBackground,
-        iconData: iconData,
-        shadowSize: shadowSize,
-        customPadding: customPadding,
-        customPaddingBetweenIconAndText: customPaddingBetweenIconAndText,
-        borderRadius: borderRadius ?? 8,
+        getTextColor: (ColorScheme c) => c.onSurface,
+        leadingIcon: leadingIcon,
+        trailingIcon: trailingIcon,
+        buttonSize: buttonSize,
       );
 
   @override
@@ -116,46 +87,71 @@ class EsynaButton extends StatelessWidget {
     final colorScheme = getColorScheme(context);
     final c = getColor(colorScheme);
     final tC = getTextColor(colorScheme);
-    Widget child = EsnyaText.title(
-      title,
-      color: tC,
+    final betweenItemPaddingAndBorderRadius =
+        buttonSize == ButtonSize.small ? 4.0 : 8.0;
+
+    final iconSize = const {
+      ButtonSize.small: 12.0,
+      ButtonSize.medium: 16.0,
+      ButtonSize.large: 20.0
+    }[buttonSize]!;
+
+    final Offset padding = const {
+      ButtonSize.small: Offset(4, 2),
+      ButtonSize.medium: Offset(8, 4),
+      ButtonSize.large: Offset(16, 4)
+    }[buttonSize]!;
+
+    final height = const {
+      ButtonSize.small: 16.0,
+      ButtonSize.medium: 24.0,
+      ButtonSize.large: 32.0
+    }[buttonSize]!;
+
+    final child = Row(
+      mainAxisSize: MainAxisSize.min,
+      //mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (leadingIcon != null)
+          Padding(
+              padding:
+                  EdgeInsets.only(right: betweenItemPaddingAndBorderRadius),
+              child: Icon(
+                leadingIcon,
+                size: iconSize,
+                color: tC,
+              )),
+        EsnyaText.title(
+          title,
+          color: tC,
+        ),
+        if (trailingIcon != null)
+          Padding(
+              padding: EdgeInsets.only(left: betweenItemPaddingAndBorderRadius),
+              child: Icon(
+                trailingIcon,
+                size: iconSize,
+                color: tC,
+              )),
+      ],
     );
 
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(betweenItemPaddingAndBorderRadius),
       side: BorderSide.none,
     );
 
-    if (iconData != null) {
-      child = Row(
-        mainAxisSize: MainAxisSize.min,
-        //mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-              padding: EdgeInsets.only(
-                  right: customPaddingBetweenIconAndText ?? EsnyaSizes.base),
-              child: Icon(
-                iconData,
-                size: 20,
-                color: tC,
-              )),
-          child
-        ],
-      );
-    }
-    return shadowWrap(
-      shadowSize ?? ShadowSize.large,
-      borderRadius,
+    return Shadow(
       MaterialButton(
         color: c,
         disabledColor:
             Color.lerp(c, const Color.fromARGB(255, 184, 184, 184), 0.5),
-        padding: customPadding ??
-            EdgeInsets.symmetric(
-                vertical: (iconData == null ? 8.0 : 6.0),
-                horizontal: EsnyaSizes.base * 2),
-        minWidth: EsnyaSizes.base * 4,
-        height: 0,
+        padding: EdgeInsets.symmetric(
+          vertical: padding.dy,
+          horizontal: padding.dx,
+        ),
+        minWidth: 0,
+        height: height,
         key: key,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: shape,
@@ -166,6 +162,7 @@ class EsynaButton extends StatelessWidget {
         focusElevation: 0,
         highlightElevation: 0,
       ),
+      radius: betweenItemPaddingAndBorderRadius,
     );
   }
 }

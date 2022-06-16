@@ -69,15 +69,9 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
         size: 56,
         color: colorScheme.error,
       ),
-      idle: (value) => EsnyaIconButton.custom(
+      idle: (value) => EsnyaIconButton.surface(
         EsnyaIcons.microphone,
         onPressed: () => _startRecording(context),
-        floatingActionStyle: true,
-        customPadding: EsnyaSizes.paddingBase,
-        borderRadius: 50,
-        customIconSize: 56,
-        getIconColor: (c) => c.error,
-        getColor: (c) => c.surface,
       ),
 
       // EsnyaIconButton.custom(
@@ -119,45 +113,42 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
       ),
     );
 
-    return shadowWrapLargeUp(
-      Container(
-        padding: const EdgeInsets.all(EsnyaSizes.base),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(EsnyaSizes.base * 2),
-            topRight: Radius.circular(EsnyaSizes.base * 2),
-          ),
-          color: colorScheme.surface,
+    return Container(
+      padding: const EdgeInsets.all(EsnyaSizes.base),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(EsnyaSizes.base * 2),
+          topRight: Radius.circular(EsnyaSizes.base * 2),
         ),
-        child: Column(children: [
-          Row(
-            children: [
-              SizedBox(width: EsnyaSizes.base * 4), // to maintain symmetry
-              Expanded(
-                child: Center(
-                  child: EsnyaText.h1(
-                    text,
-                    overflow: TextOverflow.ellipsis,
-                    color: textColor,
-                  ),
+        color: colorScheme.surface,
+      ),
+      child: Column(children: [
+        Row(
+          children: [
+            SizedBox(width: EsnyaSizes.base * 4), // to maintain symmetry
+            Expanded(
+              child: Center(
+                child: EsnyaText.h1(
+                  text,
+                  overflow: TextOverflow.ellipsis,
+                  color: textColor,
                 ),
               ),
-              EsnyaIconButton.custom(
-                EsnyaIcons.close,
-                shadowSize: ShadowSize.none,
-                onPressed: () => widget.onClosed(''), // TODO
-              ),
-            ],
-          ),
-          Container(
-            width: double.infinity,
-            height: 100,
-            child: Center(
-              child: centralWidget,
             ),
-          )
-        ]),
-      ),
+            EsnyaIconButton.surface(
+              EsnyaIcons.close,
+              onPressed: () => widget.onClosed(''), // TODO
+            ),
+          ],
+        ),
+        Container(
+          width: double.infinity,
+          height: 100,
+          child: Center(
+            child: centralWidget,
+          ),
+        )
+      ]),
     );
   }
 }

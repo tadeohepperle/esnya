@@ -25,7 +25,7 @@ final esnyaTextThemeLight = const TextTheme(
   titleMedium: TextStyle(
     fontSize: 16,
     height: 1, // This is such that Buttons and stuff are vertically centered.
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w500,
   ),
   titleSmall: TextStyle(
     fontSize: 12,

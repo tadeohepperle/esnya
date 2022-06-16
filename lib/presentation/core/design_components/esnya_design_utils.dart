@@ -1,49 +1,31 @@
 import 'dart:math';
-
-import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
-import 'package:esnya/presentation/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import 'esnya_sizes.dart';
 
-enum ShadowSize { none, small, large, largeUp }
+class Shadow extends StatelessWidget {
+  final Widget child;
+  final double radius;
+  const Shadow(this.child, {Key? key, this.radius = 8}) : super(key: key);
 
-Map<ShadowSize, BoxShadow?> _shadowMap = {
-  ShadowSize.small: BoxShadow(
-    color: esnyaColorsLight.shadow,
-    spreadRadius: 0,
-    blurRadius: 4,
-    offset: Offset(0, 2), // changes position of shadow
-  ),
-  ShadowSize.large: BoxShadow(
-    color: esnyaColorsLight.shadow,
-    spreadRadius: 0,
-    blurRadius: 16,
-    offset: Offset(0, 8), // changes position of shadow
-  ),
-  ShadowSize.largeUp: BoxShadow(
-    color: esnyaColorsLight.shadow,
-    spreadRadius: 0,
-    blurRadius: 16,
-    offset: Offset(0, -8), // changes position of shadow
-  ),
-};
-
-Widget shadowWrapLarge(child) => shadowWrap(ShadowSize.large, 0, child);
-Widget shadowWrapLargeUp(child) => shadowWrap(ShadowSize.largeUp, 0, child);
-Widget shadowWrapSmall(child) => shadowWrap(ShadowSize.small, 0, child);
-
-Widget shadowWrap(ShadowSize shadowSize, double borderRadius, Widget child) =>
-    shadowSize == ShadowSize.none
-        ? child
-        : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              boxShadow: [_shadowMap[shadowSize]!],
-            ),
-            child: child,
-          );
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        boxShadow: [
+          BoxShadow(
+            color: getColorScheme(context).shadow,
+            spreadRadius: 0,
+            blurRadius: 4,
+            offset: Offset(0, 0), // changes position of shadow
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+}
 
 ColorScheme getColorScheme(BuildContext context) =>
     Theme.of(context).colorScheme;

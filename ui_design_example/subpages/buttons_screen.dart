@@ -30,7 +30,7 @@ class ButtonsScreen extends StatelessWidget {
               EsynaButton.primary(title: "Diabled"),
               EsynaButton.primary(
                 title: "Icon",
-                iconData: Icons.wifi,
+                trailingIcon: Icons.wifi,
                 onPressed: () {},
               )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
@@ -45,7 +45,7 @@ class ButtonsScreen extends StatelessWidget {
               EsynaButton.secondary(title: "Diabled"),
               EsynaButton.secondary(
                 title: "Icon",
-                iconData: Icons.wifi,
+                leadingIcon: Icons.wifi,
                 onPressed: () {},
               )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
@@ -60,7 +60,7 @@ class ButtonsScreen extends StatelessWidget {
               EsynaButton.surface(title: "Diabled"),
               EsynaButton.surface(
                 title: "Icon",
-                iconData: Icons.wifi,
+                leadingIcon: Icons.wifi,
                 onPressed: () {},
               )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
@@ -68,14 +68,14 @@ class ButtonsScreen extends StatelessWidget {
           Divider(),
           Row(
             children: [
-              EsynaButton.background(
+              EsynaButton.surface(
                 title: "Background",
                 onPressed: () {},
               ),
-              EsynaButton.background(title: "Diabled"),
-              EsynaButton.background(
+              EsynaButton.surface(title: "Diabled"),
+              EsynaButton.surface(
                 title: "Icon",
-                iconData: Icons.wifi,
+                leadingIcon: Icons.wifi,
                 onPressed: () {},
               )
             ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
@@ -84,7 +84,7 @@ class ButtonsScreen extends StatelessWidget {
             height: 30,
           ),
           EsnyaText.body("Esnya Floating Action Buttons:"),
-          shadowWrapLarge(Container(
+          Container(
             color: getColorScheme(context).surface,
             width: double.infinity,
             child: EsnyaSizes.paddingWrap(Row(
@@ -92,54 +92,52 @@ class ButtonsScreen extends StatelessWidget {
                 EsnyaIconButton.primary(
                   Icons.ac_unit_sharp,
                   onPressed: () {},
-                  floatingActionStyle: true,
                 ),
                 EsnyaIconButton.primary(
                   Icons.wifi,
                   onPressed: () {},
-                  floatingActionStyle: true,
                 ),
                 EsnyaIconButton.surface(
                   Icons.mic,
                   onPressed: () {},
-                  floatingActionStyle: true,
                 ),
-                EsnyaIconButton.background(
+                EsnyaIconButton.surface(
                   Icons.pending_actions,
                   onPressed: () {},
-                  floatingActionStyle: true,
                 ),
               ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
             )),
-          )),
+          ),
           Divider(
             height: 30,
           ),
           EsnyaText.body("Esnya Icon Buttons:"),
-          shadowWrapLarge(Container(
+          Container(
             color: getColorScheme(context).surface,
             width: double.infinity,
-            child: EsnyaSizes.paddingWrap(Row(
-              children: [
-                EsnyaIconButton.primary(
-                  Icons.ac_unit_sharp,
-                  onPressed: () {},
-                ),
-                EsnyaIconButton.secondary(
-                  Icons.wifi,
-                  onPressed: () {},
-                ),
-                EsnyaIconButton.surface(
-                  Icons.wifi,
-                  onPressed: () {},
-                ),
-                EsnyaIconButton.background(
-                  Icons.wifi,
-                  onPressed: () {},
-                ),
-              ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
-            )),
-          ))
+            child: EsnyaSizes.paddingWrap(
+              Row(
+                children: [
+                  EsnyaIconButton.primary(
+                    Icons.ac_unit_sharp,
+                    onPressed: () {},
+                  ),
+                  EsnyaIconButton.secondary(
+                    Icons.wifi,
+                    onPressed: () {},
+                  ),
+                  EsnyaIconButton.surface(
+                    Icons.wifi,
+                    onPressed: () {},
+                  ),
+                  EsnyaIconButton.surface(
+                    Icons.wifi,
+                    onPressed: () {},
+                  ),
+                ].map((e) => EsnyaSizes.paddingWrap(e)).toList(),
+              ),
+            ),
+          ),
         ],
       ),
     ));

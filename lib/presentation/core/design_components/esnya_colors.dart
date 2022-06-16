@@ -31,29 +31,32 @@ const esnyaColorsLight = EsnyaColors(
   primary: Color.fromARGB(255, 21, 113, 69),
   secondary: Color.fromARGB(255, 56, 95, 202),
   error: Color.fromARGB(255, 255, 60, 54),
+  surface: Color.fromARGB(255, 255, 255, 255),
+  background: Color.fromARGB(255, 241, 241, 241),
   textPrimary: Color.fromARGB(255, 46, 46, 46),
   textSecondary: Color.fromARGB(255, 163, 160, 159),
   textTertiary: Color.fromARGB(255, 207, 207, 207),
-  background: Color.fromARGB(255, 255, 255, 255),
-  surface: Color.fromARGB(255, 255, 255, 255),
-  shadow: Color.fromARGB(49, 43, 43, 43),
+  shadow: Color.fromARGB(51, 0, 0, 0),
 );
 
 final colorSchemeLight = ColorScheme(
-  primary: esnyaColorsLight.primary,
-  secondary: esnyaColorsLight.secondary,
-  background: esnyaColorsLight.background,
-  brightness: Brightness.light,
-  error: esnyaColorsLight.error,
-  // textSecondary => onBackground, textPrimary => onSurface, This is more like a workaround.
-  onBackground: esnyaColorsLight.textSecondary,
-  onError: esnyaColorsLight.background,
-  onPrimary: esnyaColorsLight.background,
-  onSecondary: esnyaColorsLight.background,
-  onSurface: esnyaColorsLight.textPrimary,
-  surface: esnyaColorsLight.surface,
-);
+    brightness: Brightness.light,
+    primary: esnyaColorsLight.primary,
+    secondary: esnyaColorsLight.secondary,
+    error: esnyaColorsLight.error,
+    surface: esnyaColorsLight.surface,
+    background: esnyaColorsLight.background,
 
+    // textSecondary => onBackground, textPrimary => onSurface, This is more like a workaround.
+    onSurface: esnyaColorsLight.textPrimary,
+    onBackground: esnyaColorsLight.textSecondary,
+    onSurfaceVariant: esnyaColorsLight.textTertiary,
+    onError: esnyaColorsLight.surface,
+    onPrimary: esnyaColorsLight.surface,
+    onSecondary: esnyaColorsLight.surface,
+    shadow: esnyaColorsLight.shadow);
+
+// TODO: remove all below:
 final Map<NutrientType, Color> _nutrientColorMap = {
   NutrientType.protein: esnyaColorsLight.primary,
   NutrientType.energy: esnyaColorsLight.secondary,

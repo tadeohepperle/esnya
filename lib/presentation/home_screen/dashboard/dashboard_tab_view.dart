@@ -377,24 +377,20 @@ class _DashboardTabViewState extends State<DashboardTabView>
           children: [
             EsnyaIconButton.surface(
               EsnyaIcons.write,
-              shadowSize: ShadowSize.small,
               onPressed: () {
                 if (dashboardInputState == DashboardInputState.closed) {
                   dashboardInputState = DashboardInputState.text;
                 }
               },
-              floatingActionStyle: true,
             ),
             EsnyaSizes.spaceBaseWidth,
             EsnyaIconButton.surface(
               EsnyaIcons.microphone,
-              shadowSize: ShadowSize.small,
               onPressed: () {
                 if (dashboardInputState == DashboardInputState.closed) {
                   dashboardInputState = DashboardInputState.voice;
                 }
               },
-              floatingActionStyle: true,
             ),
           ],
         ),

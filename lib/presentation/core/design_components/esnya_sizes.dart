@@ -49,3 +49,5 @@ abstract class EsnyaSizes {
   static const paddingBase = EdgeInsets.all(base);
   static const paddingBase2 = EdgeInsets.all(base * 2);
 }
+
+enum ButtonSize { small, medium, large, xxl }

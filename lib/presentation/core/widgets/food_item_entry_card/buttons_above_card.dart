@@ -19,20 +19,14 @@ class ButtonsAboveCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        EsnyaIconButton.custom(
+        EsnyaIconButton.surface(
           EsnyaIcons.delete,
           onPressed: onDeleteButtonClick,
-          getColor: (c) => c.surface,
-          getIconColor: (c) => c.error,
-          shadowSize: ShadowSize.small,
         ),
         EsnyaSizes.spaceBaseWidth,
-        EsnyaIconButton.custom(
+        EsnyaIconButton.surface(
           EsnyaIcons.close,
           onPressed: onCloseButtonClick,
-          getColor: (c) => c.surface,
-          getIconColor: (c) => c.onSurface,
-          shadowSize: ShadowSize.small,
         ),
       ],
     );

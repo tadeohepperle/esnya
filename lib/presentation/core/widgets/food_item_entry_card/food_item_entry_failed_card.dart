@@ -62,7 +62,7 @@ class _FoodItemEntryFailedCardState extends State<FoodItemEntryFailedCard> {
           onCloseButtonClick: widget.onCloseButtonClick,
         ),
         EsnyaSizes.spaceBaseHeight,
-        shadowWrapLarge(Container(
+        Container(
           width: double.infinity,
           padding: const EdgeInsets.all(EsnyaSizes.base),
           decoration: BoxDecoration(
@@ -76,17 +76,13 @@ class _FoodItemEntryFailedCardState extends State<FoodItemEntryFailedCard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  EsynaButton.custom(
+                  EsynaButton.surface(
                     onPressed: widget.onAmountButtonClick,
                     title: translatedAmount,
-                    customPadding: const EdgeInsets.all(EsnyaSizes.base),
-                    shadowSize: ShadowSize.none,
                   ),
-                  EsynaButton.custom(
+                  EsynaButton.surface(
                     onPressed: widget.onTimeButtonClick,
                     title: dateTimeString,
-                    customPadding: const EdgeInsets.all(EsnyaSizes.base),
-                    shadowSize: ShadowSize.none,
                   ),
                 ],
               ),
@@ -113,7 +109,7 @@ class _FoodItemEntryFailedCardState extends State<FoodItemEntryFailedCard> {
               )
             ],
           ),
-        )),
+        ),
       ],
     );
   }
@@ -122,13 +118,8 @@ class _FoodItemEntryFailedCardState extends State<FoodItemEntryFailedCard> {
     String title,
     bool active,
   ) =>
-      EsynaButton.custom(
+      EsynaButton.primary(
         title: title,
-        shadowSize: active ? ShadowSize.small : ShadowSize.none,
-        borderRadius: 100,
-        getColor: (c) => active ? c.onSurface : c.surface,
-        getTextColor: (c) => active ? c.surface : c.onSurface,
-        customPadding: EdgeInsets.fromLTRB(8, 4, 8, 4),
         onPressed: () => !active ? _toggleSwitch() : null,
       );
 }

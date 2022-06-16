@@ -13,57 +13,49 @@ class DashboardHeaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: shadowWrapLarge(
-        Container(
-          padding: EdgeInsets.all(EsnyaSizes.base * 2),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomLeft: const Radius.circular(EsnyaSizes.base * 3),
-              bottomRight: const Radius.circular(EsnyaSizes.base * 3),
-            ),
-            color: Colors.white,
+      body: Container(
+        padding: EdgeInsets.all(EsnyaSizes.base * 2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: const Radius.circular(EsnyaSizes.base * 3),
+            bottomRight: const Radius.circular(EsnyaSizes.base * 3),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  EsynaButton.custom(
-                    title: "Today, 24 Mar, 2022",
-                    iconData: Icons.calendar_today,
-                    onPressed: () {},
-                    shadowSize: ShadowSize.none,
-                    customPadding:
-                        EdgeInsets.only(top: 6, bottom: 6, right: 7, left: 7),
-                    customPaddingBetweenIconAndText: 16,
-                  ),
-                  EsnyaIconButton.custom(
-                    EsnyaIcons.settings,
-                    onPressed: () {},
-                    shadowSize: ShadowSize.none,
-                    customIconSize: 24,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Center(
-                child: Transform.translate(
-                  offset: Offset(0, 16),
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: esnyaColorsLight.textTertiary,
-                    size: 40,
-                  ),
+          color: Colors.white,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                EsynaButton.surface(
+                  title: "Today, 24 Mar, 2022",
+                  trailingIcon: Icons.calendar_today,
+                  onPressed: () {},
                 ),
-              )
-            ],
-          ),
+                EsnyaIconButton.surface(
+                  EsnyaIcons.settings,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Center(
+              child: Transform.translate(
+                offset: Offset(0, 16),
+                child: Icon(
+                  Icons.keyboard_arrow_down,
+                  color: esnyaColorsLight.textTertiary,
+                  size: 40,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

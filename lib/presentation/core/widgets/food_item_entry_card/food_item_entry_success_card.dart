@@ -77,126 +77,120 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
           onCloseButtonClick: widget.onCloseButtonClick,
         ),
         EsnyaSizes.spaceBaseHeight,
-        shadowWrapLarge(
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(EsnyaSizes.base),
-            decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.all(Radius.circular(EsnyaSizes.base)),
-              color: colorScheme.surface,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(EsnyaSizes.base),
+          decoration: BoxDecoration(
+            borderRadius:
+                const BorderRadius.all(Radius.circular(EsnyaSizes.base)),
+            color: colorScheme.surface,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  EsynaButton.surface(
+                    onPressed: widget.onAmountButtonClick,
+                    title: translatedAmount,
+                  ),
+                  EsynaButton.surface(
+                    onPressed: widget.onTimeButtonClick,
+                    title: dateTimeString,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(EsnyaSizes.base),
+                child: Column(
                   children: [
-                    EsynaButton.custom(
-                      onPressed: widget.onAmountButtonClick,
-                      title: translatedAmount,
-                      customPadding: const EdgeInsets.all(EsnyaSizes.base),
-                      shadowSize: ShadowSize.none,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 4,
+                        ),
+                        EsnyaText.h3(foodItem.food.title),
+                        SizedBox(
+                          height: 24,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    EsnyaIcons.energy,
+                                    color: kcal != null
+                                        ? colorScheme.secondary
+                                        : colorScheme.onBackground,
+                                  ),
+                                  EsnyaSizes.spaceBaseWidth2,
+                                  EsnyaText.h3(
+                                    kcal != null
+                                        ? langRepo.translateAmount(kcal,
+                                            fractionDigits: 0)
+                                        : "unknown kcal",
+                                    color: kcal != null
+                                        ? colorScheme.secondary
+                                        : colorScheme.onBackground,
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    _buildPill(
+                                        langRepo
+                                            .translateAmount(foodItem.amount),
+                                        !showsPer100g),
+                                    EsnyaSizes.spaceBaseWidth,
+                                    _buildPill(
+                                        langRepo.translateAmount(
+                                            const Amount(MeasureUnit.g, 100)),
+                                        showsPer100g)
+                                  ],
+                                ))
+                          ],
+                        )
+                      ],
                     ),
-                    EsynaButton.custom(
-                      onPressed: widget.onTimeButtonClick,
-                      title: dateTimeString,
-                      customPadding: const EdgeInsets.all(EsnyaSizes.base),
-                      shadowSize: ShadowSize.none,
+                    const Divider(
+                      height: EsnyaSizes.base * 4,
+                    ),
+                    if (nutrientAmounts != null)
+                      NutrientTable(
+                        nutrientAmounts: nutrientAmounts,
+                        nutrientTypes: const [
+                          NutrientType.protein,
+                          NutrientType.carbs,
+                          NutrientType.fat,
+                          NutrientType.fiber
+                        ],
+                      )
+                    else
+                      Container(
+                        height: 64,
+                        child: Center(
+                            child: Column(
+                          children: [
+                            Icon(Icons.warning), // TODO
+                            EsnyaText.body("No Data Available")
+                          ],
+                        )),
+                      ),
+                    const Divider(
+                      height: EsnyaSizes.base * 4,
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(EsnyaSizes.base),
-                  child: Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 4,
-                          ),
-                          EsnyaText.h3(foodItem.food.title),
-                          SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      EsnyaIcons.energy,
-                                      color: kcal != null
-                                          ? colorScheme.secondary
-                                          : colorScheme.onBackground,
-                                    ),
-                                    EsnyaSizes.spaceBaseWidth2,
-                                    EsnyaText.h3(
-                                      kcal != null
-                                          ? langRepo.translateAmount(kcal,
-                                              fractionDigits: 0)
-                                          : "unknown kcal",
-                                      color: kcal != null
-                                          ? colorScheme.secondary
-                                          : colorScheme.onBackground,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      _buildPill(
-                                          langRepo
-                                              .translateAmount(foodItem.amount),
-                                          !showsPer100g),
-                                      EsnyaSizes.spaceBaseWidth,
-                                      _buildPill(
-                                          langRepo.translateAmount(
-                                              const Amount(MeasureUnit.g, 100)),
-                                          showsPer100g)
-                                    ],
-                                  ))
-                            ],
-                          )
-                        ],
-                      ),
-                      const Divider(
-                        height: EsnyaSizes.base * 4,
-                      ),
-                      if (nutrientAmounts != null)
-                        NutrientTable(
-                          nutrientAmounts: nutrientAmounts,
-                          nutrientTypes: const [
-                            NutrientType.protein,
-                            NutrientType.carbs,
-                            NutrientType.fat,
-                            NutrientType.fiber
-                          ],
-                        )
-                      else
-                        Container(
-                          height: 64,
-                          child: Center(
-                              child: Column(
-                            children: [
-                              Icon(Icons.warning), // TODO
-                              EsnyaText.body("No Data Available")
-                            ],
-                          )),
-                        ),
-                      const Divider(
-                        height: EsnyaSizes.base * 4,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ],
@@ -207,13 +201,8 @@ class _FoodItemEntrySuccessCardState extends State<FoodItemEntrySuccessCard> {
     String title,
     bool active,
   ) =>
-      EsynaButton.custom(
+      EsynaButton.primary(
         title: title,
-        shadowSize: active ? ShadowSize.small : ShadowSize.none,
-        borderRadius: 100,
-        getColor: (c) => active ? c.onSurface : c.surface,
-        getTextColor: (c) => active ? c.surface : c.onSurface,
-        customPadding: EdgeInsets.fromLTRB(8, 4, 8, 4),
         onPressed: () => !active ? _toggleSwitch() : null,
       );
 }

@@ -24,10 +24,8 @@ class _ProfileTabViewState extends State<ProfileTabView>
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: EsynaButton.custom(
+          child: EsynaButton.surface(
             title: "Logout",
-            getColor: (c) => c.error,
-            getTextColor: (c) => c.surface,
             onPressed: () {
               context.read<AuthBloc>().add(AuthEvent.signedOut());
             },
