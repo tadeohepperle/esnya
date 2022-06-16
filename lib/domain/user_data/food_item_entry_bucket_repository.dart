@@ -10,7 +10,7 @@ abstract class DayBucketsRepository extends SetupRepository {
   Future<Either<Failure, Unit>> deleteBucket(DayBucket bucket);
 
   Stream<Either<Failure, DayBucket>> watchBucket(UniqueId bucketId);
-  Stream<Either<Failure, KtList<DayBucket>>> watchLogBuckets({
+  Stream<Either<Failure, KtList<DayBucket>>> watchBuckets({
     required int batchSize,
   });
 

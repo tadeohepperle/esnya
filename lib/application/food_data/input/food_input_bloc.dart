@@ -34,13 +34,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       StreamableValue<KtList<FragmentAndEntry>>(<FragmentAndEntry>[]
           .toImmutableList()); // not part of state because no need to expose
 
-  ValueAndStream<KtList<FoodItemEntryWrapper>> get entries =>
-      ValueAndStream(() => _fragmentsAndEntries.value.map((e) => e.value2),
-          () async* {
-        yield _fragmentsAndEntries.value
-            .map((e) => e.value2); // to send the current value on listen;
-        yield* _fragmentsAndEntries.stream.map((e) => e.map((e) => e.value2));
-      });
+  KtList<FoodItemEntryWrapper> get entries =>
+      _fragmentsAndEntries.value.map((e) => e.value2);
 
   final StreamController<BlocAndBetweenRepoFoodItemEntries>
       _blocAndRepoEntriesStreamController =
@@ -53,7 +48,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       : super(FoodInputState.initial()) {
     _blocAndRepoEntriesStreamController.onListen = () {
       _blocAndRepoEntriesStreamController
-          .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries.value));
+          .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
     };
     on<FoodInputEvent>((event, emit) async {
       await event.map(
@@ -102,7 +97,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     }
     _fragmentsAndEntries.value = oldList.toImmutableList();
     _blocAndRepoEntriesStreamController
-        .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries.value));
+        .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
     // fetch food for entries:
     for (var e in entriesToFetchFoodFor) {
       add(_FetchFood(e));
@@ -118,7 +113,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         _fragmentsAndEntries.value.map((e) => e.value2 is FoodItemEntrySuccess);
 
     // create new lists:
-    final repoEntries = entries.value
+    final repoEntries = entries
         .asList()
         .asMap()
         .entries
@@ -151,7 +146,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     // expose
     _blocAndRepoEntriesStreamController.add(
       BlocAndBetweenRepoFoodItemEntries(
-        blocEntries: entries.value,
+        blocEntries: entries,
         betweenBlocAndRepoEntries: repoEntries.toImmutableList(),
       ),
     );
@@ -163,7 +158,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       Emitter<FoodInputState> emit, FoodItemEntryWrapper entry) async {
     final resultOrFailure =
         await _foodMappingRepository.mapInput(entry.inputString);
-    logDebug('_fetchFood for inputString yielded $resultOrFailure ');
+    logDebug('_fetchFood for ${entry.inputString} yielded $resultOrFailure ');
 
     _fragmentsAndEntries.value = _fragmentsAndEntries.value.map((e) {
       final oldEntryWrapper = e.value2;
@@ -177,6 +172,9 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         return Tuple2(e.value1, newEntryWrapper);
       }
     });
+
+    _blocAndRepoEntriesStreamController
+        .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
   }
 }
 

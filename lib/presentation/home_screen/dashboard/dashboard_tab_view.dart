@@ -211,14 +211,17 @@ class _DashboardTabViewState extends State<DashboardTabView>
     }
 
     Widget _buildBodyFoodLogList() {
-      Widget _buildBucket(DayBucket bucket) {
+      Widget _buildBucket(DayBucket bucket, {bool paddingTop = true}) {
         final isEmpty = bucket.entries.isEmpty();
         final noVolatileItems =
             dashboardState.entriesBetweenBlocAndRepo.isEmpty() &&
                 dashboardState.entriesFoodInputBloc.isEmpty();
+
         return Padding(
-          padding: const EdgeInsets.only(
-            top: EsnyaSizes.kDashboardPaddingBetweenBucketsInListView,
+          padding: EdgeInsets.only(
+            top: paddingTop
+                ? EsnyaSizes.kDashboardPaddingBetweenBucketsInListView
+                : 0,
             left: EsnyaSizes.base,
             right: EsnyaSizes.base,
           ),
@@ -279,7 +282,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
         height = max(height, 0);
 
-        return SizedBox(
+        return Container(
+          width: double.infinity,
           height: height,
         );
 
@@ -309,8 +313,10 @@ class _DashboardTabViewState extends State<DashboardTabView>
           if (index == 1) {
             /// because of `reverse: true` this will be the downmost widget: a column for the entries not yet stored in firestore.
             return _buildUnsafeEntries();
+          } else if (index == buckets.size + 1) {
+            return _buildBucket(buckets[index - 2], paddingTop: false);
           } else {
-            return _buildBucket(buckets[index - 2]);
+            return _buildBucket(buckets[index - 2], paddingTop: true);
           }
         },
       );

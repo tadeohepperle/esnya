@@ -108,7 +108,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     // The big disadvantage here is: we fetch the entire data again which is not very efficient. We can just hope not much users will scroll up. Sadly Firebase sucks at proper pagination.
     await _bucketsStreamSubscription?.cancel();
     _bucketsStreamSubscription = _dayBucketRepository
-        .watchLogBuckets(batchSize: batchSize)
+        .watchBuckets(batchSize: batchSize)
         .listen((failureOrBuckets) {
       add(DashboardEvent.bucketsReceived(failureOrBuckets));
     });
@@ -144,7 +144,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     return results;
   }
 
-  DayBucket? getBucketByIndex(int index) => state.buckets[index];
+  DayBucket? getBucketByIndex(int index) =>
+      state.buckets.size > index ? state.buckets[index] : null;
 
   Future<void> _updateEntryInRepository(
       UniqueId entryId, MapFunction<FoodItemEntry> update) async {

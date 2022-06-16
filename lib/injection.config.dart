@@ -52,8 +52,7 @@ import 'infrastructure/resources/resource_repository_impl_isolate_1.dart'
     as _i18;
 import 'infrastructure/resources/resource_repository_impl_isolate_2.dart'
     as _i19;
-import 'infrastructure/user_data/food_item_entry_bucket_repository_impl_firebase.dart'
-    as _i28;
+import 'infrastructure/user_data/day_repository_impl_firebase.dart' as _i28;
 import 'infrastructure/user_data/user_diet_preferences_repository_impl.dart'
     as _i21;
 import 'presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart'

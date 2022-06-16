@@ -144,15 +144,13 @@ class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
   }
 
   @override
-  Stream<Either<Failure, KtList<DayBucket>>> watchLogBuckets({
-    /// for example 'log-2022-04-13'
+  Stream<Either<Failure, KtList<DayBucket>>> watchBuckets({
     required int batchSize,
   }) async* {
     await _getOrCreateBucketForToday();
     final userDoc = await _firestore.userDocument();
     yield* userDoc
         .collection(kBucketsCollectionName)
-        .where("type", isEqualTo: 'log')
         .orderBy(FieldPath.documentId, descending: true)
         .limit(batchSize)
         .snapshots()

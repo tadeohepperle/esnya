@@ -36,8 +36,13 @@ class FoodItemEntryListTile extends StatelessWidget {
       orElse: () => false,
       success: (_) => true,
     );
-    final title = foodItemEntry.inputString
-        .toLowerCase(); // TODO: this should rather be done in data source.
+    final title = foodItemEntry
+        .maybeMap(
+            orElse: () => foodItemEntry.inputString,
+            success: (_) => _.entry.foodItem.food.title)
+        .toLowerCase();
+
+    // TODO: this should rather be done in data source.
     final amount = foodItemEntry.map(
       failed: (_) => _.amount,
       processing: (_) => _.amount,
