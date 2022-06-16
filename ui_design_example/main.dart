@@ -2,6 +2,7 @@ import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper
 import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
+import 'package:esnya/presentation/core/design_components/utils/grid_overlay.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class ExampleComponentsAppWidget extends StatelessWidget {
     return MaterialApp(
         theme: themeDataLight,
         home: Scaffold(
-          body: ExampleHomeScreen(),
+          body: GridOverlay(ExampleHomeScreen()),
         ));
   }
 }

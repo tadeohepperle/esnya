@@ -11,7 +11,7 @@ class ColorsScreen extends StatelessWidget {
       child: Center(
           child: EsnyaText.h3(
         title,
-        color: textColor,
+        getColor: textColor != null ? (t) => textColor : null,
       )),
       height: 100,
       width: 100,

@@ -135,9 +135,8 @@ class _VoiceInputSheetState extends State<VoiceInputSheet> {
               SizedBox(width: EsnyaSizes.base * 4), // to maintain symmetry
               Expanded(
                 child: Center(
-                  child: EsnyaText.custom(
-                    text: text,
-                    getTextStyle: (t) => t.titleLarge,
+                  child: EsnyaText.h1(
+                    text,
                     overflow: TextOverflow.ellipsis,
                     color: textColor,
                   ),
