@@ -29,6 +29,7 @@ class EsnyaIconButton extends StatelessWidget {
         onPressed: onPressed,
         getIconColor: (c) => c.primary,
         getColor: (c) => c.surface,
+        buttonSize: buttonSize,
       );
 
   factory EsnyaIconButton.secondary(
@@ -41,6 +42,7 @@ class EsnyaIconButton extends StatelessWidget {
         onPressed: onPressed,
         getIconColor: (c) => c.secondary,
         getColor: (c) => c.surface,
+        buttonSize: buttonSize,
       );
 
   factory EsnyaIconButton.surface(
@@ -53,6 +55,7 @@ class EsnyaIconButton extends StatelessWidget {
         onPressed: onPressed,
         getIconColor: (c) => c.onSurface,
         getColor: (c) => c.surface,
+        buttonSize: buttonSize,
       );
 
   @override

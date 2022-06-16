@@ -12,7 +12,7 @@ class EsnyaText extends StatelessWidget {
   final int? maxLines;
   final TextAlign? textAlign;
 
-  const EsnyaText._({
+  const EsnyaText({
     Key? key,
     required this.text,
     this.getColor,
@@ -50,7 +50,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -70,7 +70,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -90,7 +90,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -110,7 +110,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -130,7 +130,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -150,7 +150,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -170,7 +170,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,
@@ -190,7 +190,7 @@ class EsnyaText extends StatelessWidget {
     int? maxLines,
     TextAlign? textAlign,
   }) =>
-      EsnyaText._(
+      EsnyaText(
         text: text,
         key: key,
         getColor: getColor,

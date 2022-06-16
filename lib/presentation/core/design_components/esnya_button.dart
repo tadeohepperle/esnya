@@ -87,8 +87,18 @@ class EsynaButton extends StatelessWidget {
     final colorScheme = getColorScheme(context);
     final c = getColor(colorScheme);
     final tC = getTextColor(colorScheme);
-    final betweenItemPaddingAndBorderRadius =
-        buttonSize == ButtonSize.small ? 4.0 : 8.0;
+
+    final paddingBetween = const {
+      ButtonSize.small: 4.0,
+      ButtonSize.medium: 4.0,
+      ButtonSize.large: 8.0
+    }[buttonSize]!;
+
+    final borderRadius = const {
+      ButtonSize.small: 6.0,
+      ButtonSize.medium: 8.0,
+      ButtonSize.large: 8.0
+    }[buttonSize]!;
 
     final iconSize = const {
       ButtonSize.small: 12.0,
@@ -97,7 +107,7 @@ class EsynaButton extends StatelessWidget {
     }[buttonSize]!;
 
     final Offset padding = const {
-      ButtonSize.small: Offset(4, 2),
+      ButtonSize.small: Offset(6, 4),
       ButtonSize.medium: Offset(8, 4),
       ButtonSize.large: Offset(16, 4)
     }[buttonSize]!;
@@ -114,20 +124,24 @@ class EsynaButton extends StatelessWidget {
       children: [
         if (leadingIcon != null)
           Padding(
-              padding:
-                  EdgeInsets.only(right: betweenItemPaddingAndBorderRadius),
+              padding: EdgeInsets.only(right: paddingBetween),
               child: Icon(
                 leadingIcon,
                 size: iconSize,
                 color: tC,
               )),
-        EsnyaText.title(
-          title,
+        EsnyaText(
+          text: title,
           color: tC,
+          getTextStyle: (c) => {
+            ButtonSize.small: c.titleSmall,
+            ButtonSize.medium: c.titleLarge,
+            ButtonSize.large: c.headlineSmall
+          }[buttonSize],
         ),
         if (trailingIcon != null)
           Padding(
-              padding: EdgeInsets.only(left: betweenItemPaddingAndBorderRadius),
+              padding: EdgeInsets.only(left: paddingBetween),
               child: Icon(
                 trailingIcon,
                 size: iconSize,
@@ -137,7 +151,7 @@ class EsynaButton extends StatelessWidget {
     );
 
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(betweenItemPaddingAndBorderRadius),
+      borderRadius: BorderRadius.circular(borderRadius),
       side: BorderSide.none,
     );
 
@@ -162,7 +176,7 @@ class EsynaButton extends StatelessWidget {
         focusElevation: 0,
         highlightElevation: 0,
       ),
-      radius: betweenItemPaddingAndBorderRadius,
+      radius: borderRadius,
     );
   }
 }

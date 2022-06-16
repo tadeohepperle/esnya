@@ -35,15 +35,17 @@ class ColorsScreen extends StatelessWidget {
             children: [
               _colorTile("background", colorTheme.background),
               _colorTile("surface", colorTheme.surface),
-              _colorTile("surface weak text", colorTheme.surface,
+              _colorTile(
+                  "text primary", colorTheme.surface, colorTheme.onSurface),
+              _colorTile("text secondary", colorTheme.surface,
                   colorTheme.onBackground),
-              _colorTile("surface weakest text", colorTheme.surface,
-                  esnyaColorsLight.textTertiary),
+              _colorTile("text tertiary", colorTheme.surface,
+                  colorTheme.onSurfaceVariant),
               _colorTile("primary", colorTheme.primary, colorTheme.surface),
               _colorTile("secondary", colorTheme.secondary, colorTheme.surface),
               _colorTile("error", colorTheme.error, colorTheme.surface),
               _colorTile(
-                  "bg on surf", colorTheme.surface, colorTheme.background),
+                  "bg text on surf", colorTheme.surface, colorTheme.background),
             ],
           ),
         ));
