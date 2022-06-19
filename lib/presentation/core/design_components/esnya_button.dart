@@ -3,6 +3,62 @@ import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:flutter/material.dart';
 
+class _EsnyaButtonConfig {
+  final double paddingBetween;
+
+  final double borderRadius;
+
+  final double iconSize;
+
+  final Offset padding;
+
+  final double height;
+
+  const _EsnyaButtonConfig(
+      {required this.paddingBetween,
+      required this.borderRadius,
+      required this.iconSize,
+      required this.padding,
+      required this.height});
+}
+
+const _buttonConfigSmall = _EsnyaButtonConfig(
+  paddingBetween: 4.0,
+  borderRadius: 6.0,
+  iconSize: 12.0,
+  padding: Offset(6, 3),
+  height: 16,
+);
+
+const _buttonConfigMedium = _EsnyaButtonConfig(
+  paddingBetween: 4.0,
+  borderRadius: 8.0,
+  iconSize: 16.0,
+  padding: Offset(8, 4),
+  height: 24,
+);
+
+const _buttonConfigLarge = _EsnyaButtonConfig(
+  paddingBetween: 8.0,
+  borderRadius: 8.0,
+  iconSize: 20,
+  padding: Offset(16, 4),
+  height: 32,
+);
+
+_EsnyaButtonConfig buttonSizeToConfig(ButtonSize buttonSize) {
+  switch (buttonSize) {
+    case ButtonSize.small:
+      return _buttonConfigSmall;
+    case ButtonSize.medium:
+      return _buttonConfigMedium;
+    case ButtonSize.large:
+      return _buttonConfigSmall;
+    default:
+      return _buttonConfigMedium;
+  }
+}
+
 class EsynaButton extends StatelessWidget {
   final void Function()? onPressed;
   final bool disabled;
@@ -87,36 +143,7 @@ class EsynaButton extends StatelessWidget {
     final colorScheme = getColorScheme(context);
     final c = getColor(colorScheme);
     final tC = getTextColor(colorScheme);
-
-    final paddingBetween = const {
-      ButtonSize.small: 4.0,
-      ButtonSize.medium: 4.0,
-      ButtonSize.large: 8.0
-    }[buttonSize]!;
-
-    final borderRadius = const {
-      ButtonSize.small: 6.0,
-      ButtonSize.medium: 8.0,
-      ButtonSize.large: 8.0
-    }[buttonSize]!;
-
-    final iconSize = const {
-      ButtonSize.small: 12.0,
-      ButtonSize.medium: 16.0,
-      ButtonSize.large: 20.0
-    }[buttonSize]!;
-
-    final Offset padding = const {
-      ButtonSize.small: Offset(6, 4),
-      ButtonSize.medium: Offset(8, 4),
-      ButtonSize.large: Offset(16, 4)
-    }[buttonSize]!;
-
-    final height = const {
-      ButtonSize.small: 16.0,
-      ButtonSize.medium: 24.0,
-      ButtonSize.large: 32.0
-    }[buttonSize]!;
+    final configValues = buttonSizeToConfig(buttonSize);
 
     final child = Row(
       mainAxisSize: MainAxisSize.min,
@@ -124,10 +151,10 @@ class EsynaButton extends StatelessWidget {
       children: [
         if (leadingIcon != null)
           Padding(
-              padding: EdgeInsets.only(right: paddingBetween),
+              padding: EdgeInsets.only(right: configValues.paddingBetween),
               child: Icon(
                 leadingIcon,
-                size: iconSize,
+                size: configValues.iconSize,
                 color: tC,
               )),
         EsnyaText(
@@ -141,17 +168,17 @@ class EsynaButton extends StatelessWidget {
         ),
         if (trailingIcon != null)
           Padding(
-              padding: EdgeInsets.only(left: paddingBetween),
+              padding: EdgeInsets.only(left: configValues.paddingBetween),
               child: Icon(
                 trailingIcon,
-                size: iconSize,
+                size: configValues.iconSize,
                 color: tC,
               )),
       ],
     );
 
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(borderRadius),
+      borderRadius: BorderRadius.circular(configValues.borderRadius),
       side: BorderSide.none,
     );
 
@@ -161,11 +188,11 @@ class EsynaButton extends StatelessWidget {
         disabledColor:
             Color.lerp(c, const Color.fromARGB(255, 184, 184, 184), 0.5),
         padding: EdgeInsets.symmetric(
-          vertical: padding.dy,
-          horizontal: padding.dx,
+          vertical: configValues.padding.dy,
+          horizontal: configValues.padding.dx,
         ),
         minWidth: 0,
-        height: height,
+        height: configValues.height,
         key: key,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: shape,
@@ -176,7 +203,7 @@ class EsynaButton extends StatelessWidget {
         focusElevation: 0,
         highlightElevation: 0,
       ),
-      radius: borderRadius,
+      radius: configValues.borderRadius,
     );
   }
 }
