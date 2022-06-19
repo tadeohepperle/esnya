@@ -8,10 +8,11 @@ import 'package:injectable/injectable.dart';
 @LazySingleton(as: UserDietPreferencesRepository)
 class UserDietPreferencesRepositoryImpl
     implements UserDietPreferencesRepository {
+  // TODO:
   @override
-  List<NutrientType> get preferredNutrients =>
-      // TODO:
-      [NutrientType.energy, NutrientType.protein];
+  NutrientType get preferredNutrientPrimary => NutrientType.energy;
+  @override
+  NutrientType get preferredNutrientSecondary => NutrientType.protein;
 
   @override
   DailyNutrientTarget getDailyTarget(NutrientType nutrientType) {

@@ -35,12 +35,12 @@ final esnyaTextThemeLight = const TextTheme(
   bodyMedium: TextStyle(
     fontSize: 14,
     height: 20 / 14,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
   ),
   bodySmall: TextStyle(
     fontSize: 12,
     height: 16 / 12,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
   ),
 ).apply(
   bodyColor: esnyaColorsLight.textPrimary,

@@ -7,8 +7,7 @@ import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
 import 'package:esnya/presentation/core/widgets/dashboard_header/dashboard_header.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_card.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry_list_tile.dart';
-import 'package:esnya/presentation/core/widgets/no_entries_yet_list_item.dart';
+import 'package:esnya/presentation/core/widgets/list_tiles/no_entries_yet_list_item.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -159,55 +158,57 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
     Widget _buildListItem(FoodItemEntryWrapper foodItemEntryWrapper,
         {UniqueId? bucketId}) {
-      return Padding(
-        padding: const EdgeInsets.only(
-            bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
-        child: FoodItemEntryListTile(
-          foodItemEntry: foodItemEntryWrapper,
-          onBadgeTap: () {
-            // TODO:
-            _switchBadgeNutrients();
-          },
-          onTap: () {
-            // TODO:
-            if (bucketId != null &&
-                foodItemEntryWrapper is FoodItemEntrySuccess) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(EsnyaSizes.base * 2),
-                        child: FoodItemEntryCard(
-                          foodItemEntry: foodItemEntryWrapper.entry,
-                          onCloseButtonClick: () {
-                            Navigator.of(context).pop();
-                          },
-                          onDeleteButtonClick: () {
-                            getIt<DayBucketsRepository>().deleteEntry(
-                                bucketId, foodItemEntryWrapper.entry);
-                            Navigator.of(context).pop();
-                          },
-                          onTimeButtonClick: () {
-                            // TODO
-                          },
-                          onAmountButtonClick: () {
-                            // TODO
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-          },
-          badgeNutrient: _nutrientTypeForBadges,
-        ),
-      );
+      return SizedBox(); // TODOODDOODDOODODDODODDDD
+
+      // return Padding(
+      //   padding: const EdgeInsets.only(
+      //       bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
+      //   child: FoodItemEntryListTile(
+      //     foodItemEntry: foodItemEntryWrapper,
+      //     onBadgeTap: () {
+      //       // TODO:
+      //       _switchBadgeNutrients();
+      //     },
+      //     onTap: () {
+      //       // TODO:
+      //       if (bucketId != null &&
+      //           foodItemEntryWrapper is FoodItemEntrySuccess) {
+      //         showDialog(
+      //           context: context,
+      //           builder: (context) {
+      //             return Column(
+      //               mainAxisSize: MainAxisSize.max,
+      //               mainAxisAlignment: MainAxisAlignment.center,
+      //               children: [
+      //                 Padding(
+      //                   padding: EdgeInsets.all(EsnyaSizes.base * 2),
+      //                   child: FoodItemEntryCard(
+      //                     foodItemEntry: foodItemEntryWrapper.entry,
+      //                     onCloseButtonClick: () {
+      //                       Navigator.of(context).pop();
+      //                     },
+      //                     onDeleteButtonClick: () {
+      //                       getIt<DayBucketsRepository>().deleteEntry(
+      //                           bucketId, foodItemEntryWrapper.entry);
+      //                       Navigator.of(context).pop();
+      //                     },
+      //                     onTimeButtonClick: () {
+      //                       // TODO
+      //                     },
+      //                     onAmountButtonClick: () {
+      //                       // TODO
+      //                     },
+      //                   ),
+      //                 ),
+      //               ],
+      //             );
+      //           },
+      //         );
+      //       }
+      //     },
+      //     badgeNutrient: _nutrientTypeForBadges,
+      //   ),
+      // );
     }
 
     Widget _buildBodyFoodLogList() {
@@ -473,10 +474,11 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
   void _switchBadgeNutrients() {
     final dietRepo = getIt<UserDietPreferencesRepository>();
-    final preferredNutrients = dietRepo.preferredNutrients;
     setState(() {
-      _nutrientTypeForBadges =
-          preferredNutrients.where((e) => e != _nutrientTypeForBadges).first;
+      _nutrientTypeForBadges = [
+        dietRepo.preferredNutrientPrimary,
+        dietRepo.preferredNutrientSecondary
+      ].where((e) => e != _nutrientTypeForBadges).first;
     });
   }
 

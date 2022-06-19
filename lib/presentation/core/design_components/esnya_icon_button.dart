@@ -5,9 +5,10 @@ import 'esnya_sizes.dart';
 
 class EsnyaIconButton extends StatelessWidget {
   final IconData iconData;
-  final GetColor getColor;
-  final GetColor getIconColor;
+  GetColor getColor;
+  GetColor getIconColor;
   final ButtonSize buttonSize;
+  bool shadow;
 
   final void Function()? onPressed;
   EsnyaIconButton._({
@@ -17,6 +18,7 @@ class EsnyaIconButton extends StatelessWidget {
     this.buttonSize = ButtonSize.medium,
     required this.getColor,
     required this.getIconColor,
+    this.shadow = true,
   }) : super(key: key);
 
   factory EsnyaIconButton.primary(
@@ -73,7 +75,7 @@ class EsnyaIconButton extends StatelessWidget {
     final iconSize = const {
       ButtonSize.small: 12.0,
       ButtonSize.medium: 16.0,
-      ButtonSize.large: 26.0,
+      ButtonSize.large: 24.0,
       ButtonSize.xxl: 36.0
     }[buttonSize]!;
     final borderRadius = const {
@@ -89,28 +91,32 @@ class EsnyaIconButton extends StatelessWidget {
     );
 
     // normal is 32 px high and wide, floating action is 48 high and wide.
-    return Shadow(
-      MaterialButton(
-        disabledColor: Color.lerp(c, colorScheme.background, 0.5),
-        padding: EdgeInsets.all(padding),
-        height: padding * 2 + iconSize,
-        minWidth: 0,
-        key: key,
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: shape,
-        onPressed: onPressed,
-        child: Icon(
-          iconData,
-          size: iconSize,
-          color: iC,
-        ),
-        color: c,
-        elevation: 0,
-        hoverElevation: 0,
-        focusElevation: 0,
-        highlightElevation: 0,
+
+    final button = MaterialButton(
+      disabledColor: Color.lerp(c, colorScheme.background, 0.5),
+      padding: EdgeInsets.all(padding),
+      height: padding * 2 + iconSize,
+      minWidth: 0,
+      key: key,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      shape: shape,
+      onPressed: onPressed,
+      child: Icon(
+        iconData,
+        size: iconSize,
+        color: iC,
       ),
-      radius: borderRadius,
+      color: c,
+      elevation: 0,
+      hoverElevation: 0,
+      focusElevation: 0,
+      highlightElevation: 0,
     );
+    return shadow
+        ? Shadow(
+            button,
+            radius: borderRadius,
+          )
+        : button;
   }
 }

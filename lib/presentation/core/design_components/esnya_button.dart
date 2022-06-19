@@ -13,21 +13,37 @@ class _EsnyaButtonConfig {
   final Offset padding;
 
   final double height;
+  final GetTextStyle getTextStyle;
 
-  const _EsnyaButtonConfig(
-      {required this.paddingBetween,
-      required this.borderRadius,
-      required this.iconSize,
-      required this.padding,
-      required this.height});
+  const _EsnyaButtonConfig({
+    required this.paddingBetween,
+    required this.borderRadius,
+    required this.iconSize,
+    required this.padding,
+    required this.height,
+    required this.getTextStyle,
+  });
+}
+
+TextStyle _getTitleSmall(TextTheme t) {
+  return t.titleSmall!;
+}
+
+TextStyle _getTitleLarge(TextTheme t) {
+  return t.titleLarge!;
+}
+
+TextStyle _getHeadlineSmall(TextTheme t) {
+  return t.headlineSmall!;
 }
 
 const _buttonConfigSmall = _EsnyaButtonConfig(
   paddingBetween: 4.0,
   borderRadius: 6.0,
   iconSize: 12.0,
-  padding: Offset(6, 3),
+  padding: Offset(8, 3),
   height: 16,
+  getTextStyle: _getTitleSmall,
 );
 
 const _buttonConfigMedium = _EsnyaButtonConfig(
@@ -36,6 +52,7 @@ const _buttonConfigMedium = _EsnyaButtonConfig(
   iconSize: 16.0,
   padding: Offset(8, 4),
   height: 24,
+  getTextStyle: _getTitleLarge,
 );
 
 const _buttonConfigLarge = _EsnyaButtonConfig(
@@ -44,6 +61,7 @@ const _buttonConfigLarge = _EsnyaButtonConfig(
   iconSize: 20,
   padding: Offset(16, 4),
   height: 32,
+  getTextStyle: _getHeadlineSmall,
 );
 
 _EsnyaButtonConfig buttonSizeToConfig(ButtonSize buttonSize) {
@@ -53,7 +71,7 @@ _EsnyaButtonConfig buttonSizeToConfig(ButtonSize buttonSize) {
     case ButtonSize.medium:
       return _buttonConfigMedium;
     case ButtonSize.large:
-      return _buttonConfigSmall;
+      return _buttonConfigLarge;
     default:
       return _buttonConfigMedium;
   }
@@ -65,8 +83,8 @@ class EsynaButton extends StatelessWidget {
   final IconData? leadingIcon;
   final IconData? trailingIcon;
   final String title;
-  final GetColor getColor;
-  final GetColor getTextColor;
+  GetColor getColor;
+  GetColor getTextColor;
   final ButtonSize buttonSize;
 
   EsynaButton._({

@@ -25,6 +25,8 @@ abstract class EsnyaSizes {
     side: BorderSide.none,
   );
 
+  static const borderRadius = BorderRadius.all(Radius.circular(8));
+
   static Padding paddingWrap(Widget child, [double paddingSize = base]) =>
       Padding(
         padding: EdgeInsets.all(paddingSize),

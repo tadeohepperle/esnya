@@ -43,7 +43,9 @@ class DashboardHeader extends StatelessWidget {
         : "Unknown Date";
 
     final bigNutrientGoalDisplays = [
-      for (NutrientType nutrientType in dietRepo.preferredNutrients) ...[
+      for (NutrientType nutrientType in [
+        dietRepo.preferredNutrientPrimary
+      ]) ...[
         BigNutrientGoalDisplay(
           nutrientTarget: dietRepo.getDailyTarget(nutrientType),
           consumedAmount: nutrientAmounts[nutrientType],

@@ -35,13 +35,27 @@ class BucketDateTitleListItem extends StatelessWidget {
           : " " + langRepo.translateNutrientType(n);
     }
 
-    final nutrientText = userDietRepo.preferredNutrients
-        .map((n) => nutrientAmounts[n] != null
-            ? (langRepo.translateAmount(nutrientAmounts[n]!) +
-                _nutrientTypeName(n))
-            : "")
-        .where((e) => e.isNotEmpty)
-        .join(", ");
+    final nutrientPrimary = userDietRepo.preferredNutrientPrimary;
+    final nutrientSecondary = userDietRepo.preferredNutrientSecondary;
+    final nutrientPrimaryText = nutrientAmounts[nutrientPrimary] != null
+        ? langRepo.translateAmount(nutrientAmounts[nutrientPrimary]!) +
+            _nutrientTypeName(nutrientPrimary)
+        : null;
+    final nutrientSecondaryText = nutrientAmounts[nutrientSecondary] != null
+        ? langRepo.translateAmount(nutrientAmounts[nutrientSecondary]!) +
+            _nutrientTypeName(nutrientSecondary)
+        : null;
+
+    // final nutrientText = [
+    //   userDietRepo.preferredNutrientPrimary,
+    //   userDietRepo.preferredNutrientSecondary
+    // ]
+    //     .map((n) => nutrientAmounts[n] != null
+    //         ? (langRepo.translateAmount(nutrientAmounts[n]!) +
+    //             _nutrientTypeName(n))
+    //         : "")
+    //     .where((e) => e.isNotEmpty)
+    //     .join(", ");
 
     return Container(
         padding: EdgeInsets.symmetric(horizontal: EsnyaSizes.base),
@@ -55,9 +69,25 @@ class BucketDateTitleListItem extends StatelessWidget {
               bucketTitle,
               color: colorSchemeLight.onSurface,
             ),
-            EsnyaText.titleBold(
-              nutrientText,
-              color: colorSchemeLight.onSurface,
+            Row(
+              children: [
+                if (nutrientPrimaryText != null)
+                  EsnyaText.titleBold(
+                    nutrientPrimaryText,
+                    color: colorSchemeLight.onSurface,
+                  ),
+                if (nutrientPrimaryText != null &&
+                    nutrientSecondaryText != null)
+                  EsnyaText.titleBold(
+                    " | ",
+                    color: colorSchemeLight.onSurface,
+                  ),
+                if (nutrientSecondaryText != null)
+                  EsnyaText.titleBold(
+                    nutrientSecondaryText,
+                    color: colorSchemeLight.onSurface,
+                  )
+              ],
             )
           ], // TODO: use real numbers
         ));

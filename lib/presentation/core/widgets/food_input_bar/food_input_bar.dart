@@ -1,3 +1,5 @@
+import 'package:esnya/presentation/core/design_components/esnya_button.dart';
+import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -56,65 +58,66 @@ class _FoodInputBarState extends State<FoodInputBar> {
     final colorScheme = getColorScheme(context);
     final textTheme = getTextTheme(context);
 
-    Widget _buildInput() => Container(
-          height: 36,
-          child: TextField(
-            onChanged: widget.onChanged,
-            onSubmitted: widget.onClosed,
-            focusNode: widget.focusNode,
-            textInputAction: TextInputAction.done,
-            controller: _controller,
-            clipBehavior: Clip.antiAlias,
-            maxLines: 1,
-            style: textTheme.titleLarge,
-            textAlignVertical: TextAlignVertical.center,
-            decoration: InputDecoration(
-              filled: true,
-              border: OutlineInputBorder(
+    Widget _buildInput() => Shadow(
+          Container(
+            height: 32,
+            child: TextField(
+              onChanged: widget.onChanged,
+              onSubmitted: widget.onClosed,
+              focusNode: widget.focusNode,
+              textInputAction: TextInputAction.done,
+              controller: _controller,
+              clipBehavior: Clip.antiAlias,
+              maxLines: 1,
+              style: textTheme.titleLarge,
+              textAlignVertical: TextAlignVertical.top,
+              textAlign: TextAlign.left,
+              decoration: InputDecoration(
+                filled: true,
+                border: const OutlineInputBorder(
                   borderSide: BorderSide.none,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(8),
-                    topLeft: Radius.circular(8),
-                  )),
-              fillColor: colorScheme.surface,
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: EsnyaSizes.base * 2),
-              hintText: '200 g of kidney beans',
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                fillColor: colorScheme.surface,
+                contentPadding: EdgeInsets.only(
+                  left: EsnyaSizes.base * 2,
+                  right: EsnyaSizes.base * 2 + 32,
+                ),
+                hintText: '200 g of kidney beans',
+              ),
             ),
           ),
         );
-    Widget _buildButton() => MaterialButton(
+
+    Widget _buildButton() => EsnyaIconButton.surface(
+          EsnyaIcons.check,
           onPressed: () {
             widget.onSubmitted(_content);
             _controller.clear();
           },
-          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          height: 36,
-          padding: const EdgeInsets.all(4),
-          minWidth: 0,
-          shape: const RoundedRectangleBorder(
-            borderRadius: const BorderRadius.only(
-                bottomRight: Radius.circular(8), topRight: Radius.circular(8)),
-            side: BorderSide.none,
+          buttonSize: ButtonSize.large,
+        )
+          ..getIconColor = ((c) => c.primary)
+          ..shadow = false;
+
+    return Container(
+      height: 50,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: _buildInput()),
+            ],
           ),
-          color: colorScheme.primary,
-          disabledColor: colorScheme.surface,
-          elevation: 0,
-          hoverElevation: 0,
-          focusElevation: 0,
-          highlightElevation: 0,
-          child: Icon(
-            EsnyaIcons.check,
-            size: 28,
-            color: colorScheme.surface,
+          Positioned(
+            child: Shadow(_buildButton()),
+            right: 0,
+            top: 9,
           ),
-        );
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(child: _buildInput()),
-        _buildButton(),
-      ],
+        ],
+      ),
     );
   }
 }
