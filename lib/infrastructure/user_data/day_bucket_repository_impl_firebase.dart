@@ -6,7 +6,7 @@ import 'package:esnya/infrastructure/user_data/dtos/day_bucket_dto.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/core/failures.dart';
-import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
+import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';

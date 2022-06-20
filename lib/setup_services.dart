@@ -2,7 +2,7 @@ import 'package:esnya/application/app_startup/cubit/app_startup_cubit.dart';
 import 'package:esnya/domain/app_startup/app_startup_repository.dart';
 import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
 import 'package:esnya/domain/resources/data_directory_path_provider.dart';
-import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
+import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:path_provider/path_provider.dart';
 

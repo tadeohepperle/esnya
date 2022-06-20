@@ -14,6 +14,7 @@ abstract class EsnyaIcons {
   static const IconData fiber =
       FontAwesomeIcons.mattressPillow; // TODO: change icons
 
+  static const IconData add = Icons.add_circle;
   static const IconData close = Icons.close;
   static const IconData delete = Icons.delete;
   static const IconData back = Icons.back_hand;

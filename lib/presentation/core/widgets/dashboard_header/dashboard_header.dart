@@ -1,4 +1,6 @@
+import 'package:esnya/domain/auth/auth_repository.dart';
 import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
+import 'package:esnya/infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
@@ -7,6 +9,7 @@ import 'package:esnya/presentation/core/design_components/utils/grid_overlay.dar
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
+import 'package:kt_dart/collection.dart';
 
 import '../../design_components/esnya_button.dart';
 import '../../design_components/esnya_icon_button.dart';
@@ -14,7 +17,7 @@ import '../../design_components/esnya_sizes.dart';
 import 'nutrient_target_header_display.dart';
 
 class DashboardHeader extends StatelessWidget {
-  final DayBucket bucket;
+  final DayBucket? bucket;
   final VoidCallback onCardTap;
   final VoidCallback onCalendarTap;
   const DashboardHeader({
@@ -29,6 +32,14 @@ class DashboardHeader extends StatelessWidget {
     final colorScheme = getColorScheme(context);
     final dietRepo = getIt<UserDietPreferencesRepository>();
     final langRepo = getIt<LanguageRepository>();
+
+    final authRepo = getIt<AuthRepository>();
+    final userId = authRepo.getSignedInUser().toNullable()!.id;
+    final bucket = this.bucket ??
+        DayBucket(
+            userId: userId,
+            id: UniqueId.fromUniqueString(bucketIdForToday()),
+            entries: <FoodItemEntry>[].toImmutableList());
     final nutrientAmounts = bucket.computedNutrientAmounts;
 
     final bucketDateTime = bucketIdToDate(bucket.id.value);

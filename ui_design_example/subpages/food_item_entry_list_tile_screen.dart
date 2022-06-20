@@ -115,7 +115,7 @@ class _FoodItemEntryListTileScreenState
               height: 4,
             ),
             FoodItemEntryProcessingListTile(
-              processing: FoodItemEntryFailed(
+              processing: FoodItemEntryProcessing(
                   amount: Amount(MeasureUnit.g, 320),
                   uniqueId: UniqueId(),
                   dateTime: DateTime.now(),
@@ -124,14 +124,7 @@ class _FoodItemEntryListTileScreenState
               onTap: () {
                 print("onTap");
               },
-              onBadgeTap: () {
-                print("onBadgeTap");
-                setState(() {
-                  badgeNutrient = badgeNutrient == NutrientType.energy
-                      ? NutrientType.protein
-                      : NutrientType.energy;
-                });
-              },
+             
             ),
             Divider(),
             NoEntriesYetListItem(),

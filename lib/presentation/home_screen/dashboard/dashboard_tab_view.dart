@@ -1,12 +1,22 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart' hide State;
 import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
-import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
+import 'package:esnya/domain/auth/auth_repository.dart';
+import 'package:esnya/domain/core/errors.dart';
+import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
+import 'package:esnya/infrastructure/core/dev_utils/firestore_operations.dart';
+import 'package:esnya/infrastructure/core/firestore_helpers.dart';
+import 'package:esnya/presentation/core/design_components/esnya_button.dart';
 import 'package:esnya/presentation/core/widgets/bucket_date_title_list_item.dart';
 import 'package:esnya/presentation/core/widgets/dashboard_header/dashboard_header.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_card.dart';
+import 'package:esnya/presentation/core/widgets/list_tiles/food_item_entry_failed_list_tile.dart';
+import 'package:esnya/presentation/core/widgets/list_tiles/food_item_entry_list_tile.dart';
+import 'package:esnya/presentation/core/widgets/list_tiles/food_item_entry_processing_list_tile.dart';
 import 'package:esnya/presentation/core/widgets/list_tiles/no_entries_yet_list_item.dart';
 import 'package:esnya/presentation/core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
@@ -17,7 +27,6 @@ import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/constants.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/widgets/food_input_bar/food_input_bar.dart';
@@ -82,27 +91,13 @@ class _DashboardTabViewState extends State<DashboardTabView>
     super.dispose();
   }
 
-  void _handleKeyBoardVisibilityChange(bool visible) {
-    if (!visible && dashboardInputState == DashboardInputState.text) {
-      dashboardInputState = DashboardInputState.closed;
-    }
-  }
-
-  /// requests focus multiple times. Necessary, because due to crossfade animations, the food input bar may not be focussable right away.
-  /// returns, wether the food input bar was ultimatily focussable or not.
-  Future<bool> _requestFocusUntilItsGranted(
-      {Duration requestInterval = const Duration(milliseconds: 5),
-      int maxRequests = 100}) async {
-    for (var i = 0; i < maxRequests; i++) {
-      if (_foodInputBarFocusNode.canRequestFocus) {
-        _foodInputBarFocusNode.requestFocus();
-        _scrollToEndInListView(animated: true);
-        return true;
-      }
-      await Future.delayed(requestInterval);
-    }
-    return false;
-  }
+  /// Layout for this page:
+  /// xpx unsafeArea
+  /// 172px header (EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea)
+  ///
+  ///
+  ///
+  /// 48px tabnavigation (EsnyaSizes.kEsnyaBottomNavigationTabHeight)
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +143,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     Widget _buildBodyHeader() {
       // TODO: put in bucket
       return DashboardHeader(
-        bucket: _headerBucket ?? TestObjects.foodItemEntryBucket, // TODO!!
+        bucket: _headerBucket,
         onCalendarTap: () {
           // TODO
         },
@@ -158,100 +153,150 @@ class _DashboardTabViewState extends State<DashboardTabView>
       );
     }
 
-    Widget _buildListItem(FoodItemEntryWrapper foodItemEntryWrapper,
-        {UniqueId? bucketId}) {
-      return SizedBox(); // TODOODDOODDOODODDODODDDD
+    Widget _buildFoodItemEntryListTile(
+        {required FoodItemEntry foodItemEntry, UniqueId? bucketId}) {
+      return Padding(
+        padding: const EdgeInsets.only(
+            bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
+        child: FoodItemEntryListTile(
+          foodItemEntry: foodItemEntry,
+          badgeNutrient: _nutrientTypeForBadges,
+          onBadgeTap: () {
+            // TODO:
+            _switchBadgeNutrients();
+          },
+          onTap: () {
+            // TODO:
+            if (bucketId != null) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(EsnyaSizes.base * 2),
+                        child: FoodItemEntryCard(
+                          foodItemEntry: foodItemEntry,
+                          onCloseButtonClick: () {
+                            Navigator.of(context).pop();
+                          },
+                          onDeleteButtonClick: () {
+                            getIt<DayBucketsRepository>()
+                                .deleteEntry(bucketId, foodItemEntry);
+                            Navigator.of(context).pop();
+                          },
+                          onTimeButtonClick: () {
+                            // TODO
+                          },
+                          onAmountButtonClick: () {
+                            // TODO
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+          },
+        ),
+      );
+    }
 
-      // return Padding(
-      //   padding: const EdgeInsets.only(
-      //       bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
-      //   child: FoodItemEntryListTile(
-      //     foodItemEntry: foodItemEntryWrapper,
-      //     onBadgeTap: () {
-      //       // TODO:
-      //       _switchBadgeNutrients();
-      //     },
-      //     onTap: () {
-      //       // TODO:
-      //       if (bucketId != null &&
-      //           foodItemEntryWrapper is FoodItemEntrySuccess) {
-      //         showDialog(
-      //           context: context,
-      //           builder: (context) {
-      //             return Column(
-      //               mainAxisSize: MainAxisSize.max,
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               children: [
-      //                 Padding(
-      //                   padding: EdgeInsets.all(EsnyaSizes.base * 2),
-      //                   child: FoodItemEntryCard(
-      //                     foodItemEntry: foodItemEntryWrapper.entry,
-      //                     onCloseButtonClick: () {
-      //                       Navigator.of(context).pop();
-      //                     },
-      //                     onDeleteButtonClick: () {
-      //                       getIt<DayBucketsRepository>().deleteEntry(
-      //                           bucketId, foodItemEntryWrapper.entry);
-      //                       Navigator.of(context).pop();
-      //                     },
-      //                     onTimeButtonClick: () {
-      //                       // TODO
-      //                     },
-      //                     onAmountButtonClick: () {
-      //                       // TODO
-      //                     },
-      //                   ),
-      //                 ),
-      //               ],
-      //             );
-      //           },
-      //         );
-      //       }
-      //     },
-      //     badgeNutrient: _nutrientTypeForBadges,
-      //   ),
-      // );
+    Widget _buildFoodItemEntryFailedListTile(
+        FoodItemEntryFailed foodItemEntryFailed) {
+      return FoodItemEntryFailedListTile(
+          failed: foodItemEntryFailed,
+          onTap: () {
+            // TODO!!
+          });
+    }
+
+    Widget _buildFoodItemEntryProcessingListTile(
+        FoodItemEntryProcessing foodItemEntryProcessing) {
+      return FoodItemEntryProcessingListTile(
+          processing: foodItemEntryProcessing,
+          onTap: () {
+            // TODO!!
+          });
+    }
+
+    Iterable<Widget> _buildItemsOfTodaysBucket(
+      DayBucket bucket,
+    ) {
+      List<Tuple2<DateTime, Widget>> items = bucket.entries.iter
+          .map(
+            (e) => Tuple2(
+              e.dateTime,
+              _buildFoodItemEntryListTile(
+                  foodItemEntry: e, bucketId: bucket.id),
+            ),
+          )
+          .toList();
+      items.addAll(
+        dashboardState.entriesBetweenBlocAndRepo.iter.map(
+          (e) => Tuple2(
+            e.dateTime,
+            _buildFoodItemEntryListTile(foodItemEntry: e),
+          ),
+        ),
+      );
+
+      DateTime _dtFromWrapper(FoodItemEntryWrapper w) {
+        return w.map(
+            success: (_) => _.entry.dateTime,
+            processing: (_) => _.dateTime,
+            failed: (_) => _.dateTime);
+      }
+
+      items.addAll(dashboardState.entriesFoodInputBloc.iter.map(
+        (e) => Tuple2(
+          _dtFromWrapper(e),
+          e.map(
+            success: (success) => _buildFoodItemEntryListTile(
+                foodItemEntry: success.entry, bucketId: bucket.id),
+            processing: (_) => _buildFoodItemEntryProcessingListTile(_),
+            failed: (_) => _buildFoodItemEntryFailedListTile(_),
+          ),
+        ),
+      ));
+
+      items.sort(((a, b) => a.value1.compareTo(b.value1)));
+      return items.map((e) => e.value2);
     }
 
     Widget _buildBodyFoodLogList() {
-      Widget _buildBucket(DayBucket bucket, {bool paddingTop = true}) {
+      Widget _buildBucket(DayBucket bucket,
+          {required bool mostRecentBucket, required bool mostDistantBucket}) {
         final isEmpty = bucket.entries.isEmpty();
         final noVolatileItems =
             dashboardState.entriesBetweenBlocAndRepo.isEmpty() &&
                 dashboardState.entriesFoodInputBloc.isEmpty();
 
         return Padding(
-          padding: EdgeInsets.only(
-            top: paddingTop
-                ? EsnyaSizes.kDashboardPaddingBetweenBucketsInListView
-                : 0,
-            left: EsnyaSizes.base,
-            right: EsnyaSizes.base,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: mostDistantBucket
+                    ? 0
+                    : EsnyaSizes.kDashboardPaddingBetweenBuckets,
+              ),
               BucketDateTitleListItem(bucket: bucket),
               if (isEmpty && noVolatileItems)
-                NoEntriesYetListItem()
+                const NoEntriesYetListItem()
+              else if (mostRecentBucket)
+                ..._buildItemsOfTodaysBucket(bucket)
               else
-                ...bucket.entries.iter.map((e) => _buildListItem(
-                    FoodItemEntryWrapper.success(e),
-                    bucketId: bucket.id)),
-            ],
-          ),
-        );
-      }
-
-      Widget _buildUnsafeEntries() {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: EsnyaSizes.base),
-          child: Column(
-            children: [
-              ...dashboardState.entriesBetweenBlocAndRepo.iter
-                  .map((e) => _buildListItem(FoodItemEntryWrapper.success(e))),
-              ...dashboardState.entriesFoodInputBloc.iter
-                  .map((e) => _buildListItem(e)),
+                ...bucket.entries.iter.map(
+                  (e) => _buildFoodItemEntryListTile(
+                    foodItemEntry: e,
+                    bucketId: bucket.id,
+                  ),
+                ),
             ],
           ),
         );
@@ -289,37 +334,22 @@ class _DashboardTabViewState extends State<DashboardTabView>
           width: double.infinity,
           height: height,
         );
-
-        /// just for debugging:
-        // return Container(
-        //     alignment: Alignment.topCenter,
-        //     height: height,
-        //     width: double.infinity,
-        //     color: Colors.green,
-        //     child: SizedBox(
-        //       height: 20,
-        //       width: 20,
-        //       child: Container(color: Colors.black),
-        //     ));
       }
 
       return ListView.builder(
         controller: _scrollController,
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.zero,
         reverse: true,
         // +1 for the unsafe items, +1 for a container allowing more scroll up than usual, such that "Today" can be displayed right beneath the header
-        itemCount: buckets.size + 2,
+        itemCount: buckets.size + 1,
         itemBuilder: (context, index) {
           if (index == 0) {
             return _buildContainerForScrollUp();
-          }
-          if (index == 1) {
-            /// because of `reverse: true` this will be the downmost widget: a column for the entries not yet stored in firestore.
-            return _buildUnsafeEntries();
-          } else if (index == buckets.size + 1) {
-            return _buildBucket(buckets[index - 2], paddingTop: false);
           } else {
-            return _buildBucket(buckets[index - 2], paddingTop: true);
+            return _buildBucket(buckets[index - 1],
+                mostRecentBucket: index == 1,
+                mostDistantBucket: index == buckets.size + 1);
           }
         },
       );
@@ -329,7 +359,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     Widget _buildPlaceKeeperContainer() {
       final height = _heightOfContainerBelowListView(context);
       // (so no gradient when keyboard is open)
-      final double gradientHeight = height > 200 ? 0 : 40;
+      final double gradientHeight = height > 200 ? 0 : 40; // 40
       final colorScheme = getColorScheme(context);
       return Container(
         color: colorScheme.background,
@@ -373,28 +403,35 @@ class _DashboardTabViewState extends State<DashboardTabView>
   /// the bottom floating action icons / the voice input panel
   Widget _buildBottomWidgets(BuildContext context) {
     Widget _buildFloatingActionButtons() {
-      return Padding(
-        padding: EdgeInsets.all(EsnyaSizes.base),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(EsnyaSizes.base * 2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            EsnyaIconButton.surface(
-              EsnyaIcons.write,
-              onPressed: () {
-                if (dashboardInputState == DashboardInputState.closed) {
-                  dashboardInputState = DashboardInputState.text;
-                }
-              },
-            ),
-            EsnyaSizes.spaceBaseWidth,
-            EsnyaIconButton.surface(
-              EsnyaIcons.microphone,
+            EsynaButton.surface(
+              title: "Add by Voice",
+              leadingIcon: EsnyaIcons.microphone,
+              buttonSize: ButtonSize.large,
               onPressed: () {
                 if (dashboardInputState == DashboardInputState.closed) {
                   dashboardInputState = DashboardInputState.voice;
                 }
               },
+            )..getTextColor = (c) => c.secondary,
+            SizedBox(
+              height: EsnyaSizes.base,
             ),
+            EsynaButton.surface(
+              title: "Add Food by Text",
+              leadingIcon: EsnyaIcons.add,
+              buttonSize: ButtonSize.large,
+              onPressed: () {
+                if (dashboardInputState == DashboardInputState.closed) {
+                  dashboardInputState = DashboardInputState.text;
+                }
+              },
+            )..getTextColor = (c) => c.primary,
           ],
         ),
       );
@@ -434,11 +471,14 @@ class _DashboardTabViewState extends State<DashboardTabView>
             visible ? CrossFadeState.showFirst : CrossFadeState.showSecond,
         duration: kCrossFadeAnimationDuration,
         secondChild: SizedBox.shrink(),
-        firstChild: FoodInputBar(
-          focusNode: _foodInputBarFocusNode,
-          onChanged: (value) => _onChanged(context, value),
-          onSubmitted: (value) => _onSubmitted(context, value),
-          onClosed: (value) => _onClosed(context, value),
+        firstChild: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: FoodInputBar(
+            focusNode: _foodInputBarFocusNode,
+            onChanged: (value) => _onChanged(context, value),
+            onSubmitted: (value) => _onSubmitted(context, value),
+            onClosed: (value) => _onClosed(context, value),
+          ),
         ),
       ),
     );
@@ -456,6 +496,28 @@ class _DashboardTabViewState extends State<DashboardTabView>
   _onChanged(BuildContext context, String value) {
     context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(value));
     _scrollToEndInListView();
+  }
+
+  void _handleKeyBoardVisibilityChange(bool visible) {
+    if (!visible && dashboardInputState == DashboardInputState.text) {
+      dashboardInputState = DashboardInputState.closed;
+    }
+  }
+
+  /// requests focus multiple times. Necessary, because due to crossfade animations, the food input bar may not be focussable right away.
+  /// returns, wether the food input bar was ultimatily focussable or not.
+  Future<bool> _requestFocusUntilItsGranted(
+      {Duration requestInterval = const Duration(milliseconds: 5),
+      int maxRequests = 100}) async {
+    for (var i = 0; i < maxRequests; i++) {
+      if (_foodInputBarFocusNode.canRequestFocus) {
+        _foodInputBarFocusNode.requestFocus();
+        _scrollToEndInListView(animated: true);
+        return true;
+      }
+      await Future.delayed(requestInterval);
+    }
+    return false;
   }
 
   void _scrollToEndInListView({bool animated = false}) {
@@ -493,7 +555,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
     double _heightOfBucket(DayBucket bucket) {
       final length = bucket.entries.size;
       return EsnyaSizes.kBucketDateTitleListItemHeight +
-          EsnyaSizes.kDashboardPaddingBetweenBucketsInListView +
+          EsnyaSizes.kDashboardPaddingBetweenBuckets +
           length *
               (EsnyaSizes.kFoodItemEntryListTileHeight +
                   EsnyaSizes.kFoodItemEntryListTilePaddingBelow) +

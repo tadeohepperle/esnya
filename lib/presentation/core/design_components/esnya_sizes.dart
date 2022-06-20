@@ -14,10 +14,10 @@ abstract class EsnyaSizes {
   static const double kDashboardHeaderheightWithoutUnsafeArea = 176;
   static const double kDashboardContainerBelowListViewHeight = 64;
 
-  static const double kFoodItemEntryListTileHeight = 36;
-  static const double kFoodItemEntryListTilePaddingBelow = 8.0;
+  static const double kFoodItemEntryListTileHeight = 28.0;
+  static const double kFoodItemEntryListTilePaddingBelow = 4.0;
   static const double kBucketDateTitleListItemHeight = 40;
-  static const double kDashboardPaddingBetweenBucketsInListView = 30;
+  static const double kDashboardPaddingBetweenBuckets = 16;
   static const double kNoEntriesYetListItemHeight = 100;
 
   static RoundedRectangleBorder roundedRectangleBorder = RoundedRectangleBorder(

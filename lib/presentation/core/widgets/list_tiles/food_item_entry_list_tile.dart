@@ -39,7 +39,7 @@ class FoodItemEntryListTile extends StatelessWidget {
       MaterialButton(
         onPressed: onTap,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        height: 28,
+        height: EsnyaSizes.kFoodItemEntryListTileHeight,
         padding: const EdgeInsets.only(left: 8, right: 5),
         minWidth: 0,
         shape: const RoundedRectangleBorder(

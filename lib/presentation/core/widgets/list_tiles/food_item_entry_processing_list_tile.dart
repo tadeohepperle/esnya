@@ -1,5 +1,6 @@
 import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/injection.dart';
+import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/core/design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +9,13 @@ import '../../design_components/esnya_design_utils.dart';
 import '../../design_components/esnya_icons.dart';
 
 class FoodItemEntryProcessingListTile extends StatelessWidget {
-  final FoodItemEntryFailed processing;
+  final FoodItemEntryProcessing processing;
   final NutrientType badgeNutrient;
   final VoidCallback onTap;
-  final VoidCallback onBadgeTap;
   const FoodItemEntryProcessingListTile({
     Key? key,
     required this.processing,
     required this.onTap,
-    required this.onBadgeTap,
     this.badgeNutrient = NutrientType.energy,
   }) : super(key: key);
 
@@ -32,7 +31,7 @@ class FoodItemEntryProcessingListTile extends StatelessWidget {
       MaterialButton(
         onPressed: onTap,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        height: 28,
+        height: EsnyaSizes.kFoodItemEntryListTileHeight,
         padding: const EdgeInsets.only(left: 8, right: 8),
         minWidth: 0,
         shape: const RoundedRectangleBorder(

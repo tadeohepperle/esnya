@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/domain/core/utils.dart';
-import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
+import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

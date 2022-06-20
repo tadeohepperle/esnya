@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:esnya/domain/core/utils.dart';
-import 'package:esnya/domain/user_data/food_item_entry_bucket_repository.dart';
+import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/data_structures/streamable_value.dart';
 import 'package:esnya_shared_resources/core/data_structures/value_and_stream.dart';
