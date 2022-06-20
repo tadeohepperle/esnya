@@ -2,7 +2,7 @@ import 'package:esnya/presentation/core/core.dart';
 
 const defaultGridColor = Color.fromARGB(50, 255, 0, 0);
 
-class GridOverlay extends StatelessWidget {
+class GridOverlay extends StatefulWidget {
   final Widget child;
   final int gridSize;
   final int gridThickness;
@@ -16,22 +16,45 @@ class GridOverlay extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<GridOverlay> createState() => _GridOverlayState();
+}
+
+class _GridOverlayState extends State<GridOverlay> {
+  bool gridVisible = true;
+
+  @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Stack(
       children: [
+        widget.child,
+        if (gridVisible)
+          SizedBox(
+            width: screenSize.width,
+            height: screenSize.height,
+            child: CustomPaint(
+              painter: GridPainter(
+                gridColor: widget.gridColor,
+                gridSize: widget.gridSize,
+                gridThickness: widget.gridThickness,
+              ),
+            ),
+          ),
         SizedBox(
           width: screenSize.width,
           height: screenSize.height,
-          child: CustomPaint(
-            painter: GridPainter(
-              gridColor: gridColor,
-              gridSize: gridSize,
-              gridThickness: gridThickness,
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: MaterialButton(
+              onPressed: () {
+                setState(() {
+                  gridVisible = !gridVisible;
+                });
+              },
+              child: const Text("toggle grid"),
             ),
           ),
         ),
-        child,
       ],
     );
   }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'subpages/buttons_screen.dart';
 import 'subpages/colors_screen.dart';
+import 'subpages/dashboard_header_screen.dart';
 import 'subpages/switches_screen.dart';
 import 'subpages/food_input_bar_screen.dart';
 import 'subpages/food_item_entry_card_screen.dart';
@@ -57,6 +58,8 @@ class ExampleHomeScreen extends StatelessWidget {
             SubscreenListTile("Color Styles", (c) => ColorsScreen()),
             SubscreenListTile("Buttons", (c) => ButtonsScreen()),
             SubscreenListTile("Switches", (c) => SwitchesScreen()),
+            SubscreenListTile(
+                "DashboardHeader", (c) => DashboardHeaderScreen()),
             SubscreenListTile("Food Item Entry List Tiles",
                 (c) => FoodItemEntryListTileScreen()),
             SubscreenListTile(

@@ -150,9 +150,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
         onCardTap: () {
           // TODO
         },
-        onSettingsTap: () {
-          // TODO
-        },
       );
     }
 

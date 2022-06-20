@@ -3,6 +3,7 @@ import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
 import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
+import 'package:esnya/presentation/core/design_components/utils/grid_overlay.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +11,16 @@ import 'package:flutter/material.dart';
 import '../../design_components/esnya_button.dart';
 import '../../design_components/esnya_icon_button.dart';
 import '../../design_components/esnya_sizes.dart';
-import 'big_nutrient_goal_display.dart';
+import 'nutrient_target_header_display.dart';
 
 class DashboardHeader extends StatelessWidget {
   final DayBucket bucket;
   final VoidCallback onCardTap;
-  final VoidCallback onSettingsTap;
   final VoidCallback onCalendarTap;
   const DashboardHeader({
     Key? key,
     required this.bucket,
     required this.onCardTap,
-    required this.onSettingsTap,
     required this.onCalendarTap,
   }) : super(key: key);
 
@@ -42,85 +41,78 @@ class DashboardHeader extends StatelessWidget {
           )
         : "Unknown Date";
 
-    final bigNutrientGoalDisplays = [
-      for (NutrientType nutrientType in [
-        dietRepo.preferredNutrientPrimary
-      ]) ...[
-        BigNutrientGoalDisplay(
-          nutrientTarget: dietRepo.getDailyTarget(nutrientType),
-          consumedAmount: nutrientAmounts[nutrientType],
+    final primaryNutrient = dietRepo.preferredNutrientPrimary;
+    final secondaryNutrient = dietRepo.preferredNutrientSecondary;
+    return Shadow(
+      MaterialButton(
+        onPressed: onCardTap,
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: EdgeInsets.all(0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+          side: BorderSide.none,
         ),
-        SizedBox(
-          height: 8,
-        )
-      ]
-    ];
-    bigNutrientGoalDisplays.removeLast();
-
-    return MaterialButton(
-      onPressed: onCardTap,
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      padding: EdgeInsets.all(0),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(EsnyaSizes.base * 4),
-          bottomRight: Radius.circular(EsnyaSizes.base * 4),
-        ),
-        side: BorderSide.none,
-      ),
-      color: colorScheme.surface,
-      elevation: 0,
-      hoverElevation: 0,
-      focusElevation: 0,
-      highlightElevation: 0,
-      child: SafeArea(
-        child: Container(
-          padding: EdgeInsets.fromLTRB(
-              EsnyaSizes.base * 2, EsnyaSizes.base * 2, EsnyaSizes.base * 2, 0),
-          width: double.infinity,
-          height: EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  EsynaButton.surface(
-                    title: dateTitle,
-                    leadingIcon: Icons.calendar_today,
-                    onPressed: onCalendarTap,
-                  ),
-                  EsnyaIconButton.surface(
-                    EsnyaIcons.settings,
-                    onPressed: onSettingsTap,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 5),
-                child: Column(
+        color: colorScheme.surface,
+        elevation: 0,
+        hoverElevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.all(EsnyaSizes.base * 2),
+            width: double.infinity,
+            height: EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
                   children: [
-                    ...bigNutrientGoalDisplays,
+                    EsynaButton.surface(
+                      title: dateTitle,
+                      leadingIcon: EsnyaIcons.calendar,
+                      onPressed: onCalendarTap,
+                    ),
                   ],
                 ),
-              ),
-              Center(
-                child: Transform.translate(
-                  offset: Offset(0, 6),
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: colorScheme.onBackground,
-                    size: 30,
-                  ),
+                const SizedBox(
+                  height: 8,
                 ),
-              )
-            ],
+                NutrientTargetHeaderDisplay(
+                  nutrientTarget: dietRepo.getDailyTarget(primaryNutrient),
+                  consumedAmount: nutrientAmounts[primaryNutrient],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                NutrientTargetHeaderDisplay(
+                  nutrientTarget: dietRepo.getDailyTarget(secondaryNutrient),
+                  consumedAmount: nutrientAmounts[secondaryNutrient],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+
+/////////////////////
+/// Sizing:
+/// 
+/// unsafeare
+/// 16px
+/// 24px button
+/// 8px
+/// 40px h1
+/// 4px 
+/// 8px bar
+/// 8px
+/// 40px h1
+/// 4px
+/// 8px bar
+/// 16px
