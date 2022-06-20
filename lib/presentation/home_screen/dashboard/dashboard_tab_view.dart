@@ -110,23 +110,28 @@ class _DashboardTabViewState extends State<DashboardTabView>
     return BlocProvider<FoodInputBloc>(
       create: (context) => getIt<FoodInputBloc>(),
       child: BlocBuilder<FoodInputBloc, FoodInputState>(
-          builder: (context, foodInputState) {
-        return BlocConsumer<DashboardBloc, DashboardState>(
+        builder: (context, foodInputState) {
+          return BlocConsumer<DashboardBloc, DashboardState>(
             listener: (context, dashboardState) {
-          /// recalculate _bucketDistancesFromScrollEnd
-          _recalculateBucketDistancesFromScrollEnd(
-              dashboardState.buckets.asList());
-        }, builder: (context, dashboardState) {
-          return Stack(children: [
-            // the body of the page
-            _buildBody(context, dashboardState),
-            // the bottom floating action icons / the voice input panel
-            _buildBottomWidgets(context),
-            // the text input bar clinging to the keyboard
-            _buildFoodInputBar(context),
-          ]);
-        });
-      }),
+              _recalculateBucketDistancesFromScrollEnd(
+                dashboardState.buckets.asList(),
+              );
+            },
+            builder: (context, dashboardState) {
+              return Stack(
+                children: [
+                  // the body of the page (header + list of entries)
+                  _buildBody(context, dashboardState),
+                  // the bottom floating action icons / the voice input panel
+                  _buildBottomWidgets(context),
+                  // the text input bar clinging to the keyboard
+                  _buildFoodInputBar(context),
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 

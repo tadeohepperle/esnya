@@ -4,6 +4,7 @@ import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/domain/core/app_localizations_x.dart';
+import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
 import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:esnya/presentation/home_screen/calculator/calculator_tab_view.dart';
@@ -57,6 +58,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = getColorScheme(context);
+
     return BlocProvider<DashboardBloc>(
       create: (contet) => getIt<DashboardBloc>(),
       child: BlocConsumer<AuthBloc, AuthState>(
@@ -69,26 +72,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           final loc = AppLocalizations.of(context);
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            bottomNavigationBar: TabBar(
-              indicatorWeight: EsnyaSizes.kEsnyaBottomNavigationIndicatorHeight,
-              controller: _controller,
-              tabs: [
-                for (final i in HomeScreenTabType.values.asMap().keys)
-                  BottomNavigationTab(
-                    title: loc!.homeScreenTabTitle(HomeScreenTabType.values[i]),
-                    iconData:
-                        EsnyaIcons.tabIcons[HomeScreenTabType.values[i]] ??
-                            EsnyaIcons.placeholder,
-                    active: _controller.index == i,
-                  )
-                // Tab(
-                //   text: loc!.homeScreenTabTitle(tab),
-                //   icon: Icon(Icons.abc),
-                // )
-              ],
-              onTap: (index) {
-                context.go(HomeScreenTabType.values[index].nameAndPath.path);
-              },
+            bottomNavigationBar: Shadow(
+              Container(
+                color: colorScheme.surface,
+                child: TabBar(
+                  indicatorWeight:
+                      EsnyaSizes.kEsnyaBottomNavigationIndicatorHeight,
+                  controller: _controller,
+                  tabs: [
+                    for (final i in HomeScreenTabType.values.asMap().keys)
+                      BottomNavigationTab(
+                        title: loc!
+                            .homeScreenTabTitle(HomeScreenTabType.values[i]),
+                        iconData:
+                            EsnyaIcons.tabIcons[HomeScreenTabType.values[i]] ??
+                                EsnyaIcons.placeholder,
+                        active: _controller.index == i,
+                      )
+                    // Tab(
+                    //   text: loc!.homeScreenTabTitle(tab),
+                    //   icon: Icon(Icons.abc),
+                    // )
+                  ],
+                  onTap: (index) {
+                    context
+                        .go(HomeScreenTabType.values[index].nameAndPath.path);
+                  },
+                ),
+              ),
             ),
             body: TabBarView(
               controller: _controller,
