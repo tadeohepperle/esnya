@@ -151,12 +151,12 @@ class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
     final userDoc = await _firestore.userDocument();
     yield* userDoc
         .collection(kBucketsCollectionName)
-        .orderBy(FieldPath.documentId, descending: true)
+        .orderBy("id", descending: true)
         .limit(batchSize)
         .snapshots()
         .map((colSnapshot) {
       logInfo(
-          'DayBucketRepository.watchLogBuckets() received snapshot of ${colSnapshot.docs.length} buckets');
+          'DayBucketRepository.watchBuckets() received snapshot of ${colSnapshot.docs.length} buckets');
       final buckets = colSnapshot.docs
           .map((doc) => DayBucketDTO.fromFireStore(doc))
           .toList()

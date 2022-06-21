@@ -256,7 +256,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
           _dtFromWrapper(e),
           e.map(
             success: (success) => _buildFoodItemEntryListTile(
-                foodItemEntry: success.entry, bucketId: bucket.id),
+              foodItemEntry: success.entry,
+            ),
             processing: (_) => _buildFoodItemEntryProcessingListTile(_),
             failed: (_) => _buildFoodItemEntryFailedListTile(_),
           ),

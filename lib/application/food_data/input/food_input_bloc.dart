@@ -28,7 +28,6 @@ typedef FragmentAndEntry
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   final TextProcessingRepository _textProcessingRepository;
   final FoodMappingRepository _foodMappingRepository;
-  final DayBucketsRepository _dayBucketRepository;
 
   StreamableValue<KtList<FragmentAndEntry>> _fragmentsAndEntries =
       StreamableValue<KtList<FragmentAndEntry>>(<FragmentAndEntry>[]
@@ -43,8 +42,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
   Stream<BlocAndBetweenRepoFoodItemEntries> get blocAndRepoEntries =>
       _blocAndRepoEntriesStreamController.stream;
 
-  FoodInputBloc(this._textProcessingRepository, this._dayBucketRepository,
-      this._foodMappingRepository)
+  FoodInputBloc(this._textProcessingRepository, this._foodMappingRepository)
       : super(FoodInputState.initial()) {
     _blocAndRepoEntriesStreamController.onListen = () {
       _blocAndRepoEntriesStreamController
@@ -150,8 +148,6 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         betweenBlocAndRepoEntries: repoEntries.toImmutableList(),
       ),
     );
-    // send to repo:
-    _dayBucketRepository.createEntriesForToday(repoEntries);
   }
 
   Future<void> _fetchFood(

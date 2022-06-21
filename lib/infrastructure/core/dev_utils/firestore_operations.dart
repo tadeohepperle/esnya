@@ -42,3 +42,19 @@ void postRandomDataToFireStore() async {
     print("----------");
   }
 }
+
+void deleteLogBuckets() async {
+  FirebaseFirestore _firestore = getIt<FirebaseFirestore>();
+  AuthRepository _authRepo = getIt<AuthRepository>();
+  var user = _authRepo
+      .getSignedInUser()
+      .getOrElse(() => throw NotAuthenticatedError());
+  final userDoc = await _firestore.userDocument();
+  final sn = await userDoc
+      .collection("buckets")
+      .where("id", isGreaterThan: "log-")
+      .get();
+  sn.docs.forEach((element) {
+    element.reference.delete();
+  });
+}

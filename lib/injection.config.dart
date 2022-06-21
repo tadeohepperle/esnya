@@ -127,7 +127,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_isolate1});
   gh.lazySingleton<_i31.FoodInputBloc>(
       () => _i31.FoodInputBloc(get<_i14.TextProcessingRepository>(),
-          get<_i27.DayBucketsRepository>(), get<_i14.FoodMappingRepository>()),
+          get<_i14.FoodMappingRepository>()),
       registerFor: {_isolate1});
   gh.lazySingleton<_i32.FoodMappingRepository>(
       () => _i33.FoodMappingRepositoryIsolateBridge(

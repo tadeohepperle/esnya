@@ -6,6 +6,7 @@ import 'package:esnya/application/food_data/input/food_input_bloc.dart';
 import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/domain/user_data/day_bucket_repository.dart';
+import 'package:esnya/infrastructure/core/dev_utils/firestore_operations.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -40,7 +41,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     ////////////////////////////////////////////////////
     _lastExtendBucketWatchRange = DateTime.now();
     _currentBatchSize = kInitialBucketBatchSize;
-
     ////////////////////////////////////////////////////
     // setup event handlers
     ////////////////////////////////////////////////////
@@ -83,6 +83,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
                 event.entries.betweenBlocAndRepoEntries,
             entriesFoodInputBloc: event.entries.blocEntries,
           ));
+          if (event.entries.betweenBlocAndRepoEntries.size > 0) {
+            await _dayBucketRepository.createEntriesForToday(
+              event.entries.betweenBlocAndRepoEntries.iter,
+            );
+          }
         },
         extendBucketWatchRange: (_ExtendBucketWatchRange value) {
           // if last extend was less than for example 2 seconds ago we dont do anything.
