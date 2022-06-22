@@ -1,20 +1,21 @@
-import '../../application/auth/auth_bloc.dart';
-import '../../application/home_screen/bloc/dashboard_bloc.dart';
-import '../../application/home_screen/home_screen_tab_type.dart';
-import '../../injection.dart';
-import '../core/core.dart';
-import '../../domain/core/app_localizations_x.dart';
-import '../core/design_components/esnya_design_utils.dart';
-import '../core/design_components/esnya_icons.dart';
-import '../core/design_components/esnya_sizes.dart';
-import 'calculator/calculator_tab_view.dart';
-import 'dashboard/dashboard_tab_view.dart';
-import 'profile/profile_tab_view.dart';
-import '../routes/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../application/auth/auth_bloc.dart';
+import '../../application/food_data/input/food_input_bloc.dart';
+import '../../application/home_screen/bloc/dashboard_bloc.dart';
+import '../../application/home_screen/home_screen_tab_type.dart';
+import '../../domain/core/app_localizations_x.dart';
+import '../../injection.dart';
+import '../core/core.dart';
+import '../core/design_components/esnya_design_utils.dart';
+import '../core/design_components/esnya_icons.dart';
+import '../core/design_components/esnya_sizes.dart';
 import '../core/widgets/bottom_navigation_tab.dart';
+import '../routes/app_router.dart';
+import 'calculator/calculator_tab_view.dart';
+import 'dashboard/dashboard_tab_view.dart';
+import 'profile/profile_tab_view.dart';
 
 // for nested navigation see this tutorial: https://gorouter.dev/nested-navigation
 // einzelne tabs müssen dann AutomaticKeepAliveClientMixin implementieren, damit state erhalten bleibt.
@@ -60,8 +61,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
 
-    return BlocProvider<DashboardBloc>(
-      create: (contet) => getIt<DashboardBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<DashboardBloc>(
+          create: (contet) => getIt<DashboardBloc>(),
+        ),
+        BlocProvider<FoodInputBloc>(
+          create: (context) => getIt<FoodInputBloc>(),
+        ),
+      ],
       child: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Unauthenticated) {

@@ -1,9 +1,10 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart';
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+
 import '../../resources/esnya_resource.dart';
 import '../../resources/esnya_resource_status.dart';
-import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 
 final rng = Random();
 

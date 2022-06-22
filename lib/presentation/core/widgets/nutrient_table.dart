@@ -1,14 +1,12 @@
-import 'package:dartz/dartz.dart' hide State;
-import '../../../injection.dart';
-import '../design_components/esnya_button.dart';
-import '../design_components/esnya_icons.dart';
-import '../design_components/esnya_sizes.dart';
-import '../design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/core/conversion/measure_unit_conversion.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
+import '../../../injection.dart';
 import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_icons.dart';
+import '../design_components/esnya_sizes.dart';
+import '../design_components/esnya_text.dart';
 
 class NutrientTable extends StatelessWidget {
   final NutrientTableState state;

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'errors.dart';
 
+import 'errors.dart';
 import 'failures.dart';
 
 abstract class ValueObject<T> {

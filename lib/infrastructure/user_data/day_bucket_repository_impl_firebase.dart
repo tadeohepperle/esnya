@@ -1,19 +1,19 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/core/utils.dart';
-import '../core/firestore_helpers.dart';
-import 'dtos/day_bucket_dto.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import '../../domain/core/failures.dart';
-import '../../domain/user_data/day_bucket_repository.dart';
-import '../../injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 import 'package:loggy/loggy.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../domain/core/failures.dart';
+import '../../domain/core/utils.dart';
+import '../../domain/user_data/day_bucket_repository.dart';
+import '../../injection_environments.dart';
+import '../core/firestore_helpers.dart';
+import 'dtos/day_bucket_dto.dart';
 import 'utils/food_item_entry_bucket_utils.dart';
 
 /// buckets are saved under collection: user/useridxyz/buckets

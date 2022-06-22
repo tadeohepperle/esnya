@@ -1,11 +1,9 @@
-import '../../design_components/esnya_button.dart';
-import '../../design_components/esnya_icon_button.dart';
-import '../../design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart';
 
 import '../../design_components/esnya_design_utils.dart';
+import '../../design_components/esnya_icon_button.dart';
 import '../../design_components/esnya_icons.dart';
-import 'food_input_bar_controller.dart';
+import '../../design_components/esnya_sizes.dart';
 
 class FoodInputBar extends StatefulWidget {
   final void Function(String) onChanged;

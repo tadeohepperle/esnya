@@ -1,13 +1,10 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
-import '../../domain/core/failures.dart';
-import 'dart:io';
+import 'package:get_storage/get_storage.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/resources/local_data_repository.dart';
 import '../../injection_environments.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:injectable/injectable.dart';
 
 // just so that noone else will access the get storage by accident.
 const String _kLocalStorageKey = "b7s0s8";

@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-import '../../domain/isolate2/entities/isolate_response.dart';
-import '../../domain/resources/data_directory_path_provider.dart';
-import '../../domain/resources/resource_repository.dart';
-import '../resources/resource_repository_impl_isolate_2.dart';
-import '../../injection.dart';
-import '../../injection_environments.dart';
-import '../../setup_services.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:loggy/loggy.dart';
 import 'package:stream_channel/isolate_channel.dart';
 
 import '../../domain/isolate2/entities/isolate_request.dart';
+import '../../domain/isolate2/entities/isolate_response.dart';
+import '../../domain/resources/data_directory_path_provider.dart';
+import '../../domain/resources/resource_repository.dart';
+import '../../injection.dart';
+import '../../injection_environments.dart';
+import '../../setup_services.dart';
+import '../resources/resource_repository_impl_isolate_2.dart';
 import 'isolate_2_spawn_arguments.dart';
 
 void isolate2Main(Isolate2SpawnArguments args) {

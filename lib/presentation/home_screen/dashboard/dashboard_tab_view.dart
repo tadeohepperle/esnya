@@ -1,37 +1,31 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart' hide State;
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+
+import '../../../application/food_data/input/food_input_bloc.dart';
 import '../../../application/food_data/input/models/food_item_entry_wrapper.dart';
-import '../../../domain/auth/auth_repository.dart';
-import '../../../domain/core/errors.dart';
+import '../../../application/home_screen/bloc/dashboard_bloc.dart';
 import '../../../domain/user_data/day_bucket_repository.dart';
 import '../../../domain/user_data/user_diet_preferences_repository.dart';
-import '../../../infrastructure/core/dev_utils/firestore_operations.dart';
-import '../../../infrastructure/core/firestore_helpers.dart';
+import '../../../injection.dart';
+import '../../core/constants.dart';
+import '../../core/core.dart';
 import '../../core/design_components/esnya_button.dart';
+import '../../core/design_components/esnya_design_utils.dart';
+import '../../core/design_components/esnya_icons.dart';
+import '../../core/design_components/esnya_sizes.dart';
 import '../../core/widgets/bucket_date_title_list_item.dart';
-import '../../core/widgets/dashboard_header/dashboard_header.dart';
-import '../../core/widgets/food_item_entry_card/food_item_entry_card.dart';
 import '../../core/widgets/list_tiles/food_item_entry_failed_list_tile.dart';
 import '../../core/widgets/list_tiles/food_item_entry_list_tile.dart';
 import '../../core/widgets/list_tiles/food_item_entry_processing_list_tile.dart';
 import '../../core/widgets/list_tiles/no_entries_yet_list_item.dart';
-import '../../core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
-import 'package:esnya_shared_resources/esnya_shared_resources.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import '../../../application/food_data/input/food_input_bloc.dart';
-import '../../../application/home_screen/bloc/dashboard_bloc.dart';
-import '../../../injection.dart';
-import '../../core/constants.dart';
-import '../../core/core.dart';
-import '../../core/design_components/esnya_design_utils.dart';
-import '../../core/design_components/esnya_icons.dart';
-import '../../core/design_components/esnya_sizes.dart';
-import '../../core/widgets/food_input_bar/food_input_bar.dart';
 import '../../core/widgets/voice_input_sheet/cubit/voice_input_sheet.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
+import 'widgets/dashboard_header/dashboard_header.dart';
 
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
@@ -102,31 +96,24 @@ class _DashboardTabViewState extends State<DashboardTabView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocProvider<FoodInputBloc>(
-      create: (context) => getIt<FoodInputBloc>(),
-      child: BlocBuilder<FoodInputBloc, FoodInputState>(
-        builder: (context, foodInputState) {
-          return BlocConsumer<DashboardBloc, DashboardState>(
-            listener: (context, dashboardState) {
-              _recalculateBucketDistancesFromScrollEnd(
-                dashboardState.buckets.asList(),
-              );
-            },
-            builder: (context, dashboardState) {
-              return Stack(
-                children: [
-                  // the body of the page (header + list of entries)
-                  _buildBody(context, dashboardState),
-                  // the bottom floating action icons / the voice input panel
-                  _buildBottomWidgets(context),
-                  // the text input bar clinging to the keyboard
-                  _buildFoodInputBar(context),
-                ],
-              );
-            },
-          );
-        },
-      ),
+    return BlocConsumer<DashboardBloc, DashboardState>(
+      listener: (context, dashboardState) {
+        _recalculateBucketDistancesFromScrollEnd(
+          dashboardState.buckets.asList(),
+        );
+      },
+      builder: (context, dashboardState) {
+        return Stack(
+          children: [
+            // the body of the page (header + list of entries)
+            _buildBody(context, dashboardState),
+            // the bottom floating action icons / the voice input panel
+            _buildBottomWidgets(context),
+            // the text input bar clinging to the keyboard
+            _buildFoodInputBar(context),
+          ],
+        );
+      },
     );
   }
 

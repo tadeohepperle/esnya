@@ -1,7 +1,7 @@
-import 'esnya_design_utils.dart';
-import '../widgets/nutrient_table.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter/material.dart';
+
+import 'esnya_design_utils.dart';
 
 class EsnyaColors {
   final Color primary;

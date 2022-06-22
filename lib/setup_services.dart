@@ -1,12 +1,10 @@
-import 'application/app_startup/cubit/app_startup_cubit.dart';
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'domain/app_startup/app_startup_repository.dart';
 import 'domain/isolate2/isolate_2_repository.dart';
 import 'domain/resources/data_directory_path_provider.dart';
 import 'domain/user_data/day_bucket_repository.dart';
-import 'package:esnya_shared_resources/esnya_shared_resources.dart';
-import 'package:path_provider/path_provider.dart';
-
-import 'domain/resources/local_data_repository.dart';
 import 'injection.dart';
 
 Future<void> setupServicesIsolate1() async {

@@ -1,12 +1,11 @@
-import '../../../../application/food_data/input/models/food_item_entry_wrapper.dart';
-import '../../../../injection.dart';
-import '../../design_components/esnya_sizes.dart';
-import '../../design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../application/food_data/input/models/food_item_entry_wrapper.dart';
+import '../../../../injection.dart';
 import '../../design_components/esnya_design_utils.dart';
-import '../../design_components/esnya_icons.dart';
+import '../../design_components/esnya_sizes.dart';
+import '../../design_components/esnya_text.dart';
 
 class FoodItemEntryProcessingListTile extends StatelessWidget {
   final FoodItemEntryProcessing processing;

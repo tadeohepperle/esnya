@@ -1,16 +1,13 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import '../../../design_components/esnya_button.dart';
-import '../../../design_components/esnya_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../design_components/esnya_design_utils.dart';
 import '../../../design_components/esnya_icon_button.dart';
 import '../../../design_components/esnya_icons.dart';
 import '../../../design_components/esnya_sizes.dart';
 import '../../../design_components/esnya_text.dart';
 import 'voice_input_sheet_cubit.dart';
-import 'package:esnya_shared_resources/core/core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../design_components/esnya_design_utils.dart';
 
 /// needs to be wrapped in BlocProvider<VoiceInputSheetCubit,VoiceInputSheetState>
 class VoiceInputSheet extends StatefulWidget {

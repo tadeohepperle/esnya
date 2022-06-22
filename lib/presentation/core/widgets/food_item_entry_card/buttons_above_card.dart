@@ -1,9 +1,6 @@
-import '../../core.dart';
+import 'package:flutter/material.dart';
 
-import '../../design_components/esnya_design_utils.dart';
-import '../../design_components/esnya_icon_button.dart';
-import '../../design_components/esnya_icons.dart';
-import '../../design_components/esnya_sizes.dart';
+import '../../core.dart';
 
 class ButtonsAboveCard extends StatelessWidget {
   final VoidCallback? onDeleteButtonClick;

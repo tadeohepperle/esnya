@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import '../../injection_environments.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../constants.dart';
+import '../../injection_environments.dart';
 
 @isolate2
 @module

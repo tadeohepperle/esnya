@@ -1,5 +1,6 @@
-import '../../presentation/routes/app_router.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../presentation/routes/app_router.dart';
 
 part 'home_screen_tab_type.freezed.dart';
 

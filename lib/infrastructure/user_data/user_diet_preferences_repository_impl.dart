@@ -1,8 +1,9 @@
+import 'package:esnya_shared_resources/esnya_shared_resources.dart';
+import 'package:injectable/injectable.dart';
+
 import '../../domain/user_data/entities/daily_nutrient_target.dart';
 import '../../domain/user_data/user_diet_preferences_repository.dart';
 import '../../injection_environments.dart';
-import 'package:esnya_shared_resources/esnya_shared_resources.dart';
-import 'package:injectable/injectable.dart';
 
 @isolate1
 @LazySingleton(as: UserDietPreferencesRepository)

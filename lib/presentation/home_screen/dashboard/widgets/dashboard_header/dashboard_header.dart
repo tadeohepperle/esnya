@@ -1,19 +1,16 @@
-import '../../../../domain/auth/auth_repository.dart';
-import '../../../../domain/user_data/user_diet_preferences_repository.dart';
-import '../../../../infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
-import '../../../../injection.dart';
-import '../../design_components/esnya_colors.dart';
-import '../../design_components/esnya_design_utils.dart';
-import '../../design_components/esnya_icons.dart';
-import '../../design_components/utils/grid_overlay.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 
-import '../../design_components/esnya_button.dart';
-import '../../design_components/esnya_icon_button.dart';
-import '../../design_components/esnya_sizes.dart';
+import '../../../../../domain/auth/auth_repository.dart';
+import '../../../../../domain/user_data/user_diet_preferences_repository.dart';
+import '../../../../../infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
+import '../../../../../injection.dart';
+import '../../../../core/design_components/esnya_button.dart';
+import '../../../../core/design_components/esnya_design_utils.dart';
+import '../../../../core/design_components/esnya_icons.dart';
+import '../../../../core/design_components/esnya_sizes.dart';
 import 'nutrient_target_header_display.dart';
 
 class DashboardHeader extends StatelessWidget {

@@ -1,9 +1,9 @@
-import '../../design_components/esnya_icons.dart';
-import '../../design_components/esnya_sizes.dart';
-import '../../design_components/esnya_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../design_components/esnya_design_utils.dart';
+import '../../design_components/esnya_icons.dart';
+import '../../design_components/esnya_sizes.dart';
+import '../../design_components/esnya_text.dart';
 
 class NoEntriesYetListItem extends StatelessWidget {
   const NoEntriesYetListItem({Key? key}) : super(key: key);

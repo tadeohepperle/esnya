@@ -1,10 +1,13 @@
-import '../routes/app_router.dart';
 import 'package:esnya_shared_resources/language/models/language.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import '../../application/app_startup/cubit/app_startup_cubit.dart';
 import '../../application/auth/auth_bloc.dart';
+import '../../constants.dart';
 import '../../injection.dart';
+import '../routes/app_router.dart';
 import 'core.dart';
 import 'design_components/esnya_theme.dart';
 
