@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/utils.dart';
-import 'package:esnya/domain/user_data/day_bucket_repository.dart';
 import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/core/data_structures/streamable_value.dart';
 import 'package:esnya_shared_resources/core/data_structures/value_and_stream.dart';
@@ -23,44 +21,60 @@ part 'food_input_bloc.freezed.dart';
 typedef FragmentAndEntry
     = Tuple2<Tuple2<IntRange, FoodItemString>, FoodItemEntryWrapper>;
 
+/// a global singleton bloc, abstracting the way food input works (voice and text)
 @isolate1
 @lazySingleton
 class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
+  ////// Public Interface:
+
+  /// entries that are committed, practically leaving the bloc.
+  /// Other Blocs can pickup this stream to listen to the outgoing entries leaving the bloc
+  Stream<KtList<FoodItemEntry>> get outgoingEntries => _outgoingEntries.stream;
+
+  ValueAndStream<KtList<FoodItemEntryWrapper>> get blocEntries =>
+      _blocEntries.valueAndStream;
+
+  ////// Private Values:
   final TextProcessingRepository _textProcessingRepository;
   final FoodMappingRepository _foodMappingRepository;
 
-  StreamableValue<KtList<FragmentAndEntry>> _fragmentsAndEntries =
-      StreamableValue<KtList<FragmentAndEntry>>(<FragmentAndEntry>[]
-          .toImmutableList()); // not part of state because no need to expose
+  final StreamableValue<KtList<FoodItemEntryWrapper>> _blocEntries =
+      StreamableValue<KtList<FoodItemEntryWrapper>>(
+          <FoodItemEntryWrapper>[].toImmutableList());
 
-  KtList<FoodItemEntryWrapper> get entries =>
-      _fragmentsAndEntries.value.map((e) => e.value2);
+  KtList<FragmentAndEntry> ___fragmentsAndEntries = <FragmentAndEntry>[]
+      .toImmutableList(); // not part of state because no need to expose
 
-  final StreamController<BlocAndBetweenRepoFoodItemEntries>
-      _blocAndRepoEntriesStreamController =
-      StreamController<BlocAndBetweenRepoFoodItemEntries>.broadcast();
-  Stream<BlocAndBetweenRepoFoodItemEntries> get blocAndRepoEntries =>
-      _blocAndRepoEntriesStreamController.stream;
+  KtList<FragmentAndEntry> get _fragmentsAndEntries => ___fragmentsAndEntries;
+  set _fragmentsAndEntries(KtList<FragmentAndEntry> val) {
+    ___fragmentsAndEntries = val;
+    _blocEntries.value = ___fragmentsAndEntries.map((e) => e.value2);
+  }
+
+  final StreamController<KtList<FoodItemEntry>> _outgoingEntries =
+      StreamController<KtList<FoodItemEntry>>.broadcast();
 
   FoodInputBloc(this._textProcessingRepository, this._foodMappingRepository)
       : super(FoodInputState.initial()) {
-    _blocAndRepoEntriesStreamController.onListen = () {
-      _blocAndRepoEntriesStreamController
-          .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
-    };
     on<FoodInputEvent>((event, emit) async {
       await event.map(
-        setVolatileText: (setVolatileText) async {
+        setVolatileText: (_SetVolatileText setVolatileText) async {
           emit(state.copyWith(volatileText: setVolatileText.value));
           await _recalculateFragmentsAndEntries(emit);
         },
-        saveVolatileText: (saveVolatileText) async {
+        saveVolatileText: (_SaveVolatileText saveVolatileText) async {
           await _makeTextSafeAndSaveEntriesToFoodEntriesRepository(emit);
         },
-        fetchFood: (fetchFood) async {
+        fetchFood: (_FetchFood fetchFood) async {
           logDebug(
               "fetch food for ${fetchFood.entry.runtimeType} for input: ${fetchFood.entry.inputString}");
           await _fetchFood(emit, fetchFood.entry);
+        },
+        setContext: (_SetContext setContext) {
+          /// reset bloc if the contextId does not match
+          if (state.contextId != setContext.contextId) {
+            emit(FoodInputState.initial());
+          }
         },
       );
     });
@@ -74,7 +88,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         .map((fragment) =>
             Tuple2(fragment, fragment.value2.toFoodItemEntryProcessing()))
         .toList();
-    var oldList = [..._fragmentsAndEntries.value.iter]; // copy list
+    var oldList = [..._fragmentsAndEntries.iter]; // copy list
     /// combine the two lists:
     final List<FoodItemEntryWrapper> entriesToFetchFoodFor = [];
     // step 1: old can max be as long as new:
@@ -93,9 +107,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
       oldList.add(newList[i]);
       entriesToFetchFoodFor.add(newList[i].value2);
     }
-    _fragmentsAndEntries.value = oldList.toImmutableList();
-    _blocAndRepoEntriesStreamController
-        .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
+    _fragmentsAndEntries = oldList.toImmutableList();
     // fetch food for entries:
     for (var e in entriesToFetchFoodFor) {
       add(_FetchFood(e));
@@ -108,10 +120,10 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     emit(state.copyWith(safeText: state.totalText, volatileText: ''));
 
     final sendToRepoMask =
-        _fragmentsAndEntries.value.map((e) => e.value2 is FoodItemEntrySuccess);
+        _fragmentsAndEntries.map((e) => e.value2 is FoodItemEntrySuccess);
 
     // create new lists:
-    final repoEntries = entries
+    final outgoingEntries = _blocEntries.value
         .asList()
         .asMap()
         .entries
@@ -123,8 +135,8 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     // update blocentries and safetext
     int rangeStart = 0;
     String newSafeText = "";
-    for (var i = 0; i < _fragmentsAndEntries.value.size; i++) {
-      final e = _fragmentsAndEntries.value[i];
+    for (var i = 0; i < _fragmentsAndEntries.size; i++) {
+      final e = _fragmentsAndEntries[i];
       if (!sendToRepoMask[i]) {
         final textForSegment = e.value1.value2.text;
         final newRange = IntRange(rangeStart, textForSegment.length);
@@ -139,15 +151,10 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
     emit(state.copyWith(
       safeText: newSafeText,
     ));
-    _fragmentsAndEntries.value = blocFragmentsAndEntries.toImmutableList();
+    _fragmentsAndEntries = blocFragmentsAndEntries.toImmutableList();
 
-    // expose
-    _blocAndRepoEntriesStreamController.add(
-      BlocAndBetweenRepoFoodItemEntries(
-        blocEntries: entries,
-        betweenBlocAndRepoEntries: repoEntries.toImmutableList(),
-      ),
-    );
+    // expose via broadcast stream
+    _outgoingEntries.add(outgoingEntries.toImmutableList());
   }
 
   Future<void> _fetchFood(
@@ -156,7 +163,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         await _foodMappingRepository.mapInput(entry.inputString);
     logDebug('_fetchFood for ${entry.inputString} yielded $resultOrFailure ');
 
-    _fragmentsAndEntries.value = _fragmentsAndEntries.value.map((e) {
+    _fragmentsAndEntries = _fragmentsAndEntries.map((e) {
       final oldEntryWrapper = e.value2;
       if (oldEntryWrapper.id != entry.id) {
         return e;
@@ -168,25 +175,5 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         return Tuple2(e.value1, newEntryWrapper);
       }
     });
-
-    _blocAndRepoEntriesStreamController
-        .add(BlocAndBetweenRepoFoodItemEntries(blocEntries: entries));
   }
-}
-
-class BlocAndBetweenRepoFoodItemEntries {
-  /// entries that have been sent to the repo. They could already have been persisted
-  /// there or the persisting takes some time.
-  /// This is the reason we send them over for example to the dashboard_bloc,
-  /// such that the user, does not get some milliseconds where the repoEntries
-  /// have already left the foodInputBloc but have still not arrived in firestore completely.
-  final KtList<FoodItemEntry> betweenBlocAndRepoEntries;
-  // entries that are remaining in the bloc because their text in volatile and could change.K
-  final KtList<FoodItemEntryWrapper> blocEntries;
-
-  BlocAndBetweenRepoFoodItemEntries({
-    required this.blocEntries,
-    KtList<FoodItemEntry>? betweenBlocAndRepoEntries,
-  }) : betweenBlocAndRepoEntries =
-            betweenBlocAndRepoEntries ?? <FoodItemEntry>[].toImmutableList();
 }

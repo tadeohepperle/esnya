@@ -31,8 +31,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       _bucketsStreamSubscription;
   late int _currentBatchSize;
   late DateTime _lastExtendBucketWatchRange;
-  StreamSubscription<BlocAndBetweenRepoFoodItemEntries>?
+  StreamSubscription<KtList<FoodItemEntryWrapper>>?
       _foodInputBlocEntriesSubscription;
+
+  StreamSubscription<KtList<FoodItemEntry>>?
+      _foodInputBlocOutgoingEntriesSubscription;
 
   DashboardBloc(this._dayBucketRepository, this._foodInputBloc)
       : super(DashboardState.initial()) {
@@ -52,10 +55,30 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           // listen to buckets from firestore
           _createBucketStreamSubscription(_currentBatchSize);
           // listen to entries from foodInputBloc
+
           _foodInputBlocEntriesSubscription =
-              _foodInputBloc.blocAndRepoEntries.listen((entries) {
-            add(DashboardEvent.foodInputEntriesReceived(entries));
+              _foodInputBloc.blocEntries.stream.listen((entries) {
+            add(DashboardEvent.foodInputBlocEntriesReceived(entries));
           });
+
+          _foodInputBlocOutgoingEntriesSubscription =
+              _foodInputBloc.outgoingEntries.listen((entries) {
+            add(DashboardEvent.foodInputBlocOutgoingEntriesReceived(entries));
+          });
+        },
+        foodInputBlocEntriesReceived: (_FoodInputBlocEntriesReceived event) {
+          emit(state.copyWith(foodInputBlocEntries: event.entries));
+        },
+        foodInputBlocOutgoingEntriesReceived:
+            (_FoodInputBlocOutgoingEntriesReceived event) async {
+          // cache outgoing entries in state
+          emit(state.copyWith(
+              foodInputBlocOutgoingEntries:
+                  state.foodInputBlocOutgoingEntries + event.entries));
+          // store them in firebase. (When the firebase stream comes back they are removed from the state cache again)
+          await _dayBucketRepository.createEntriesForToday(
+            event.entries.iter,
+          );
         },
         bucketsReceived: (_BucketsReceived event) async {
           event.failureOrBuckets.fold(
@@ -71,23 +94,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
               emit(state.copyWith(
                 dashboardBucketsState: DashboardBucketsState.loaded,
                 buckets: buckets,
-                entriesBetweenBlocAndRepo: state.entriesBetweenBlocAndRepo
+                foodInputBlocOutgoingEntries: state.foodInputBlocOutgoingEntries
                     .filter((e) => !arrivedIds.contains(e.id)),
               ));
             },
           );
-        },
-        foodInputEntriesReceived: (_FoodInputEntriesReceived event) async {
-          emit(state.copyWith(
-            entriesBetweenBlocAndRepo: state.entriesBetweenBlocAndRepo +
-                event.entries.betweenBlocAndRepoEntries,
-            entriesFoodInputBloc: event.entries.blocEntries,
-          ));
-          if (event.entries.betweenBlocAndRepoEntries.size > 0) {
-            await _dayBucketRepository.createEntriesForToday(
-              event.entries.betweenBlocAndRepoEntries.iter,
-            );
-          }
         },
         extendBucketWatchRange: (_ExtendBucketWatchRange value) {
           // if last extend was less than for example 2 seconds ago we dont do anything.
@@ -129,15 +140,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     _currentBatchSize = kInitialBucketBatchSize;
     await _bucketsStreamSubscription?.cancel();
     await _foodInputBlocEntriesSubscription?.cancel();
+    await _foodInputBlocOutgoingEntriesSubscription?.cancel();
   }
 
   Set<UniqueId> _extractEntryIdsFromBucketListThatAreAlsoInBetweenEntries(
       KtList<DayBucket> buckets) {
-    if (state.entriesBetweenBlocAndRepo.isEmpty()) {
+    if (state.foodInputBlocOutgoingEntries.isEmpty()) {
       return {};
     }
     final entriesBetweenIds =
-        state.entriesBetweenBlocAndRepo.map((p0) => p0.id).toSet();
+        state.foodInputBlocOutgoingEntries.map((p0) => p0.id).toSet();
     final Set<UniqueId> results = {};
     for (var b in buckets.iter) {
       for (var e in b.entries.iter) {
@@ -164,7 +176,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 
   bool _entryStillExistsInFirebaseOrBetweenBlocAndRepo(UniqueId entryId) {
-    for (var e in state.entriesBetweenBlocAndRepo.iter) {
+    for (var e in state.foodInputBlocOutgoingEntries.iter) {
       if (e.id == entryId) {
         return true;
       }

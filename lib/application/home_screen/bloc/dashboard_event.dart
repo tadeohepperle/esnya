@@ -8,8 +8,11 @@ class DashboardEvent with _$DashboardEvent {
     Either<Failure, KtList<DayBucket>> failureOrBuckets,
   ) = _BucketsReceived;
 
-  const factory DashboardEvent.foodInputEntriesReceived(
-      BlocAndBetweenRepoFoodItemEntries entries) = _FoodInputEntriesReceived;
+  const factory DashboardEvent.foodInputBlocEntriesReceived(
+      KtList<FoodItemEntryWrapper> entries) = _FoodInputBlocEntriesReceived;
+
+  const factory DashboardEvent.foodInputBlocOutgoingEntriesReceived(
+      KtList<FoodItemEntry> entries) = _FoodInputBlocOutgoingEntriesReceived;
 
   const factory DashboardEvent.extendBucketWatchRange() =
       _ExtendBucketWatchRange;

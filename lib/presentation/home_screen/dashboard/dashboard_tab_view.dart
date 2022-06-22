@@ -236,7 +236,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
           )
           .toList();
       items.addAll(
-        dashboardState.entriesBetweenBlocAndRepo.iter.map(
+        dashboardState.foodInputBlocOutgoingEntries.iter.map(
           (e) => Tuple2(
             e.dateTime,
             _buildFoodItemEntryListTile(foodItemEntry: e),
@@ -251,7 +251,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
             failed: (_) => _.dateTime);
       }
 
-      items.addAll(dashboardState.entriesFoodInputBloc.iter.map(
+      items.addAll(dashboardState.foodInputBlocEntries.iter.map(
         (e) => Tuple2(
           _dtFromWrapper(e),
           e.map(
@@ -273,8 +273,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
           {required bool mostRecentBucket, required bool mostDistantBucket}) {
         final isEmpty = bucket.entries.isEmpty();
         final noVolatileItems =
-            dashboardState.entriesBetweenBlocAndRepo.isEmpty() &&
-                dashboardState.entriesFoodInputBloc.isEmpty();
+            dashboardState.foodInputBlocOutgoingEntries.isEmpty() &&
+                dashboardState.foodInputBlocEntries.isEmpty();
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -313,8 +313,8 @@ class _DashboardTabViewState extends State<DashboardTabView>
             _heightOfContainerBelowListView(context) +
             EsnyaSizes.kEsnyaBottomNavigationBarHeight;
 
-        int entryCount = (dashboardState.entriesBetweenBlocAndRepo.size +
-            dashboardState.entriesFoodInputBloc.size);
+        int entryCount = (dashboardState.foodInputBlocOutgoingEntries.size +
+            dashboardState.foodInputBlocEntries.size);
 
         if (!buckets.isEmpty()) {
           final lastBucket = buckets[0];

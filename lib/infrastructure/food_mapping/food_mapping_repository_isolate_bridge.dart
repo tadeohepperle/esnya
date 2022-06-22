@@ -28,7 +28,7 @@ class FoodMappingRepositoryIsolateBridge extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, FoodMappingResult>> mapInput(String input) async {
-    await Future.delayed(Duration(milliseconds: 2000));
+    // await Future.delayed(Duration(milliseconds: 2000));
     final res = await isolate2Repository
         .makeRequest<Either<Failure, FoodMappingResult>>(
             IsolateRequest.foodMappingRepositoryMapInput(input));
