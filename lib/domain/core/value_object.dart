@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/errors.dart';
+import 'errors.dart';
 
 import 'failures.dart';
 

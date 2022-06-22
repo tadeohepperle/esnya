@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esnya/domain/core/utils.dart';
-import 'package:esnya/infrastructure/core/firestore_helpers.dart';
-import 'package:esnya/infrastructure/user_data/dtos/day_bucket_dto.dart';
+import '../../domain/core/utils.dart';
+import '../core/firestore_helpers.dart';
+import 'dtos/day_bucket_dto.dart';
 
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/failures.dart';
-import 'package:esnya/domain/user_data/day_bucket_repository.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../domain/core/failures.dart';
+import '../../domain/user_data/day_bucket_repository.dart';
+import '../../injection_environments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';

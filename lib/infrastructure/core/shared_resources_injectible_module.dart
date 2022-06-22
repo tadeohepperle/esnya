@@ -1,4 +1,4 @@
-import 'package:esnya/injection.dart';
+import '../../injection.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:esnya_shared_resources/language/language_repository_impl_simple.dart';
 import 'package:injectable/injectable.dart';

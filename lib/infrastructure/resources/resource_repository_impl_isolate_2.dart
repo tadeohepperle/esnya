@@ -1,7 +1,7 @@
-import 'package:esnya/domain/resources/esnya_resource.dart';
-import 'package:esnya/domain/resources/esnya_resource_status.dart';
-import 'package:esnya/domain/resources/resource_repository.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../domain/resources/esnya_resource.dart';
+import '../../domain/resources/esnya_resource_status.dart';
+import '../../domain/resources/resource_repository.dart';
+import '../../injection_environments.dart';
 import 'package:injectable/injectable.dart';
 
 /// any updates to resources are only made in isolate 1 and are sent via

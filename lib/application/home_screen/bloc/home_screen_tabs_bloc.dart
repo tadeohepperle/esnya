@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
+import '../home_screen_tab_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'home_screen_tabs_event.dart';

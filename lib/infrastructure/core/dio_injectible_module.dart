@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../injection_environments.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../constants.dart';

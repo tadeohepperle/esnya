@@ -1,5 +1,5 @@
-import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/widgets/nutrient_table.dart';
+import 'esnya_design_utils.dart';
+import '../widgets/nutrient_table.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter/material.dart';
 

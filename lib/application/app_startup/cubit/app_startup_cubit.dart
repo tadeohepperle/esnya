@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:esnya/domain/app_startup/app_startup_repository.dart';
+import '../../../domain/app_startup/app_startup_repository.dart';
 import 'package:esnya_shared_resources/core/error_handling/failure.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

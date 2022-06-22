@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esnya/domain/auth/auth_repository.dart';
-import 'package:esnya/domain/core/errors.dart';
-import 'package:esnya/injection.dart';
+import '../../domain/auth/auth_repository.dart';
+import '../../domain/core/errors.dart';
+import '../../injection.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 
 const kBucketsCollectionName = 'buckets';

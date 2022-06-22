@@ -1,12 +1,12 @@
-import 'package:esnya/domain/user_data/entities/daily_nutrient_target.dart';
-import 'package:esnya/domain/user_data/user_diet_preferences_repository.dart';
-import 'package:esnya/injection.dart';
-import 'package:esnya/presentation/core/core.dart';
-import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
-import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/design_components/esnya_text.dart';
+import '../../../../domain/user_data/entities/daily_nutrient_target.dart';
+import '../../../../domain/user_data/user_diet_preferences_repository.dart';
+import '../../../../injection.dart';
+import '../../core.dart';
+import '../../design_components/esnya_colors.dart';
+import '../../design_components/esnya_design_utils.dart';
+import '../../design_components/esnya_icons.dart';
+import '../../design_components/esnya_sizes.dart';
+import '../../design_components/esnya_text.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 
 class NutrientTargetHeaderDisplay extends StatelessWidget {

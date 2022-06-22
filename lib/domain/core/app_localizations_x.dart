@@ -1,4 +1,4 @@
-import 'package:esnya/presentation/core/core.dart';
+import '../../presentation/core/core.dart';
 
 import '../../application/home_screen/home_screen_tab_type.dart';
 

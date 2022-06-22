@@ -1,5 +1,5 @@
-import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
+import 'esnya_design_utils.dart';
+import 'esnya_icons.dart';
 
 import '../core.dart';
 

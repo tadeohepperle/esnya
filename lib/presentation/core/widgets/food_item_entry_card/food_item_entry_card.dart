@@ -1,7 +1,7 @@
-import 'package:esnya/injection.dart';
-import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
+import '../../../../injection.dart';
+import '../../design_components/esnya_button.dart';
+import '../../design_components/esnya_icon_button.dart';
+import '../../design_components/esnya_icons.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 

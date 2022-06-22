@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:esnya/domain/resources/resource_repository.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../../../../domain/resources/resource_repository.dart';
+import '../../../../../injection_environments.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 

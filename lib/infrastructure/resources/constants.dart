@@ -1,4 +1,4 @@
-import 'package:esnya/domain/resources/data_directory_path_provider.dart';
+import '../../domain/resources/data_directory_path_provider.dart';
 
 const String foodCSVassetKey = 'assets/f.csv';
 const String foodCSVtargetFileName = 'f.csv';

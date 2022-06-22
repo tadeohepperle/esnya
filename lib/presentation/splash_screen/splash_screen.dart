@@ -1,5 +1,5 @@
-import 'package:esnya/application/app_startup/cubit/app_startup_cubit.dart';
-import 'package:esnya/presentation/routes/app_router.dart';
+import '../../application/app_startup/cubit/app_startup_cubit.dart';
+import '../routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:esnya/infrastructure/food_data/food_data_repository_local_impl_csv.dart';
-import 'package:esnya/injection_environments.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../injection_environments.dart';
+import 'food_data_repository_local_impl_csv.dart';
 
 /// TODO: currently we just delegate to ImplCsv, in future failures could lead to remote requests or something.
 @isolate2

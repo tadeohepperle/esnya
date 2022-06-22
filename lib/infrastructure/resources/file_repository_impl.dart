@@ -1,9 +1,9 @@
-import 'package:esnya/constants.dart';
-import 'package:esnya/domain/core/failures.dart';
-import 'package:esnya/infrastructure/resources/constants.dart';
-import 'package:esnya/domain/resources/data_directory_path_provider.dart';
-import 'package:esnya/domain/resources/file_repository.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../constants.dart';
+import '../../domain/core/failures.dart';
+import 'constants.dart';
+import '../../domain/resources/data_directory_path_provider.dart';
+import '../../domain/resources/file_repository.dart';
+import '../../injection_environments.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:io';

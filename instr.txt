@@ -28,3 +28,14 @@ flutter_icons:
   ios: true
   
 flutter pub run flutter_launcher_icons:main
+
+
+## fixing imports:
+
+use vscode plugin dart-import
+
+shift+crtl+p:
+```
+> Fix all imports
+> Save all Files
+```

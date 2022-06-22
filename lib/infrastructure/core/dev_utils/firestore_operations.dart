@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:esnya/domain/auth/auth_repository.dart';
-import 'package:esnya/infrastructure/core/firestore_helpers.dart';
-import 'package:esnya/infrastructure/user_data/dtos/day_bucket_dto.dart';
-import 'package:esnya/injection.dart';
+import '../../../domain/auth/auth_repository.dart';
+import '../firestore_helpers.dart';
+import '../../user_data/dtos/day_bucket_dto.dart';
+import '../../../injection.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:kt_dart/kt.dart';
 

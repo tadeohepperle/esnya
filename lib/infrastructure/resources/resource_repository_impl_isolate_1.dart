@@ -1,10 +1,10 @@
-import 'package:esnya/domain/isolate2/entities/isolate_request.dart';
-import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
-import 'package:esnya/domain/resources/esnya_resource.dart';
-import 'package:esnya/domain/resources/esnya_resource_status.dart';
-import 'package:esnya/domain/resources/resource_repository.dart';
-import 'package:esnya/injection_environments.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/isolate2/entities/isolate_request.dart';
+import '../../domain/isolate2/isolate_2_repository.dart';
+import '../../domain/resources/esnya_resource.dart';
+import '../../domain/resources/resource_repository.dart';
+import '../../injection_environments.dart';
 
 /// any updates to resources from ResourceRepositoryImplIsolate1 are sent
 /// to the isolate 2, and reflected in ResourceRepositoryImplIsolate2 there.

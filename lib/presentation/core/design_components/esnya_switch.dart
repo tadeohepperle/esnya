@@ -1,7 +1,7 @@
-import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icons.dart';
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/design_components/esnya_text.dart';
+import 'esnya_design_utils.dart';
+import 'esnya_icons.dart';
+import 'esnya_sizes.dart';
+import 'esnya_text.dart';
 
 import '../core.dart';
 

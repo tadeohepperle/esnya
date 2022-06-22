@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:esnya/domain/resources/data_directory_path_provider.dart';
-import 'package:esnya/domain/speech_recognition/entities/speech_recognition_event.dart';
+import '../../domain/resources/data_directory_path_provider.dart';
+import '../../domain/speech_recognition/entities/speech_recognition_event.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/speech_recognition/speech_recognition_repository.dart';
+import '../../domain/speech_recognition/speech_recognition_repository.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:vosk_speech_recognition/vosk_speech_recognition.dart';
 

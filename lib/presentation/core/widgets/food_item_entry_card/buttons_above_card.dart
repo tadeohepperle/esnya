@@ -1,4 +1,4 @@
-import 'package:esnya/presentation/core/core.dart';
+import '../../core.dart';
 
 import '../../design_components/esnya_design_utils.dart';
 import '../../design_components/esnya_icon_button.dart';

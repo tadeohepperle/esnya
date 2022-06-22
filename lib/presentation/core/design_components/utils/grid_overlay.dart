@@ -1,4 +1,4 @@
-import 'package:esnya/presentation/core/core.dart';
+import '../../core.dart';
 
 const defaultGridColor = Color.fromARGB(50, 255, 0, 0);
 

@@ -1,6 +1,6 @@
-import 'package:esnya/domain/auth/auth_repository.dart';
-import 'package:esnya/injection.dart';
-import 'package:esnya/presentation/core/design_components/esnya_button.dart';
+import '../../../domain/auth/auth_repository.dart';
+import '../../../injection.dart';
+import '../../core/design_components/esnya_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

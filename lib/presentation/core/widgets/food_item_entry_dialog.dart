@@ -1,5 +1,5 @@
-import 'package:esnya/presentation/core/design_components/esnya_design_utils.dart';
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
+import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_sizes.dart';
 import 'package:esnya_shared_resources/core/models/models.dart';
 import 'package:flutter/material.dart';
 

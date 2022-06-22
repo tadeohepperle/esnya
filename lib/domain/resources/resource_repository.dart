@@ -1,4 +1,4 @@
-import 'package:esnya/domain/resources/esnya_resource.dart';
+import 'esnya_resource.dart';
 
 abstract class ResourceRepository {
   EsnyaResource get foodData;

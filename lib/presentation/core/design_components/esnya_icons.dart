@@ -1,4 +1,4 @@
-import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
+import '../../../application/home_screen/home_screen_tab_type.dart';
 import 'package:esnya_shared_resources/core/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

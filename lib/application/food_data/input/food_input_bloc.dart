@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/injection_environments.dart';
+import '../../../injection_environments.dart';
 import 'package:esnya_shared_resources/core/data_structures/streamable_value.dart';
 import 'package:esnya_shared_resources/core/data_structures/value_and_stream.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';

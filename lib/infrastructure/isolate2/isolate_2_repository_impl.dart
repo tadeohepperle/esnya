@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:isolate';
 
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/isolate2/isolate_2_repository.dart';
-import 'package:esnya/domain/resources/data_directory_path_provider.dart';
+import '../../domain/isolate2/isolate_2_repository.dart';
+import '../../domain/resources/data_directory_path_provider.dart';
 
-import 'package:esnya/infrastructure/isolate2/isolate_2_main.dart';
-import 'package:esnya/infrastructure/isolate2/isolate_2_spawn_arguments.dart';
+import 'isolate_2_main.dart';
+import 'isolate_2_spawn_arguments.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loggy/loggy.dart';

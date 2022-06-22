@@ -1,5 +1,5 @@
-import 'package:esnya/presentation/core/core.dart';
-import 'package:esnya/presentation/core/design_components/esnya_colors.dart';
+import '../core.dart';
+import 'esnya_colors.dart';
 
 final esnyaTextThemeLight = const TextTheme(
   headlineLarge: TextStyle(

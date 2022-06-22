@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/core/utils.dart';
+import '../core/utils.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:kt_dart/collection.dart';
 

@@ -1,9 +1,9 @@
-import 'package:esnya/domain/auth/auth_failure.dart';
+import '../../domain/auth/auth_failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:esnya/domain/auth/auth_repository.dart';
-import 'package:esnya/domain/auth/value_objects/password.dart';
-import 'package:esnya/domain/auth/value_objects/email_adress.dart';
-import 'package:esnya/domain/auth/entities/user.dart';
+import '../../domain/auth/auth_repository.dart';
+import '../../domain/auth/value_objects/password.dart';
+import '../../domain/auth/value_objects/email_adress.dart';
+import '../../domain/auth/entities/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';

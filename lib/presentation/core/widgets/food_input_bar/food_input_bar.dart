@@ -1,6 +1,6 @@
-import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_icon_button.dart';
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
+import '../../design_components/esnya_button.dart';
+import '../../design_components/esnya_icon_button.dart';
+import '../../design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart';
 
 import '../../design_components/esnya_design_utils.dart';

@@ -1,10 +1,10 @@
-import 'package:esnya/application/home_screen/home_screen_tab_type.dart';
-import 'package:esnya/domain/app_startup/app_startup_repository.dart';
-import 'package:esnya/domain/auth/auth_repository.dart';
-import 'package:esnya/presentation/error_screen.dart/error_screen_page.dart';
-import 'package:esnya/presentation/home_screen/home_screen.dart';
-import 'package:esnya/presentation/sign_in_screen/sign_in_screen.dart';
-import 'package:esnya/presentation/splash_screen/splash_screen.dart';
+import '../../application/home_screen/home_screen_tab_type.dart';
+import '../../domain/app_startup/app_startup_repository.dart';
+import '../../domain/auth/auth_repository.dart';
+import '../error_screen.dart/error_screen_page.dart';
+import '../home_screen/home_screen.dart';
+import '../sign_in_screen/sign_in_screen.dart';
+import '../splash_screen/splash_screen.dart';
 import 'package:esnya_shared_resources/core/repositories/setup_state.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

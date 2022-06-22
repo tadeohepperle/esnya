@@ -1,8 +1,7 @@
-import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
 import 'package:flutter/material.dart' hide kBottomNavigationBarHeight;
 
-import '../constants.dart';
 import '../design_components/esnya_design_utils.dart';
+import '../design_components/esnya_sizes.dart';
 import '../design_components/esnya_text.dart';
 
 class BottomNavigationTab extends StatelessWidget {
