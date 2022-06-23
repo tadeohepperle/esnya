@@ -29,14 +29,16 @@ class _GridOverlayState extends State<GridOverlay> {
       children: [
         widget.child,
         if (gridVisible)
-          SizedBox(
-            width: screenSize.width,
-            height: screenSize.height,
-            child: CustomPaint(
-              painter: GridPainter(
-                gridColor: widget.gridColor,
-                gridSize: widget.gridSize,
-                gridThickness: widget.gridThickness,
+          IgnorePointer(
+            child: SizedBox(
+              width: screenSize.width,
+              height: screenSize.height,
+              child: CustomPaint(
+                painter: GridPainter(
+                  gridColor: widget.gridColor,
+                  gridSize: widget.gridSize,
+                  gridThickness: widget.gridThickness,
+                ),
               ),
             ),
           ),

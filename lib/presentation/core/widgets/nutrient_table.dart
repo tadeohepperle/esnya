@@ -23,78 +23,107 @@ class NutrientTable extends StatelessWidget {
     final colorScheme = getColorScheme(context);
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
-    num _sumOfPreviousGramEquivalents = 0;
-    _buildRow(RowInformation rowInfo) {
-      final amount = rowInfo.amount.roundPlaces(1);
-      final gramEquivalent = rowInfo.gramEquivalent;
-      final isHighest = gramEquivalent == state.highestGramEquivalent;
-      final nutrientType = rowInfo.nutrientType;
-      final percent100 = state.highestGramEquivalent;
-      final gramProportion =
-          state.totalGrams > 0 ? gramEquivalent / percent100 : 1;
-      final previousGramsProportion =
-          percent100 > 0 ? _sumOfPreviousGramEquivalents / percent100 : 0;
-      //HINT: Disable this line to get a left aligned bar plot
-      // _sumOfPreviousGramEquivalents += gramEquivalent;
 
-      int gramProportionInt = (gramProportion * 100).round();
-      int previousGramsProportionInt = (previousGramsProportion * 100).round();
-      int leftOverProportion =
-          100 - gramProportionInt - previousGramsProportionInt;
+    Widget _buildBar(double gramProportion,
+        {double? subProportion, VoidCallback? onTap}) {
+      assert(subProportion == null || subProportion <= gramProportion);
+      final color = colorScheme.onSurface;
+      final subColor = colorScheme.error;
 
-      final color = isHighest ? colorScheme.primary : colorScheme.onSurface;
-      return Row(
-        children: [
-          Expanded(
-              child: Row(
-            children: [
-              Icon(
-                EsnyaIcons.nutrientIcons[nutrientType] ??
-                    EsnyaIcons.placeholder,
-                color: color,
-                size: 16,
-              ),
-              EsnyaSizes.spaceBaseWidth2,
-              Expanded(
-                  child: EsnyaText.titleBold(
-                langRepo.translateNutrientType(nutrientType).toTitleCase(),
-                color: color,
-              )),
-              EsnyaText.titleBold(
-                langRepo.translateAmount(amount, fractionDigits: 1),
-                color: color,
-              ),
-            ],
-          )),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
-            // TODO: distingish between 0 grams and content not null, make grams a nullable type.
-            child: Row(
+      final subRow = subProportion == null
+          ? null
+          : Row(
               children: [
                 Expanded(
-                    flex: previousGramsProportionInt,
-                    child: Container(
-                      height: 24,
-                    )),
+                  flex: (subProportion / gramProportion * 100).round(),
+                  child: Container(
+                    height: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: subColor,
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: gramProportionInt,
-                    child: Container(
-                      height: 24,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: color,
-                      ),
-                    )),
-                Expanded(
-                  flex: leftOverProportion,
+                  flex: 100 - (subProportion / gramProportion * 100).round(),
                   child: Container(
                     height: 24,
                   ),
+                )
+              ],
+            );
+
+      return Row(
+        children: [
+          Expanded(
+            flex: gramProportion.round(),
+            child: Container(
+              height: 24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: color,
+              ),
+              child: subRow,
+            ),
+          ),
+          Expanded(
+            flex: 100 - gramProportion.round(),
+            child: Container(
+              height: 24,
+            ),
+          ),
+        ],
+      );
+    }
+
+    Row _buildRow(RowInformation rowInfo) {
+      final color = colorScheme.onSurface;
+      //color = isHighest ? colorScheme.primary : colorScheme.onSurface;
+
+      final amount = rowInfo.amount.roundPlaces(1);
+      final gramEquivalent = rowInfo.gramEquivalent;
+      // final isHighest = gramEquivalent == state.highestGramEquivalent;
+      final nutrientType = rowInfo.nutrientType;
+      final percent100 = state.highestGramEquivalent;
+      double gramProportion =
+          state.totalGrams > 0 ? 100 * gramEquivalent / percent100 : 1;
+      double? subProportion;
+      if(rowInfo.nutrientType == NutrientType.carbs){
+        subProportion = state.
+      }
+
+      return Row(
+        children: [
+          Expanded(
+            child: Row(
+              children: [
+                Icon(
+                  EsnyaIcons.nutrientIcons[nutrientType] ??
+                      EsnyaIcons.placeholder,
+                  color: color,
+                  size: 16,
+                ),
+                EsnyaSizes.spaceBaseWidth2,
+                Expanded(
+                  child: EsnyaText.titleBold(
+                    langRepo.translateNutrientType(nutrientType).toTitleCase(),
+                    color: color,
+                  ),
+                ),
+                EsnyaText.titleBold(
+                  langRepo.translateAmount(amount, fractionDigits: 1),
+                  color: color,
                 ),
               ],
             ),
-          )),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
+              // TODO: distingish between 0 grams and content not null, make grams a nullable type.
+              child: _buildBar(gramProportion, subProportion: subProportion),
+            ),
+          ),
         ],
       );
     }
@@ -111,13 +140,15 @@ class NutrientTableState {
   final double totalGrams;
   final double highestGramEquivalent;
   final List<RowInformation> rowInformations;
+  final Map<NutrientType,RowInformation> rowInformationsSubNutrients;
   factory NutrientTableState.fromFoodItemAndNutrientTypes({
     required Map<NutrientType, Amount> nutrientAmounts,
     required Iterable<NutrientType> nutrientTypes,
   }) {
     double totalGrams = 0;
     double highestGramEquivalent = 0;
-    final rowInformations = nutrientTypes.map((nType) {
+
+    RowInformation _computeRowInfo (NutrientType nType){
       final amount = nutrientAmounts[nType];
       if (amount == null) {
         return RowInformation.emptyFromNutrientType(nType);
@@ -127,10 +158,18 @@ class NutrientTableState {
       if (gramEquivalent > highestGramEquivalent) {
         highestGramEquivalent = gramEquivalent;
       }
-      totalGrams += gramEquivalent;
-      return RowInformation(
+          return RowInformation(
           gramEquivalent: gramEquivalent, amount: amount, nutrientType: nType);
+    }
+
+    final rowInformations = nutrientTypes.map((nType) {
+      final rowInfo = _computeRowInfo(nType);
+      totalGrams += rowInfo.gramEquivalent;
+      return rowInfo;
     }).toList();
+
+
+    final subNutr = {NutrientType.sugar, NutrientType.fatsat}.map(nType => )
 
     return NutrientTableState(
         totalGrams: totalGrams,
@@ -141,7 +180,7 @@ class NutrientTableState {
   NutrientTableState(
       {required this.totalGrams,
       required this.highestGramEquivalent,
-      required this.rowInformations});
+      required this.rowInformations,});
 }
 
 class RowInformation {

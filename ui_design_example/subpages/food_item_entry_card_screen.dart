@@ -1,7 +1,6 @@
-import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/presentation/core/design_components/esnya_sizes.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_failed_card.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry_card/food_item_entry_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_failed_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_card.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/core/utils/test_objects.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +32,6 @@ class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
               },
               onTimeButtonClick: () {
                 print("onTimeButtonClick");
-              },
-              onCloseButtonClick: () {
-                print("onCloseButtonClick");
               },
               onDeleteButtonClick: () {
                 showDialog(

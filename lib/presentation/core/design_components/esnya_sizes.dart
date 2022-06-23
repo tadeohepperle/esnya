@@ -33,22 +33,40 @@ abstract class EsnyaSizes {
         child: child,
       );
 
+  /// SizedBox with width 8px
   static const SizedBox spaceBaseWidth = SizedBox(
     width: base,
   );
+
+  /// SizedBox with width 16px
   static const SizedBox spaceBaseWidth2 = SizedBox(
     width: base * 2,
   );
 
+  /// SizedBox with width 12px
+  static const SizedBox spaceBaseWidth1_5 = SizedBox(
+    width: base * 1.5,
+  );
+
+  /// SizedBox with height 8px
   static const SizedBox spaceBaseHeight = SizedBox(
     height: base,
   );
 
+  /// SizedBox with height 16px
   static const SizedBox spaceBaseHeight2 = SizedBox(
     height: base * 2,
   );
 
+  /// SizedBox with height 12px
+  static const SizedBox spaceBaseHeight1_5 = SizedBox(
+    height: base * 1.5,
+  );
+
+  /// EdgeInsets.all(8 px)
   static const paddingBase = EdgeInsets.all(base);
+
+  /// EdgeInsets.all(16 px)
   static const paddingBase2 = EdgeInsets.all(base * 2);
 }
 

@@ -73,8 +73,7 @@ class FoodInputBloc extends Bloc<FoodInputEvent, FoodInputState> {
         setContext: (_SetContext setContext) {
           /// reset bloc if the contextId does not match
           if (state.contextId != setContext.contextId) {
-            emit(FoodInputState.initial()
-                .copyWith(contextId: setContext.contextId));
+            emit(FoodInputState.initial(contextId: setContext.contextId));
           }
         },
         setFoodInputMode: (_SetFoodInputMode event) {

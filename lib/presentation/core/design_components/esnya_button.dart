@@ -150,7 +150,7 @@ class EsynaButton extends StatelessWidget {
         onPressed: onPressed,
         title: title,
         getColor: (ColorScheme c) => c.surface,
-        getTextColor: (ColorScheme c) => c.onSurface,
+        getTextColor: (ColorScheme c) => c.onBackground,
         leadingIcon: leadingIcon,
         trailingIcon: trailingIcon,
         buttonSize: buttonSize,

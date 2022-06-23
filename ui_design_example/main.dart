@@ -1,6 +1,7 @@
 import 'package:esnya/application/food_data/input/models/food_item_entry_wrapper.dart';
 import 'package:esnya/injection.dart';
 import 'package:esnya/injection_environments.dart';
+import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya/presentation/core/design_components/esnya_theme.dart';
 import 'package:esnya/presentation/core/design_components/utils/grid_overlay.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
@@ -53,6 +54,12 @@ class ExampleHomeScreen extends StatelessWidget {
             Text("All Components:"),
             Divider(
               height: 30,
+            ),
+            EsynaButton.primary(
+              title: "assdsdasda",
+              onPressed: () {
+                print("ashdsjhsdja");
+              },
             ),
             SubscreenListTile("Text Styles", (c) => TextStylesScreen()),
             SubscreenListTile("Color Styles", (c) => ColorsScreen()),

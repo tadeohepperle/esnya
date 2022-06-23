@@ -55,7 +55,7 @@ class EsnyaIconButton extends StatelessWidget {
       EsnyaIconButton._(
         iconData: iconData,
         onPressed: onPressed,
-        getIconColor: (c) => c.onSurface,
+        getIconColor: (c) => c.onBackground,
         getColor: (c) => c.surface,
         buttonSize: buttonSize,
       );

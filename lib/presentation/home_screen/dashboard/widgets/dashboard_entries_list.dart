@@ -268,9 +268,6 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
                       padding: EdgeInsets.all(EsnyaSizes.base * 2),
                       child: FoodItemEntryCard(
                         foodItemEntry: foodItemEntry,
-                        onCloseButtonClick: () {
-                          Navigator.of(context).pop();
-                        },
                         onDeleteButtonClick: () {
                           getIt<DayBucketsRepository>()
                               .deleteEntry(bucketId, foodItemEntry);

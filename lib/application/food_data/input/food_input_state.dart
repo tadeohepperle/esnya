@@ -9,10 +9,11 @@ class FoodInputState with _$FoodInputState {
     required FoodInputMode foodInputMode,
     String? contextId,
   }) = _FoodInputState;
-  factory FoodInputState.initial() => const FoodInputState(
+  factory FoodInputState.initial({String? contextId}) => FoodInputState(
         safeText: '',
         volatileText: '',
         foodInputMode: FoodInputMode.none,
+        contextId: contextId,
       );
 
   String get totalText => safeText + ' ' + volatileText;

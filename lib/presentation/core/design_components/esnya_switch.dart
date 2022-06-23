@@ -80,7 +80,7 @@ class EsnyaSwitch extends StatelessWidget {
                       : BorderSide.none),
               onPressed: onChange != null ? () => onChange!(true) : null,
               child: EsnyaText.titleBold(
-                leftText,
+                rightText,
                 color: rightColor,
               ),
               elevation: 0,
