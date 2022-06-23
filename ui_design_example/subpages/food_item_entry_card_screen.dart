@@ -15,8 +15,19 @@ class FoodItemEntryCardScreen extends StatefulWidget {
 }
 
 class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
-  final foodItemEntry =
-      TestObjects.foodItemEntry.copyWith(foodItem: TestObjects.foodItem2);
+  final foodItemEntry = TestObjects.foodItemEntry.copyWith.foodItem.food(
+    nutrients: {
+      NutrientType.protein: 9.8,
+      NutrientType.energy: 540,
+      NutrientType.carbs: 52,
+      NutrientType.sugar: 42,
+      NutrientType.fat: 32,
+      NutrientType.fiber: 0.6,
+      NutrientType.water: 1.2,
+      NutrientType.vitc: 2.3,
+      NutrientType.fatsat: 21,
+    },
+  );
 
   @override
   Widget build(BuildContext context) {

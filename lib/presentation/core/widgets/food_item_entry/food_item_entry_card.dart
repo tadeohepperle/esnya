@@ -1,3 +1,4 @@
+import 'package:esnya/main.dart';
 import 'package:esnya/presentation/core/design_components/design_components.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,17 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
 
     final kcalLabelColor =
         kcal != null ? colorScheme.primary : colorScheme.onBackground;
+
+    MapEntry<NutrientType, Amount>? mainNutrientAndAmount = null;
+    foodItem.food.nutrients.forEach((k, v) {
+      if (k.unit != MeasureUnit.g) {
+        return;
+      }
+      if (mainNutrientAndAmount == null ||
+          v >= mainNutrientAndAmount!.value.number) {
+        mainNutrientAndAmount = MapEntry(k, Amount(MeasureUnit.g, v));
+      }
+    });
 
     return Column(
       children: [
@@ -162,16 +174,21 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
                 Container(
                   height: 64,
                   child: Center(
-                      child: Column(
-                    children: [
-                      Icon(Icons.warning), // TODO
-                      EsnyaText.body("No Data Available")
-                    ],
-                  )),
+                    child: Column(
+                      children: [
+                        Icon(Icons.warning), // TODO
+                        EsnyaText.body("No Nutrient Data Available")
+                      ],
+                    ),
+                  ),
                 ),
               const Divider(
                 height: EsnyaSizes.base * 4,
               ),
+              EsnyaText.body(
+                "${foodItem.food.title} is mainly consisting of ${langRepo.translateNutrientType(mainNutrientAndAmount!.key)}, of which it has ${langRepo.translateAmount(mainNutrientAndAmount!.value)} per 100 g.",
+                color: colorScheme.onBackground,
+              )
             ],
           ),
         ),

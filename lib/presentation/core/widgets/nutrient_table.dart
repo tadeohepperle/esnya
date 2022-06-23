@@ -21,18 +21,25 @@ class NutrientTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = getColorScheme(context);
-
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
     Widget _buildBar(double gramEquivalent,
-        {double? subNutrientGramEquivalent, VoidCallback? onTap}) {
+        {double? subNutrientGramEquivalent,
+        VoidCallback? onTap,
+        NutrientType? subNutrient}) {
       assert(subNutrientGramEquivalent == null ||
           subNutrientGramEquivalent <= gramEquivalent);
+
       final color = colorScheme.onSurface;
       final subColor = colorScheme.error;
-      final gramProportion100 = state.totalGrams > 0
+      final gramProportion100 = state.highestGramEquivalent > 0
           ? 100 * gramEquivalent / state.highestGramEquivalent
-          : 100;
+          : 0;
+
+      // some constant threshhold, fraction of max bar length
+      final showSubNutrientTitle = subNutrientGramEquivalent != null
+          ? subNutrientGramEquivalent / state.highestGramEquivalent > 0.3
+          : false;
       final subRow = subNutrientGramEquivalent == null
           ? null
           : Row(
@@ -46,6 +53,15 @@ class NutrientTable extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                       color: subColor,
                     ),
+                    child: showSubNutrientTitle
+                        ? Align(
+                            alignment: Alignment.topCenter,
+                            child: EsnyaText.body(
+                              langRepo.translateNutrientType(subNutrient!),
+                              color: colorScheme.onSurface,
+                            ),
+                          )
+                        : null,
                   ),
                 ),
                 Expanded(
@@ -62,7 +78,7 @@ class NutrientTable extends StatelessWidget {
       return Row(
         children: [
           Expanded(
-            flex: gramEquivalent.round(),
+            flex: gramProportion100.round(),
             child: Container(
               height: 24,
               decoration: BoxDecoration(
@@ -133,8 +149,11 @@ class NutrientTable extends StatelessWidget {
               // TODO: distingish between 0 grams and content not null, make grams a nullable type.
               child: rowInfo.gramEquivalent == null
                   ? SizedBox.shrink()
-                  : _buildBar(rowInfo.gramEquivalent!,
-                      subNutrientGramEquivalent: subNutrientGramEquivalent),
+                  : _buildBar(
+                      rowInfo.gramEquivalent!,
+                      subNutrientGramEquivalent: subNutrientGramEquivalent,
+                      subNutrient: subNutrient,
+                    ),
             ),
           ),
         ],
