@@ -91,7 +91,15 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
               final arrivedIds =
                   _extractEntryIdsFromBucketListThatAreAlsoInBetweenEntries(
                       buckets);
+
+              // update headerbucket if it has same id as a bucket that was received:
+              final headerBucket =
+                  (state.headerBucket == null && buckets.size >= 1)
+                      ? buckets[0]
+                      : buckets.find((e) => e.id == state.headerBucket?.id);
+
               emit(state.copyWith(
+                headerBucket: headerBucket,
                 dashboardBucketsState: DashboardBucketsState.loaded,
                 buckets: buckets,
                 foodInputBlocOutgoingEntries: state.foodInputBlocOutgoingEntries
@@ -110,6 +118,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           // add a new stream subscription for the next buckets.
           _currentBatchSize += kIncrementalBucketBatchSize;
           _createBucketStreamSubscription(_currentBatchSize);
+        },
+        setHeaderBucket: (_SetHeaderBucket event) {
+          emit(state.copyWith(headerBucket: event.headerBucket));
         },
       );
     });

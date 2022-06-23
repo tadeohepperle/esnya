@@ -4,6 +4,7 @@ part of 'dashboard_bloc.dart';
 class DashboardState with _$DashboardState {
   const factory DashboardState({
     required DashboardBucketsState dashboardBucketsState,
+    DayBucket? headerBucket,
     required KtList<DayBucket> buckets,
     required KtList<FoodItemEntry> foodInputBlocOutgoingEntries,
     required KtList<FoodItemEntryWrapper> foodInputBlocEntries,

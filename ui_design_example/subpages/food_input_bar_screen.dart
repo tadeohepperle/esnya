@@ -1,5 +1,5 @@
 import 'package:esnya/presentation/core/design_components/esnya_button.dart';
-import 'package:esnya/presentation/core/widgets/food_input_bar/food_input_bar.dart';
+import 'package:esnya/presentation/core/widgets/food_input/food_input_bar.dart';
 import 'package:flutter/material.dart';
 
 class FoodInputBarScreen extends StatefulWidget {

@@ -3,25 +3,20 @@ import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:kt_dart/collection.dart';
 
-import '../../../../../domain/auth/auth_repository.dart';
-import '../../../../../domain/user_data/user_diet_preferences_repository.dart';
-import '../../../../../infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
-import '../../../../../injection.dart';
-import '../../../../core/design_components/esnya_button.dart';
-import '../../../../core/design_components/esnya_design_utils.dart';
-import '../../../../core/design_components/esnya_icons.dart';
-import '../../../../core/design_components/esnya_sizes.dart';
-import 'nutrient_target_header_display.dart';
+import '../../../../application/home_screen/bloc/dashboard_bloc.dart';
+import '../../../../domain/auth/auth_repository.dart';
+import '../../../../domain/user_data/user_diet_preferences_repository.dart';
+import '../../../../infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
+import '../../../../injection.dart';
+import '../../../core/design_components/esnya_button.dart';
+import '../../../core/design_components/esnya_design_utils.dart';
+import '../../../core/design_components/esnya_icons.dart';
+import '../../../core/design_components/esnya_sizes.dart';
+import 'dashboard_header/nutrient_target_header_display.dart';
 
 class DashboardHeader extends StatelessWidget {
-  final DayBucket? bucket;
-  final VoidCallback onCardTap;
-  final VoidCallback onCalendarTap;
   const DashboardHeader({
     Key? key,
-    required this.bucket,
-    required this.onCardTap,
-    required this.onCalendarTap,
   }) : super(key: key);
 
   @override
@@ -32,7 +27,10 @@ class DashboardHeader extends StatelessWidget {
 
     final authRepo = getIt<AuthRepository>();
     final userId = authRepo.getSignedInUser().toNullable()!.id;
-    final bucket = this.bucket ??
+
+    // TODO: make it better when bucket null
+    var headerBucket = getIt<DashboardBloc>().state.headerBucket;
+    final bucket = headerBucket ??
         DayBucket(
             userId: userId,
             id: UniqueId.fromUniqueString(bucketIdForToday()),
@@ -53,7 +51,9 @@ class DashboardHeader extends StatelessWidget {
     final secondaryNutrient = dietRepo.preferredNutrientSecondary;
     return Shadow(
       MaterialButton(
-        onPressed: onCardTap,
+        onPressed: () {
+          // TODO
+        },
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: EdgeInsets.all(0),
         shape: const RoundedRectangleBorder(
@@ -81,7 +81,9 @@ class DashboardHeader extends StatelessWidget {
                     EsynaButton.surface(
                       title: dateTitle,
                       leadingIcon: EsnyaIcons.calendar,
-                      onPressed: onCalendarTap,
+                      onPressed: () {
+                        // TODO
+                      },
                     ),
                   ],
                 ),

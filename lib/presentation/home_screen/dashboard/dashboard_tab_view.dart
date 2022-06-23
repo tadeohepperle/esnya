@@ -1,31 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:dartz/dartz.dart' hide State;
-import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import '../../../application/food_data/input/food_input_bloc.dart';
-import '../../../application/food_data/input/models/food_item_entry_wrapper.dart';
 import '../../../application/home_screen/bloc/dashboard_bloc.dart';
-import '../../../domain/user_data/day_bucket_repository.dart';
-import '../../../domain/user_data/user_diet_preferences_repository.dart';
 import '../../../injection.dart';
-import '../../core/constants.dart';
 import '../../core/core.dart';
-import '../../core/design_components/esnya_button.dart';
-import '../../core/design_components/esnya_design_utils.dart';
-import '../../core/design_components/esnya_icons.dart';
-import '../../core/design_components/esnya_sizes.dart';
-import '../../core/widgets/bucket_date_title_list_item.dart';
-import '../../core/widgets/list_tiles/food_item_entry_failed_list_tile.dart';
-import '../../core/widgets/list_tiles/food_item_entry_list_tile.dart';
-import '../../core/widgets/list_tiles/food_item_entry_processing_list_tile.dart';
-import '../../core/widgets/list_tiles/no_entries_yet_list_item.dart';
-import '../../core/widgets/voice_input_sheet/cubit/voice_input_sheet.dart';
-import '../../core/widgets/voice_input_sheet/cubit/voice_input_sheet_cubit.dart';
-import 'widgets/dashboard_header/dashboard_header.dart';
+import 'widgets/dashboard_entries_list.dart';
+import 'widgets/dashboard_header.dart';
 
 class DashboardTabView extends StatefulWidget {
   const DashboardTabView({Key? key}) : super(key: key);
@@ -37,12 +20,8 @@ class DashboardTabView extends StatefulWidget {
 class _DashboardTabViewState extends State<DashboardTabView>
     with AutomaticKeepAliveClientMixin {
   late DashboardInputState _dashboardInputState;
-  late ScrollController _scrollController;
   late FocusNode _foodInputBarFocusNode;
   late StreamSubscription<bool> _keyboardSubscription;
-  NutrientType _nutrientTypeForBadges = NutrientType.energy;
-  List<double> _bucketDistancesFromScrollEnd = [];
-  DayBucket? _headerBucket;
 
   set dashboardInputState(DashboardInputState target) {
     final before = _dashboardInputState;
@@ -64,11 +43,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
   void initState() {
     super.initState();
     _dashboardInputState = DashboardInputState.closed;
-    _scrollController = ScrollController();
-
-    _scrollController.addListener(() {
-      _recalculateHeaderBucket();
-    });
     _foodInputBarFocusNode = FocusNode();
     var keyboardVisibilityController = KeyboardVisibilityController();
     _keyboardSubscription =
@@ -79,7 +53,6 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
   @override
   void dispose() {
-    _scrollController.dispose();
     _foodInputBarFocusNode.dispose();
     _keyboardSubscription.cancel();
     super.dispose();
@@ -97,16 +70,19 @@ class _DashboardTabViewState extends State<DashboardTabView>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<DashboardBloc, DashboardState>(
-      listener: (context, dashboardState) {
-        _recalculateBucketDistancesFromScrollEnd(
-          dashboardState.buckets.asList(),
-        );
-      },
+      listener: (context, dashboardState) {},
       builder: (context, dashboardState) {
         return Stack(
           children: [
             // the body of the page (header + list of entries)
-            _buildBody(context, dashboardState),
+            Column(
+              children: [
+                DashboardHeader(),
+                DashboardEntriesList(
+                    availableRenderHeight:
+                        _determineAvailableRenderHeightForListView(context)),
+              ],
+            ),
             // the bottom floating action icons / the voice input panel
             _buildBottomWidgets(context),
             // the text input bar clinging to the keyboard
@@ -117,275 +93,12 @@ class _DashboardTabViewState extends State<DashboardTabView>
     );
   }
 
-  Widget _buildBody(BuildContext context, DashboardState dashboardState) {
-    ////////////////////////////////////////////////////////////
-    ///  CACHING VARIABLES
-    ////////////////////////////////////////////////////////////
-    final buckets = dashboardState.buckets;
-
-    ////////////////////////////////////////////////////////////
-    ///  DEFINE WIDGET FUNCTIONS
-    ////////////////////////////////////////////////////////////
-
-    Widget _buildBodyHeader() {
-      // TODO: put in bucket
-      return DashboardHeader(
-        bucket: _headerBucket,
-        onCalendarTap: () {
-          // TODO
-        },
-        onCardTap: () {
-          // TODO
-        },
-      );
-    }
-
-    Widget _buildFoodItemEntryListTile(
-        {required FoodItemEntry foodItemEntry, UniqueId? bucketId}) {
-      return Padding(
-        padding: const EdgeInsets.only(
-            bottom: EsnyaSizes.kFoodItemEntryListTilePaddingBelow),
-        child: FoodItemEntryListTile(
-          foodItemEntry: foodItemEntry,
-          badgeNutrient: _nutrientTypeForBadges,
-          onBadgeTap: () {
-            // TODO:
-            _switchBadgeNutrients();
-          },
-          onTap: () {
-            // TODO:
-            if (bucketId != null) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(EsnyaSizes.base * 2),
-                        child: FoodItemEntryCard(
-                          foodItemEntry: foodItemEntry,
-                          onCloseButtonClick: () {
-                            Navigator.of(context).pop();
-                          },
-                          onDeleteButtonClick: () {
-                            getIt<DayBucketsRepository>()
-                                .deleteEntry(bucketId, foodItemEntry);
-                            Navigator.of(context).pop();
-                          },
-                          onTimeButtonClick: () {
-                            // TODO
-                          },
-                          onAmountButtonClick: () {
-                            // TODO
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-          },
-        ),
-      );
-    }
-
-    Widget _buildFoodItemEntryFailedListTile(
-        FoodItemEntryFailed foodItemEntryFailed) {
-      return FoodItemEntryFailedListTile(
-          failed: foodItemEntryFailed,
-          onTap: () {
-            // TODO!!
-          });
-    }
-
-    Widget _buildFoodItemEntryProcessingListTile(
-        FoodItemEntryProcessing foodItemEntryProcessing) {
-      return FoodItemEntryProcessingListTile(
-          processing: foodItemEntryProcessing,
-          onTap: () {
-            // TODO!!
-          });
-    }
-
-    Iterable<Widget> _buildItemsOfTodaysBucket(
-      DayBucket bucket,
-    ) {
-      List<Tuple2<DateTime, Widget>> items = bucket.entries.iter
-          .map(
-            (e) => Tuple2(
-              e.dateTime,
-              _buildFoodItemEntryListTile(
-                  foodItemEntry: e, bucketId: bucket.id),
-            ),
-          )
-          .toList();
-      items.addAll(
-        dashboardState.foodInputBlocOutgoingEntries.iter.map(
-          (e) => Tuple2(
-            e.dateTime,
-            _buildFoodItemEntryListTile(foodItemEntry: e),
-          ),
-        ),
-      );
-
-      DateTime _dtFromWrapper(FoodItemEntryWrapper w) {
-        return w.map(
-            success: (_) => _.entry.dateTime,
-            processing: (_) => _.dateTime,
-            failed: (_) => _.dateTime);
-      }
-
-      items.addAll(dashboardState.foodInputBlocEntries.iter.map(
-        (e) => Tuple2(
-          _dtFromWrapper(e),
-          e.map(
-            success: (success) => _buildFoodItemEntryListTile(
-              foodItemEntry: success.entry,
-            ),
-            processing: (_) => _buildFoodItemEntryProcessingListTile(_),
-            failed: (_) => _buildFoodItemEntryFailedListTile(_),
-          ),
-        ),
-      ));
-
-      items.sort(((a, b) => a.value1.compareTo(b.value1)));
-      return items.map((e) => e.value2);
-    }
-
-    Widget _buildBodyFoodLogList() {
-      Widget _buildBucket(DayBucket bucket,
-          {required bool mostRecentBucket, required bool mostDistantBucket}) {
-        final isEmpty = bucket.entries.isEmpty();
-        final noVolatileItems =
-            dashboardState.foodInputBlocOutgoingEntries.isEmpty() &&
-                dashboardState.foodInputBlocEntries.isEmpty();
-
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: mostDistantBucket
-                    ? 0
-                    : EsnyaSizes.kDashboardPaddingBetweenBuckets,
-              ),
-              BucketDateTitleListItem(bucket: bucket),
-              if (isEmpty && noVolatileItems)
-                const NoEntriesYetListItem()
-              else if (mostRecentBucket)
-                ..._buildItemsOfTodaysBucket(bucket)
-              else
-                ...bucket.entries.iter.map(
-                  (e) => _buildFoodItemEntryListTile(
-                    foodItemEntry: e,
-                    bucketId: bucket.id,
-                  ),
-                ),
-            ],
-          ),
-        );
-      }
-
-      /// this complicated calculation is relevant because we need this space at the end of the listview such that the title of the last food item bucket (today) appears right below the header panel.
-      Widget _buildContainerForScrollUp() {
-        final mediaQuery = MediaQuery.of(context);
-        double height = mediaQuery.size.height;
-        height -= mediaQuery.padding.top +
-            EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea +
-            0 +
-            _heightOfContainerBelowListView(context) +
-            EsnyaSizes.kEsnyaBottomNavigationBarHeight;
-
-        int entryCount = (dashboardState.foodInputBlocOutgoingEntries.size +
-            dashboardState.foodInputBlocEntries.size);
-
-        if (!buckets.isEmpty()) {
-          final lastBucket = buckets[0];
-          height -= EsnyaSizes.kBucketDateTitleListItemHeight;
-          if (entryCount == 0 && lastBucket.entries.isEmpty()) {
-            height -= EsnyaSizes.kNoEntriesYetListItemHeight;
-          }
-          entryCount += lastBucket.entries.size;
-        }
-
-        height -= entryCount *
-            (EsnyaSizes.kFoodItemEntryListTileHeight +
-                EsnyaSizes.kFoodItemEntryListTilePaddingBelow);
-
-        height = max(height, 0);
-
-        return Container(
-          width: double.infinity,
-          height: height,
-        );
-      }
-
-      return ListView.builder(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
-        padding: EdgeInsets.zero,
-        reverse: true,
-        // +1 for the unsafe items, +1 for a container allowing more scroll up than usual, such that "Today" can be displayed right beneath the header
-        itemCount: buckets.size + 1,
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return _buildContainerForScrollUp();
-          } else {
-            return _buildBucket(buckets[index - 1],
-                mostRecentBucket: index == 1,
-                mostDistantBucket: index == buckets.size + 1);
-          }
-        },
-      );
-    }
-
-    /// below list view, so that scrolling over the floating action buttons is prohibited
-    Widget _buildPlaceKeeperContainer() {
-      final height = _heightOfContainerBelowListView(context);
-      // (so no gradient when keyboard is open)
-      final double gradientHeight = height > 200 ? 0 : 40; // 40
-      final colorScheme = getColorScheme(context);
-      return Container(
-        color: colorScheme.background,
-        alignment: Alignment.topCenter,
-        width: double.infinity,
-        height: height,
-        child: Transform.translate(
-          offset: Offset(0, -gradientHeight),
-          child: SizedBox(
-            height: gradientHeight,
-            width: double.infinity,
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  colorScheme.background.withAlpha(0),
-                  colorScheme.background,
-                ],
-              )),
-            ),
-          ),
-        ),
-      );
-    }
-
-    ////////////////////////////////////////////////////////////
-    ///  RETURN THE ACTUAL WIDGET:
-    ////////////////////////////////////////////////////////////
-
-    return Column(
-      children: [
-        _buildBodyHeader(),
-        Expanded(child: _buildBodyFoodLogList()),
-        _buildPlaceKeeperContainer(),
-      ],
-    );
+  double _determineAvailableRenderHeightForListView(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    return mediaQuery.size.height -
+        mediaQuery.padding.top -
+        EsnyaSizes.kDashboardHeaderheightWithoutUnsafeArea -
+        EsnyaSizes.kEsnyaBottomNavigationBarHeight;
   }
 
   /// the bottom floating action icons / the voice input panel
@@ -483,7 +196,7 @@ class _DashboardTabViewState extends State<DashboardTabView>
 
   _onChanged(BuildContext context, String value) {
     context.read<FoodInputBloc>().add(FoodInputEvent.setVolatileText(value));
-    _scrollToEndInListView();
+    //_scrollToEndInListView();
   }
 
   void _handleKeyBoardVisibilityChange(bool visible) {
@@ -500,89 +213,14 @@ class _DashboardTabViewState extends State<DashboardTabView>
     for (var i = 0; i < maxRequests; i++) {
       if (_foodInputBarFocusNode.canRequestFocus) {
         _foodInputBarFocusNode.requestFocus();
-        _scrollToEndInListView(animated: true);
+
+        // TODO: add again
+        //_scrollToEndInListView(animated: true);
         return true;
       }
       await Future.delayed(requestInterval);
     }
     return false;
-  }
-
-  void _scrollToEndInListView({bool animated = false}) {
-    final target = _scrollController.position.minScrollExtent;
-    if (!animated) {
-      _scrollController.jumpTo(target);
-    } else {
-      _scrollController.animateTo(target,
-          duration: Duration(milliseconds: 100), curve: Curves.easeInOut);
-    }
-  }
-
-  double _heightOfContainerBelowListView(BuildContext context) {
-    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
-
-    return max(bottomInset, EsnyaSizes.kDashboardContainerBelowListViewHeight);
-  }
-
-  void _switchBadgeNutrients() {
-    final dietRepo = getIt<UserDietPreferencesRepository>();
-    setState(() {
-      _nutrientTypeForBadges = [
-        dietRepo.preferredNutrientPrimary,
-        dietRepo.preferredNutrientSecondary
-      ].where((e) => e != _nutrientTypeForBadges).first;
-    });
-  }
-
-  void _recalculateBucketDistancesFromScrollEnd(List<DayBucket> buckets) {
-    const hurdleToScrollOverIntoBucket = 80.0;
-    final List<double> result = [0];
-    if (buckets.length > 1) {
-      result.add(hurdleToScrollOverIntoBucket);
-    }
-    double _heightOfBucket(DayBucket bucket) {
-      final length = bucket.entries.size;
-      return EsnyaSizes.kBucketDateTitleListItemHeight +
-          EsnyaSizes.kDashboardPaddingBetweenBuckets +
-          length *
-              (EsnyaSizes.kFoodItemEntryListTileHeight +
-                  EsnyaSizes.kFoodItemEntryListTilePaddingBelow) +
-          (length == 0 ? EsnyaSizes.kNoEntriesYetListItemHeight : 0.00);
-    }
-
-    for (var i = 2; i < buckets.length; i++) {
-      result.add(result.last + _heightOfBucket(buckets[i - 1]));
-    }
-
-    setState(() {
-      _bucketDistancesFromScrollEnd = result;
-    });
-  }
-
-  void _recalculateHeaderBucket() {
-    int _bucketIndexFromScrollPosition() {
-      // _bucketDistancesFromScrollEnd;
-      final pos = _scrollController.position.pixels;
-      int index = -1;
-      for (var i = 0; i < _bucketDistancesFromScrollEnd.length; i++) {
-        final threshhold = _bucketDistancesFromScrollEnd[i];
-        if (pos < threshhold) {
-          break;
-        } else {
-          index++;
-        }
-      }
-      return max(index, 0);
-    }
-
-    final bucket = getIt<DashboardBloc>()
-        .getBucketByIndex(_bucketIndexFromScrollPosition());
-
-    if (bucket != null) {
-      setState(() {
-        _headerBucket = bucket;
-      });
-    }
   }
 }
 

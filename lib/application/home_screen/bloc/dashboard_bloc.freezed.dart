@@ -27,6 +27,7 @@ mixin _$DashboardEvent {
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +40,7 @@ mixin _$DashboardEvent {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -51,6 +53,7 @@ mixin _$DashboardEvent {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,6 +67,7 @@ mixin _$DashboardEvent {
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -75,6 +79,7 @@ mixin _$DashboardEvent {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -86,6 +91,7 @@ mixin _$DashboardEvent {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +161,7 @@ class _$_Started implements _Started {
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) {
     return started();
   }
@@ -170,6 +177,7 @@ class _$_Started implements _Started {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) {
     return started?.call();
   }
@@ -185,6 +193,7 @@ class _$_Started implements _Started {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -204,6 +213,7 @@ class _$_Started implements _Started {
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) {
     return started(this);
   }
@@ -218,6 +228,7 @@ class _$_Started implements _Started {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) {
     return started?.call(this);
   }
@@ -232,6 +243,7 @@ class _$_Started implements _Started {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -320,6 +332,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) {
     return bucketsReceived(failureOrBuckets);
   }
@@ -335,6 +348,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) {
     return bucketsReceived?.call(failureOrBuckets);
   }
@@ -350,6 +364,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (bucketsReceived != null) {
@@ -369,6 +384,7 @@ class _$_BucketsReceived implements _BucketsReceived {
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) {
     return bucketsReceived(this);
   }
@@ -383,6 +399,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) {
     return bucketsReceived?.call(this);
   }
@@ -397,6 +414,7 @@ class _$_BucketsReceived implements _BucketsReceived {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (bucketsReceived != null) {
@@ -496,6 +514,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) {
     return foodInputBlocEntriesReceived(entries);
   }
@@ -511,6 +530,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) {
     return foodInputBlocEntriesReceived?.call(entries);
   }
@@ -526,6 +546,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (foodInputBlocEntriesReceived != null) {
@@ -545,6 +566,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) {
     return foodInputBlocEntriesReceived(this);
   }
@@ -559,6 +581,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) {
     return foodInputBlocEntriesReceived?.call(this);
   }
@@ -573,6 +596,7 @@ class _$_FoodInputBlocEntriesReceived implements _FoodInputBlocEntriesReceived {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (foodInputBlocEntriesReceived != null) {
@@ -674,6 +698,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) {
     return foodInputBlocOutgoingEntriesReceived(entries);
   }
@@ -689,6 +714,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) {
     return foodInputBlocOutgoingEntriesReceived?.call(entries);
   }
@@ -704,6 +730,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (foodInputBlocOutgoingEntriesReceived != null) {
@@ -723,6 +750,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) {
     return foodInputBlocOutgoingEntriesReceived(this);
   }
@@ -737,6 +765,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) {
     return foodInputBlocOutgoingEntriesReceived?.call(this);
   }
@@ -751,6 +780,7 @@ class _$_FoodInputBlocOutgoingEntriesReceived
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (foodInputBlocOutgoingEntriesReceived != null) {
@@ -822,6 +852,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
     required TResult Function(KtList<FoodItemEntry> entries)
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
   }) {
     return extendBucketWatchRange();
   }
@@ -837,6 +868,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
   }) {
     return extendBucketWatchRange?.call();
   }
@@ -852,6 +884,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
     TResult Function(KtList<FoodItemEntry> entries)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (extendBucketWatchRange != null) {
@@ -871,6 +904,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
         foodInputBlocOutgoingEntriesReceived,
     required TResult Function(_ExtendBucketWatchRange value)
         extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
   }) {
     return extendBucketWatchRange(this);
   }
@@ -885,6 +919,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
   }) {
     return extendBucketWatchRange?.call(this);
   }
@@ -899,6 +934,7 @@ class _$_ExtendBucketWatchRange implements _ExtendBucketWatchRange {
     TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
         foodInputBlocOutgoingEntriesReceived,
     TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
     required TResult orElse(),
   }) {
     if (extendBucketWatchRange != null) {
@@ -913,9 +949,200 @@ abstract class _ExtendBucketWatchRange implements DashboardEvent {
 }
 
 /// @nodoc
+abstract class _$SetHeaderBucketCopyWith<$Res> {
+  factory _$SetHeaderBucketCopyWith(
+          _SetHeaderBucket value, $Res Function(_SetHeaderBucket) then) =
+      __$SetHeaderBucketCopyWithImpl<$Res>;
+  $Res call({DayBucket? headerBucket});
+
+  $DayBucketCopyWith<$Res>? get headerBucket;
+}
+
+/// @nodoc
+class __$SetHeaderBucketCopyWithImpl<$Res>
+    extends _$DashboardEventCopyWithImpl<$Res>
+    implements _$SetHeaderBucketCopyWith<$Res> {
+  __$SetHeaderBucketCopyWithImpl(
+      _SetHeaderBucket _value, $Res Function(_SetHeaderBucket) _then)
+      : super(_value, (v) => _then(v as _SetHeaderBucket));
+
+  @override
+  _SetHeaderBucket get _value => super._value as _SetHeaderBucket;
+
+  @override
+  $Res call({
+    Object? headerBucket = freezed,
+  }) {
+    return _then(_SetHeaderBucket(
+      headerBucket == freezed
+          ? _value.headerBucket
+          : headerBucket // ignore: cast_nullable_to_non_nullable
+              as DayBucket?,
+    ));
+  }
+
+  @override
+  $DayBucketCopyWith<$Res>? get headerBucket {
+    if (_value.headerBucket == null) {
+      return null;
+    }
+
+    return $DayBucketCopyWith<$Res>(_value.headerBucket!, (value) {
+      return _then(_value.copyWith(headerBucket: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_SetHeaderBucket implements _SetHeaderBucket {
+  const _$_SetHeaderBucket(this.headerBucket);
+
+  @override
+  final DayBucket? headerBucket;
+
+  @override
+  String toString() {
+    return 'DashboardEvent.setHeaderBucket(headerBucket: $headerBucket)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SetHeaderBucket &&
+            const DeepCollectionEquality()
+                .equals(other.headerBucket, headerBucket));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(headerBucket));
+
+  @JsonKey(ignore: true)
+  @override
+  _$SetHeaderBucketCopyWith<_SetHeaderBucket> get copyWith =>
+      __$SetHeaderBucketCopyWithImpl<_SetHeaderBucket>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(
+            Either<Failure, KtList<DayBucket>> failureOrBuckets)
+        bucketsReceived,
+    required TResult Function(KtList<FoodItemEntryWrapper> entries)
+        foodInputBlocEntriesReceived,
+    required TResult Function(KtList<FoodItemEntry> entries)
+        foodInputBlocOutgoingEntriesReceived,
+    required TResult Function() extendBucketWatchRange,
+    required TResult Function(DayBucket? headerBucket) setHeaderBucket,
+  }) {
+    return setHeaderBucket(headerBucket);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
+        bucketsReceived,
+    TResult Function(KtList<FoodItemEntryWrapper> entries)?
+        foodInputBlocEntriesReceived,
+    TResult Function(KtList<FoodItemEntry> entries)?
+        foodInputBlocOutgoingEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
+  }) {
+    return setHeaderBucket?.call(headerBucket);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(Either<Failure, KtList<DayBucket>> failureOrBuckets)?
+        bucketsReceived,
+    TResult Function(KtList<FoodItemEntryWrapper> entries)?
+        foodInputBlocEntriesReceived,
+    TResult Function(KtList<FoodItemEntry> entries)?
+        foodInputBlocOutgoingEntriesReceived,
+    TResult Function()? extendBucketWatchRange,
+    TResult Function(DayBucket? headerBucket)? setHeaderBucket,
+    required TResult orElse(),
+  }) {
+    if (setHeaderBucket != null) {
+      return setHeaderBucket(headerBucket);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_BucketsReceived value) bucketsReceived,
+    required TResult Function(_FoodInputBlocEntriesReceived value)
+        foodInputBlocEntriesReceived,
+    required TResult Function(_FoodInputBlocOutgoingEntriesReceived value)
+        foodInputBlocOutgoingEntriesReceived,
+    required TResult Function(_ExtendBucketWatchRange value)
+        extendBucketWatchRange,
+    required TResult Function(_SetHeaderBucket value) setHeaderBucket,
+  }) {
+    return setHeaderBucket(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_BucketsReceived value)? bucketsReceived,
+    TResult Function(_FoodInputBlocEntriesReceived value)?
+        foodInputBlocEntriesReceived,
+    TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
+        foodInputBlocOutgoingEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
+  }) {
+    return setHeaderBucket?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_BucketsReceived value)? bucketsReceived,
+    TResult Function(_FoodInputBlocEntriesReceived value)?
+        foodInputBlocEntriesReceived,
+    TResult Function(_FoodInputBlocOutgoingEntriesReceived value)?
+        foodInputBlocOutgoingEntriesReceived,
+    TResult Function(_ExtendBucketWatchRange value)? extendBucketWatchRange,
+    TResult Function(_SetHeaderBucket value)? setHeaderBucket,
+    required TResult orElse(),
+  }) {
+    if (setHeaderBucket != null) {
+      return setHeaderBucket(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetHeaderBucket implements DashboardEvent {
+  const factory _SetHeaderBucket(final DayBucket? headerBucket) =
+      _$_SetHeaderBucket;
+
+  DayBucket? get headerBucket => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$SetHeaderBucketCopyWith<_SetHeaderBucket> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DashboardState {
   DashboardBucketsState get dashboardBucketsState =>
       throw _privateConstructorUsedError;
+  DayBucket? get headerBucket => throw _privateConstructorUsedError;
   KtList<DayBucket> get buckets => throw _privateConstructorUsedError;
   KtList<FoodItemEntry> get foodInputBlocOutgoingEntries =>
       throw _privateConstructorUsedError;
@@ -934,9 +1161,12 @@ abstract class $DashboardStateCopyWith<$Res> {
       _$DashboardStateCopyWithImpl<$Res>;
   $Res call(
       {DashboardBucketsState dashboardBucketsState,
+      DayBucket? headerBucket,
       KtList<DayBucket> buckets,
       KtList<FoodItemEntry> foodInputBlocOutgoingEntries,
       KtList<FoodItemEntryWrapper> foodInputBlocEntries});
+
+  $DayBucketCopyWith<$Res>? get headerBucket;
 }
 
 /// @nodoc
@@ -951,6 +1181,7 @@ class _$DashboardStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? dashboardBucketsState = freezed,
+    Object? headerBucket = freezed,
     Object? buckets = freezed,
     Object? foodInputBlocOutgoingEntries = freezed,
     Object? foodInputBlocEntries = freezed,
@@ -960,6 +1191,10 @@ class _$DashboardStateCopyWithImpl<$Res>
           ? _value.dashboardBucketsState
           : dashboardBucketsState // ignore: cast_nullable_to_non_nullable
               as DashboardBucketsState,
+      headerBucket: headerBucket == freezed
+          ? _value.headerBucket
+          : headerBucket // ignore: cast_nullable_to_non_nullable
+              as DayBucket?,
       buckets: buckets == freezed
           ? _value.buckets
           : buckets // ignore: cast_nullable_to_non_nullable
@@ -974,6 +1209,17 @@ class _$DashboardStateCopyWithImpl<$Res>
               as KtList<FoodItemEntryWrapper>,
     ));
   }
+
+  @override
+  $DayBucketCopyWith<$Res>? get headerBucket {
+    if (_value.headerBucket == null) {
+      return null;
+    }
+
+    return $DayBucketCopyWith<$Res>(_value.headerBucket!, (value) {
+      return _then(_value.copyWith(headerBucket: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -985,9 +1231,13 @@ abstract class _$DashboardStateCopyWith<$Res>
   @override
   $Res call(
       {DashboardBucketsState dashboardBucketsState,
+      DayBucket? headerBucket,
       KtList<DayBucket> buckets,
       KtList<FoodItemEntry> foodInputBlocOutgoingEntries,
       KtList<FoodItemEntryWrapper> foodInputBlocEntries});
+
+  @override
+  $DayBucketCopyWith<$Res>? get headerBucket;
 }
 
 /// @nodoc
@@ -1004,6 +1254,7 @@ class __$DashboardStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? dashboardBucketsState = freezed,
+    Object? headerBucket = freezed,
     Object? buckets = freezed,
     Object? foodInputBlocOutgoingEntries = freezed,
     Object? foodInputBlocEntries = freezed,
@@ -1013,6 +1264,10 @@ class __$DashboardStateCopyWithImpl<$Res>
           ? _value.dashboardBucketsState
           : dashboardBucketsState // ignore: cast_nullable_to_non_nullable
               as DashboardBucketsState,
+      headerBucket: headerBucket == freezed
+          ? _value.headerBucket
+          : headerBucket // ignore: cast_nullable_to_non_nullable
+              as DayBucket?,
       buckets: buckets == freezed
           ? _value.buckets
           : buckets // ignore: cast_nullable_to_non_nullable
@@ -1034,12 +1289,15 @@ class __$DashboardStateCopyWithImpl<$Res>
 class _$_DashboardState implements _DashboardState {
   const _$_DashboardState(
       {required this.dashboardBucketsState,
+      this.headerBucket,
       required this.buckets,
       required this.foodInputBlocOutgoingEntries,
       required this.foodInputBlocEntries});
 
   @override
   final DashboardBucketsState dashboardBucketsState;
+  @override
+  final DayBucket? headerBucket;
   @override
   final KtList<DayBucket> buckets;
   @override
@@ -1049,7 +1307,7 @@ class _$_DashboardState implements _DashboardState {
 
   @override
   String toString() {
-    return 'DashboardState(dashboardBucketsState: $dashboardBucketsState, buckets: $buckets, foodInputBlocOutgoingEntries: $foodInputBlocOutgoingEntries, foodInputBlocEntries: $foodInputBlocEntries)';
+    return 'DashboardState(dashboardBucketsState: $dashboardBucketsState, headerBucket: $headerBucket, buckets: $buckets, foodInputBlocOutgoingEntries: $foodInputBlocOutgoingEntries, foodInputBlocEntries: $foodInputBlocEntries)';
   }
 
   @override
@@ -1059,6 +1317,8 @@ class _$_DashboardState implements _DashboardState {
             other is _DashboardState &&
             const DeepCollectionEquality()
                 .equals(other.dashboardBucketsState, dashboardBucketsState) &&
+            const DeepCollectionEquality()
+                .equals(other.headerBucket, headerBucket) &&
             const DeepCollectionEquality().equals(other.buckets, buckets) &&
             const DeepCollectionEquality().equals(
                 other.foodInputBlocOutgoingEntries,
@@ -1071,6 +1331,7 @@ class _$_DashboardState implements _DashboardState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(dashboardBucketsState),
+      const DeepCollectionEquality().hash(headerBucket),
       const DeepCollectionEquality().hash(buckets),
       const DeepCollectionEquality().hash(foodInputBlocOutgoingEntries),
       const DeepCollectionEquality().hash(foodInputBlocEntries));
@@ -1084,6 +1345,7 @@ class _$_DashboardState implements _DashboardState {
 abstract class _DashboardState implements DashboardState {
   const factory _DashboardState(
           {required final DashboardBucketsState dashboardBucketsState,
+          final DayBucket? headerBucket,
           required final KtList<DayBucket> buckets,
           required final KtList<FoodItemEntry> foodInputBlocOutgoingEntries,
           required final KtList<FoodItemEntryWrapper> foodInputBlocEntries}) =
@@ -1092,6 +1354,8 @@ abstract class _DashboardState implements DashboardState {
   @override
   DashboardBucketsState get dashboardBucketsState =>
       throw _privateConstructorUsedError;
+  @override
+  DayBucket? get headerBucket => throw _privateConstructorUsedError;
   @override
   KtList<DayBucket> get buckets => throw _privateConstructorUsedError;
   @override

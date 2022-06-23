@@ -16,4 +16,7 @@ class DashboardEvent with _$DashboardEvent {
 
   const factory DashboardEvent.extendBucketWatchRange() =
       _ExtendBucketWatchRange;
+
+  const factory DashboardEvent.setHeaderBucket(DayBucket? headerBucket) =
+      _SetHeaderBucket;
 }
