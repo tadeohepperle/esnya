@@ -11,4 +11,6 @@ class FoodInputEvent with _$FoodInputEvent {
   /// example: called on every build in dashbaord tab with conextId ="dashboard": if != before, reset bloc.
   /// Called with contextId="addFoodItem#12342" in add food to collection screen.
   const factory FoodInputEvent.setContext(String contextId) = _SetContext;
+  const factory FoodInputEvent.setFoodInputMode(FoodInputMode mode) =
+      _SetFoodInputMode;
 }

@@ -6,12 +6,16 @@ class FoodInputState with _$FoodInputState {
   const factory FoodInputState({
     required String safeText,
     required String volatileText,
+    required FoodInputMode foodInputMode,
     String? contextId,
   }) = _FoodInputState;
   factory FoodInputState.initial() => const FoodInputState(
         safeText: '',
         volatileText: '',
+        foodInputMode: FoodInputMode.none,
       );
 
   String get totalText => safeText + ' ' + volatileText;
 }
+
+enum FoodInputMode { none, voice, text }

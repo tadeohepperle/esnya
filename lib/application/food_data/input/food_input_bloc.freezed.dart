@@ -22,6 +22,7 @@ mixin _$FoodInputEvent {
     required TResult Function() saveVolatileText,
     required TResult Function(FoodItemEntryWrapper entry) fetchFood,
     required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$FoodInputEvent {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$FoodInputEvent {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$FoodInputEvent {
     required TResult Function(_SaveVolatileText value) saveVolatileText,
     required TResult Function(_FetchFood value) fetchFood,
     required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$FoodInputEvent {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$FoodInputEvent {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -154,6 +160,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     required TResult Function() saveVolatileText,
     required TResult Function(FoodItemEntryWrapper entry) fetchFood,
     required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
   }) {
     return setVolatileText(value);
   }
@@ -165,6 +172,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
   }) {
     return setVolatileText?.call(value);
   }
@@ -176,6 +184,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -191,6 +200,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     required TResult Function(_SaveVolatileText value) saveVolatileText,
     required TResult Function(_FetchFood value) fetchFood,
     required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
   }) {
     return setVolatileText(this);
   }
@@ -202,6 +212,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
   }) {
     return setVolatileText?.call(this);
   }
@@ -213,6 +224,7 @@ class _$_SetVolatileText implements _SetVolatileText {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (setVolatileText != null) {
@@ -276,6 +288,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     required TResult Function() saveVolatileText,
     required TResult Function(FoodItemEntryWrapper entry) fetchFood,
     required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
   }) {
     return saveVolatileText();
   }
@@ -287,6 +300,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
   }) {
     return saveVolatileText?.call();
   }
@@ -298,6 +312,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (saveVolatileText != null) {
@@ -313,6 +328,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     required TResult Function(_SaveVolatileText value) saveVolatileText,
     required TResult Function(_FetchFood value) fetchFood,
     required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
   }) {
     return saveVolatileText(this);
   }
@@ -324,6 +340,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
   }) {
     return saveVolatileText?.call(this);
   }
@@ -335,6 +352,7 @@ class _$_SaveVolatileText implements _SaveVolatileText {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (saveVolatileText != null) {
@@ -424,6 +442,7 @@ class _$_FetchFood implements _FetchFood {
     required TResult Function() saveVolatileText,
     required TResult Function(FoodItemEntryWrapper entry) fetchFood,
     required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
   }) {
     return fetchFood(entry);
   }
@@ -435,6 +454,7 @@ class _$_FetchFood implements _FetchFood {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
   }) {
     return fetchFood?.call(entry);
   }
@@ -446,6 +466,7 @@ class _$_FetchFood implements _FetchFood {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (fetchFood != null) {
@@ -461,6 +482,7 @@ class _$_FetchFood implements _FetchFood {
     required TResult Function(_SaveVolatileText value) saveVolatileText,
     required TResult Function(_FetchFood value) fetchFood,
     required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
   }) {
     return fetchFood(this);
   }
@@ -472,6 +494,7 @@ class _$_FetchFood implements _FetchFood {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
   }) {
     return fetchFood?.call(this);
   }
@@ -483,6 +506,7 @@ class _$_FetchFood implements _FetchFood {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (fetchFood != null) {
@@ -569,6 +593,7 @@ class _$_SetContext implements _SetContext {
     required TResult Function() saveVolatileText,
     required TResult Function(FoodItemEntryWrapper entry) fetchFood,
     required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
   }) {
     return setContext(contextId);
   }
@@ -580,6 +605,7 @@ class _$_SetContext implements _SetContext {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
   }) {
     return setContext?.call(contextId);
   }
@@ -591,6 +617,7 @@ class _$_SetContext implements _SetContext {
     TResult Function()? saveVolatileText,
     TResult Function(FoodItemEntryWrapper entry)? fetchFood,
     TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (setContext != null) {
@@ -606,6 +633,7 @@ class _$_SetContext implements _SetContext {
     required TResult Function(_SaveVolatileText value) saveVolatileText,
     required TResult Function(_FetchFood value) fetchFood,
     required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
   }) {
     return setContext(this);
   }
@@ -617,6 +645,7 @@ class _$_SetContext implements _SetContext {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
   }) {
     return setContext?.call(this);
   }
@@ -628,6 +657,7 @@ class _$_SetContext implements _SetContext {
     TResult Function(_SaveVolatileText value)? saveVolatileText,
     TResult Function(_FetchFood value)? fetchFood,
     TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
     required TResult orElse(),
   }) {
     if (setContext != null) {
@@ -647,9 +677,163 @@ abstract class _SetContext implements FoodInputEvent {
 }
 
 /// @nodoc
+abstract class _$SetFoodInputModeCopyWith<$Res> {
+  factory _$SetFoodInputModeCopyWith(
+          _SetFoodInputMode value, $Res Function(_SetFoodInputMode) then) =
+      __$SetFoodInputModeCopyWithImpl<$Res>;
+  $Res call({FoodInputMode mode});
+}
+
+/// @nodoc
+class __$SetFoodInputModeCopyWithImpl<$Res>
+    extends _$FoodInputEventCopyWithImpl<$Res>
+    implements _$SetFoodInputModeCopyWith<$Res> {
+  __$SetFoodInputModeCopyWithImpl(
+      _SetFoodInputMode _value, $Res Function(_SetFoodInputMode) _then)
+      : super(_value, (v) => _then(v as _SetFoodInputMode));
+
+  @override
+  _SetFoodInputMode get _value => super._value as _SetFoodInputMode;
+
+  @override
+  $Res call({
+    Object? mode = freezed,
+  }) {
+    return _then(_SetFoodInputMode(
+      mode == freezed
+          ? _value.mode
+          : mode // ignore: cast_nullable_to_non_nullable
+              as FoodInputMode,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_SetFoodInputMode implements _SetFoodInputMode {
+  const _$_SetFoodInputMode(this.mode);
+
+  @override
+  final FoodInputMode mode;
+
+  @override
+  String toString() {
+    return 'FoodInputEvent.setFoodInputMode(mode: $mode)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _SetFoodInputMode &&
+            const DeepCollectionEquality().equals(other.mode, mode));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(mode));
+
+  @JsonKey(ignore: true)
+  @override
+  _$SetFoodInputModeCopyWith<_SetFoodInputMode> get copyWith =>
+      __$SetFoodInputModeCopyWithImpl<_SetFoodInputMode>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String value) setVolatileText,
+    required TResult Function() saveVolatileText,
+    required TResult Function(FoodItemEntryWrapper entry) fetchFood,
+    required TResult Function(String contextId) setContext,
+    required TResult Function(FoodInputMode mode) setFoodInputMode,
+  }) {
+    return setFoodInputMode(mode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
+    TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
+  }) {
+    return setFoodInputMode?.call(mode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String value)? setVolatileText,
+    TResult Function()? saveVolatileText,
+    TResult Function(FoodItemEntryWrapper entry)? fetchFood,
+    TResult Function(String contextId)? setContext,
+    TResult Function(FoodInputMode mode)? setFoodInputMode,
+    required TResult orElse(),
+  }) {
+    if (setFoodInputMode != null) {
+      return setFoodInputMode(mode);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetVolatileText value) setVolatileText,
+    required TResult Function(_SaveVolatileText value) saveVolatileText,
+    required TResult Function(_FetchFood value) fetchFood,
+    required TResult Function(_SetContext value) setContext,
+    required TResult Function(_SetFoodInputMode value) setFoodInputMode,
+  }) {
+    return setFoodInputMode(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
+    TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
+  }) {
+    return setFoodInputMode?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetVolatileText value)? setVolatileText,
+    TResult Function(_SaveVolatileText value)? saveVolatileText,
+    TResult Function(_FetchFood value)? fetchFood,
+    TResult Function(_SetContext value)? setContext,
+    TResult Function(_SetFoodInputMode value)? setFoodInputMode,
+    required TResult orElse(),
+  }) {
+    if (setFoodInputMode != null) {
+      return setFoodInputMode(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetFoodInputMode implements FoodInputEvent {
+  const factory _SetFoodInputMode(final FoodInputMode mode) =
+      _$_SetFoodInputMode;
+
+  FoodInputMode get mode => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$SetFoodInputModeCopyWith<_SetFoodInputMode> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$FoodInputState {
   String get safeText => throw _privateConstructorUsedError;
   String get volatileText => throw _privateConstructorUsedError;
+  FoodInputMode get foodInputMode => throw _privateConstructorUsedError;
   String? get contextId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -662,7 +846,11 @@ abstract class $FoodInputStateCopyWith<$Res> {
   factory $FoodInputStateCopyWith(
           FoodInputState value, $Res Function(FoodInputState) then) =
       _$FoodInputStateCopyWithImpl<$Res>;
-  $Res call({String safeText, String volatileText, String? contextId});
+  $Res call(
+      {String safeText,
+      String volatileText,
+      FoodInputMode foodInputMode,
+      String? contextId});
 }
 
 /// @nodoc
@@ -678,6 +866,7 @@ class _$FoodInputStateCopyWithImpl<$Res>
   $Res call({
     Object? safeText = freezed,
     Object? volatileText = freezed,
+    Object? foodInputMode = freezed,
     Object? contextId = freezed,
   }) {
     return _then(_value.copyWith(
@@ -689,6 +878,10 @@ class _$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
+      foodInputMode: foodInputMode == freezed
+          ? _value.foodInputMode
+          : foodInputMode // ignore: cast_nullable_to_non_nullable
+              as FoodInputMode,
       contextId: contextId == freezed
           ? _value.contextId
           : contextId // ignore: cast_nullable_to_non_nullable
@@ -704,7 +897,11 @@ abstract class _$FoodInputStateCopyWith<$Res>
           _FoodInputState value, $Res Function(_FoodInputState) then) =
       __$FoodInputStateCopyWithImpl<$Res>;
   @override
-  $Res call({String safeText, String volatileText, String? contextId});
+  $Res call(
+      {String safeText,
+      String volatileText,
+      FoodInputMode foodInputMode,
+      String? contextId});
 }
 
 /// @nodoc
@@ -722,6 +919,7 @@ class __$FoodInputStateCopyWithImpl<$Res>
   $Res call({
     Object? safeText = freezed,
     Object? volatileText = freezed,
+    Object? foodInputMode = freezed,
     Object? contextId = freezed,
   }) {
     return _then(_FoodInputState(
@@ -733,6 +931,10 @@ class __$FoodInputStateCopyWithImpl<$Res>
           ? _value.volatileText
           : volatileText // ignore: cast_nullable_to_non_nullable
               as String,
+      foodInputMode: foodInputMode == freezed
+          ? _value.foodInputMode
+          : foodInputMode // ignore: cast_nullable_to_non_nullable
+              as FoodInputMode,
       contextId: contextId == freezed
           ? _value.contextId
           : contextId // ignore: cast_nullable_to_non_nullable
@@ -745,7 +947,10 @@ class __$FoodInputStateCopyWithImpl<$Res>
 
 class _$_FoodInputState extends _FoodInputState {
   const _$_FoodInputState(
-      {required this.safeText, required this.volatileText, this.contextId})
+      {required this.safeText,
+      required this.volatileText,
+      required this.foodInputMode,
+      this.contextId})
       : super._();
 
   @override
@@ -753,11 +958,13 @@ class _$_FoodInputState extends _FoodInputState {
   @override
   final String volatileText;
   @override
+  final FoodInputMode foodInputMode;
+  @override
   final String? contextId;
 
   @override
   String toString() {
-    return 'FoodInputState(safeText: $safeText, volatileText: $volatileText, contextId: $contextId)';
+    return 'FoodInputState(safeText: $safeText, volatileText: $volatileText, foodInputMode: $foodInputMode, contextId: $contextId)';
   }
 
   @override
@@ -768,6 +975,8 @@ class _$_FoodInputState extends _FoodInputState {
             const DeepCollectionEquality().equals(other.safeText, safeText) &&
             const DeepCollectionEquality()
                 .equals(other.volatileText, volatileText) &&
+            const DeepCollectionEquality()
+                .equals(other.foodInputMode, foodInputMode) &&
             const DeepCollectionEquality().equals(other.contextId, contextId));
   }
 
@@ -776,6 +985,7 @@ class _$_FoodInputState extends _FoodInputState {
       runtimeType,
       const DeepCollectionEquality().hash(safeText),
       const DeepCollectionEquality().hash(volatileText),
+      const DeepCollectionEquality().hash(foodInputMode),
       const DeepCollectionEquality().hash(contextId));
 
   @JsonKey(ignore: true)
@@ -788,6 +998,7 @@ abstract class _FoodInputState extends FoodInputState {
   const factory _FoodInputState(
       {required final String safeText,
       required final String volatileText,
+      required final FoodInputMode foodInputMode,
       final String? contextId}) = _$_FoodInputState;
   const _FoodInputState._() : super._();
 
@@ -795,6 +1006,8 @@ abstract class _FoodInputState extends FoodInputState {
   String get safeText => throw _privateConstructorUsedError;
   @override
   String get volatileText => throw _privateConstructorUsedError;
+  @override
+  FoodInputMode get foodInputMode => throw _privateConstructorUsedError;
   @override
   String? get contextId => throw _privateConstructorUsedError;
   @override

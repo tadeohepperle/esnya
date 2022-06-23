@@ -373,8 +373,8 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
 
     // TODO: only if bucket not equal null???
     final dashboardBloc = getIt<DashboardBloc>();
-    final bucket =
-        dashboardBloc.getBucketByIndex(_bucketIndexFromScrollPosition());
+    final bucketIndex = _bucketIndexFromScrollPosition();
+    final bucket = dashboardBloc.getBucketByIndex(bucketIndex);
     dashboardBloc.add(DashboardEvent.setHeaderBucket(bucket));
   }
 
