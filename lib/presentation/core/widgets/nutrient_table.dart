@@ -85,8 +85,6 @@ class NutrientTable extends StatelessWidget {
     Row _buildRow(RowInformation rowInfo) {
       final color = colorScheme.onSurface;
       //color = isHighest ? colorScheme.primary : colorScheme.onSurface;
-
-      final amount = rowInfo.amount.roundPlaces(1);
       final gramEquivalent = rowInfo.gramEquivalent;
       // final isHighest = gramEquivalent == state.highestGramEquivalent;
       final nutrientType = rowInfo.nutrientType;
@@ -99,6 +97,10 @@ class NutrientTable extends StatelessWidget {
       final subNutrientGramEquivalent = subNutrient == null
           ? null
           : state.rowInformationsSubNutrients[subNutrient]!.gramEquivalent;
+      final String amountTitle = (rowInfo.amount == null)
+          ? "unknown"
+          : langRepo.translateAmount(rowInfo.amount!.roundPlaces(1),
+              fractionDigits: 1);
 
       return Row(
         children: [
@@ -119,7 +121,7 @@ class NutrientTable extends StatelessWidget {
                   ),
                 ),
                 EsnyaText.titleBold(
-                  langRepo.translateAmount(amount, fractionDigits: 1),
+                  amountTitle,
                   color: color,
                 ),
               ],
@@ -129,8 +131,10 @@ class NutrientTable extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
               // TODO: distingish between 0 grams and content not null, make grams a nullable type.
-              child: _buildBar(gramEquivalent,
-                  subNutrientGramEquivalent: subNutrientGramEquivalent),
+              child: rowInfo.gramEquivalent == null
+                  ? SizedBox.shrink()
+                  : _buildBar(rowInfo.gramEquivalent!,
+                      subNutrientGramEquivalent: subNutrientGramEquivalent),
             ),
           ),
         ],
@@ -160,10 +164,15 @@ class NutrientTableState {
     RowInformation _computeRowInfo(NutrientType nType) {
       final amount = nutrientAmounts[nType];
       if (amount == null) {
-        return RowInformation.emptyFromNutrientType(nType);
+        return RowInformation(
+            amount: null, gramEquivalent: null, nutrientType: nType);
       }
       final gramEquivalent = convertAmountToMeasureUnit(amount, MeasureUnit.g)
-          .fold((l) => 0.0, (r) => r.number);
+          .fold((l) => null, (r) => r.number);
+      if (gramEquivalent == null) {
+        return RowInformation(
+            amount: null, gramEquivalent: null, nutrientType: nType);
+      }
       if (gramEquivalent > highestGramEquivalent) {
         highestGramEquivalent = gramEquivalent;
       }
@@ -173,7 +182,7 @@ class NutrientTableState {
 
     final rowInformations = nutrientTypes.map((nType) {
       final rowInfo = _computeRowInfo(nType);
-      totalGrams += rowInfo.gramEquivalent;
+      totalGrams += rowInfo.gramEquivalent ?? 0;
       return rowInfo;
     }).toList();
 
@@ -201,8 +210,8 @@ class NutrientTableState {
 }
 
 class RowInformation {
-  final double gramEquivalent;
-  final Amount amount;
+  final double? gramEquivalent;
+  final Amount? amount;
   final NutrientType nutrientType;
   RowInformation({
     required this.gramEquivalent,
