@@ -24,18 +24,22 @@ class NutrientTable extends StatelessWidget {
 
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
-    Widget _buildBar(double gramProportion,
-        {double? subProportion, VoidCallback? onTap}) {
-      assert(subProportion == null || subProportion <= gramProportion);
+    Widget _buildBar(double gramEquivalent,
+        {double? subNutrientGramEquivalent, VoidCallback? onTap}) {
+      assert(subNutrientGramEquivalent == null ||
+          subNutrientGramEquivalent <= gramEquivalent);
       final color = colorScheme.onSurface;
       final subColor = colorScheme.error;
-
-      final subRow = subProportion == null
+      final gramProportion100 = state.totalGrams > 0
+          ? 100 * gramEquivalent / state.highestGramEquivalent
+          : 100;
+      final subRow = subNutrientGramEquivalent == null
           ? null
           : Row(
               children: [
                 Expanded(
-                  flex: (subProportion / gramProportion * 100).round(),
+                  flex: (subNutrientGramEquivalent / gramEquivalent * 100)
+                      .round(),
                   child: Container(
                     height: 24,
                     decoration: BoxDecoration(
@@ -45,7 +49,9 @@ class NutrientTable extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 100 - (subProportion / gramProportion * 100).round(),
+                  flex: 100 -
+                      (subNutrientGramEquivalent / gramEquivalent * 100)
+                          .round(),
                   child: Container(
                     height: 24,
                   ),
@@ -56,7 +62,7 @@ class NutrientTable extends StatelessWidget {
       return Row(
         children: [
           Expanded(
-            flex: gramProportion.round(),
+            flex: gramEquivalent.round(),
             child: Container(
               height: 24,
               decoration: BoxDecoration(
@@ -67,7 +73,7 @@ class NutrientTable extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 100 - gramProportion.round(),
+            flex: 100 - gramProportion100.round(),
             child: Container(
               height: 24,
             ),
@@ -84,13 +90,15 @@ class NutrientTable extends StatelessWidget {
       final gramEquivalent = rowInfo.gramEquivalent;
       // final isHighest = gramEquivalent == state.highestGramEquivalent;
       final nutrientType = rowInfo.nutrientType;
-      final percent100 = state.highestGramEquivalent;
-      double gramProportion =
-          state.totalGrams > 0 ? 100 * gramEquivalent / percent100 : 1;
-      double? subProportion;
-      if(rowInfo.nutrientType == NutrientType.carbs){
-        subProportion = state.
-      }
+
+      NutrientType? subNutrient = {
+        NutrientType.carbs: NutrientType.sugar,
+        NutrientType.fat: NutrientType.fatsat,
+      }[rowInfo.nutrientType];
+
+      final subNutrientGramEquivalent = subNutrient == null
+          ? null
+          : state.rowInformationsSubNutrients[subNutrient]!.gramEquivalent;
 
       return Row(
         children: [
@@ -121,7 +129,8 @@ class NutrientTable extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 4, 0, 4),
               // TODO: distingish between 0 grams and content not null, make grams a nullable type.
-              child: _buildBar(gramProportion, subProportion: subProportion),
+              child: _buildBar(gramEquivalent,
+                  subNutrientGramEquivalent: subNutrientGramEquivalent),
             ),
           ),
         ],
@@ -140,7 +149,7 @@ class NutrientTableState {
   final double totalGrams;
   final double highestGramEquivalent;
   final List<RowInformation> rowInformations;
-  final Map<NutrientType,RowInformation> rowInformationsSubNutrients;
+  final Map<NutrientType, RowInformation> rowInformationsSubNutrients;
   factory NutrientTableState.fromFoodItemAndNutrientTypes({
     required Map<NutrientType, Amount> nutrientAmounts,
     required Iterable<NutrientType> nutrientTypes,
@@ -148,7 +157,7 @@ class NutrientTableState {
     double totalGrams = 0;
     double highestGramEquivalent = 0;
 
-    RowInformation _computeRowInfo (NutrientType nType){
+    RowInformation _computeRowInfo(NutrientType nType) {
       final amount = nutrientAmounts[nType];
       if (amount == null) {
         return RowInformation.emptyFromNutrientType(nType);
@@ -158,7 +167,7 @@ class NutrientTableState {
       if (gramEquivalent > highestGramEquivalent) {
         highestGramEquivalent = gramEquivalent;
       }
-          return RowInformation(
+      return RowInformation(
           gramEquivalent: gramEquivalent, amount: amount, nutrientType: nType);
     }
 
@@ -168,19 +177,27 @@ class NutrientTableState {
       return rowInfo;
     }).toList();
 
-
-    final subNutr = {NutrientType.sugar, NutrientType.fatsat}.map(nType => )
+    final subNutr = {NutrientType.sugar: null, NutrientType.fatsat: null}.map(
+      (nType, _) => MapEntry(
+        nType,
+        _computeRowInfo(nType),
+      ),
+    );
 
     return NutrientTableState(
-        totalGrams: totalGrams,
-        highestGramEquivalent: highestGramEquivalent,
-        rowInformations: rowInformations);
+      totalGrams: totalGrams,
+      highestGramEquivalent: highestGramEquivalent,
+      rowInformations: rowInformations,
+      rowInformationsSubNutrients: subNutr,
+    );
   }
 
-  NutrientTableState(
-      {required this.totalGrams,
-      required this.highestGramEquivalent,
-      required this.rowInformations,});
+  NutrientTableState({
+    required this.totalGrams,
+    required this.highestGramEquivalent,
+    required this.rowInformations,
+    required this.rowInformationsSubNutrients,
+  });
 }
 
 class RowInformation {
