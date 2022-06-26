@@ -9,20 +9,18 @@ import 'package:esnya/presentation/core/widgets/utils/decimal_text_input_formatt
 import 'package:esnya_shared_resources/core/conversion/measure_unit_conversion.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 
-class FoodItemEntryChangeAmountCard extends StatefulWidget {
+class AmountPicker extends StatefulWidget {
   final FoodItemEntry foodItemEntry;
-  const FoodItemEntryChangeAmountCard({
+  const AmountPicker({
     Key? key,
     required this.foodItemEntry,
   }) : super(key: key);
 
   @override
-  State<FoodItemEntryChangeAmountCard> createState() =>
-      _FoodItemEntryChangeAmountCardState();
+  State<AmountPicker> createState() => _AmountPickerState();
 }
 
-class _FoodItemEntryChangeAmountCardState
-    extends State<FoodItemEntryChangeAmountCard> {
+class _AmountPickerState extends State<AmountPicker> {
   late Amount selectedAmount;
   String errorText = "";
   late TextEditingController textController;
@@ -40,10 +38,15 @@ class _FoodItemEntryChangeAmountCardState
       _getValidMeasureUnitsAndGrams() {
     final foodMeasures = widget.foodItemEntry.foodItem.food.measures;
     final allMeasures = [
+      selectedAmount.unit,
       MeasureUnit.g,
-      MeasureUnit.ml,
       MeasureUnit.oz,
+      MeasureUnit.ml,
+      MeasureUnit.tsp,
+      MeasureUnit.tbsp,
       MeasureUnit.cup,
+      MeasureUnit.kcal,
+      MeasureUnit.kJ,
       ...foodMeasures.keys
     ].unique();
 

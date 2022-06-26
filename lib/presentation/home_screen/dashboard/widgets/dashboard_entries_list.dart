@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:dartz/dartz.dart' hide State;
 import 'package:esnya/infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
 import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/amount_picker.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';

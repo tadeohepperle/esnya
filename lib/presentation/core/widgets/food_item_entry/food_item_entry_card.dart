@@ -1,7 +1,7 @@
 import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/presentation/core/design_components/design_components.dart';
 import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
-import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/amount_picker.dart';
 import 'package:esnya_shared_resources/core/conversion/measure_unit_conversion.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -71,7 +71,7 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return FoodItemEntryChangeAmountCard(foodItemEntry: foodItemEntry);
+          return AmountPicker(foodItemEntry: foodItemEntry);
         }).then((Amount? newAmount) {
       if (newAmount != null) {
         setState(() {
@@ -128,7 +128,7 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
       ).toOption().toNullable()!;
       switchLeftText += ' (${langRepo.translateAmount(amountInGrams)})';
     }
-    "2 servings (230g)";
+
     final switchRightText =
         langRepo.translateAmount(const Amount(MeasureUnit.g, 100));
 
