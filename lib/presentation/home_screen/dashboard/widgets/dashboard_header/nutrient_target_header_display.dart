@@ -44,7 +44,6 @@ class NutrientTargetHeaderDisplay extends StatelessWidget {
         (consumedAmount.number / nutrientTarget.amount.number * 100)
             .round()
             .clamp(0, 100);
-    print(consumedFractionInPercent);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Column(
@@ -71,7 +70,7 @@ class NutrientTargetHeaderDisplay extends StatelessWidget {
               ),
               Transform.translate(
                 offset: Offset(0, -5),
-                child: EsnyaText.titleBold(
+                child: EsnyaText.title(
                   smallText,
                   color: weakColor,
                 ),

@@ -102,35 +102,53 @@ class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
 
   @override
   Future<Either<Failure, Unit>> updateEntry(
-          UniqueId bucketId, FoodItemEntry entry) =>
-      createEntry(bucketId, entry);
+      UniqueId bucketId, FoodItemEntry entry,
+      {UniqueId? bucketIdEntryHadBefore}) async {
+    if (bucketIdEntryHadBefore == null || bucketId == bucketIdEntryHadBefore) {
+      return await createEntry(bucketId, entry);
+    } else {
+      List<Either<Failure, Unit>> result =
+          await Future.wait<Either<Failure, Unit>>([
+        deleteEntry(bucketIdEntryHadBefore, entry),
+        createEntry(bucketId, entry)
+      ]);
+      // if any of the two operations fails, entire thing fails.
+      Failure? failure;
+      return result.every((e) => e.fold((l) {
+                failure = l;
+                return false;
+              }, (r) => true))
+          ? right(unit)
+          : left(failure!);
+    }
+  }
 
-  @override
-  Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
-          UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
-      _operationOnBucketDocRef(
-        bucketId,
-        (bucketDocRef) async {
-          // TODO: THINK: the entire updateEntryFunctional might be a bit inefficient, because the pull and put are two operations.
-          // We dont know what happens if something happens to the document in between.
-          final json = await bucketDocRef.get();
+  // @override
+  // Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
+  //         UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
+  //     _operationOnBucketDocRef(
+  //       bucketId,
+  //       (bucketDocRef) async {
+  //         // TODO: THINK: the entire updateEntryFunctional might be a bit inefficient, because the pull and put are two operations.
+  //         // We dont know what happens if something happens to the document in between.
+  //         final json = await bucketDocRef.get();
 
-          final a = json["entries"];
-          final before = FoodItemEntry.fromJson(json["entries"][entryId.value]);
-          final after = applyUpdate(before);
-          await bucketDocRef.update(updateObjectForEntry(after));
-        },
-      );
+  //         final a = json["entries"];
+  //         final before = FoodItemEntry.fromJson(json["entries"][entryId.value]);
+  //         final after = applyUpdate(before);
+  //         await bucketDocRef.update(updateObjectForEntry(after));
+  //       },
+  //     );
 
   @override
   Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry) =>
       _operationOnTodaysBucket((bucketId) => updateEntry(bucketId, entry));
 
-  @override
-  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
-          UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
-      _operationOnTodaysBucket(
-          (bucketId) => updateEntryFunctional(bucketId, entryId, applyUpdate));
+  // @override
+  // Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
+  //         UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate) =>
+  //     _operationOnTodaysBucket(
+  //         (bucketId) => updateEntryFunctional(bucketId, entryId, applyUpdate));
 
   @override
   Stream<Either<Failure, DayBucket>> watchBucket(UniqueId bucketId) async* {
@@ -163,11 +181,13 @@ class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
           .asMap()
           .entries
           .where(
-            // take only the bucket of today or nonempty buckets
+            // take only the bucket of today (key == 0) or nonempty buckets
             (entry) => entry.key == 0 || entry.value.entries.isNotEmpty(),
           )
-          .map((e) => e.value);
-
+          .map((e) => e.value)
+          .map(
+            (e) => e.copyWith(entries: e.entries.sortedBy((a) => a.dateTime)),
+          );
       return buckets.toImmutableList();
     }).map((list) => right<Failure, KtList<DayBucket>>(list));
     // .onErrorReturn(left<Failure, KtList<DayBucket>>(
@@ -203,11 +223,12 @@ class DayBucketRepositoryImplFirebase extends SetupRepositoryImpl
 
   Future<Either<Failure, UniqueId>> _getOrCreateBucketForToday() async {
     try {
-      final id = bucketIdForToday();
+      final uniqueId = bucketIdForToday();
       final userDoc = await _firestore.userDocument();
-      final docRef =
-          await userDoc.collection(kBucketsCollectionName).doc(id).get();
-      final uniqueId = UniqueId.fromUniqueString(id);
+      final docRef = await userDoc
+          .collection(kBucketsCollectionName)
+          .doc(uniqueId.value)
+          .get();
       if (docRef.exists) {
         return right(uniqueId);
       } else {

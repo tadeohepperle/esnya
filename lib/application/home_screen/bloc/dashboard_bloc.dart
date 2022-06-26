@@ -175,17 +175,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DayBucket? getBucketByIndex(int index) =>
       state.buckets.size > index ? state.buckets[index] : null;
 
-  Future<void> _updateEntryInRepository(
-      UniqueId entryId, MapFunction<FoodItemEntry> update) async {
-    // only send update request to firebase if entry is still in todays bucket or in entriesBetweenBlocAndRepo
-    if (_entryStillExistsInFirebaseOrBetweenBlocAndRepo(entryId)) {
-      _dayBucketRepository.updateEntryFunctionalForToday(
-        entryId,
-        update,
-      );
-    }
-  }
-
   bool _entryStillExistsInFirebaseOrBetweenBlocAndRepo(UniqueId entryId) {
     for (var e in state.foodInputBlocOutgoingEntries.iter) {
       if (e.id == entryId) {

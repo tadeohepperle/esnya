@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart' hide State;
+import 'package:esnya/infrastructure/user_data/utils/food_item_entry_bucket_utils.dart';
 import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
 import 'package:esnya_shared_resources/core/core.dart';
@@ -270,8 +271,14 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
                           .deleteEntry(bucketId, foodItemEntry);
                     },
                     onUpdateEntry: (FoodItemEntry updatedEntry) {
-                      getIt<DayBucketsRepository>()
-                          .updateEntry(bucketId, updatedEntry);
+                      final newBucketId =
+                          bucketIdForFoodItemEntry(updatedEntry);
+
+                      // for possible bucket changes, we need to supply old and new bucketID computed from entry time.
+                      // This is necessary because then we delete entry in old bucket and add/update in new bucket at the same time.
+                      getIt<DayBucketsRepository>().updateEntry(
+                          newBucketId, updatedEntry,
+                          bucketIdEntryHadBefore: bucketId);
                     },
                   );
                 });

@@ -1,3 +1,4 @@
+import 'package:esnya/domain/core/utils.dart';
 import 'package:esnya/presentation/core/design_components/design_components.dart';
 import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
 import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
@@ -36,8 +37,33 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
     });
   }
 
-  void _showTimeChangeDialog(BuildContext context) {
-    // TODO
+  void _showTimeChangeDialog(BuildContext context) async {
+    final time = await showTimePicker(
+        context: context, initialTime: TimeOfDay(hour: 12, minute: 32));
+    if (time != null) {
+      final newDateTime = foodItemEntry.dateTime.applyTimeOfDay(time);
+      setState(() {
+        foodItemEntry = foodItemEntry.copyWith(dateTime: newDateTime);
+      });
+      widget.onUpdateEntry?.call(foodItemEntry);
+    }
+  }
+
+  void _showDateChangeDialog(BuildContext context) async {
+    final date = await showDatePicker(
+      context: context,
+      initialDate: foodItemEntry.dateTime,
+      firstDate: DateTime.parse("2022-06-01"),
+      lastDate: DateTime.now(),
+    );
+    if (date != null) {
+      final newDateTime =
+          date.applyTimeOfDay(TimeOfDay.fromDateTime(foodItemEntry.dateTime));
+      setState(() {
+        foodItemEntry = foodItemEntry.copyWith(dateTime: newDateTime);
+      });
+      widget.onUpdateEntry?.call(foodItemEntry);
+    }
   }
 
   void _showAmountChangeDialog(BuildContext context) {
@@ -77,13 +103,14 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
 
     final kcal = nutrientAmounts?[NutrientType.energy];
     final dateTodayRelation = computeDateTodayRelation(foodItemEntry.dateTime);
-    final dateTimeString = langRepo.translateDate(
+    final dateString = langRepo.translateDate(
       foodItemEntry.dateTime,
       includeYear: true,
-      includeTime: true,
+      // includeTime: true,
       dateTodayRelation: dateTodayRelation,
       replaceDateByTodayRelation: true,
     );
+    final timeString = langRepo.translateTime(foodItemEntry.dateTime);
 
     final translatedAmount = langRepo.translateAmount(foodItem.amount);
 
@@ -152,12 +179,23 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
                         },
                         title: translatedAmount,
                       ),
-                      EsynaButton.surface(
-                        onPressed: () {
-                          _showTimeChangeDialog(context);
-                        },
-                        title: dateTimeString,
-                      ),
+                      Row(
+                        children: [
+                          EsynaButton.surface(
+                            onPressed: () {
+                              _showDateChangeDialog(context);
+                            },
+                            title: dateString,
+                          ),
+                          EsnyaSizes.spaceBaseWidth,
+                          EsynaButton.surface(
+                            onPressed: () {
+                              _showTimeChangeDialog(context);
+                            },
+                            title: timeString,
+                          ),
+                        ],
+                      )
                     ],
                   ),
                   EsnyaSizes.spaceBaseHeight2,

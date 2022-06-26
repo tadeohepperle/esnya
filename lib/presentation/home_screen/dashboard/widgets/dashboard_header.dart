@@ -1,3 +1,4 @@
+import 'package:esnya/presentation/core/core.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class DashboardHeader extends StatelessWidget {
     final bucket = headerBucket ??
         DayBucket(
             userId: userId,
-            id: UniqueId.fromUniqueString(bucketIdForToday()),
+            id: bucketIdForToday(),
             entries: <FoodItemEntry>[].toImmutableList());
     final nutrientAmounts = bucket.computedNutrientAmounts;
 
@@ -78,24 +79,38 @@ class DashboardHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    EsynaButton.surface(
-                      title: dateTitle,
-                      leadingIcon: EsnyaIcons.calendar,
-                      onPressed: () {
-                        // TODO
-                      },
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0, right: 8.0),
+                      child: Icon(
+                        EsnyaIcons.calendar,
+                        size: 18,
+                        color: colorScheme.onBackground,
+                      ),
                     ),
+
+                    EsnyaText.title(
+                      dateTitle,
+                      color: colorScheme.onBackground,
+                    )
+
+                    // EsynaButton.surface(
+                    //   title: dateTitle,
+                    //   leadingIcon: EsnyaIcons.calendar,
+                    //   onPressed: () {
+                    //     // TODO
+                    //   },
+                    // ),
                   ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 NutrientTargetHeaderDisplay(
                   nutrientTarget: dietRepo.getDailyTarget(primaryNutrient),
                   consumedAmount: nutrientAmounts[primaryNutrient],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 NutrientTargetHeaderDisplay(
                   nutrientTarget: dietRepo.getDailyTarget(secondaryNutrient),

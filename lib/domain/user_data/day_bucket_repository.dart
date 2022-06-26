@@ -19,9 +19,10 @@ abstract class DayBucketsRepository extends SetupRepository {
   Future<Either<Failure, Unit>> createEntries(
       UniqueId bucketId, Iterable<FoodItemEntry> entries);
   Future<Either<Failure, Unit>> updateEntry(
-      UniqueId bucketId, FoodItemEntry entry);
-  Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
-      UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
+      UniqueId bucketId, FoodItemEntry entry,
+      {UniqueId? bucketIdEntryHadBefore});
+  // Future<Either<Failure, Unit>> updateEntryFunctional(UniqueId bucketId,
+  //     UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
   Future<Either<Failure, Unit>> deleteEntry(
       UniqueId bucketId, FoodItemEntry entry);
 
@@ -29,8 +30,8 @@ abstract class DayBucketsRepository extends SetupRepository {
   Future<Either<Failure, Unit>> createEntriesForToday(
       Iterable<FoodItemEntry> entries);
   Future<Either<Failure, Unit>> updateEntryForToday(FoodItemEntry entry);
-  Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
-      UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
+  // Future<Either<Failure, Unit>> updateEntryFunctionalForToday(
+  //     UniqueId entryId, MapFunction<FoodItemEntry> applyUpdate);
   Future<Either<Failure, Unit>> deleteEntryForToday(FoodItemEntry entry);
 }
 
