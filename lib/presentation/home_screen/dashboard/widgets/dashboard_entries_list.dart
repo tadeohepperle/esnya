@@ -260,6 +260,7 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
           // TODO:
           if (bucketId != null) {
             showPaddedDialog(
+                barrierDismissible: false,
                 context: context,
                 builder: (context) {
                   return FoodItemEntryCard(
@@ -268,8 +269,9 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
                       getIt<DayBucketsRepository>()
                           .deleteEntry(bucketId, foodItemEntry);
                     },
-                    onUpdateEntry: (FoodItemEntry e) {
-                      print("!!!!  Update: $e");
+                    onUpdateEntry: (FoodItemEntry updatedEntry) {
+                      getIt<DayBucketsRepository>()
+                          .updateEntry(bucketId, updatedEntry);
                     },
                   );
                 });

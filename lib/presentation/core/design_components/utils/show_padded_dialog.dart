@@ -3,7 +3,7 @@ import 'package:esnya/presentation/core/core.dart';
 Future<T?> showPaddedDialog<T>({
   required BuildContext context,
   required Widget Function(BuildContext) builder,
-  bool barrierDismissible = true,
+  bool barrierDismissible = false,
   RouteSettings? routeSettings,
 }) {
   return showDialog(

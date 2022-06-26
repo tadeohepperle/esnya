@@ -99,7 +99,6 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
         MeasureUnit.g,
         food: foodItemEntry.foodItem.food,
       ).toOption().toNullable()!;
-
       switchLeftText += ' (${langRepo.translateAmount(amountInGrams)})';
     }
     "2 servings (230g)";
