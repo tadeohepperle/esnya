@@ -32,8 +32,8 @@ class FoodItemEntryListTile extends StatelessWidget {
     final amountColor = colorScheme.primary;
     final LanguageRepository langRepo = getIt<LanguageRepository>();
 
-    final translatedAmount =
-        langRepo.translateAmount(foodItemEntry.foodItem.amount);
+    final translatedAmount = langRepo
+        .translateAmount(foodItemEntry.foodItem.amount, shortened: true);
 
     return Shadow(
       MaterialButton(

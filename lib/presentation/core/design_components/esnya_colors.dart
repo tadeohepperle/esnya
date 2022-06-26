@@ -40,21 +40,24 @@ const esnyaColorsLight = EsnyaColors(
 );
 
 final colorSchemeLight = ColorScheme(
-    brightness: Brightness.light,
-    primary: esnyaColorsLight.primary,
-    secondary: esnyaColorsLight.secondary,
-    error: esnyaColorsLight.error,
-    surface: esnyaColorsLight.surface,
-    background: esnyaColorsLight.background,
+  brightness: Brightness.light,
+  primary: esnyaColorsLight.primary,
+  secondary: esnyaColorsLight.secondary,
+  error: esnyaColorsLight.error,
+  surface: esnyaColorsLight.surface,
+  background: esnyaColorsLight.background,
 
-    // textSecondary => onBackground, textPrimary => onSurface, This is more like a workaround.
-    onSurface: esnyaColorsLight.textPrimary,
-    onBackground: esnyaColorsLight.textSecondary,
-    onSurfaceVariant: esnyaColorsLight.textTertiary,
-    onError: esnyaColorsLight.surface,
-    onPrimary: esnyaColorsLight.surface,
-    onSecondary: esnyaColorsLight.surface,
-    shadow: esnyaColorsLight.shadow);
+  // textSecondary => onBackground, textPrimary => onSurface, This is more like a workaround.
+  onSurface: esnyaColorsLight.textPrimary,
+  onBackground: esnyaColorsLight.textSecondary,
+  onSurfaceVariant: esnyaColorsLight.textTertiary,
+  onError: esnyaColorsLight.surface,
+  onPrimary: esnyaColorsLight.surface,
+  onSecondary: esnyaColorsLight.surface,
+  shadow: esnyaColorsLight.shadow,
+
+  outline: esnyaColorsLight.textSecondary,
+);
 
 // TODO: remove all below:
 final Map<NutrientType, Color> _nutrientColorMap = {

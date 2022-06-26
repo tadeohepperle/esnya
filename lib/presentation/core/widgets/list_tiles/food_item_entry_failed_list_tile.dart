@@ -26,7 +26,8 @@ class FoodItemEntryFailedListTile extends StatelessWidget {
     final titleColor = colorScheme.onBackground;
     final amountColor = colorScheme.onBackground;
     final LanguageRepository langRepo = getIt<LanguageRepository>();
-    final amountTitle = langRepo.translateAmount(failed.amount);
+    final amountTitle =
+        langRepo.translateAmount(failed.amount, shortened: true);
 
     return Dismissible(
       onDismissed: onDismissed,

@@ -38,18 +38,11 @@ class _FoodItemEntryCardScreenState extends State<FoodItemEntryCardScreen> {
           EsnyaSizes.paddingWrap(
             FoodItemEntryCard(
               foodItemEntry: foodItemEntry,
-              onAmountButtonClick: () {
-                print("onAmountButtonClick");
+              onDeleteEntry: (_) {
+                print("deleted entry $_");
               },
-              onTimeButtonClick: () {
-                print("onTimeButtonClick");
-              },
-              onDeleteButtonClick: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Text("alet");
-                    });
+              onUpdateEntry: (_) {
+                print("updated entry $_");
               },
             ),
           ),

@@ -79,7 +79,6 @@ _EsnyaButtonConfig buttonSizeToConfig(ButtonSize buttonSize) {
 
 class EsynaButton extends StatelessWidget {
   final void Function()? onPressed;
-  final bool disabled;
   final IconData? leadingIcon;
   final IconData? trailingIcon;
   final String title;
@@ -92,7 +91,6 @@ class EsynaButton extends StatelessWidget {
     required this.getColor,
     required this.getTextColor,
     this.onPressed,
-    this.disabled = false,
     Key? key,
     this.leadingIcon,
     this.trailingIcon,
@@ -102,7 +100,6 @@ class EsynaButton extends StatelessWidget {
   factory EsynaButton.primary({
     required String title,
     void Function()? onPressed,
-    bool disabled = false,
     Key? key,
     IconData? leadingIcon,
     IconData? trailingIcon,
@@ -121,7 +118,6 @@ class EsynaButton extends StatelessWidget {
   factory EsynaButton.secondary({
     required String title,
     void Function()? onPressed,
-    bool disabled = false,
     Key? key,
     IconData? leadingIcon,
     IconData? trailingIcon,
@@ -140,7 +136,6 @@ class EsynaButton extends StatelessWidget {
   factory EsynaButton.surface({
     required String title,
     void Function()? onPressed,
-    bool disabled = false,
     Key? key,
     IconData? leadingIcon,
     IconData? trailingIcon,

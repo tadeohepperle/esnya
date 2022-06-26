@@ -1,28 +1,25 @@
-import 'package:esnya/main.dart';
 import 'package:esnya/presentation/core/design_components/design_components.dart';
+import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
+import 'package:esnya_shared_resources/core/conversion/measure_unit_conversion.dart';
 import 'package:esnya_shared_resources/esnya_shared_resources.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../injection.dart';
-import '../../design_components/esnya_button.dart';
-import '../../design_components/esnya_design_utils.dart';
-import '../../design_components/esnya_icons.dart';
-import '../../design_components/esnya_sizes.dart';
-import '../../design_components/esnya_text.dart';
 import '../nutrient_table.dart';
 import 'buttons_above_card.dart';
 
+/// when changes to are made to the [foodItemEntry], onUpdateEntry  can be used to put these changes into firebase.
 class FoodItemEntryCard extends StatefulWidget {
   final FoodItemEntry foodItemEntry;
-  final VoidCallback? onDeleteButtonClick;
-  final VoidCallback? onTimeButtonClick;
-  final VoidCallback? onAmountButtonClick;
+
+  final Function(FoodItemEntry updatedFoodItemEntry)? onUpdateEntry;
+  final Function(FoodItemEntry deletedEntry)? onDeleteEntry;
   const FoodItemEntryCard({
     Key? key,
     required this.foodItemEntry,
-    this.onDeleteButtonClick,
-    this.onTimeButtonClick,
-    this.onAmountButtonClick,
+    this.onDeleteEntry,
+    this.onUpdateEntry,
   }) : super(key: key);
 
   @override
@@ -31,6 +28,7 @@ class FoodItemEntryCard extends StatefulWidget {
 
 class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
   bool showsPer100g = false;
+  late FoodItemEntry foodItemEntry = widget.foodItemEntry;
 
   void _toggleSwitch() {
     setState(() {
@@ -38,11 +36,33 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
     });
   }
 
+  void _showTimeChangeDialog(BuildContext context) {
+    // TODO
+  }
+
+  void _showAmountChangeDialog(BuildContext context) {
+    showPaddedDialog<Amount>(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return FoodItemEntryChangeAmountCard(foodItemEntry: foodItemEntry);
+        }).then((Amount? newAmount) {
+      if (newAmount != null) {
+        setState(() {
+          final newFoodItem =
+              foodItemEntry.foodItem.copyWithAndRecompute(amount: newAmount);
+          foodItemEntry = foodItemEntry.copyWith(foodItem: newFoodItem);
+        });
+        widget.onUpdateEntry?.call(foodItemEntry);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final LanguageRepository langRepo = getIt<LanguageRepository>();
     final colorScheme = getColorScheme(context);
-    final foodItem = widget.foodItemEntry.foodItem;
+    final foodItem = foodItemEntry.foodItem;
 
     Map<NutrientType, Amount>? nutrientAmounts;
     if (!showsPer100g) {
@@ -56,10 +76,9 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
     }
 
     final kcal = nutrientAmounts?[NutrientType.energy];
-    final dateTodayRelation =
-        computeDateTodayRelation(widget.foodItemEntry.dateTime);
+    final dateTodayRelation = computeDateTodayRelation(foodItemEntry.dateTime);
     final dateTimeString = langRepo.translateDate(
-      widget.foodItemEntry.dateTime,
+      foodItemEntry.dateTime,
       includeYear: true,
       includeTime: true,
       dateTodayRelation: dateTodayRelation,
@@ -68,8 +87,24 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
 
     final translatedAmount = langRepo.translateAmount(foodItem.amount);
 
-    final switchLeftText = "2 servings (230g)";
-    final switchRightText = "100 g";
+    // TODO
+
+    // construct switch texts
+    String switchLeftText =
+        langRepo.translateAmount(foodItemEntry.foodItem.amount);
+
+    if (foodItemEntry.foodItem.amount.unit != MeasureUnit.g) {
+      final amountInGrams = convertAmountToMeasureUnit(
+        foodItemEntry.foodItem.amount,
+        MeasureUnit.g,
+        food: foodItemEntry.foodItem.food,
+      ).toOption().toNullable()!;
+
+      switchLeftText += ' (${langRepo.translateAmount(amountInGrams)})';
+    }
+    "2 servings (230g)";
+    final switchRightText =
+        langRepo.translateAmount(const Amount(MeasureUnit.g, 100));
 
     final kcalLabelColor =
         kcal != null ? colorScheme.primary : colorScheme.onBackground;
@@ -88,7 +123,10 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
     return Column(
       children: [
         ButtonsAboveCard(
-          onDeleteButtonClick: widget.onDeleteButtonClick,
+          onDeleteButtonClick: () {
+            Navigator.of(context).pop();
+            widget.onDeleteEntry?.call(foodItemEntry);
+          },
           onCloseButtonClick: () {
             Navigator.of(context).pop();
           },
@@ -110,18 +148,22 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       EsynaButton.surface(
-                        onPressed: widget.onAmountButtonClick,
+                        onPressed: () {
+                          _showAmountChangeDialog(context);
+                        },
                         title: translatedAmount,
                       ),
                       EsynaButton.surface(
-                        onPressed: widget.onTimeButtonClick,
+                        onPressed: () {
+                          _showTimeChangeDialog(context);
+                        },
                         title: dateTimeString,
                       ),
                     ],
                   ),
                   EsnyaSizes.spaceBaseHeight2,
-                  EsnyaSizes.spaceBaseHeight,
-                  EsnyaText.h2(foodItem.food.title),
+                  EsnyaText.h2(
+                      foodItemEntry.foodMappingObject.title.toCapitalized()),
                   EsnyaSizes.spaceBaseHeight2,
                   Row(
                     children: [
@@ -167,7 +209,8 @@ class _FoodItemEntryCardState extends State<FoodItemEntryCard> {
                     NutrientType.protein,
                     NutrientType.carbs,
                     NutrientType.fat,
-                    NutrientType.fiber
+                    NutrientType.fiber,
+                    // NutrientType.water
                   ],
                 )
               else

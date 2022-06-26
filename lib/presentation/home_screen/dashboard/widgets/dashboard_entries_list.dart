@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:dartz/dartz.dart' hide State;
+import 'package:esnya/presentation/core/design_components/utils/show_padded_dialog.dart';
+import 'package:esnya/presentation/core/widgets/food_item_entry/food_item_entry_change_amount_card.dart';
 import 'package:esnya_shared_resources/core/core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/collection.dart';
@@ -257,34 +259,20 @@ class _DashboardEntriesListState extends State<DashboardEntriesList> {
         onTap: () {
           // TODO:
           if (bucketId != null) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(EsnyaSizes.base * 2),
-                      child: FoodItemEntryCard(
-                        foodItemEntry: foodItemEntry,
-                        onDeleteButtonClick: () {
-                          getIt<DayBucketsRepository>()
-                              .deleteEntry(bucketId, foodItemEntry);
-                          Navigator.of(context).pop();
-                        },
-                        onTimeButtonClick: () {
-                          // TODO
-                        },
-                        onAmountButtonClick: () {
-                          // TODO
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            );
+            showPaddedDialog(
+                context: context,
+                builder: (context) {
+                  return FoodItemEntryCard(
+                    foodItemEntry: foodItemEntry,
+                    onDeleteEntry: (_) {
+                      getIt<DayBucketsRepository>()
+                          .deleteEntry(bucketId, foodItemEntry);
+                    },
+                    onUpdateEntry: (FoodItemEntry e) {
+                      print("!!!!  Update: $e");
+                    },
+                  );
+                });
           }
         },
       ),
