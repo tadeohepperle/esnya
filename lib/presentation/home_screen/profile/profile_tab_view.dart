@@ -1,3 +1,5 @@
+import 'package:go_router/go_router.dart';
+
 import '../../../domain/auth/auth_repository.dart';
 import '../../../injection.dart';
 import '../../core/design_components/esnya_button.dart';
@@ -30,6 +32,18 @@ class _ProfileTabViewState extends State<ProfileTabView>
               context.read<AuthBloc>().add(AuthEvent.signedOut());
             },
           ),
+        ),
+        EsynaButton.primary(
+          title: "Day Details",
+          onPressed: () {
+            context.go("/home/dashboard/12345");
+          },
+        ),
+        EsynaButton.primary(
+          title: "Day Details",
+          onPressed: () {
+            context.go("/home/dashboard");
+          },
         ),
         ...List.generate(
           30,

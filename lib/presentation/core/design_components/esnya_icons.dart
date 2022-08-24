@@ -17,7 +17,7 @@ abstract class EsnyaIcons {
   static const IconData add = Icons.add_circle;
   static const IconData close = Icons.close;
   static const IconData delete = Icons.delete;
-  static const IconData back = Icons.back_hand;
+  static const IconData back = Icons.arrow_back;
   static const IconData calendar = Icons.calendar_today;
   static const IconData settings = Icons.settings;
   static const IconData check = Icons.check;

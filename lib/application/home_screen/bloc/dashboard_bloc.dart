@@ -175,6 +175,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DayBucket? getBucketByIndex(int index) =>
       state.buckets.size > index ? state.buckets[index] : null;
 
+  DayBucket? getBucketById(UniqueId id) =>
+      state.buckets.find((b) => b.id == id);
+
   bool _entryStillExistsInFirebaseOrBetweenBlocAndRepo(UniqueId entryId) {
     for (var e in state.foodInputBlocOutgoingEntries.iter) {
       if (e.id == entryId) {

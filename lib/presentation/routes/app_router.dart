@@ -1,3 +1,6 @@
+import 'package:esnya/presentation/home_screen/dashboard/day_details/DayDetailsScreen.dart';
+import 'package:esnya_shared_resources/core/core.dart';
+
 import '../../application/home_screen/home_screen_tab_type.dart';
 import '../../domain/app_startup/app_startup_repository.dart';
 import '../../domain/auth/auth_repository.dart';
@@ -62,15 +65,28 @@ class AppRouter {
               redirect: (_) => AppRoutes.homeDashboard.path,
             ),
             GoRoute(
-              path: '/home/:hometabslug',
-              builder: (context, state) {
-                final hometabslug = state.params['hometabslug']!;
-                return HomeScreen(
-                  key: state.pageKey,
-                  tab: HomeScreenTabType.fromSlug(hometabslug),
-                );
-              },
-            ),
+                path: '/home/:hometabslug',
+                builder: (context, state) {
+                  final hometabslug = state.params['hometabslug']!;
+                  return HomeScreen(
+                    key: state.pageKey,
+                    tab: HomeScreenTabType.fromSlug(hometabslug),
+                  );
+                },
+                routes: [
+                  GoRoute(
+                      path: ":slug2",
+                      builder: (context, state) {
+                        final hometabslug = state.params['hometabslug']!;
+                        final bucketId = state.params['slug2']!;
+                        if (hometabslug == "dashboard") {
+                          return DayDetailsScreen(
+                              bucketId: UniqueId.fromUniqueString(bucketId));
+                        } else {
+                          return ErrorScreenPage();
+                        }
+                      })
+                ]),
           ],
           errorBuilder: (context, state) {
             return ErrorScreenPage();
